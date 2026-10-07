@@ -40,8 +40,11 @@ def fetch(args):
 def kml(name, boxes):
     s = ['<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document>',
          f"<name>{name}</name>"]
-    for i, (fn, n, s_, e, w) in enumerate(boxes):
-        s.append(f"<GroundOverlay><name>{i}</name><drawOrder>50</drawOrder>"
+    for i, (fn, n, s_, e, w, order, lod) in enumerate(boxes):
+        region = (f"<Region><LatLonAltBox><north>{n:.7f}</north><south>{s_:.7f}</south>"
+                  f"<east>{e:.7f}</east><west>{w:.7f}</west></LatLonAltBox>"
+                  f"<Lod><minLodPixels>{lod}</minLodPixels><maxLodPixels>-1</maxLodPixels></Lod></Region>") if lod else ""
+        s.append(f"<GroundOverlay><name>{i}</name>{region}<drawOrder>{order}</drawOrder>"
                  f"<Icon><href>{fn}</href></Icon><LatLonBox><north>{n:.7f}</north>"
                  f"<south>{s_:.7f}</south><east>{e:.7f}</east><west>{w:.7f}</west></LatLonBox></GroundOverlay>")
     s.append("</Document></kml>")
@@ -56,36 +59,40 @@ def main():
     a.add_argument("--per-kmz", type=int, default=100, help="max. JPEGs pro KMZ (Garmin-Limit 100)")
     a.add_argument("--quality", type=int, default=75)
     a.add_argument("--layer", default=LAYER)
+    a.add_argument("--overview-layer", help="zweite, groebere Karte (z. B. 1:50k) darunter legen")
+    a.add_argument("--overview-zoom", type=int, default=14)
+    a.add_argument("--lod", type=int, default=0, help="Detailkarte erst ab dieser Bildschirmgroesse (px) zeigen, 0=aus")
     o = a.parse_args()
     os.makedirs(o.out, exist_ok=True)
     w, s, e, n = o.bbox
-    x0, y0 = ll2tile(w, n, o.zoom); x1, y1 = ll2tile(e, s, o.zoom)
-    # an Chunk-Raster ausrichten
     c = o.chunk
-    x0 -= x0 % c; y0 -= y0 % c
-    chunks = [(cx, cy) for cy in range(y0, y1 + 1, c) for cx in range(x0, x1 + 1, c)]
-    print(f"{len(chunks)} JPEGs, {len(chunks)*c*c} Kacheln, {math.ceil(len(chunks)/o.per_kmz)} KMZ")
-    for k in range(0, len(chunks), o.per_kmz):
-        grp = chunks[k:k + o.per_kmz]
+    jobs = []  # (layer, zoom, cx, cy, drawOrder, lod)
+    layers = ([(o.overview_layer, o.overview_zoom, 10, 0)] if o.overview_layer else []) + [(o.layer, o.zoom, 50, o.lod)]
+    for layer, z, order, lod in layers:
+        x0, y0 = ll2tile(w, n, z); x1, y1 = ll2tile(e, s, z)
+        x0 -= x0 % c; y0 -= y0 % c
+        jobs += [(layer, z, cx, cy, order, lod) for cy in range(y0, y1 + 1, c) for cx in range(x0, x1 + 1, c)]
+    print(f"{len(jobs)} JPEGs, {math.ceil(len(jobs)/o.per_kmz)} KMZ")
+    for k in range(0, len(jobs), o.per_kmz):
         idx = k // o.per_kmz + 1
         boxes, files = [], []
-        for cx, cy in grp:
-            jobs = [(o.layer, o.zoom, cx + i, cy + j) for j in range(c) for i in range(c)]
+        for layer, z, cx, cy, order, lod in jobs[k:k + o.per_kmz]:
+            tj = [(layer, z, cx + i, cy + j) for j in range(c) for i in range(c)]
             with ThreadPoolExecutor(8) as ex:
-                tiles = dict(ex.map(fetch, jobs))
+                tiles = dict(ex.map(fetch, tj))
             img = Image.new("RGB", (256 * c, 256 * c))
             for (tx, ty), t in tiles.items():
                 img.paste(t, ((tx - cx) * 256, (ty - cy) * 256))
-            fn = f"t_{cx}_{cy}.jpg"
+            fn = f"t_{z}_{cx}_{cy}.jpg"
             buf = io.BytesIO(); img.save(buf, "JPEG", quality=o.quality, optimize=True)
             files.append((fn, buf.getvalue()))
-            west, north = tile2ll(cx, cy, o.zoom); east, south = tile2ll(cx + c, cy + c, o.zoom)
-            boxes.append((fn, north, south, east, west))
-        path = os.path.join(o.out, f"swisstopo50_{idx:02d}.kmz")
-        with zipfile.ZipFile(path, "w", zipfile.ZIP_STORED) as z:
-            z.writestr("doc.kml", kml(f"swisstopo50_{idx:02d}", boxes))
+            west, north = tile2ll(cx, cy, z); east, south = tile2ll(cx + c, cy + c, z)
+            boxes.append((fn, north, south, east, west, order, lod))
+        path = os.path.join(o.out, f"swisstopo_{idx:02d}.kmz")
+        with zipfile.ZipFile(path, "w", zipfile.ZIP_STORED) as zf:
+            zf.writestr("doc.kml", kml(f"swisstopo_{idx:02d}", boxes))
             for fn, data in files:
-                z.writestr(fn, data)
+                zf.writestr(fn, data)
         print(path, f"{os.path.getsize(path)/1e6:.1f} MB")
 
 if __name__ == "__main__":
