@@ -92,21 +92,31 @@ def main():
 
     detail = grid(o.zoom)
     ov = grid(o.overview_zoom) if o.overview_layer else []
-    per = o.per_kmz - (12 if o.overview_layer else 0)  # Platz fuer Uebersichtsbilder
-    groups = [detail[i:i + per] for i in range(0, len(detail), per)]
+    def extent(grp):
+        bs = [box(o.zoom, cx, cy) for cx, cy in grp]
+        return (max(b[0] for b in bs), min(b[1] for b in bs), max(b[2] for b in bs), min(b[3] for b in bs))
+
+    def ov_for(grp):
+        gn, gs, ge, gw = extent(grp)
+        return [(cx, cy) for cx, cy in ov
+                if (lambda b: b[0] >= gs and b[1] <= gn and b[2] >= gw and b[3] <= ge)(box(o.overview_zoom, cx, cy))]
+
+    groups, cur = [], []
+    for ch in detail:  # greedy: Gruppe wachsen lassen, bis Detail + Uebersicht das Limit sprengen
+        if cur and len(cur) + 1 + len(ov_for(cur + [ch])) > o.per_kmz:
+            groups.append(cur); cur = []
+        cur.append(ch)
+    if cur:
+        groups.append(cur)
     print(f"{len(detail)} Detail-JPEGs, {len(ov)} Uebersichts-JPEGs, {len(groups)} KMZ", flush=True)
     for idx, grp in enumerate(groups, 1):
         boxes, files = [], []
         bs = [box(o.zoom, cx, cy) for cx, cy in grp]
-        gn, gs = max(b[0] for b in bs), min(b[1] for b in bs)
-        ge, gw = max(b[2] for b in bs), min(b[3] for b in bs)
         # jede KMZ bringt ihre eigenen Uebersichtsbilder mit
-        for cx, cy in ov:
-            n_, s_, e_, w_ = box(o.overview_zoom, cx, cy)
-            if n_ >= gs and s_ <= gn and e_ >= gw and w_ <= ge:
-                fn = f"o_{cx}_{cy}.jpg"
-                files.append((fn, render(o.overview_layer, o.overview_zoom, cx, cy)))
-                boxes.append((fn, n_, s_, e_, w_, 10, 0))
+        for cx, cy in (ov_for(grp) if ov else []):
+            fn = f"o_{cx}_{cy}.jpg"
+            files.append((fn, render(o.overview_layer, o.overview_zoom, cx, cy)))
+            boxes.append((fn, *box(o.overview_zoom, cx, cy), 10, 0))
         for (cx, cy), b in zip(grp, bs):
             fn = f"t_{cx}_{cy}.jpg"
             files.append((fn, render(o.layer, o.zoom, cx, cy)))
