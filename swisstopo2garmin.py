@@ -66,34 +66,59 @@ def main():
     os.makedirs(o.out, exist_ok=True)
     w, s, e, n = o.bbox
     c = o.chunk
-    jobs = []  # (layer, zoom, cx, cy, drawOrder, lod)
-    layers = ([(o.overview_layer, o.overview_zoom, 10, 0)] if o.overview_layer else []) + [(o.layer, o.zoom, 50, o.lod)]
-    for layer, z, order, lod in layers:
+
+    def grid(z):
         x0, y0 = ll2tile(w, n, z); x1, y1 = ll2tile(e, s, z)
         x0 -= x0 % c; y0 -= y0 % c
-        jobs += [(layer, z, cx, cy, order, lod) for cy in range(y0, y1 + 1, c) for cx in range(x0, x1 + 1, c)]
-    print(f"{len(jobs)} JPEGs, {math.ceil(len(jobs)/o.per_kmz)} KMZ")
-    for k in range(0, len(jobs), o.per_kmz):
-        idx = k // o.per_kmz + 1
-        boxes, files = [], []
-        for layer, z, cx, cy, order, lod in jobs[k:k + o.per_kmz]:
+        return [(cx, cy) for cy in range(y0, y1 + 1, c) for cx in range(x0, x1 + 1, c)]
+
+    cache = {}
+    def render(layer, z, cx, cy):
+        key = (layer, z, cx, cy)
+        if key not in cache:
             tj = [(layer, z, cx + i, cy + j) for j in range(c) for i in range(c)]
             with ThreadPoolExecutor(8) as ex:
                 tiles = dict(ex.map(fetch, tj))
             img = Image.new("RGB", (256 * c, 256 * c))
             for (tx, ty), t in tiles.items():
                 img.paste(t, ((tx - cx) * 256, (ty - cy) * 256))
-            fn = f"t_{z}_{cx}_{cy}.jpg"
             buf = io.BytesIO(); img.save(buf, "JPEG", quality=o.quality, optimize=True)
-            files.append((fn, buf.getvalue()))
-            west, north = tile2ll(cx, cy, z); east, south = tile2ll(cx + c, cy + c, z)
-            boxes.append((fn, north, south, east, west, order, lod))
+            cache[key] = buf.getvalue()
+        return cache[key]
+
+    def box(z, cx, cy):
+        west, north = tile2ll(cx, cy, z); east, south = tile2ll(cx + c, cy + c, z)
+        return north, south, east, west
+
+    detail = grid(o.zoom)
+    ov = grid(o.overview_zoom) if o.overview_layer else []
+    per = o.per_kmz - (12 if o.overview_layer else 0)  # Platz fuer Uebersichtsbilder
+    groups = [detail[i:i + per] for i in range(0, len(detail), per)]
+    print(f"{len(detail)} Detail-JPEGs, {len(ov)} Uebersichts-JPEGs, {len(groups)} KMZ", flush=True)
+    for idx, grp in enumerate(groups, 1):
+        boxes, files = [], []
+        bs = [box(o.zoom, cx, cy) for cx, cy in grp]
+        gn, gs = max(b[0] for b in bs), min(b[1] for b in bs)
+        ge, gw = max(b[2] for b in bs), min(b[3] for b in bs)
+        # jede KMZ bringt ihre eigenen Uebersichtsbilder mit
+        for cx, cy in ov:
+            n_, s_, e_, w_ = box(o.overview_zoom, cx, cy)
+            if n_ >= gs and s_ <= gn and e_ >= gw and w_ <= ge:
+                fn = f"o_{cx}_{cy}.jpg"
+                files.append((fn, render(o.overview_layer, o.overview_zoom, cx, cy)))
+                boxes.append((fn, n_, s_, e_, w_, 10, 0))
+        for (cx, cy), b in zip(grp, bs):
+            fn = f"t_{cx}_{cy}.jpg"
+            files.append((fn, render(o.layer, o.zoom, cx, cy)))
+            cache.pop((o.layer, o.zoom, cx, cy))
+            boxes.append((fn, *b, 50, o.lod))
+        assert len(files) <= 100, len(files)
         path = os.path.join(o.out, f"swisstopo_{idx:02d}.kmz")
         with zipfile.ZipFile(path, "w", zipfile.ZIP_STORED) as zf:
             zf.writestr("doc.kml", kml(f"swisstopo_{idx:02d}", boxes))
             for fn, data in files:
                 zf.writestr(fn, data)
-        print(path, f"{os.path.getsize(path)/1e6:.1f} MB")
+        print(path, len(files), "Bilder", f"{os.path.getsize(path)/1e6:.1f} MB", flush=True)
 
 if __name__ == "__main__":
     main()
