@@ -26,3 +26,15 @@ java -jar mkgmap.jar --style-file=style --family-id=3900 --product-id=1 --gmapsu
 - Eigene Typen nutzen erweiterte Codes `0x10e00`–`0x10e05`.
 - Noch nicht umgesetzt: Höhenlinien (swissTLM3D hat keine; geplant aus Höhenmodell), Geländeschummerung, Baum-/Rebpunkte, Beschriftungsstil.
 - Ein Rendering auf dem Gerät wurde noch nicht geprüft.
+
+## Skirouten-Overlay (`ski2osm.py`, `ski/`)
+Eigene, ein-/ausschaltbare Overlay-Karte (eigene Family-ID 3901, Mapname 63901001) aus dem swisstopo-Datensatz `ch.swisstopo-karto.skitouren` (STAC, `ski_routes_2056.gpkg`, Stand 2025-12-11, 10'789 Routen). Linien nach SAC-Schwierigkeit gefärbt (L grün, WS blau, ZS orange, S rot, unbekannt violett), Beschriftung «Name Schwierigkeit».
+
+```
+PYTHONPATH=. python3 ski2osm.py --gpkg ski_routes_2056.gpkg --out ski.osm [--sources swisstopo_sac]
+java -jar mkgmap.jar --style-file=ski/style --family-id=3901 --product-id=1 --mapname=63901001 \
+  --gmapsupp --transparent --keep-going ski.osm ski/typ/ski.txt
+```
+Quellen im Datensatz: swisstopo/SAC (9'384), Petzl Foundation/Skitourenguru (884), DAV/ÖAV/AVS (439), topo.verlag (82). Die Nicht-swisstopo-Quellen haben eigene Lizenzbedingungen (siehe Feld `source_url`); mit `--sources swisstopo_sac` nur die swisstopo-eigenen Routen verwenden.
+
+TYP-Falle: In Muster-Linien muss die durchsichtige Farbe (`none`) **zuerst** in der Farbtabelle stehen, sonst bricht der Compiler ab.
