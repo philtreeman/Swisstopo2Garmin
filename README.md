@@ -1,4 +1,6 @@
-# Swisstopo 1:50'000 auf dem Garmin Edge 1040
+# Swisstopo 1:50'000 / 1:25'000 auf dem Garmin Edge 1040
+
+> Für KI-Assistenten und Weiterarbeit: zuerst **AGENTS.md** lesen (Ziel, Grenzen, Stand, offene Entscheidungen).
 
 Raster-Karte als Garmin Custom Maps (.kmz). Nur Edge 1040 (Forerunner 935 hat keine Karten).
 
