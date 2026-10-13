@@ -1,0 +1,17 @@
+# swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
+tlm_layer=strasse & tlm_type=Autobahn [0x01 resolution 18]
+tlm_layer=strasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 resolution 19]
+tlm_layer=strasse & tlm_type='6m Strasse' [0x04 resolution 20]
+tlm_layer=strasse & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x06 resolution 22]
+tlm_layer=strasse & tlm_type=Platz [0x06 resolution 23]
+# Wege: Bergwanderweg / Wanderweg / uebrige Wege
+tlm_layer=strasse & (tlm_type='1m Weg' | tlm_type='2m Weg') & tlm_hiking=Bergwanderweg [0x10e00 resolution 22]
+tlm_layer=strasse & (tlm_type='1m Weg' | tlm_type='2m Weg') & tlm_hiking=Wanderweg [0x16 resolution 22]
+tlm_layer=strasse & tlm_type='2m Weg' [0x0a resolution 23]
+tlm_layer=strasse & tlm_type='1m Weg' [0x10e01 resolution 23]
+tlm_layer=bahn & tlm_type=Normalspur [0x14 resolution 20]
+tlm_layer=bahn [0x14 resolution 22]
+tlm_layer=ubahn [0x10e02 resolution 23]
+tlm_layer=fluss & (tlm_type=Fliessgewaesser) & tlm_stufe=0 [0x18 resolution 21]
+tlm_layer=fluss & tlm_type=Trockenrinne [0x10e03 resolution 23]
+tlm_layer=mauer [0x10e04 resolution 24]

@@ -1,0 +1,219 @@
+; -*- coding: cp1252 -*-
+; TYP-Datei "swisstopo-aehnlich" fuer Garmin Fenix 5S Plus.
+; Farben/Linien orientieren sich an der swisstopo Landeskarte 1:25'000.
+; Typen werden in ../style/{lines,polygons,points} aus swissTLM3D-Tags erzeugt.
+[_id]
+ProductCode=1
+FID=3900
+CodePage=1252
+[end]
+
+[_drawOrder]
+; unten (1) nach oben (6)
+Type=0x0c,1
+Type=0x0e,1
+Type=0x1a,1
+Type=0x17,1
+Type=0x4e,2
+Type=0x4f,2
+Type=0x50,2
+Type=0x51,3
+Type=0x52,3
+Type=0x53,3
+Type=0x3f,4
+Type=0x10e05,6
+[end]
+
+; ---------- Flaechen ----------
+[_polygon]
+Type=0x50
+String1=0x04,Wald
+Xpm="0 0 1 0"
+"1 c #C9E3B2"
+[end]
+[_polygon]
+Type=0x4f
+String1=0x04,Gehoelz
+Xpm="0 0 1 0"
+"1 c #DCECC8"
+[end]
+[_polygon]
+Type=0x4e
+String1=0x04,Reben/Obst
+Xpm="0 0 1 0"
+"1 c #E3EFCF"
+[end]
+[_polygon]
+Type=0x51
+String1=0x04,Feuchtgebiet
+Xpm="0 0 1 0"
+"1 c #CFE6DA"
+[end]
+[_polygon]
+Type=0x52
+String1=0x04,Fels
+Xpm="0 0 1 0"
+"1 c #D2D2CC"
+[end]
+[_polygon]
+Type=0x53
+String1=0x04,Geroell
+Xpm="0 0 1 0"
+"1 c #E4E2D6"
+[end]
+[_polygon]
+Type=0x3f
+String1=0x04,Gewaesser
+Xpm="0 0 1 0"
+"1 c #A9D3F2"
+[end]
+[_polygon]
+Type=0x0c
+String1=0x04,Areal
+Xpm="0 0 1 0"
+"1 c #ECECE4"
+[end]
+[_polygon]
+Type=0x0e
+String1=0x04,Verkehrsareal
+Xpm="0 0 1 0"
+"1 c #E6E6E6"
+[end]
+[_polygon]
+Type=0x1a
+String1=0x04,Friedhof
+Xpm="0 0 1 0"
+"1 c #DCE8D0"
+[end]
+[_polygon]
+Type=0x17
+String1=0x04,Park
+Xpm="0 0 1 0"
+"1 c #D5E9BF"
+[end]
+[_polygon]
+Type=0x10e05
+String1=0x04,Gebaeude
+Xpm="0 0 1 0"
+"1 c #1C1C1C"
+[end]
+
+; ---------- Linien ----------
+; Strassen: Fuellung + schwarzer Rand
+[_line]
+Type=0x01
+String1=0x04,Autobahn
+LineWidth=7
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #F26B2D"
+"2 c #000000"
+[end]
+[_line]
+Type=0x02
+String1=0x04,Hauptstrasse
+LineWidth=6
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFC81E"
+"2 c #000000"
+[end]
+[_line]
+Type=0x04
+String1=0x04,Strasse
+LineWidth=5
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFE57A"
+"2 c #000000"
+[end]
+[_line]
+Type=0x06
+String1=0x04,Nebenstrasse
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #000000"
+[end]
+; Wege: schwarz gestrichelt, Wanderweg dicker mit gelber Unterlage
+[_line]
+Type=0x0a
+String1=0x04,Weg
+Xpm="32 1 2 1"
+"1 c #000000"
+"2 c none"
+"11111122111111221111112211111122"
+[end]
+[_line]
+Type=0x10e01
+String1=0x04,Pfad
+Xpm="32 1 2 1"
+"1 c #000000"
+"2 c none"
+"11222211222211222211222211222211"
+[end]
+[_line]
+Type=0x16
+String1=0x04,Wanderweg
+Xpm="32 3 2 1"
+"1 c #000000"
+"2 c #FFD400"
+"22222222222222222222222222222222"
+"11111122111111221111112211111122"
+"22222222222222222222222222222222"
+[end]
+[_line]
+Type=0x10e00
+String1=0x04,Bergwanderweg
+Xpm="32 3 3 1"
+"1 c #000000"
+"2 c #E60000"
+"3 c #FFFFFF"
+"22222333222223332222233322222333"
+"11111122111111221111112211111122"
+"22222333222223332222233322222333"
+[end]
+; Bahn: schwarz mit weissem Mittelstrich
+[_line]
+Type=0x14
+String1=0x04,Bahn
+Xpm="32 3 2 1"
+"1 c #000000"
+"2 c #FFFFFF"
+"11111111111111111111111111111111"
+"11222222112222221122222211222222"
+"11111111111111111111111111111111"
+[end]
+[_line]
+Type=0x10e02
+String1=0x04,Seilbahn/Band
+Xpm="32 1 2 1"
+"1 c #000000"
+"2 c none"
+"11112221111222111122211112221111"
+[end]
+[_line]
+Type=0x18
+String1=0x04,Bach
+LineWidth=2
+BorderWidth=0
+Xpm="0 0 1 0"
+"1 c #4FA3E0"
+[end]
+[_line]
+Type=0x10e03
+String1=0x04,Trockenrinne
+Xpm="32 1 2 1"
+"1 c #4FA3E0"
+"2 c none"
+"11112222111122221111222211112222"
+[end]
+[_line]
+Type=0x10e04
+String1=0x04,Mauer
+LineWidth=1
+BorderWidth=0
+Xpm="0 0 1 0"
+"1 c #555555"
+[end]
