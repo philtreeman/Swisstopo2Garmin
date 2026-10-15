@@ -29,8 +29,14 @@ def main():
     a.add_argument("--out", required=True)
     a.add_argument("--sources", default="", help="Komma-Liste, z. B. swisstopo_sac (leer = alle)")
     a.add_argument("--simplify", type=float, default=2.0)
+    a.add_argument("--bbox", nargs=4, type=float, metavar=("W", "S", "E", "N"), help="WGS84, nur Routen in diesem Gebiet")
     o = a.parse_args()
-    df = pyogrio.read_dataframe(o.gpkg)
+    bb = None
+    if o.bbox:
+        f = Transformer.from_crs(4326, 2056, always_xy=True)
+        (x0, y0), (x1, y1) = f.transform(o.bbox[0], o.bbox[1]), f.transform(o.bbox[2], o.bbox[3])
+        bb = (x0, y0, x1, y1)
+    df = pyogrio.read_dataframe(o.gpkg, bbox=bb)
     if o.sources:
         df = df[df.source.isin(o.sources.split(","))]
     w = Writer(o.out)
