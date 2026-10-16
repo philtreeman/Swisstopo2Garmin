@@ -7,11 +7,12 @@ Offene swisstopo-/SchweizMobil-Daten als **Vektor-Overlays für die Garmin Fenix
 
 Der Nutzer hat ausserdem Wunsch nach einer aktuellen Vektor-Basiskarte im Stil der swisstopo-Landeskarte (Pilot: `scripts/build_basiskarte.sh`, nur Baden, ohne Höhenlinien). Das Repo bleibt **privat**; die Datenlizenzen stehen im STAC als «proprietary».
 
-Geräte: **Fenix 5S Plus** (Vektor-IMG, OpenTopoMap installiert), **Edge 1040** (nimmt Raster, Details unten), Forerunner 935 (keine Karten).
+Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), **Fenix 5S Plus** (Vektor-IMG, OpenTopoMap installiert; Test der Overlays offen), Forerunner 935 (keine Karten).
 
 ## Stand
 - Die 6 Overlays sind für die ganze Schweiz gebaut (`karten/overlays_schweiz/`, 14 MB) und für Oberiberg als Test (`karten/overlays_oberiberg_test/`).
-- **Auf der Uhr ungeprüft:** dass die Fenix 5S Plus mehrere `.img` nebeneinander lädt (mögliche Lösung: alle Overlays in eine `gmapsupp.img` bündeln; mkgmap kann mehrere Karten pro Datei), Lesbarkeit der Linien auf dem kleinen Display, einzelnes Schalten der Overlays.
+- **Edge 1040: geprüft.** Skirouten, Wanderwege und Fahrradrouten als Overlays funktionieren, mehrere `.img` nebeneinander werden geladen (Rückmeldung des Nutzers vom 2026-10-16; welche Fahrradkarte genau, nicht festgehalten).
+- **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` (mögliche Lösung: alle Overlays in eine `gmapsupp.img` bündeln; mkgmap kann mehrere Karten pro Datei), Lesbarkeit der Linien auf dem kleinen Display, einzelnes Schalten der Overlays.
 - Die Basiskarte ist ein Pilot. Offen: Höhenlinien (aus Höhenmodell swissALTI3D oder SRTM erzeugen; swissTLM3D hat keine), Geländeschummerung, Baum-/Rebpunkte, Schriftstil, ganze Schweiz.
 - Vorschau-PNGs sind eigene Zeichnungen mit denselben Farben und **kein Rendering** vom Gerät; so auch benennen.
 
@@ -30,7 +31,7 @@ Siehe README, Abschnitt «Technische Fallstricke (mkgmap)». Zusätzlich:
 - Der Nutzer pusht selbst auf den Branch `claude/jolly-ptolemy-j0ceai`; vor dem Push `git fetch` und mergen.
 
 ## Offene Punkte
-1. Rückmeldung des Nutzers vom Gerät abwarten (Laden mehrerer `.img`, Lesbarkeit). Bei Problemen Overlays bündeln oder Wanderwege ausdünnen (`resolution` in `mkgmap/overlays/style/lines`).
+1. Rückmeldung des Nutzers zur Fenix 5S Plus abwarten (Laden mehrerer `.img`, Lesbarkeit). Bei Problemen Overlays bündeln oder Wanderwege ausdünnen (`resolution` in `mkgmap/overlays/style/lines`).
 2. Skirouten blau: Nutzer schrieb «blaudurchegzigen»; gelesen als «blau durchgezogen» (an der Rasterkarte geprüft). Bei Zweifel nachfragen.
 3. Optional: Höhenlinien und Hangneigung (> 30°) aus swissALTI3D, Wildruhezonen (BAFU, nicht geprüft).
 4. Optional: Basiskarte für die ganze Schweiz.

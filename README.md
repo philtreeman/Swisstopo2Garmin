@@ -1,6 +1,12 @@
-# swisstopo → Garmin: Routen-Overlays für die Fenix 5S Plus
+# swisstopo → Garmin: Routen-Overlays und Vektor-Basiskarte
 
-Dieses Repo baut aus offenen Bundesdaten **Vektor-Overlays für Garmin-Uhren** (`.img`). Jede Ebene ist eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte (z. B. OpenTopoMap) gelegt wird:
+Dieses Repo baut aus offenen Bundesdaten **Vektor-Overlays für Garmin-Geräte** (`.img`). Jede Ebene ist eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte (z. B. die Garmin-Karte oder OpenTopoMap) gelegt wird.
+
+**Teststand:**
+- **Garmin Edge 1040: geprüft, funktioniert.** Der Nutzer hat Overlays für Skirouten, Wanderwege und Fahrradrouten aufs Gerät geladen. Mehrere `.img`-Dateien nebeneinander werden also geladen. Welche der beiden Fahrradkarten (Veloland, Mountainbike) einzeln geprüft wurde, ist nicht festgehalten.
+- **Garmin Fenix 5S Plus: Test offen.** Ob die Uhr mehrere `.img` nebeneinander lädt und wie die Linien auf dem kleinen Display aussehen, ist ungeprüft.
+
+Die Overlays:
 
 | Datei | Inhalt | Darstellung |
 |---|---|---|
@@ -13,7 +19,7 @@ Dieses Repo baut aus offenen Bundesdaten **Vektor-Overlays für Garmin-Uhren** (
 
 Die Routen von SchweizMobil tragen «Nummer Name» als Beschriftung (z. B. «1 Via Alpina»), die Skirouten «Name Schwierigkeit». Bei Wanderland, Veloland und Mountainbikeland sind die Linien nach national (breit), regional und lokal gestuft.
 
-Fertige Dateien liegen im Ordner `karten/` (siehe unten). Ob die Uhr mehrere `.img`-Dateien nebeneinander lädt, ist ungeprüft.
+Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 
 ![Vorschau Oberiberg](karten/overlays_oberiberg_test/vorschau.png)
 
@@ -27,7 +33,7 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten). Ob die Uhr mehrere `.i
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 | `karten/basiskarte_baden_pilot/` | Pilot einer Vektor-Basiskarte aus swissTLM3D, nur Raum Baden (ca. 10 × 8 km) | 0,7 MB |
 
-Installation: gewünschte `.img` nach `Garmin/` auf die Uhr kopieren (USB), neu starten, unter Einstellungen → Karte aktivieren. Eine vorhandene `gmapsupp.img` nicht überschreiben.
+Installation: gewünschte `.img` nach `Garmin/` auf das Gerät kopieren (USB), neu starten, unter Einstellungen → Karte aktivieren. Eine vorhandene `gmapsupp.img` nicht überschreiben.
 
 ## Datenquellen
 
@@ -116,6 +122,7 @@ scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51
 Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen entpackt im Ordner liegen.
 
 ## Grenzen
-- Ungeprüft auf dem Gerät: Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays.
+- **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays. Auf dem Edge 1040 laufen die Overlays (siehe Teststand).
+- Die Basiskarte ist auf keinem Gerät geprüft.
 - Die Overlays haben keine Basiskarte. Sie ergänzen eine vorhandene Karte.
 - Die Skirouten ersetzen weder das Lawinenbulletin noch eine Tourenplanung.
