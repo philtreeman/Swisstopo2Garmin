@@ -40,18 +40,19 @@ Quellen im Datensatz: swisstopo/SAC (9'384), Petzl Foundation/Skitourenguru (884
 TYP-Falle: In Muster-Linien muss die durchsichtige Farbe (`none`) **zuerst** in der Farbtabelle stehen, sonst bricht der Compiler ab.
 
 ## Routen-Overlays (`routes2osm.py`, `routes/`)
-Ein `gmapsupp.img` mit **5 eigenen, einzeln schaltbaren Karten** (je ein Mapname, gemeinsame Family-ID 3902 und TYP):
+**6 Overlay-Karten, jede als eigene `.img`** (eigene Family-ID und eigenes TYP, daher unabhängig ladbar):
 
-| Karte | Quelle (data.geo.admin.ch) | Stand | Darstellung |
-|---|---|---|---|
-| Wanderwege | `ch.swisstopo.swisstlm3d-wanderwege` (409'276 Abschnitte) | 2026-07 | gelb (Wanderweg), rot (Berg-), blau (Alpinwanderweg), gestrichelt |
-| Wanderland Routen | `ch.astra.wanderland`, Layer `Route` | 2026-02 | national rot, regional orange, lokal gelb-orange, hindernisfrei blau |
-| Veloland Routen | `ch.astra.veloland` | 2026-02 | blau (national dunkel, lokal hell) |
-| Mountainbikeland Routen | `ch.astra.mountainbikeland` | 2026-02 | violett |
-| Skirouten | `ch.swisstopo-karto.skitouren` | 2025-12 | nach SAC-Schwierigkeit |
+| Datei | Family-ID | Quelle (data.geo.admin.ch) | Stand | Darstellung |
+|---|---|---|---|---|
+| `swisstopo_wanderwege.img` | 3911 | `ch.swisstopo.swisstlm3d-wanderwege` (409'276 Abschnitte) | 2026-07 | gelb (Wanderweg), rot (Berg-), blau (Alpinwanderweg), gestrichelt |
+| `swisstopo_wanderland.img` | 3912 | `ch.astra.wanderland`, Layer `Route` | 2026-02 | alle gelb (Breite nach national/regional/lokal) |
+| `swisstopo_veloland.img` | 3913 | `ch.astra.veloland` | 2026-02 | alle hellblau |
+| `swisstopo_mountainbike.img` | 3914 | `ch.astra.mountainbikeland` | 2026-02 | alle orange |
+| `swisstopo_skirouten_blau.img` | 3915 | `ch.swisstopo-karto.skitouren` | 2025-12 | blau, durchgezogen, weisser Rand (wie auf der Rasterkarte) |
+| `swisstopo_skirouten_schwierigkeit.img` | 3916 | wie oben | 2025-12 | nach SAC-Schwierigkeit gefärbt, gestrichelt (L grün, WS blau, ZS orange, S rot, unbekannt violett) |
 
-Beschriftung der SchweizMobil-Routen: «Nummer Name». Lizenz: «proprietary» laut STAC; Nutzungsbedingungen der Anbieter (swisstopo, ASTRA/SchweizMobil) beachten.
+Beschriftung der SchweizMobil-Routen: «Nummer Name». Farben und Breiten stehen in `routes/make_typ.py`. Lizenz: «proprietary» laut STAC; Nutzungsbedingungen von swisstopo und ASTRA/SchweizMobil beachten.
 ```
 routes/build.sh <daten-ordner> mkgmap.jar <out> 8.50 46.85 9.05 47.21     # Region Oberiberg
 ```
-Fallen: Extended-Typen = `0x10f00` bis `0x10f1f` (Subtyp max. 0x1f); Konfigurationsdatei für mkgmap braucht absolute Pfade; lange Routen werden auf `--bbox` zugeschnitten.
+Fallen: Extended-Typen = `0x10f00` bis `0x10f1f` (Subtyp max. 0x1f); Skirouten `0x11000`–`0x11004`; `--mapname` hat 8 Ziffern; lange Routen werden auf `--bbox` zugeschnitten. Offen: ob die Fenix 5S Plus mehrere `.img` nebeneinander lädt.

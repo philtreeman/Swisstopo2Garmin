@@ -1,0 +1,34 @@
+; -*- coding: cp1252 -*-
+; TYP fuer Overlay-Karte veloland
+[_id]
+ProductCode=1
+FID=3913
+CodePage=1252
+[end]
+[_line]
+Type=0x10f07
+String1=0x04,Veloland national
+LineWidth=5
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #55B8F7"
+"2 c #1D6FB8"
+[end]
+[_line]
+Type=0x10f08
+String1=0x04,Veloland regional
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #55B8F7"
+"2 c #1D6FB8"
+[end]
+[_line]
+Type=0x10f09
+String1=0x04,Veloland lokal
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #55B8F7"
+"2 c #1D6FB8"
+[end]

@@ -1,0 +1,52 @@
+; -*- coding: cp1252 -*-
+; TYP fuer Overlay-Karte skirouten_blau
+[_id]
+ProductCode=1
+FID=3915
+CodePage=1252
+[end]
+[_line]
+Type=0x11000
+String1=0x04,Skiroute
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #0B4FD6"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x11001
+String1=0x04,Skiroute
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #0B4FD6"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x11002
+String1=0x04,Skiroute
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #0B4FD6"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x11003
+String1=0x04,Skiroute
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #0B4FD6"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x11004
+String1=0x04,Skiroute
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #0B4FD6"
+"2 c #FFFFFF"
+[end]

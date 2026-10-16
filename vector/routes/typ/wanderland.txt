@@ -1,0 +1,43 @@
+; -*- coding: cp1252 -*-
+; TYP fuer Overlay-Karte wanderland
+[_id]
+ProductCode=1
+FID=3912
+CodePage=1252
+[end]
+[_line]
+Type=0x10f03
+String1=0x04,Wanderland national
+LineWidth=5
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFD400"
+"2 c #9A7B00"
+[end]
+[_line]
+Type=0x10f04
+String1=0x04,Wanderland regional
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFD400"
+"2 c #9A7B00"
+[end]
+[_line]
+Type=0x10f05
+String1=0x04,Wanderland lokal
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFD400"
+"2 c #9A7B00"
+[end]
+[_line]
+Type=0x10f06
+String1=0x04,Wanderland hindernisfrei
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFD400"
+"2 c #9A7B00"
+[end]
