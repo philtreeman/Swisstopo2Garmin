@@ -13,7 +13,8 @@ Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), *
 - Die 6 Overlays sind für die ganze Schweiz gebaut (`karten/overlays_schweiz/`, 14 MB) und für Oberiberg als Test (`karten/overlays_oberiberg_test/`).
 - **Edge 1040: geprüft.** Skirouten, Wanderwege und Fahrradrouten als Overlays funktionieren, mehrere `.img` nebeneinander werden geladen (Rückmeldung des Nutzers vom 2026-10-16; welche Fahrradkarte genau, nicht festgehalten).
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` (mögliche Lösung: alle Overlays in eine `gmapsupp.img` bündeln; mkgmap kann mehrere Karten pro Datei), Lesbarkeit der Linien auf dem kleinen Display, einzelnes Schalten der Overlays.
-- Die **Basiskarte für die ganze Schweiz ist gebaut** (`karten/basiskarte_schweiz/`, 190 MB in 3 Teilen wegen der GitHub-Grenze von 100 MB je Datei, SHA-256 liegt bei) und **auf keinem Gerät geprüft**. Offen: Höhenlinien (aus Höhenmodell swissALTI3D oder SRTM erzeugen; swissTLM3D hat keine), Geländeschummerung, Baum-/Rebpunkte, Schriftstil.
+- Das **Höhenlinien-Overlay (10 m Äquidistanz, swissALTI3D 2 m) ist für die ganze Schweiz gebaut** (`karten/overlay_hoehenlinien_schweiz/`, 167 MB in 2 Teilen, Family-ID 3917) und auf keinem Gerät geprüft. Skript: `scripts/build_hoehenlinien.sh` (ca. 55 Minuten, rund 45 GB Download).
+- Die **Basiskarte für die ganze Schweiz ist gebaut** (`karten/basiskarte_schweiz/`, 190 MB in 3 Teilen wegen der GitHub-Grenze von 100 MB je Datei, SHA-256 liegt bei) und **auf keinem Gerät geprüft**. Offen: Geländeschummerung, Baum-/Rebpunkte, Schriftstil. Höhenlinien kommen aus dem eigenen Overlay (swissTLM3D hat keine).
 - Vorschau-PNGs sind eigene Zeichnungen mit denselben Farben und **kein Rendering** vom Gerät; so auch benennen.
 
 ## Entscheide und verworfene Wege (Details in der Git-History)
@@ -33,7 +34,7 @@ Siehe README, Abschnitt «Technische Fallstricke (mkgmap)». Zusätzlich:
 ## Offene Punkte
 1. Rückmeldung des Nutzers zur Fenix 5S Plus abwarten (Laden mehrerer `.img`, Lesbarkeit). Bei Problemen Overlays bündeln oder Wanderwege ausdünnen (`resolution` in `mkgmap/overlays/style/lines`).
 2. Skirouten blau: Nutzer schrieb «blaudurchegzigen»; gelesen als «blau durchgezogen» (an der Rasterkarte geprüft). Bei Zweifel nachfragen.
-3. Optional: Höhenlinien und Hangneigung (> 30°) aus swissALTI3D, Wildruhezonen (BAFU, nicht geprüft).
+3. Optional: Hangneigung (> 30°) aus swissALTI3D (Daten und Skript für die Höhenlinien sind vorhanden), Wildruhezonen (BAFU, nicht geprüft).
 4. Basiskarte auf einem Gerät prüfen (Edge 1040 oder Fenix 5S Plus): Laden, Lesbarkeit, Darstellung von Wald/Fels/Gebäuden, Speicherbedarf (190 MB).
 
 ## Kommunikationsvorgaben des Nutzers

@@ -16,6 +16,7 @@ Die Overlays:
 | `swisstopo_overlay_mountainbike.img` | Mountainbikeland-Routen (SchweizMobil) | orange |
 | `swisstopo_overlay_skirouten_blau.img` | Skirouten (swisstopo/SAC u. a.) | blau, durchgezogen, weisser Rand (wie auf der Rasterkarte) |
 | `swisstopo_overlay_skirouten_schwierigkeit.img` | gleiche Skirouten | gestrichelt, nach SAC-Schwierigkeit: grün L, blau WS, orange ZS, rot S, violett unbekannt |
+| `swisstopo_overlay_hoehenlinien.img` | Höhenlinien, Äquidistanz 10 m (swissALTI3D 2 m) | braun; 50 m und 100 m stärker, mit Höhenangabe |
 
 Die Routen von SchweizMobil tragen «Nummer Name» als Beschriftung (z. B. «1 Via Alpina»), die Skirouten «Name Schwierigkeit». Bei Wanderland, Veloland und Mountainbikeland sind die Linien nach national (breit), regional und lokal gestuft.
 
@@ -29,6 +30,7 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 
 | Ordner | Inhalt | Grösse |
 |---|---|---|
+| `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m, ganze Schweiz, in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 167 MB |
 | `karten/basiskarte_schweiz/` | Vektor-Basiskarte, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 190 MB |
 | `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
@@ -46,6 +48,7 @@ Alle Daten sind offen auf `data.geo.admin.ch` verfügbar (STAC-Collection in Kla
 | Wanderland, Veloland, Mountainbikeland | SchweizMobil, Layer `Route` (`ch.astra.wanderland`, `ch.astra.veloland`, `ch.astra.mountainbikeland`) | 2026-02 |
 | Skirouten | `ch.swisstopo-karto.skitouren`, 10'789 Routen: swisstopo/SAC 9'384, Petzl Foundation/Skitourenguru 884, DAV/ÖAV/AVS 439, topo.verlag 82 (Feld `source`) | 2025-12 |
 | Basiskarte (Pilot) | swissTLM3D (`ch.swisstopo.swisstlm3d`), Ausgabe 2026-02 | 2026-02 |
+| Höhenlinien | swissALTI3D (`ch.swisstopo.swissalti3d`), 2-m-Raster, neuestes Jahr je 1-km-Kachel | 2019–2026 |
 
 ## Aufbau des Repos
 
@@ -55,10 +58,13 @@ AGENTS.md                      Kontext für KI-Assistenten (Ziel, Entscheide, St
 scripts/                       alle Skripte
   download_daten.sh              lädt die Overlay-Datensätze von data.geo.admin.ch
   build_overlays.sh              baut die 6 Overlay-.img (Hauptskript, siehe unten)
-  routes2osm.py                  GeoPackage → OSM-XML für die Overlays
+  routes2osm.py                  GeoPackage → OSM-XML für die Routen-Overlays
   make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
   osm_writer.py                  gemeinsame OSM-XML-Ausgabe
-  build_basiskarte.sh            baut die Basiskarte (Pilot)
+  build_hoehenlinien.sh          baut das Höhenlinien-Overlay (10 m) aus swissALTI3D
+  hoehenlinien2osm.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
+  swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
+  build_basiskarte.sh            baut die Vektor-Basiskarte
   basiskarte2osm.py              swissTLM3D-Shapefiles → OSM-XML für die Basiskarte
   preview_basiskarte.py          Vorschau-Zeichnung der Basiskarte
 mkgmap/
@@ -115,8 +121,17 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 - `--mapname` hat 8 Ziffern und muss je Overlay eindeutig sein.
 - Polygone erscheinen nur, wenn sie im TYP unter `[_drawOrder]` stehen (relevant für die Basiskarte).
 
+## Höhenlinien-Overlay (`swisstopo_overlay_hoehenlinien.img`)
+`scripts/build_hoehenlinien.sh` berechnet aus swissALTI3D (2 m Raster) Höhenlinien mit **10 m Äquidistanz** für die ganze Schweiz (167 MB, Family-ID 3917). Jede 50 m eine Zwischenlinie, jede 100 m eine Hauptlinie, beide mit Höhenangabe. Es ist ein Overlay: es lässt sich über die Basiskarte und die Routen-Overlays legen. Auf keinem Gerät geprüft.
+```
+scripts/swissalti3d_kachelliste.py tiles_2m.json                  # einmalig, 15–20 Minuten
+scripts/build_hoehenlinien.sh tiles_2m.json mkgmap.jar out/                     # ganze Schweiz
+scripts/build_hoehenlinien.sh tiles_2m.json mkgmap.jar out/ 8.24 47.44 8.38 47.51   # Region
+```
+Ablauf: 20-km-Blöcke im LV95-Raster → je Block parallel (3 Prozesse) die 1-km-Kacheln laden (ca. 1 MB je Kachel, die ganze Schweiz sind rund 45 GB Download, nichts davon wird gespeichert), mit `contourpy` Linien im Abstand von 10 m berechnen, mit 2,5 m vereinfachen, als OSM-XML schreiben, mit mkgmap zur Block-Karte bauen, am Ende alle Blöcke und die TYP-Datei zusammenführen. Dauer für die ganze Schweiz: etwa 55 Minuten. Fortsetzbar. Die Linien liegen im Typ `0x20` (10 m), `0x21` (50 m), `0x22` (100 m); Farben und Breiten stehen in `scripts/make_overlay_typ.py`, Sichtbarkeit je Zoom in `mkgmap/overlays/style/lines`.
+
 ## Basiskarte (`swisstopo_basiskarte_schweiz.img`)
-`scripts/build_basiskarte.sh` baut aus swissTLM3D eine Vektor-Basiskarte im Stil der Landeskarte 1:25'000: Strassen nach Klassen, Wege, Wanderwege, Wald, Fels, Gewässer, Bahn, Gebäude, Ortsnamen. Es fehlen Höhenlinien, Geländeschummerung, Baum-/Rebpunkte und ein Schriftstil. **Auf keinem Gerät geprüft.** Die fertige Karte der ganzen Schweiz (190 MB) liegt in `karten/basiskarte_schweiz/`.
+`scripts/build_basiskarte.sh` baut aus swissTLM3D eine Vektor-Basiskarte im Stil der Landeskarte 1:25'000: Strassen nach Klassen, Wege, Wanderwege, Wald, Fels, Gewässer, Bahn, Gebäude, Ortsnamen. Höhenlinien sind ein eigenes Overlay (siehe oben). Es fehlen Geländeschummerung, Baum-/Rebpunkte und ein Schriftstil. **Auf keinem Gerät geprüft.** Die fertige Karte der ganzen Schweiz (190 MB) liegt in `karten/basiskarte_schweiz/`.
 
 ```
 scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/                      # ganze Schweiz → swisstopo_basiskarte_schweiz.img
