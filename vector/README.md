@@ -38,3 +38,20 @@ java -jar mkgmap.jar --style-file=ski/style --family-id=3901 --product-id=1 --ma
 Quellen im Datensatz: swisstopo/SAC (9'384), Petzl Foundation/Skitourenguru (884), DAV/ÖAV/AVS (439), topo.verlag (82). Die Nicht-swisstopo-Quellen haben eigene Lizenzbedingungen (siehe Feld `source_url`); mit `--sources swisstopo_sac` nur die swisstopo-eigenen Routen verwenden.
 
 TYP-Falle: In Muster-Linien muss die durchsichtige Farbe (`none`) **zuerst** in der Farbtabelle stehen, sonst bricht der Compiler ab.
+
+## Routen-Overlays (`routes2osm.py`, `routes/`)
+Ein `gmapsupp.img` mit **5 eigenen, einzeln schaltbaren Karten** (je ein Mapname, gemeinsame Family-ID 3902 und TYP):
+
+| Karte | Quelle (data.geo.admin.ch) | Stand | Darstellung |
+|---|---|---|---|
+| Wanderwege | `ch.swisstopo.swisstlm3d-wanderwege` (409'276 Abschnitte) | 2026-07 | gelb (Wanderweg), rot (Berg-), blau (Alpinwanderweg), gestrichelt |
+| Wanderland Routen | `ch.astra.wanderland`, Layer `Route` | 2026-02 | national rot, regional orange, lokal gelb-orange, hindernisfrei blau |
+| Veloland Routen | `ch.astra.veloland` | 2026-02 | blau (national dunkel, lokal hell) |
+| Mountainbikeland Routen | `ch.astra.mountainbikeland` | 2026-02 | violett |
+| Skirouten | `ch.swisstopo-karto.skitouren` | 2025-12 | nach SAC-Schwierigkeit |
+
+Beschriftung der SchweizMobil-Routen: «Nummer Name». Lizenz: «proprietary» laut STAC; Nutzungsbedingungen der Anbieter (swisstopo, ASTRA/SchweizMobil) beachten.
+```
+routes/build.sh <daten-ordner> mkgmap.jar <out> 8.50 46.85 9.05 47.21     # Region Oberiberg
+```
+Fallen: Extended-Typen = `0x10f00` bis `0x10f1f` (Subtyp max. 0x1f); Konfigurationsdatei für mkgmap braucht absolute Pfade; lange Routen werden auf `--bbox` zugeschnitten.
