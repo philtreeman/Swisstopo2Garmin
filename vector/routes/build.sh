@@ -8,9 +8,17 @@
 set -e
 D=$(realpath "$1"); JAR=$(realpath "$2"); OUT=$(realpath -m "$3"); shift 3
 V=$(cd "$(dirname "$0")/.." && pwd)
-BB=(); [ $# -eq 4 ] && BB=(--bbox "$@")
+# Kacheln: mit Bounding Box eine Kachel; ohne Bounding Box die ganze Schweiz in 2x2 Kacheln
+if [ $# -eq 4 ]; then TILES=("$1 $2 $3 $4")
+else TILES=("5.90 45.80 8.25 46.85" "8.25 45.80 10.60 46.85" "5.90 46.85 8.25 47.85" "8.25 46.85 10.60 47.85"); fi
 mkdir -p "$OUT/osm"
-conv() { [ -s "$OUT/osm/$1.osm" ] || PYTHONPATH=$V python3 $V/routes2osm.py --kind "$1" --gpkg "$D/$2" --out "$OUT/osm/$1.osm" "${BB[@]}"; }
+conv() {  # conv <kind> <gpkg>
+  local i=0
+  for t in "${TILES[@]}"; do
+    [ -s "$OUT/osm/$1_$i.osm" ] || PYTHONPATH=$V python3 $V/routes2osm.py --kind "$1" --gpkg "$D/$2" --out "$OUT/osm/$1_$i.osm" --bbox $t
+    i=$((i+1))
+  done
+}
 conv wanderwege SWISSTLM3D_WANDERWEGE.gpkg
 conv wanderland wanderland.gpkg
 conv veloland veloland.gpkg
@@ -26,7 +34,7 @@ for spec in "wanderwege:wanderwege:3911:Wanderwege" "wanderland:wanderland:3912:
   java -Xmx6g -jar "$JAR" --style-file="$V/routes/style" --output-dir="$OUT/img_$name" \
     --family-id=$fid --product-id=1 --family-name="swisstopo $desc" --series-name="swisstopo $desc" \
     --description="$desc" --mapname=6${fid}001 --code-page=1252 --gmapsupp --keep-going --transparent \
-    --draw-priority=30 "$OUT/osm/$osm.osm" "$V/routes/typ/$name.txt" | grep -E "Exception|SEVERE" || true
+    --draw-priority=30 $(ls "$OUT"/osm/${osm}_*.osm) "$V/routes/typ/$name.txt" | grep -E "Exception|SEVERE" || true
   cp "$OUT/img_$name/gmapsupp.img" "$OUT/swisstopo_$name.img"
 done
 ls -la "$OUT"/swisstopo_*.img
