@@ -61,4 +61,17 @@ write("mountainbike", 3914, [solid(t, n, ORANGE, w, ORANGE_B) for t, n, w in [("
 write("skirouten_blau", 3915, [solid(f"0x1100{i}", "Skiroute", SKI_BLUE, 3, "#FFFFFF") for i in range(5)])
 # Skirouten nach SAC-Schwierigkeit (bisherige Version)
 write("skirouten_schwierigkeit", 3916, [dash("0x11000", "Skiroute", "#8E2BB5"), dash("0x11001", "Skiroute L", "#1E9E3C"), dash("0x11002", "Skiroute WS", "#1C6FD6"), dash("0x11003", "Skiroute ZS", "#F28A00"), dash("0x11004", "Skiroute S", "#D6001C")])
+# Hoehenlinien: duenn braun (10 m), Zwischenlinie 50 m, Hauptlinie 100 m dicker und dunkler
+def thin(t, name, col, w):
+    return f"""[_line]
+Type={t}
+String1=0x04,{name}
+LineWidth={w}
+Xpm="0 0 1 0"
+"1 c {col}"
+[end]
+"""
+
+
+write("hoehenlinien", 3917, [thin("0x20", "Hoehenlinie 10 m", "#D2A878", 1), thin("0x21", "Hoehenlinie 50 m", "#B8864F", 1), thin("0x22", "Hoehenlinie 100 m", "#A5733A", 2)])
 print("TYP-Dateien geschrieben:", sorted(os.listdir(OUT)))

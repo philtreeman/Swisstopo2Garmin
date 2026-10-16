@@ -16,3 +16,7 @@ route_layer=ski & route_class=3 [0x11003 resolution 20]
 route_layer=ski & route_class=2 [0x11002 resolution 20]
 route_layer=ski & route_class=1 [0x11001 resolution 20]
 route_layer=ski [0x11000 resolution 21]
+# Hoehenlinien (swissALTI3D, Aequidistanz 10 m; 50 m und 100 m als Zwischen- und Haupthoehenlinien mit Beschriftung)
+contour=100 { name '${ele}' } [0x22 resolution 20]
+contour=50 { name '${ele}' } [0x21 resolution 21]
+contour=10 [0x20 resolution 23]
