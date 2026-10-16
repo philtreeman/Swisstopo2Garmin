@@ -29,6 +29,7 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 
 | Ordner | Inhalt | Grösse |
 |---|---|---|
+| `karten/basiskarte_schweiz/` | Vektor-Basiskarte, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 190 MB |
 | `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 | `karten/basiskarte_baden_pilot/` | Pilot einer Vektor-Basiskarte aus swissTLM3D, nur Raum Baden (ca. 10 × 8 km) | 0,7 MB |
@@ -114,12 +115,16 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 - `--mapname` hat 8 Ziffern und muss je Overlay eindeutig sein.
 - Polygone erscheinen nur, wenn sie im TYP unter `[_drawOrder]` stehen (relevant für die Basiskarte).
 
-## Basiskarte (Pilot)
-`scripts/build_basiskarte.sh` baut aus swissTLM3D eine Vektor-Basiskarte im Stil der Landeskarte 1:25'000 (Strassen, Wege, Wald, Fels, Gewässer, Bahn, Gebäude, Ortsnamen). Es ist ein Pilot für den Raum Baden. Es fehlen Höhenlinien, Geländeschummerung, Baum-/Rebpunkte und ein Schriftstil. Aufruf:
+## Basiskarte (`swisstopo_basiskarte_schweiz.img`)
+`scripts/build_basiskarte.sh` baut aus swissTLM3D eine Vektor-Basiskarte im Stil der Landeskarte 1:25'000: Strassen nach Klassen, Wege, Wanderwege, Wald, Fels, Gewässer, Bahn, Gebäude, Ortsnamen. Es fehlen Höhenlinien, Geländeschummerung, Baum-/Rebpunkte und ein Schriftstil. **Auf keinem Gerät geprüft.** Die fertige Karte der ganzen Schweiz (190 MB) liegt in `karten/basiskarte_schweiz/`.
+
 ```
-scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51
+scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/                      # ganze Schweiz → swisstopo_basiskarte_schweiz.img
+scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51   # Region → swisstopo_basiskarte_region.img
 ```
-Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen entpackt im Ordner liegen.
+Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen im Ordner `<shp-ordner>` entpackt liegen (`swissTLM3D_TLM_*.shp`; gebraucht werden Strassen, Bodenbedeckung, Gewässer, Bahn, Gebäude-Footprints, Namen, Areale).
+
+Ablauf: Kachelliste im LV95-Raster (20 × 20 km) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML → mkgmap → Kachel-`.img` (das OSM wird gelöscht, die ganze Schweiz wären ca. 14 GB) → mkgmap fügt alle Kacheln und die TYP-Datei zu einer Datei zusammen. Bereits fertige Kacheln werden bei einem erneuten Aufruf übersprungen. Dauer für die ganze Schweiz: etwa 30–60 Minuten mit 4 Kernen. Ist das Ergebnis über 90 MB, entstehen zusätzlich Teile `*.img.part_aa, _ab, …`.
 
 ## Grenzen
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays. Auf dem Edge 1040 laufen die Overlays (siehe Teststand).

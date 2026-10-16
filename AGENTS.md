@@ -5,7 +5,7 @@ Stand: 2026-10-16. Sprache des Nutzers: Deutsch (Schweiz). Das README beschreibt
 ## Ziel
 Offene swisstopo-/SchweizMobil-Daten als **Vektor-Overlays für die Garmin Fenix 5S Plus** (`.img`, je Ebene eine eigene Karte): Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten. Die Farben hat der Nutzer festgelegt: Wanderwege nach Kategorie (gelb/rot/blau gestrichelt), Wanderland gelb, Veloland hellblau, Mountainbike orange, Skirouten in zwei Versionen (blau durchgezogen wie auf der Rasterkarte, und nach SAC-Schwierigkeit). **Jede Ebene muss eine eigene `.img` sein.**
 
-Der Nutzer hat ausserdem Wunsch nach einer aktuellen Vektor-Basiskarte im Stil der swisstopo-Landeskarte (Pilot: `scripts/build_basiskarte.sh`, nur Baden, ohne Höhenlinien). Das Repo bleibt **privat**; die Datenlizenzen stehen im STAC als «proprietary».
+Der Nutzer hat ausserdem Wunsch nach einer aktuellen Vektor-Basiskarte im Stil der swisstopo-Landeskarte (`scripts/build_basiskarte.sh`, ganze Schweiz gebaut, ohne Höhenlinien). Das Repo bleibt **privat**; die Datenlizenzen stehen im STAC als «proprietary».
 
 Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), **Fenix 5S Plus** (Vektor-IMG, OpenTopoMap installiert; Test der Overlays offen), Forerunner 935 (keine Karten).
 
@@ -13,7 +13,7 @@ Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), *
 - Die 6 Overlays sind für die ganze Schweiz gebaut (`karten/overlays_schweiz/`, 14 MB) und für Oberiberg als Test (`karten/overlays_oberiberg_test/`).
 - **Edge 1040: geprüft.** Skirouten, Wanderwege und Fahrradrouten als Overlays funktionieren, mehrere `.img` nebeneinander werden geladen (Rückmeldung des Nutzers vom 2026-10-16; welche Fahrradkarte genau, nicht festgehalten).
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` (mögliche Lösung: alle Overlays in eine `gmapsupp.img` bündeln; mkgmap kann mehrere Karten pro Datei), Lesbarkeit der Linien auf dem kleinen Display, einzelnes Schalten der Overlays.
-- Die Basiskarte ist ein Pilot. Offen: Höhenlinien (aus Höhenmodell swissALTI3D oder SRTM erzeugen; swissTLM3D hat keine), Geländeschummerung, Baum-/Rebpunkte, Schriftstil, ganze Schweiz.
+- Die **Basiskarte für die ganze Schweiz ist gebaut** (`karten/basiskarte_schweiz/`, 190 MB in 3 Teilen wegen der GitHub-Grenze von 100 MB je Datei, SHA-256 liegt bei) und **auf keinem Gerät geprüft**. Offen: Höhenlinien (aus Höhenmodell swissALTI3D oder SRTM erzeugen; swissTLM3D hat keine), Geländeschummerung, Baum-/Rebpunkte, Schriftstil, ganze Schweiz.
 - Vorschau-PNGs sind eigene Zeichnungen mit denselben Farben und **kein Rendering** vom Gerät; so auch benennen.
 
 ## Entscheide und verworfene Wege (Details in der Git-History)
