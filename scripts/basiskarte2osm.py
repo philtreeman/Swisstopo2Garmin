@@ -85,14 +85,39 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify):
     return counts
 
 
+GRID_X0, GRID_Y0 = 2480000, 1070000   # Ursprung des Kachelrasters in LV95
+CH_BBOX = (5.90, 45.80, 10.60, 47.90)  # ganze Schweiz, WGS84
+
+
+def print_grid(bbox, km):
+    """Gibt die LV95-Kacheln (i j x0 y0 x1 y1) aus, die die Bounding Box abdecken."""
+    step = km * 1000
+    x0, y0 = FROM_WGS.transform(bbox[0], bbox[1]); x1, y1 = FROM_WGS.transform(bbox[2], bbox[3])
+    for i in range(int((x0 - GRID_X0) // step), int((x1 - GRID_X0) // step) + 1):
+        for j in range(int((y0 - GRID_Y0) // step), int((y1 - GRID_Y0) // step) + 1):
+            print(i, j, GRID_X0 + i * step, GRID_Y0 + j * step, GRID_X0 + (i + 1) * step, GRID_Y0 + (j + 1) * step)
+
+
 def main():
     a = argparse.ArgumentParser()
-    a.add_argument("--shp", required=True)
-    a.add_argument("--bbox", nargs=4, type=float, required=True, metavar=("W", "S", "E", "N"))
-    a.add_argument("--out", required=True)
+    a.add_argument("--shp", help="Ordner mit swissTLM3D_TLM_*.shp")
+    a.add_argument("--bbox", nargs=4, type=float, metavar=("W", "S", "E", "N"), help="WGS84")
+    a.add_argument("--out", help="Ausgabeordner (mit --bbox)")
     a.add_argument("--tile-km", type=float, default=0)
     a.add_argument("--simplify", type=float, default=1.5, help="Meter, 0=aus")
+    a.add_argument("--print-grid", type=float, metavar="KM",
+                   help="Kachelliste (LV95-Raster) fuer --bbox (Standard: ganze Schweiz) ausgeben und beenden")
+    a.add_argument("--lv95-tile", nargs=4, type=float, metavar=("X0", "Y0", "X1", "Y1"),
+                   help="genau eine Kachel in LV95 konvertieren (mit --out-file)")
+    a.add_argument("--out-file")
     o = a.parse_args()
+    if o.print_grid:
+        print_grid(o.bbox or CH_BBOX, o.print_grid)
+        return
+    if o.lv95_tile:
+        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify)
+        print(o.out_file, f"{os.path.getsize(o.out_file)/1e6:.1f} MB", sum(c.values()), "Objekte", flush=True)
+        return
     os.makedirs(o.out, exist_ok=True)
     x0, y0 = FROM_WGS.transform(o.bbox[0], o.bbox[1]); x1, y1 = FROM_WGS.transform(o.bbox[2], o.bbox[3])
     step = o.tile_km * 1000 if o.tile_km else max(x1 - x0, y1 - y0) + 1
