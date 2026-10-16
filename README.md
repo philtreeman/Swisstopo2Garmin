@@ -124,7 +124,7 @@ scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51  
 ```
 Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen im Ordner `<shp-ordner>` entpackt liegen (`swissTLM3D_TLM_*.shp`; gebraucht werden Strassen, Bodenbedeckung, Gewässer, Bahn, Gebäude-Footprints, Namen, Areale).
 
-Ablauf: Kachelliste im LV95-Raster (20 × 20 km) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML → mkgmap → Kachel-`.img` (das OSM wird gelöscht, die ganze Schweiz wären ca. 14 GB) → mkgmap fügt alle Kacheln und die TYP-Datei zu einer Datei zusammen. Bereits fertige Kacheln werden bei einem erneuten Aufruf übersprungen. Dauer für die ganze Schweiz: etwa 30–60 Minuten mit 4 Kernen. Ist das Ergebnis über 90 MB, entstehen zusätzlich Teile `*.img.part_aa, _ab, …`.
+Ablauf: Kachelliste im LV95-Raster (20 × 20 km) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML → mkgmap → Kachel-`.img` (das OSM wird gelöscht, die ganze Schweiz wären ca. 14 GB) → mkgmap fügt alle Kacheln und die TYP-Datei zu einer Datei zusammen. Bereits fertige Kacheln werden bei einem erneuten Aufruf übersprungen. Dauer für die ganze Schweiz: etwa 20 Minuten mit 4 Kernen und 15 GB RAM. Ist das Ergebnis über 90 MB, entstehen zusätzlich Teile `*.img.part_aa, _ab, …`.
 
 ## Grenzen
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays. Auf dem Edge 1040 laufen die Overlays (siehe Teststand).

@@ -13,7 +13,7 @@
 #      mit Bounding Box: swisstopo_basiskarte_region.img) zusammen
 #   4. Ist die Datei groesser als SPLIT_MB, entstehen zusaetzlich Teile <name>.img.part_aa, _ab, ...
 #      (wiederherstellen mit: cat swisstopo_basiskarte_schweiz.img.part_* > swisstopo_basiskarte_schweiz.img)
-# Dauer fuer die ganze Schweiz: ca. 1-1,5 Stunden mit 3 Prozessen. Hoehenlinien fehlen noch.
+# Dauer fuer die ganze Schweiz: ca. 20 Minuten mit 3 Prozessen (4 Kerne, 15 GB RAM). Hoehenlinien fehlen noch.
 set -e
 SHP=$(realpath "$1"); JAR=$(realpath "$2"); OUT=$(realpath -m "$3"); shift 3
 S=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$S")
