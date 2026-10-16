@@ -1,80 +1,121 @@
-# Swisstopo 1:50'000 / 1:25'000 auf dem Garmin Edge 1040
+# swisstopo → Garmin: Routen-Overlays für die Fenix 5S Plus
 
-> Für KI-Assistenten und Weiterarbeit: zuerst **[AGENTS.md](AGENTS.md)** lesen (Ziel, Grenzen, Stand, offene Entscheidungen).
+Dieses Repo baut aus offenen Bundesdaten **Vektor-Overlays für Garmin-Uhren** (`.img`). Jede Ebene ist eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte (z. B. OpenTopoMap) gelegt wird:
 
-Lädt die aktuelle swisstopo-Pixelkarte (Raster) über den offenen WMTS-Dienst und packt sie als Garmin **Custom Maps (`.kmz`)** für den **Edge 1040**.
-
-## Was geht und was nicht
-
-- **Geht:** Eine Region in 1:25'000 (oder 1:50'000), aktuell, im Original-Aussehen der Landeskarte.
-- **Geht nicht:** Die ganze Schweiz als Raster. Garmin erlaubt höchstens **500 Kacheln** pro Gerät (100 pro KMZ, je ≤ 1 Megapixel). Für die ganze Schweiz bräuchte man ca. 940 (Zoom 14) bis über 15'000 Kacheln (Zoom 16).
-- **Kein `.img`:** Rasterkarten laufen auf dem Edge als KMZ. Garmins eigene Raster-IMG ist proprietär und wird hier nicht nachgebaut.
-- Der **Forerunner 935** hat keine Kartenanzeige. Die **Fenix 5S Plus** nimmt nur Vektor-IMG (z. B. OpenTopoMap).
-
-## Voraussetzungen
-
-Python 3 und Pillow:
-```
-python3 -m pip install pillow
-```
-Internetzugang zu `wmts.geo.admin.ch` (kein API-Key nötig).
-
-## Verwendung
-
-```
-python3 swisstopo2garmin.py --bbox W S E N [Optionen]
-```
-`--bbox` = West Süd Ost Nord in Grad (WGS84), z. B. aus bboxfinder.com.
-
-| Option | Standard | Bedeutung |
+| Datei | Inhalt | Darstellung |
 |---|---|---|
-| `--layer` | `ch.swisstopo.pixelkarte-farbe-pk50.noscale` | Detailkarte. 1:25k: `ch.swisstopo.pixelkarte-farbe-pk25.noscale` |
-| `--zoom` | 15 | WMTS-Zoom. 15 ≈ 3,3 m/px, 16 ≈ 1,6 m/px (bei 47° N) |
-| `--overview-layer` | – | gröbere Karte darunter, damit beim Rauszoomen die 1:50k-Karte erscheint |
-| `--overview-zoom` | 14 | Zoom der Übersichtsebene |
-| `--per-kmz` | 100 | max. Bilder pro KMZ (inkl. Übersicht). Kleiner wählen, wenn Dateien klein bleiben sollen |
-| `--quality` | 75 | JPEG-Qualität (50 ≈ −25 % Grösse, Schrift wird unschärfer) |
-| `--lod` | 0 | KML-Zoomregel für die Detailebene (am Edge ungetestet) |
-| `--chunk` | 4 | 4×4 WMTS-Kacheln pro JPEG (= 1024×1024 px) |
-| `--out` | `out` | Ausgabeordner |
+| `swisstopo_overlay_wanderwege.img` | Wanderwegnetz der Schweiz (swissTLM3D, Stand 2026-07) | gelb = Wanderweg, rot = Bergwanderweg, blau = Alpinwanderweg, jeweils gestrichelt |
+| `swisstopo_overlay_wanderland.img` | Wanderland-Routen (SchweizMobil) | gelb |
+| `swisstopo_overlay_veloland.img` | Veloland-Routen (SchweizMobil) | hellblau |
+| `swisstopo_overlay_mountainbike.img` | Mountainbikeland-Routen (SchweizMobil) | orange |
+| `swisstopo_overlay_skirouten_blau.img` | Skirouten (swisstopo/SAC u. a.) | blau, durchgezogen, weisser Rand (wie auf der Rasterkarte) |
+| `swisstopo_overlay_skirouten_schwierigkeit.img` | gleiche Skirouten | gestrichelt, nach SAC-Schwierigkeit: grün L, blau WS, orange ZS, rot S, violett unbekannt |
 
-Das Skript meldet vor dem Download «N Detail-JPEGs, M Uebersichts-JPEGs, K KMZ». **Detail + Übersicht, aufsummiert über alle KMZ, müssen ≤ 500 bleiben.** Jede KMZ bringt ihre eigenen Übersichtsbilder mit, die zählen pro KMZ erneut.
+Die Routen von SchweizMobil tragen «Nummer Name» als Beschriftung (z. B. «1 Via Alpina»), die Skirouten «Name Schwierigkeit». Bei Wanderland, Veloland und Mountainbikeland sind die Linien nach national (breit), regional und lokal gestuft.
 
-### Beispiele
+Fertige Dateien liegen im Ordner `karten/` (siehe unten). Ob die Uhr mehrere `.img`-Dateien nebeneinander lädt, ist ungeprüft.
 
-1:25k Zoom 16 über 1:50k Zoom 14 (Variante «A», am Edge bestätigt), Raum Baden:
+![Vorschau Oberiberg](karten/overlays_oberiberg_test/vorschau.png)
+
+*Vorschau: eigene Zeichnung mit denselben Farben über einer grauen Landeskarte, kein Rendering vom Gerät.*
+
+## Fertige Karten (`karten/`)
+
+| Ordner | Inhalt | Grösse |
+|---|---|---|
+| `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
+| `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
+| `karten/basiskarte_baden_pilot/` | Pilot einer Vektor-Basiskarte aus swissTLM3D, nur Raum Baden (ca. 10 × 8 km) | 0,7 MB |
+
+Installation: gewünschte `.img` nach `Garmin/` auf die Uhr kopieren (USB), neu starten, unter Einstellungen → Karte aktivieren. Eine vorhandene `gmapsupp.img` nicht überschreiben.
+
+## Datenquellen
+
+Alle Daten sind offen auf `data.geo.admin.ch` verfügbar (STAC-Collection in Klammern). Die Lizenz steht dort als «proprietary»; die Nutzungsbedingungen von swisstopo bzw. ASTRA/SchweizMobil gelten. Repo daher nicht öffentlich machen, ohne sie geprüft zu haben.
+
+| Ebene | Datensatz | Stand |
+|---|---|---|
+| Wanderwege | swissTLM3D Wanderwege, Layer `tlm_strassen_strasse` mit Feld `wanderwege` (`ch.swisstopo.swisstlm3d-wanderwege`), 409'276 Abschnitte | 2026-07 |
+| Wanderland, Veloland, Mountainbikeland | SchweizMobil, Layer `Route` (`ch.astra.wanderland`, `ch.astra.veloland`, `ch.astra.mountainbikeland`) | 2026-02 |
+| Skirouten | `ch.swisstopo-karto.skitouren`, 10'789 Routen: swisstopo/SAC 9'384, Petzl Foundation/Skitourenguru 884, DAV/ÖAV/AVS 439, topo.verlag 82 (Feld `source`) | 2025-12 |
+| Basiskarte (Pilot) | swissTLM3D (`ch.swisstopo.swisstlm3d`), Ausgabe 2026-02 | 2026-02 |
+
+## Aufbau des Repos
+
 ```
-python3 swisstopo2garmin.py \
-  --layer ch.swisstopo.pixelkarte-farbe-pk25.noscale --zoom 16 \
-  --overview-layer ch.swisstopo.pixelkarte-farbe-pk50.noscale --overview-zoom 14 \
-  --bbox 8.24 47.44 8.38 47.51 --out out/baden
+README.md                      diese Datei
+AGENTS.md                      Kontext für KI-Assistenten (Ziel, Entscheide, Stand)
+scripts/                       alle Skripte
+  download_daten.sh              lädt die Overlay-Datensätze von data.geo.admin.ch
+  build_overlays.sh              baut die 6 Overlay-.img (Hauptskript, siehe unten)
+  routes2osm.py                  GeoPackage → OSM-XML für die Overlays
+  make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
+  osm_writer.py                  gemeinsame OSM-XML-Ausgabe
+  build_basiskarte.sh            baut die Basiskarte (Pilot)
+  basiskarte2osm.py              swissTLM3D-Shapefiles → OSM-XML für die Basiskarte
+  preview_basiskarte.py          Vorschau-Zeichnung der Basiskarte
+mkgmap/
+  overlays/style/                mkgmap-Regeln: Tags → Garmin-Linientypen
+  overlays/typ/                  erzeugte TYP-Dateien, eine je Overlay
+  basiskarte/style/, typ/        dasselbe für die Basiskarte
+karten/                        fertige Karten
+experimente/                   Einzelversuche, nicht Teil der Pipeline
 ```
 
-Grosse Heimregion (ca. 65 × 65 km um Baden, 1:25k Zoom 15, 462 Bilder):
+## Eigene Karten bauen
+
+### Voraussetzungen
+- Python 3 mit `pyogrio shapely pyproj numpy` (für die Vorschau zusätzlich `geopandas matplotlib`), z. B. `python3 -m venv venv && venv/bin/pip install pyogrio shapely pyproj numpy geopandas matplotlib`
+- Java (getestet mit 21) und **mkgmap** (getestet r4924): <https://www.mkgmap.org.uk/download/mkgmap.html>
+- Rund 1 GB Festplatte für die Daten, 15 GB RAM sind komfortabel (die Schweiz wird in 4 Kacheln gebaut)
+- Internetzugang zu `data.geo.admin.ch`
+
+### Schritte
 ```
-python3 swisstopo2garmin.py \
-  --layer ch.swisstopo.pixelkarte-farbe-pk25.noscale --zoom 15 \
-  --bbox 7.866 47.181 8.750 47.765 --per-kmz 45 --out out/heimregion
+scripts/download_daten.sh daten/                       # einmalig, ca. 750 MB
+scripts/build_overlays.sh daten/ mkgmap/mkgmap.jar out/                      # ganze Schweiz
+scripts/build_overlays.sh daten/ mkgmap/mkgmap.jar out/ 8.50 46.85 9.05 47.21   # nur eine Region (W S E N)
 ```
+Ergebnis: `out/swisstopo_overlay_*.img`. Die ganze Schweiz braucht einige Minuten. Bereits berechnete Zwischenstände (`out/osm/`) werden wiederverwendet; zum Neuberechnen löschen.
 
-Grobe Faustregel für die Dateigrösse (Mittelland, Qualität 75): 1:25k Zoom 16 ≈ 0,13 MB pro km², Zoom 15 ≈ 0,05 MB pro km². Gebirge ist meist kleiner, Siedlungen grösser.
+### Was `build_overlays.sh` tut
+Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 
-## Auf den Edge 1040
+1. **Kacheln festlegen.** Mit Bounding Box eine Kachel, sonst die Schweiz in 2 × 2 Kacheln, damit der Speicher reicht.
+2. **Konvertieren** (`routes2osm.py`). Liest je Ebene das GeoPackage, schneidet die Linien auf die Kachel zu, vereinfacht sie (2 m) und schreibt OSM-XML mit den Tags `route_layer` (wanderwege, wanderland, veloland, mtb, ski), `route_class` (z. B. national/regional/lokal, Wanderweg/Berg/Alpin, SAC-Klasse 1–4) und `name`. Hin- und Rückweg identischer SchweizMobil-Routen werden nur einmal geschrieben.
+3. **TYP-Dateien schreiben** (`make_overlay_typ.py`). Pro Overlay eine TYP-Datei mit eigener Family-ID: Farben, Linienbreiten, Strichmuster.
+4. **mkgmap aufrufen**, einmal je Overlay. mkgmap liest die OSM-Dateien, ordnet über `mkgmap/overlays/style/lines` jedem Tag-Satz einen Garmin-Linientyp zu und verpackt alles mit der TYP-Datei in eine `gmapsupp.img`. Der Name im Gerätemenü kommt aus `--description`.
+5. **Umbenennen** nach `swisstopo_overlay_<name>.img` im Ausgabeordner.
 
-1. Edge per USB anschliessen (am Mac ggf. OpenMTP oder Android File Transfer).
-2. Alle `*.kmz` nach `Garmin/CustomMaps/` kopieren. Alte Test-KMZ vorher löschen.
-3. Edge trennen und neu starten.
-4. Karte unter Einstellungen → Karte → Kartenübersicht aktivieren.
+| Overlay | Family-ID | Mapname |
+|---|---|---|
+| Wanderwege | 3911 | 63911001 |
+| Wanderland | 3912 | 63912001 |
+| Veloland | 3913 | 63913001 |
+| Mountainbikeland | 3914 | 63914001 |
+| Skirouten blau | 3915 | 63915001 |
+| Skirouten nach Schwierigkeit | 3916 | 63916001 |
 
-Garmin-Raster-Dateien (`*.img`) liegen direkt in `Garmin/` und sind davon unabhängig.
+### Aussehen anpassen
+- **Farben, Breiten, Strichmuster:** `scripts/make_overlay_typ.py` (Konstanten oben: `YELLOW`, `LBLUE`, `ORANGE`, `SKI_BLUE`, Breiten je Kategorie). Danach `build_overlays.sh` neu starten; die OSM-Zwischendateien werden wiederverwendet.
+- **Zuordnung Kategorie → Linientyp:** `mkgmap/overlays/style/lines`.
+- **Ab welchem Zoom sichtbar:** `resolution`-Werte in `mkgmap/overlays/style/lines` (höher = erst bei stärkerer Vergrösserung).
 
-## Bekannte Eigenheiten
+### Technische Fallstricke (mkgmap)
+- `--style-file` zeigt direkt auf das Style-Verzeichnis. Mit zusätzlichem `--style=.` nutzt mkgmap still den Standard-Style und ignoriert die eigenen Tags.
+- Erweiterte Linientypen: Code `0x10f00`–`0x10f1f` (Subtyp höchstens `0x1f`), Skirouten `0x11000`–`0x11004`.
+- Die TYP-Compiler-Fehler sind stumm (nur `MapFailedExceptions: 1`). Muster-Linien brauchen Breite 32 (`Xpm="32 H N 1"`), und die durchsichtige Farbe (`none`) muss in der Farbtabelle **zuerst** stehen.
+- `--mapname` hat 8 Ziffern und muss je Overlay eindeutig sein.
+- Polygone erscheinen nur, wenn sie im TYP unter `[_drawOrder]` stehen (relevant für die Basiskarte).
 
-- **Zoomverhalten:** Beim Rauszoomen blendet der Edge die 1:25k-Bilder früher aus als gewünscht und zeigt dann die 1:50k-Ebene (bzw. die Vektorkarte darunter). Das Verhalten ist nicht steuerbar; ein niedrigerer `--zoom` (grössere Fläche pro Kachel) könnte es verlängern, ist aber nicht geprüft.
-- **Zu viele Kacheln:** Bei mehr als der Gerätegrenze erscheint **gar keine** Rasterkarte. Getestet: ca. 300 Bilder funktionieren, 1'110 nicht.
-- Erzeugte Dateien (`out/`, `*.kmz`) sind absichtlich nicht im Git.
-- Download-Dauer: ca. 15 Kacheln pro Sekunde, 1'000 Bilder brauchen rund 30 Minuten.
+## Basiskarte (Pilot)
+`scripts/build_basiskarte.sh` baut aus swissTLM3D eine Vektor-Basiskarte im Stil der Landeskarte 1:25'000 (Strassen, Wege, Wald, Fels, Gewässer, Bahn, Gebäude, Ortsnamen). Es ist ein Pilot für den Raum Baden. Es fehlen Höhenlinien, Geländeschummerung, Baum-/Rebpunkte und ein Schriftstil. Aufruf:
+```
+scripts/build_basiskarte.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51
+```
+Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen entpackt im Ordner liegen.
 
-## Lizenz und Daten
-
-Kartendaten: © swisstopo, offene Behördendaten (Open Government Data). Namensnennung gemäss swisstopo-Nutzungsbedingungen beachten.
+## Grenzen
+- Ungeprüft auf dem Gerät: Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays.
+- Die Overlays haben keine Basiskarte. Sie ergänzen eine vorhandene Karte.
+- Die Skirouten ersetzen weder das Lawinenbulletin noch eine Tourenplanung.

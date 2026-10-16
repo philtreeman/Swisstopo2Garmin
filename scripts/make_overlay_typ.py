@@ -2,7 +2,7 @@
 """Erzeugt je Overlay-Karte eine eigene TYP-Datei (typ/<name>.txt) mit eigener Family-ID."""
 import os
 
-OUT = os.path.join(os.path.dirname(__file__), "typ")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "overlays", "typ")
 
 
 def solid(t, name, fill, w, border):

@@ -11,7 +11,7 @@ Quellen: swisstopo (swissTLM3D Wanderwege, Skirouten), SchweizMobil/ASTRA (Wande
 import argparse
 import numpy as np, pyogrio, shapely
 from pyproj import Transformer
-from tlm2osm import Writer
+from osm_writer import Writer
 
 TO_WGS = Transformer.from_crs(2056, 4326, always_xy=True)
 FROM_WGS = Transformer.from_crs(4326, 2056, always_xy=True)

@@ -1,3 +1,8 @@
+"""Vorschau-Zeichnung der Basiskarte (gleiche Farben wie die TYP-Datei) fuer Raum Baden.
+
+Aufruf aus einem Ordner, der shp/ (swissTLM3D-Shapefiles) enthaelt:  python3 preview_basiskarte.py out.png
+Kein Garmin-Rendering, nur eine Naeherung zum Vergleichen mit der Landeskarte.
+"""
 import math, sys, geopandas as gpd, pyogrio, shapely
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
