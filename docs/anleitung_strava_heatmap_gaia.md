@@ -2,7 +2,7 @@
 
 Stand: 2026-10-20. Ziel: Auf der Strava-**Global**-Heatmap beliebte Trails finden, die Route planen und aufs Garmin-Gerät bringen. Die Heatmap bleibt dabei im Browser. Auf dem Gerät liegen die Karten und Overlays aus diesem Repo.
 
-**Teststand:** Diese Anleitung ist aus Quellen im Netz zusammengestellt und **nicht selbst getestet**. Die URL-Vorlage stammt aus einer GitHub-Anleitung ([NickCrews, Gist](https://gist.github.com/NickCrews/bdd7dc9d5d82003611dce0932a202644)). Berichte über die Anmeldepflicht stammen aus Blogs ([Medium](https://alonsalant.medium.com/how-to-show-the-strava-global-heatmap-in-gaia-gps-ae26eb557b25), [Trail Peaches, 2026](https://trailpeaches.com/2026/08/14/strava-heatmap-gaia/)), die ich nicht lesen konnte. Strava ändert den Zugang immer wieder: zuerst die Vorschau in Gaia prüfen.
+**Teststand:** Diese Anleitung ist aus Quellen im Netz zusammengestellt und **nicht selbst getestet**. Rückmeldung des Nutzers (2026-10-20): Mit der öffentlichen Adresse aus Schritt 1 zeigt Gaia **nichts** an, vermutlich wegen der Anmeldepflicht bei Strava. Die URL-Vorlage stammt aus einer GitHub-Anleitung ([NickCrews, Gist](https://gist.github.com/NickCrews/bdd7dc9d5d82003611dce0932a202644)). Berichte über die Anmeldepflicht stammen aus Blogs ([Medium](https://alonsalant.medium.com/how-to-show-the-strava-global-heatmap-in-gaia-gps-ae26eb557b25), [Trail Peaches, 2026](https://trailpeaches.com/2026/08/14/strava-heatmap-gaia/)), die ich nicht lesen konnte. Strava ändert den Zugang immer wieder: zuerst die Vorschau in Gaia prüfen.
 
 ## Voraussetzungen
 - **Gaia GPS Premium** («Gaia Pro»). Eigene Kartenquellen gibt es nur mit Premium.
@@ -24,6 +24,13 @@ Gaia-Webseite (gaiagps.com/map):
 7. Die neue Ebene als Overlay über eine Basiskarte legen (z. B. «Gaia Topo» oder «Swisstopo»), Transparenz bei Bedarf anpassen.
 
 Die Gaia-Oberfläche kann anders heissen oder liegen. Die Quelle sagt nichts dazu, ob die Ebene als Basiskarte oder Overlay angelegt werden muss.
+
+## Fehlersuche: Gaia zeigt nichts an
+Die Adresse direkt im Browser-Tab öffnen: `https://heatmap-external-b.strava.com/tiles/all/hot/10/535/360.png`
+- **Fehlermeldung** (403, «Missing Key-Pair-Id»): Strava verlangt eine Anmeldung, die öffentliche Adresse reicht nicht mehr. Weiter mit Schritt 2 oder mit dem einfacheren Weg unten.
+- **Bild sichtbar:** Die Adresse geht. Dann Zoombereich in Gaia auf Maximum stellen, prüfen, ob die Ebene als Overlay eingeschaltet ist, und die Vorschau neu laden.
+
+**Einfacherer Weg ohne Gaia:** In nakarte (`nakarte.me`) läuft die Heatmap bereits. Dort die Heatmap-Ebene einschalten, die Route mit dem Track-Werkzeug zeichnen und als GPX speichern (**[Wahrscheinlich]** über das Track-Menü, nicht von mir getestet). Die GPX wie in Schritt 4 auf den Edge laden. Gaia ist dann nicht nötig. Zum reinen Ansehen genügt auch die Strava-Webseite mit einem kostenlosen Konto.
 
 ## 2. Wenn die Ebene leer oder sehr unscharf ist
 Nach dem Gist funktioniert die Adresse ohne Anmeldung, die Heatmap ist dann **unscharf**, weil Strava die Auflösung für nicht angemeldete Nutzer begrenzt. Neuere Berichte sagen, dass Strava für die scharfen Kacheln eine **Anmeldung** verlangt und Gaia diese nicht selbst erledigen kann. Die Blogs nennen zwei Wege:
