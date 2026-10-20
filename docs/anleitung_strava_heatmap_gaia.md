@@ -2,7 +2,7 @@
 
 Stand: 2026-10-20. Ziel: Auf der Strava-**Global**-Heatmap beliebte Trails finden, die Route planen und aufs Garmin-Gerät bringen. Die Heatmap bleibt dabei im Browser. Auf dem Gerät liegen die Karten und Overlays aus diesem Repo.
 
-**Teststand:** Diese Anleitung ist aus Quellen im Netz zusammengestellt und **nicht selbst getestet**. Rückmeldung des Nutzers (2026-10-20): Mit der öffentlichen Adresse aus Schritt 1 zeigt Gaia **nichts** an, vermutlich wegen der Anmeldepflicht bei Strava. Die URL-Vorlage stammt aus einer GitHub-Anleitung ([NickCrews, Gist](https://gist.github.com/NickCrews/bdd7dc9d5d82003611dce0932a202644)). Berichte über die Anmeldepflicht stammen aus Blogs ([Medium](https://alonsalant.medium.com/how-to-show-the-strava-global-heatmap-in-gaia-gps-ae26eb557b25), [Trail Peaches, 2026](https://trailpeaches.com/2026/08/14/strava-heatmap-gaia/)), die ich nicht lesen konnte. Strava ändert den Zugang immer wieder: zuerst die Vorschau in Gaia prüfen.
+**Teststand:** Diese Anleitung ist aus Quellen im Netz zusammengestellt und **nicht selbst getestet**. Rückmeldung des Nutzers (2026-10-20): Mit den Einstellungen aus Schritt 1 zeigte Gaia zuerst **nichts**. Gelöst hat es **«Route Through CORS Proxy» = ON**. Die Heatmap erscheint dann bis Zoom 12, scharfe Trails braucht es angemeldete Kacheln. Die URL-Vorlage stammt aus einer GitHub-Anleitung ([NickCrews, Gist](https://gist.github.com/NickCrews/bdd7dc9d5d82003611dce0932a202644)). Berichte über die Anmeldepflicht stammen aus Blogs ([Medium](https://alonsalant.medium.com/how-to-show-the-strava-global-heatmap-in-gaia-gps-ae26eb557b25), [Trail Peaches, 2026](https://trailpeaches.com/2026/08/14/strava-heatmap-gaia/)), die ich nicht lesen konnte. Strava ändert den Zugang immer wieder: zuerst die Vorschau in Gaia prüfen.
 
 ## Voraussetzungen
 - **Gaia GPS Premium** («Gaia Pro»). Eigene Kartenquellen gibt es nur mit Premium.
@@ -19,8 +19,9 @@ Gaia-Webseite (gaiagps.com/map):
    https://heatmap-external-b.strava.com/tiles/all/hot/{z}/{x}/{y}.png
    ```
    Für eine einzelne Aktivitätsart `all` ersetzen durch `ride` (Velo), `run` (Laufen), `water` oder `winter`.
-5. Den **Zoombereich auf das Maximum** stellen (laut einer Quelle zeigt die Heatmap nur bis Stufe 18).
-6. In der **Vorschau** prüfen, ob Kacheln erscheinen, dann **Save**.
+5. **Zoombereich:** Min ganz links, **Max auf 12** (öffentlich liefert Strava nur bis Stufe 12, siehe Befund unten). Der Regler hat zwei Griffe: steht nur einer sichtbar bei einer Zahl, gilt die Quelle nur dort.
+6. **«Route Through CORS Proxy» auf ON stellen.** Ohne diesen Schalter blieb die Ebene leer (geprüft vom Nutzer am 2026-10-20): Strava sendet für die Kacheln keine Browser-Freigabe, und Gaia holt sie dann über den eigenen Server. «Reversed Y Coordinate» bleibt OFF.
+7. **«Preview On Map» auf ON**, prüfen, ob Kacheln erscheinen, dann **Save**.
 7. Die neue Ebene als Overlay über eine Basiskarte legen (z. B. «Gaia Topo» oder «Swisstopo»), Transparenz bei Bedarf anpassen.
 
 Die Gaia-Oberfläche kann anders heissen oder liegen. Die Quelle sagt nichts dazu, ob die Ebene als Basiskarte oder Overlay angelegt werden muss.
