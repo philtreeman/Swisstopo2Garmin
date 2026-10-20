@@ -25,6 +25,11 @@ Gaia-Webseite (gaiagps.com/map):
 
 Die Gaia-Oberfläche kann anders heissen oder liegen. Die Quelle sagt nichts dazu, ob die Ebene als Basiskarte oder Overlay angelegt werden muss.
 
+## Ergebnis des Tests (Nutzer, 2026-10-20)
+- Die Adresse mit **Zahlen statt Platzhaltern** liefert eine Heatmap (getestet: `.../tiles/ride/hot/10/535/360.png`, zeigt Zentralschweiz). Mit den Platzhaltern `{z}/{x}/{y}` im Browser kommt «400 Bad Request», das ist erwartet und kein Fehler.
+- Die **öffentliche** Adresse ist aber nur **grob** (begrenzte Zoomstufe, ohne Anmeldung). Für scharfe Trails braucht es angemeldete Kacheln, siehe nakarte oder die Strava-Webseite.
+- **Höchste brauchbare Zoomstufe finden:** dieselbe Adresse mit den Kacheln `11/1070/720`, `12/2140/1440`, `13/4280/2880`, `14/8560/5760` testen (alle über dem Test-Gebiet). Die höchste Stufe mit Bild als **maximalen Zoom** in Gaia eintragen.
+
 ## Fehlersuche: Gaia zeigt nichts an
 Die Adresse direkt im Browser-Tab öffnen: `https://heatmap-external-b.strava.com/tiles/all/hot/10/535/360.png`
 - **Fehlermeldung** (403, «Missing Key-Pair-Id»): Strava verlangt eine Anmeldung, die öffentliche Adresse reicht nicht mehr. Weiter mit Schritt 2 oder mit dem einfacheren Weg unten.
