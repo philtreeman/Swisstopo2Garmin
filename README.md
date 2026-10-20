@@ -141,6 +141,9 @@ Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_572
 
 Ablauf: Kachelliste im LV95-Raster (20 × 20 km) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML → mkgmap → Kachel-`.img` (das OSM wird gelöscht, die ganze Schweiz wären ca. 14 GB) → mkgmap fügt alle Kacheln und die TYP-Datei zu einer Datei zusammen. Bereits fertige Kacheln werden bei einem erneuten Aufruf übersprungen. Dauer für die ganze Schweiz: etwa 20 Minuten mit 4 Kernen und 15 GB RAM. Ist das Ergebnis über 90 MB, entstehen zusätzlich Teile `*.img.part_aa, _ab, …`.
 
+## Weitere Anleitungen
+- [Populäre Trails finden: Strava-Heatmap in Gaia und Route auf den Edge](docs/anleitung_strava_heatmap_gaia.md) (nicht getestet, kein Teil der Pipeline)
+
 ## Grenzen
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays. Auf dem Edge 1040 laufen die Overlays (siehe Teststand).
 - Die Basiskarte ist auf keinem Gerät geprüft.
