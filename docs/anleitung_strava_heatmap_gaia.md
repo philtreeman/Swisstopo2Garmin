@@ -28,7 +28,13 @@ Die Gaia-Oberfläche kann anders heissen oder liegen. Die Quelle sagt nichts daz
 ## Ergebnis des Tests (Nutzer, 2026-10-20)
 - Die Adresse mit **Zahlen statt Platzhaltern** liefert eine Heatmap (getestet: `.../tiles/ride/hot/10/535/360.png`, zeigt Zentralschweiz). Mit den Platzhaltern `{z}/{x}/{y}` im Browser kommt «400 Bad Request», das ist erwartet und kein Fehler.
 - Die **öffentliche** Adresse ist aber nur **grob** (begrenzte Zoomstufe, ohne Anmeldung). Für scharfe Trails braucht es angemeldete Kacheln, siehe nakarte oder die Strava-Webseite.
-- **Höchste brauchbare Zoomstufe finden:** dieselbe Adresse mit den Kacheln `11/1070/720`, `12/2140/1440`, `13/4280/2880`, `14/8560/5760` testen (alle über dem Test-Gebiet). Die höchste Stufe mit Bild als **maximalen Zoom** in Gaia eintragen.
+- Die Grenze ist **Zoom 12** (siehe Befund unten).
+
+## Befund: Strava verlangt Anmeldung ab Zoomstufe 13 (Nutzer, 2026-10-20)
+Die Adresse `.../tiles/ride/hot/14/535/360.png` im Browser liefert laut Strava-Server: «authentication is now required for data access beyond zoom level 12, please login to strava.com and then visit /auth».
+- **Bis Zoom 12 ist die Heatmap öffentlich**, darüber nur mit Anmeldung. Die Anmeldung des Browsers gilt nur dort, **nicht** in Gaia (Gaia holt die Kacheln selbst).
+- In Gaia den **maximalen Zoom der Kartenquelle auf 12** stellen. Das ergibt eine grobe Übersicht (belebte Täler und Regionen), keine einzelnen Trails.
+- Für scharfe Trails ein Programm nutzen, das die Anmeldung schon erledigt (nakarte) oder die Strava-Webseite. Zugangsdaten aus dem Browser in Gaia einzutragen (Weg der Blogs) wird hier nicht empfohlen: sie laufen ab, und das Konto wird mit fremden Werkzeugen verbunden.
 
 ## Fehlersuche: Gaia zeigt nichts an
 Die Adresse direkt im Browser-Tab öffnen: `https://heatmap-external-b.strava.com/tiles/all/hot/10/535/360.png`
