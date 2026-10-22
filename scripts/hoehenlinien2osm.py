@@ -4,8 +4,8 @@
   python3 hoehenlinien2osm.py --tiles tiles_2m.json --print-blocks [--bbox W S E N]
   python3 hoehenlinien2osm.py --tiles tiles_2m.json --block I J --out block.osm [--interval 10]
 
-Die 1-km-Kacheln werden zu 20-km-Bloecken im LV95-Raster zusammengefasst (gleicher Ursprung wie die
-Basiskarte). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 10 m) mit contourpy berechnet,
+Die 1-km-Kacheln werden zu 20-km-Bloecken im LV95-Raster zusammengefasst (gleicher Ursprung wie
+SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 10 m) mit contourpy berechnet,
 mit 2,5 m vereinfacht und mit den Tags contour=<10|50|100> (hoechste passende Stufe) und ele=<Hoehe> geschrieben.
 Kachelnamen sind die untere linke Ecke in LV95-km; an den Kachelraendern bleibt eine Luecke von einem Pixel (2 m).
 """
