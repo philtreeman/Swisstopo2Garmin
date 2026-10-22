@@ -109,6 +109,12 @@ parts = [
     dash_line("0x10e0a", "Landesgrenze", GRENZE, 6, 2, h=3),
     dash_line("0x10e0b", "Kantonsgrenze", GRENZE, 3, 3, h=2),
     dash_line("0x10e0c", "Gemeindegrenze", GRENZE, 1, 3, h=1),
+    # Tunnel: gestrichelt in der Randfarbe der Strassenklasse (PDF: Umrisse mit gestricheltem Inneren)
+    dash_line("0x10e10", "Autobahn im Tunnel", AUTOBAHN[1], 5, 3, h=5),
+    dash_line("0x10e11", "Hauptstrasse im Tunnel", HAUPT[1], 5, 3, h=4),
+    dash_line("0x10e12", "Strasse im Tunnel", STRASSE[1], 5, 3, h=3),
+    dash_line("0x10e13", "Nebenstrasse im Tunnel", NEBEN[1], 5, 3, h=2),
+    dash_line("0x10e14", "Bahn im Tunnel", WEG, 5, 3, h=2),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),

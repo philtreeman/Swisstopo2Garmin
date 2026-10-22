@@ -1,5 +1,12 @@
 # swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
 tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 24]
+# Tunnel nach swisstopo-Zeichenerklaerung: gestrichelt statt durchgezogen (je Strassenklasse)
+tlm_layer=strasse & tlm_kunst=Tunnel & tlm_type=Autobahn [0x10e10 resolution 18]
+tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x10e11 resolution 19]
+tlm_layer=strasse & tlm_kunst=Tunnel & tlm_type='6m Strasse' [0x10e12 resolution 20]
+tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x10e13 resolution 22]
+tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='2m Weg' | tlm_type='1m Weg') [0x10e01 resolution 23]
+tlm_layer=bahn & tlm_kunst=Tunnel [0x10e14 resolution 20]
 tlm_layer=strasse & tlm_type=Autobahn [0x01 resolution 18]
 tlm_layer=strasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 resolution 19]
 tlm_layer=strasse & tlm_type='6m Strasse' [0x04 resolution 20]

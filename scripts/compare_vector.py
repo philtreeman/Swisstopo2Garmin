@@ -120,7 +120,7 @@ def draw(w, ax, res):
         poly(b[t.isin(["Stehende Gewaesser", "Fliessgewaesser"])].geometry, WASSER_FL, 5); poly(read("STEHENDES_GEWAESSER", bb).geometry, WASSER_FL, 5)
     if on(21):
         f = read("FLIESSGEWAESSER", bb); line(f[(f.OBJEKTART == "Fliessgewaesser") & (f.STUFE == "0")].geometry, WASSER_LI, 1.4, 6)
-    s = read("STRASSE", bb); t = s.OBJEKTART
+    s = read("STRASSE", bb); tun = s.KUNSTBAUTE == "Tunnel"; s_t = s[tun]; s = s[~tun]; t = s.OBJEKTART
     if on(18): road(s, t == "Autobahn", AUTOBAHN, 6, 12)
     if on(19): road(s, t.isin(["10m Strasse", "8m Strasse"]), HAUPT, 5, 10)
     if on(20): road(s, t == "6m Strasse", STRASSE, 4, 8)
@@ -138,6 +138,10 @@ def draw(w, ax, res):
     if on(24):                                                 # Treppen rot gepunktet
         k = s[s.KUNSTBAUTE.isin(["Treppe", "Bruecke mit Treppe", "Unterfuehrung mit Treppe"])]
         line(k.geometry, "#E60000", 2.2, 9, ls=(0, (1, 2)))
+    if on(18):                                                 # Tunnel: gestrichelt in der Randfarbe der Klasse
+        tt = s_t.OBJEKTART
+        for sel, pal, wd in ((tt == "Autobahn", AUTOBAHN, 6), (tt.isin(["10m Strasse", "8m Strasse"]), HAUPT, 5), (tt == "6m Strasse", STRASSE, 4), (~tt.isin(["Autobahn", "10m Strasse", "8m Strasse", "6m Strasse"]), NEBEN, 3)):
+            line(s_t[sel].geometry, pal[1], wd, 12, ls=(0, (5, 3)))
     e = read("EISENBAHN", bb).geometry
     if on(20): line(e, WEG, 3, 11); line(e, "#FFFFFF", 1, 11.2, ls=(0, (4, 4)))
     if on(24):
