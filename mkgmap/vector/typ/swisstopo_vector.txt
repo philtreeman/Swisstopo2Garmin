@@ -97,8 +97,8 @@ Xpm="32 32 2 1"
 Type=0x4e
 String1=0x04,Reben, Obst
 Xpm="32 32 2 1"
-"b c #F6FAD8"
-"f c #BDF27B"
+"b c #F2F8CC"
+"f c #8DC63F"
 "fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
 "bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
 "bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
@@ -345,6 +345,15 @@ String1=0x04,Markierte Spur
 Xpm="32 1 2 1"
 "3 c none"
 "1 c #1A1A1A"
+"13313313313313313313313313313313"
+[end]
+[_line]
+Type=0x10e09
+String1=0x04,Treppe
+Xpm="32 2 2 1"
+"3 c none"
+"1 c #E60000"
+"13313313313313313313313313313313"
 "13313313313313313313313313313313"
 [end]
 [_line]

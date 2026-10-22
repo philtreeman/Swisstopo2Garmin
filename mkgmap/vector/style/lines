@@ -1,4 +1,5 @@
 # swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
+tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 24]
 tlm_layer=strasse & tlm_type=Autobahn [0x01 resolution 18]
 tlm_layer=strasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 resolution 19]
 tlm_layer=strasse & tlm_type='6m Strasse' [0x04 resolution 20]
