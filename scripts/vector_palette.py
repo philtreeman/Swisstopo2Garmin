@@ -18,4 +18,4 @@ AUTOBAHN = ("#FF9900", "#734400"); HAUPT = ("#FFCE62", "#B38600"); STRASSE = ("#
 NEBEN = ("#FFFFFF", "#A4A5A4"); NATUR = ("#F6F2D5", "#C9BE7A")
 SCHWARZ = "#1A1A1A"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
 LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
-BAUM = "#6FA800"         # Einzelbaeume (Punkt)
+BAUM = "#83B200"         # Einzelbaeume (Punkt)

@@ -19,6 +19,7 @@ set -e
 SHP=$(realpath "$1"); JAR=$(realpath "$2"); OUT=$(realpath -m "$3"); shift 3
 S=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$S")
 KM=${KACHEL_KM:-20}; JOBS=${JOBS:-3}; SPLIT_MB=${SPLIT_MB:-90}
+TREES=${TREES:-1}; TREES_FLAG=""; [ "$TREES" = "1" ] && TREES_FLAG="--trees"   # Einzelbaeume (ca. +70 MB)
 STYLE="$R/mkgmap/vector/style"; TYP="$R/mkgmap/vector/typ/swisstopo_vector.txt"
 python3 "$S/make_vector_typ.py" >/dev/null
 mkdir -p "$OUT/osm" "$OUT/tiles"
@@ -33,7 +34,7 @@ work() {  # work i j x0 y0 x1 y1
   name=$(printf "6390%04d" $((i*100+j)))              # eindeutiger 8-stelliger Mapname
   [ -e "$OUT/tiles/$name.done" ] && return 0           # fortsetzen: fertige Kacheln ueberspringen
   osm="$OUT/osm/$name.osm"
-  python3 "$S/vector2osm.py" --shp "$SHP" --lv95-tile "$3" "$4" "$5" "$6" --out-file "$osm" >/dev/null 2>&1
+  python3 "$S/vector2osm.py" --shp "$SHP" --lv95-tile "$3" "$4" "$5" "$6" --out-file "$osm" $TREES_FLAG >/dev/null 2>&1
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \
@@ -46,7 +47,7 @@ work() {  # work i j x0 y0 x1 y1
   rm -f "$osm"; touch "$OUT/tiles/$name.done"
   echo "fertig $name"
 }
-export -f work; export SHP JAR OUT S STYLE
+export -f work; export SHP JAR OUT S STYLE TREES_FLAG
 xargs -P "$JOBS" -L1 bash -c 'work "$@"' _ < "$OUT/kacheln.txt"
 
 mkdir -p "$OUT/final"

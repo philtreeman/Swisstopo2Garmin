@@ -13,7 +13,7 @@ Die Overlays:
 
 | Datei | Inhalt | Darstellung |
 |---|---|---|
-| `swisstopo_overlay_wanderwege.img` | Wanderwegnetz der Schweiz (swissTLM3D, Stand 2026-07) | gelb = Wanderweg, rot = Bergwanderweg, blau = Alpinwanderweg, jeweils gestrichelt |
+| `swisstopo_overlay_wanderwege.img` | Wanderwegnetz der Schweiz (swissTLM3D, Stand 2026-07) | schwarz, nicht farbig codiert; Linienart nach Wegtyp wie in der swisstopo-Zeichenerklärung (2-m-Weg durchgezogen, 1-m-Weg gestrichelt, markierte Spur punktiert) |
 | `swisstopo_overlay_wanderland.img` | Wanderland-Routen (SchweizMobil) | gelb |
 | `swisstopo_overlay_veloland.img` | Veloland-Routen (SchweizMobil) | hellblau |
 | `swisstopo_overlay_mountainbike.img` | Mountainbikeland-Routen (SchweizMobil) | orange |
@@ -146,7 +146,7 @@ Die Vektorkarte der ganzen Schweiz aus swissTLM3D (201 MB, Family-ID 3900, Name 
 | Fels / Geröll | graue Textur / helle Fläche mit dunklen Punkten |
 | Gewässer | See hellblau, Bäche und Flüsse `#52BAF6` |
 | Strassen | Autobahn orange, Hauptstrasse gelb, übrige weiss mit grauem Rand, Naturstrassen hellgelb |
-| Pfade, Wanderwege | dunkelgrau gestrichelt (die farbigen Wanderwege liegen im Overlay) |
+| Pfade | schwarz nach swisstopo-Legende: 2-m-Weg durchgezogen, 1-m-Weg gestrichelt, markierte Spur punktiert |
 
 ```
 scripts/build_vector.sh <shp-ordner> mkgmap.jar out/                      # ganze Schweiz → swisstopo_vector_schweiz.img

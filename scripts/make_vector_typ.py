@@ -110,7 +110,7 @@ parts = [
     solid_line("0x0a", "Weg 2 m", SCHWARZ, 1),
     dash_line("0x10e01", "Weg 1 m", SCHWARZ, 5, 3, h=1),
     dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=1),
-    dash_line("0x10e06", "Lawinenverbauung", LAWINE, 4, 3, h=2),
+    solid_line("0x10e06", "Schutzverbauung", LAWINE, 3),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),

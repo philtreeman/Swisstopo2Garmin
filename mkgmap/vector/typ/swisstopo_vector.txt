@@ -349,12 +349,10 @@ Xpm="32 1 2 1"
 [end]
 [_line]
 Type=0x10e06
-String1=0x04,Lawinenverbauung
-Xpm="32 2 2 1"
-"3 c none"
+String1=0x04,Schutzverbauung
+LineWidth=3
+Xpm="0 0 1 0"
 "1 c #734400"
-"11113331111333111133311113331111"
-"11113331111333111133311113331111"
 [end]
 [_line]
 Type=0x14
@@ -401,7 +399,7 @@ Type=0x10f00
 String1=0x04,Einzelbaum
 DayXpm="3 3 2 1"
 "2 c none"
-"1 c #6FA800"
+"1 c #83B200"
 "212"
 "111"
 "212"
