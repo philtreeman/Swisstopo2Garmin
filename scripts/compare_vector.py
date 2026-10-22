@@ -141,7 +141,9 @@ def draw(w, ax, res):
     if on(18):                                                 # Tunnel: gestrichelt in der Randfarbe der Klasse
         tt = s_t.OBJEKTART
         for sel, pal, wd in ((tt == "Autobahn", AUTOBAHN, 6), (tt.isin(["10m Strasse", "8m Strasse"]), HAUPT, 5), (tt == "6m Strasse", STRASSE, 4), (~tt.isin(["Autobahn", "10m Strasse", "8m Strasse", "6m Strasse"]), NEBEN, 3)):
-            line(s_t[sel].geometry, pal[1], wd, 12, ls=(0, (5, 3)))
+            g = s_t[sel].geometry
+            line(g, WEG, 1, 12, ls=(0, (1, 2)))                  # Raender als Punktreihe: Linie breit, Mitte weiss uebermalt
+            line(g, BG, max(wd - 2, 1), 12.1)
     e = read("EISENBAHN", bb).geometry
     if on(20): line(e, WEG, 3, 11); line(e, "#FFFFFF", 1, 11.2, ls=(0, (4, 4)))
     if on(24):

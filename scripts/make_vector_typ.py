@@ -40,6 +40,14 @@ def dash_line(t, name, col, on, off, h=2):
     return f'[_line]\nType={t}\nString1=0x04,{name}\nXpm="32 {h} 2 1"\n"3 c none"\n"1 c {col}"\n{rows}\n[end]\n'
 
 
+def edge_dots_line(t, name, col, h, on=1, off=2):
+    """Tunnel wie auf der Garmin-Karte: nur die beiden Raender der Strasse als feine Punktreihe, die Mitte bleibt durchsichtig"""
+    dots = '"' + (("1" * on + "3" * off) * 32)[:32] + '"'
+    gap = '"' + "3" * 32 + '"'
+    rows = "\n".join([dots] + [gap] * (h - 2) + [dots])
+    return f'[_line]\nType={t}\nString1=0x04,{name}\nXpm="32 {h} 2 1"\n"3 c none"\n"1 c {col}"\n{rows}\n[end]\n'
+
+
 def rail_line(t, name):
     a = '"' + "1" * 32 + '"'
     b = '"' + ("1" * 6 + "2" * 6)[:32] + '"'
@@ -109,12 +117,12 @@ parts = [
     dash_line("0x10e0a", "Landesgrenze", GRENZE, 6, 2, h=3),
     dash_line("0x10e0b", "Kantonsgrenze", GRENZE, 3, 3, h=2),
     dash_line("0x10e0c", "Gemeindegrenze", GRENZE, 1, 3, h=1),
-    # Tunnel: gestrichelt in der Randfarbe der Strassenklasse (PDF: Umrisse mit gestricheltem Inneren)
-    dash_line("0x10e10", "Autobahn im Tunnel", AUTOBAHN[1], 5, 3, h=5),
-    dash_line("0x10e11", "Hauptstrasse im Tunnel", HAUPT[1], 5, 3, h=4),
-    dash_line("0x10e12", "Strasse im Tunnel", STRASSE[1], 5, 3, h=3),
-    dash_line("0x10e13", "Nebenstrasse im Tunnel", NEBEN[1], 5, 3, h=2),
-    dash_line("0x10e14", "Bahn im Tunnel", WEG, 5, 3, h=2),
+    # Tunnel wie auf der Garmin-Karte: die Raender der Strasse als feine graue Punktreihen, innen durchsichtig
+    edge_dots_line("0x10e10", "Autobahn im Tunnel", WEG, 5),
+    edge_dots_line("0x10e11", "Hauptstrasse im Tunnel", WEG, 5),
+    edge_dots_line("0x10e12", "Strasse im Tunnel", WEG, 4),
+    edge_dots_line("0x10e13", "Nebenstrasse im Tunnel", WEG, 3),
+    edge_dots_line("0x10e14", "Bahn im Tunnel", WEG, 3),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),
