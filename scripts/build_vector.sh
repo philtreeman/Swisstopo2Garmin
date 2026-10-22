@@ -25,7 +25,8 @@ TREES=${TREES:-1}; TREES_FLAG=""; [ "$TREES" = "1" ] && TREES_FLAG="--trees"   #
 VARIANT=${VARIANT:-edge}
 case "$VARIANT" in
   edge)  FID=3900; PFX=6390; LABEL="SwissTOPO Vector Edge"; GR_FLAG=""
-         if [ -n "$GRENZEN" ]; then GR_FLAG="--grenzen $(realpath "$GRENZEN")"; fi ;;
+         if [ -n "$GRENZEN" ]; then GR_FLAG="--grenzen $(realpath "$GRENZEN")"; fi
+         if [ -n "$ACHSEN" ]; then GR_FLAG="$GR_FLAG --achsen $(realpath "$ACHSEN")"; fi ;;
   fenix) FID=3901; PFX=6391; LABEL="SwissTOPO Vector Fenix"; GR_FLAG="" ;;
   *) echo "VARIANT muss edge oder fenix sein"; exit 1 ;;
 esac

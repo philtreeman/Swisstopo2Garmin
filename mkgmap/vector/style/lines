@@ -7,6 +7,11 @@ tlm_layer=strasse & tlm_kunst=Tunnel & tlm_type='6m Strasse' [0x10e12 resolution
 tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x10e13 resolution 22]
 tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='2m Weg' | tlm_type='1m Weg') [0x10e01 resolution 23]
 tlm_layer=bahn & tlm_kunst=Tunnel [0x10e14 resolution 20]
+# Bruecken: Strasse mit schwarzem Rand (je Strassenklasse)
+tlm_layer=strasse & tlm_kunst=Bruecke & tlm_type=Autobahn [0x10e15 resolution 18]
+tlm_layer=strasse & tlm_kunst=Bruecke & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x10e16 resolution 19]
+tlm_layer=strasse & tlm_kunst=Bruecke & tlm_type='6m Strasse' [0x10e17 resolution 20]
+tlm_layer=strasse & tlm_kunst=Bruecke & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x10e18 resolution 22]
 tlm_layer=strasse & tlm_type=Autobahn [0x01 resolution 18]
 tlm_layer=strasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 resolution 19]
 tlm_layer=strasse & tlm_type='6m Strasse' [0x04 resolution 20]

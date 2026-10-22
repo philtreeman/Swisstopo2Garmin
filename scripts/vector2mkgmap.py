@@ -73,7 +73,29 @@ NAMENSLOS = ("see", "fluss", "flur", "gelaende", "eo", "ort", "strasse", "halt")
 GRENZ_ARTEN = {"1": "Landesgrenze", "2": "Kantonsgrenze", "4": "Gemeindegrenze"}   # swissBOUNDARIES3D (3 = Bezirksgrenze, nicht verwendet)
 
 
-def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edge", grenzen=None):
+SCHILD_ABSTAND = 4000   # m zwischen zwei Strassenschildern einer Nationalstrasse
+
+
+def schilder(achsen, box):
+    """Punkte (x, y, 'N3') entlang der Nationalstrassenachsen (ASTRA, Layer Stammachsen), im Abstand SCHILD_ABSTAND;
+    die Lage haengt nur von der Achse ab, nicht von der Kachel, daher entstehen keine Doppelten an Kachelraendern"""
+    import re
+    df = pyogrio.read_dataframe(achsen, layer="Stammachsen")
+    out = []
+    for nr, grp in df.groupby("Strassennummer"):
+        if not re.fullmatch(r"N\d+", str(nr)):
+            continue
+        for ln in shapely.get_parts(shapely.line_merge(shapely.union_all(shapely.force_2d(grp.geometry.values)))):
+            if ln.geom_type != "LineString" or ln.length < SCHILD_ABSTAND / 4:
+                continue
+            for d in np.arange(min(SCHILD_ABSTAND / 2, ln.length / 2), ln.length, SCHILD_ABSTAND):
+                p = ln.interpolate(float(d))
+                if box.contains(p):
+                    out.append((p.x, p.y, nr))
+    return out
+
+
+def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edge", grenzen=None, achsen=None):
     w = Writer(out_path)
     x0, y0, x1, y1 = bb_lv95
     counts = {}
@@ -133,6 +155,11 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
                 if part.geom_type == "LineString" and part.length > 0:
                     emit_geom(w, to_wgs(part.simplify(simplify or 0.1, preserve_topology=True)), "grenze", {"tlm_layer": "grenze", "tlm_type": art}); n += 1
         counts["GRENZEN"] = n
+    if achsen and variant == "edge":
+        n = 0
+        for x, y, nr in schilder(achsen, shapely.box(x0, y0, x1, y1)):
+            emit_geom(w, to_wgs(shapely.Point(x, y)), "nsr", {"tlm_layer": "nsr", "tlm_type": nr}); n += 1
+        counts["SCHILDER"] = n
     settle = np.array(settle, dtype=object)
     if len(settle):
         # vektorisiert puffern, vereinigen, kleine Gruppen verwerfen, erst dann vereinfachen (schneller)
@@ -177,13 +204,14 @@ def main():
     a.add_argument("--out-file")
     a.add_argument("--trees", action="store_true", help="Einzelbaeume als Punkte mitschreiben (gross)")
     a.add_argument("--variant", choices=VARIANTS, default="edge", help="edge: mehr Namen und Grenzen; fenix: nur Hoehenpunkte")
+    a.add_argument("--achsen", help="ASTRA-Nationalstrassenachsen (GDB, Layer Stammachsen) fuer die Schilder, nur Variante edge")
     a.add_argument("--grenzen", help="swissBOUNDARIES3D-GeoPackage (Layer tlm_hoheitsgrenze), nur Variante edge")
     o = a.parse_args()
     if o.print_grid:
         print_grid(o.bbox or CH_BBOX, o.print_grid)
         return
     if o.lv95_tile:
-        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify, o.trees, o.variant, o.grenzen)
+        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify, o.trees, o.variant, o.grenzen, o.achsen)
         print(o.out_file, f"{os.path.getsize(o.out_file)/1e6:.1f} MB", sum(c.values()), "Objekte", flush=True)
         return
     os.makedirs(o.out, exist_ok=True)
@@ -194,7 +222,7 @@ def main():
         for j in range(ny):
             bb = (x0 + i * step, y0 + j * step, min(x0 + (i + 1) * step, x1), min(y0 + (j + 1) * step, y1))
             path = os.path.join(o.out, f"tlm_{i:02d}_{j:02d}.osm")
-            c = convert_tile(o.shp, bb, path, o.simplify, o.trees, o.variant, o.grenzen)
+            c = convert_tile(o.shp, bb, path, o.simplify, o.trees, o.variant, o.grenzen, o.achsen)
             print(path, f"{os.path.getsize(path)/1e6:.1f} MB", c, flush=True)
 
 

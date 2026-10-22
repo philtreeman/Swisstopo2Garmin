@@ -14,6 +14,7 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "
 
 from vector_palette import *  # noqa: F401,F403  (Farben, gemeinsam mit preview_vector.py)
 from vector_patterns import PATTERNS
+import vector_shields
 
 
 def solid_poly(t, name, col):
@@ -123,6 +124,11 @@ parts = [
     edge_dots_line("0x10e12", "Strasse im Tunnel", WEG, 4),
     edge_dots_line("0x10e13", "Nebenstrasse im Tunnel", WEG, 3),
     edge_dots_line("0x10e14", "Bahn im Tunnel", WEG, 3),
+    # Bruecken: Strassenfarbe mit schwarzem Rand
+    solid_line("0x10e15", "Autobahn auf Bruecke", AUTOBAHN[0], 6, "#000000"),
+    solid_line("0x10e16", "Hauptstrasse auf Bruecke", HAUPT[0], 5, "#000000"),
+    solid_line("0x10e17", "Strasse auf Bruecke", STRASSE[0], 4, "#000000"),
+    solid_line("0x10e18", "Nebenstrasse auf Bruecke", NEBEN[0], 3, "#000000"),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),
@@ -141,6 +147,8 @@ DayXpm="3 3 2 1"
 " 1 "
 [end]
 '''.replace('" 1 "','"212"'))
+# Strassenschilder der Nationalstrassen (Symbole aus vector_shields.py)
+parts.append(vector_shields.typ_eintraege())
 # Ortsnamen: reiner Text (Symbol durchsichtig), schwarz mit Schriftgroesse je Ortsklasse
 for t, name, font in (("0x6600", "Flur- und Gelaendename", "SmallFont"), ("0x0c00", "Ort", "LargeFont"), ("0x0d00", "Quartier", "NormalFont"), ("0x0e00", "Quartierteil", "SmallFont")):
     parts.append(f'''[_point]
