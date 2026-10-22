@@ -5,7 +5,7 @@
   python3 routes2osm.py --kind wanderland|veloland|mtb --gpkg wanderland.gpkg --out r.osm [--bbox ...]
   python3 routes2osm.py --kind ski --gpkg ski_routes_2056.gpkg --out s.osm [--bbox ...]
 
-Tags: route_layer=<kind>, route_class=<Kategorie>, name=<Beschriftung>.
+Tags: route_layer=<kind>, route_class=<Kategorie; Wanderwege: weg2|weg1|spur|strasse nach Wegtyp>, name=<Beschriftung>.
 Quellen: swisstopo (swissTLM3D Wanderwege, Skirouten), SchweizMobil/ASTRA (Wanderland, Veloland, Mountainbikeland).
 """
 import argparse
@@ -25,8 +25,10 @@ def s(x):
 def records(kind, df):
     """liefert (geometrie, klasse, name)"""
     if kind == "wanderwege":
+        # keine Farbcodierung nach Wander-/Berg-/Alpinwanderweg: die Linienart folgt dem Wegtyp der swisstopo-Zeichenerklaerung
+        typ = {"2m Weg": "weg2", "1m Weg": "weg1", "Markierte Spur": "spur"}
         for r in df.itertuples(index=False):
-            yield r.geometry, {"Wanderweg": "wander", "Bergwanderweg": "berg", "Alpinwanderweg": "alpin"}.get(r.wanderwege), s(r.name) if hasattr(r, "name") else ""
+            yield r.geometry, typ.get(r.objektart, "strasse"), s(r.name) if hasattr(r, "name") else ""
     elif kind in ("wanderland", "veloland", "mtb"):
         seen = set()
         for r in df.itertuples(index=False):

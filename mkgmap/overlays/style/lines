@@ -1,6 +1,9 @@
-route_layer=wanderwege & route_class=alpin [0x10f02 resolution 21]
-route_layer=wanderwege & route_class=berg [0x10f01 resolution 21]
-route_layer=wanderwege & route_class=wander [0x10f00 resolution 21]
+# Wanderwege: schwarz, Linienart nach Wegtyp (swisstopo-Zeichenerklaerung): 2 m-Weg durchgezogen, 1 m-Weg gestrichelt,
+# markierte Spur punktiert, Wanderwege auf Strassen als duenne Mittellinie
+route_layer=wanderwege & route_class=weg2 [0x10f00 resolution 22]
+route_layer=wanderwege & route_class=weg1 [0x10f01 resolution 22]
+route_layer=wanderwege & route_class=spur [0x10f02 resolution 22]
+route_layer=wanderwege & route_class=strasse [0x10f0d resolution 22]
 route_layer=wanderland & route_class=national [0x10f03 resolution 18]
 route_layer=wanderland & route_class=regional [0x10f04 resolution 20]
 route_layer=wanderland & route_class=handicap [0x10f06 resolution 21]

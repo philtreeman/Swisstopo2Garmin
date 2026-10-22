@@ -16,3 +16,6 @@ WEG_FEST = "#626162"    # Feldwege
 GEHOELZ = "#A9DC63"; REBEN = "#BDF27B"; FEUCHT = "#7FC8E8"; FELS = "#B4B6B4"; FELS_TEXTUR = "#7C7A7C"; GEROELL = "#EFEDE6"
 AUTOBAHN = ("#FF9900", "#734400"); HAUPT = ("#FFCE62", "#B38600"); STRASSE = ("#FFFAFF", "#8B898B")
 NEBEN = ("#FFFFFF", "#A4A5A4"); NATUR = ("#F6F2D5", "#C9BE7A")
+SCHWARZ = "#1A1A1A"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
+LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
+BAUM = "#6FA800"         # Einzelbaeume (Punkt)

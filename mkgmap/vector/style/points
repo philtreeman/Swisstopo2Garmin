@@ -8,3 +8,5 @@ tlm_layer=halt & tlm_type='Haltestelle Bus' [0x2f17 resolution 24]
 tlm_layer=flur [0x6600 resolution 24]
 tlm_layer=gelaende [0x6600 resolution 23]
 tlm_layer=eo & (tlm_type=Bildstock | tlm_type=Brunnen) [0x2c0b resolution 24]
+# Einzelbaeume (nur mit --trees im Konverter)
+tlm_layer=baum [0x10f00 resolution 24]

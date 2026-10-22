@@ -105,17 +105,30 @@ parts = [
     solid_line("0x04", "Strasse", STRASSE[0], 4, STRASSE[1]),
     solid_line("0x06", "Nebenstrasse", NEBEN[0], 3, NEBEN[1]),
     solid_line("0x07", "Naturstrasse", NATUR[0], 3, NATUR[1]),
-    solid_line("0x0a", "Feldweg", WEG_FEST, 1),
-    # Pfade und Wanderwege: dunkelgrau gestrichelt (die Farben der Wanderwege liegen im Overlay)
-    dash_line("0x16", "Wanderweg", WEG, 6, 4),
-    dash_line("0x10e00", "Bergwanderweg", WEG, 6, 4),
-    dash_line("0x10e01", "Pfad", WEG, 4, 4, h=1),
+    # Wege nach der swisstopo-Zeichenerklaerung: 2 m-Weg durchgezogen, 1 m-Weg gestrichelt, markierte Spur punktiert.
+    # Wanderwege sind hier nicht farbig codiert (sie liegen im Overlay).
+    solid_line("0x0a", "Weg 2 m", SCHWARZ, 1),
+    dash_line("0x10e01", "Weg 1 m", SCHWARZ, 5, 3, h=1),
+    dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=1),
+    dash_line("0x10e06", "Lawinenverbauung", LAWINE, 4, 3, h=2),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),
     solid_line("0x10e04", "Mauer", GEBAEUDE, 1),
     dash_line("0x10e02", "Seilbahn", "#000000", 2, 4, h=1),
 ]
+# Einzelbaum: gruener Punkt 3 x 3 (nur wenn die Karte mit --trees gebaut wird)
+parts.append(f'''[_point]
+Type=0x10f00
+String1=0x04,Einzelbaum
+DayXpm="3 3 2 1"
+"2 c none"
+"1 c {BAUM}"
+" 1 "
+"111"
+" 1 "
+[end]
+'''.replace('" 1 "','"212"'))
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 open(OUT, "w", encoding="latin1").write(hdr + "".join(parts))
 print("geschrieben:", os.path.normpath(OUT))

@@ -33,7 +33,10 @@ LAYERS = [
     ("HALTESTELLE", "halt", {}), ("SIEDLUNGSNAME", "ort", {"EINWOHNERK": "einw"}),
     ("NAME_PKT", "namepkt", {"HOEHE": "hoehe"}), ("EINZELOBJEKT", "eo", {}),
     ("GELAENDENAME", "gelaende", {}), ("FLURNAME", "flur", {}),
+    ("VERBAUUNG", "verbauung", {}),
 ]
+# nur mit --trees: rund 11,5 Mio. Einzelbaeume (je ein Punkt); vergroessert die Karte stark
+LAYERS_TREES = [("EINZELBAUM_OST", "baum", {}), ("EINZELBAUM_WEST", "baum", {})]
 
 
 PAD = 80            # Rand (m) um die Kachel, damit das Siedlungsgebiet an Kachelgrenzen nahtlos ist
@@ -63,12 +66,12 @@ def emit_geom(w, g, kind, tags):
                 emit_polygon(w, part, tags)
 
 
-def convert_tile(shp_dir, bb_lv95, out_path, simplify):
+def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False):
     w = Writer(out_path)
     x0, y0, x1, y1 = bb_lv95
     counts = {}
     settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
-    for suffix, kind, extra in LAYERS:
+    for suffix, kind, extra in LAYERS + (LAYERS_TREES if trees else []):
         p = os.path.join(shp_dir, f"swissTLM3D_TLM_{suffix}.shp")
         if not os.path.exists(p):
             print("fehlt:", p, file=sys.stderr); continue
@@ -140,12 +143,13 @@ def main():
     a.add_argument("--lv95-tile", nargs=4, type=float, metavar=("X0", "Y0", "X1", "Y1"),
                    help="genau eine Kachel in LV95 konvertieren (mit --out-file)")
     a.add_argument("--out-file")
+    a.add_argument("--trees", action="store_true", help="Einzelbaeume als Punkte mitschreiben (gross)")
     o = a.parse_args()
     if o.print_grid:
         print_grid(o.bbox or CH_BBOX, o.print_grid)
         return
     if o.lv95_tile:
-        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify)
+        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify, o.trees)
         print(o.out_file, f"{os.path.getsize(o.out_file)/1e6:.1f} MB", sum(c.values()), "Objekte", flush=True)
         return
     os.makedirs(o.out, exist_ok=True)
@@ -156,7 +160,7 @@ def main():
         for j in range(ny):
             bb = (x0 + i * step, y0 + j * step, min(x0 + (i + 1) * step, x1), min(y0 + (j + 1) * step, y1))
             path = os.path.join(o.out, f"tlm_{i:02d}_{j:02d}.osm")
-            c = convert_tile(o.shp, bb, path, o.simplify)
+            c = convert_tile(o.shp, bb, path, o.simplify, o.trees)
             print(path, f"{os.path.getsize(path)/1e6:.1f} MB", c, flush=True)
 
 

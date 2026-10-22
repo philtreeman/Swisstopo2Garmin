@@ -53,7 +53,7 @@ LBLUE, LBLUE_B = "#55B8F7", "#1D6FB8"
 ORANGE, ORANGE_B = "#FF8A00", "#A85200"
 SKI_BLUE = "#0B4FD6"
 
-write("wanderwege", 3911, [dash("0x10f00", "Wanderweg", "#F2C500"), dash("0x10f01", "Bergwanderweg", "#E60000"), dash("0x10f02", "Alpinwanderweg", "#0050B0")])
+
 write("wanderland", 3912, [solid(t, n, YELLOW, w, YELLOW_B) for t, n, w in [("0x10f03", "Wanderland national", 5), ("0x10f04", "Wanderland regional", 4), ("0x10f05", "Wanderland lokal", 3), ("0x10f06", "Wanderland hindernisfrei", 3)]])
 write("veloland", 3913, [solid(t, n, LBLUE, w, LBLUE_B) for t, n, w in [("0x10f07", "Veloland national", 5), ("0x10f08", "Veloland regional", 4), ("0x10f09", "Veloland lokal", 3)]])
 write("mountainbike", 3914, [solid(t, n, ORANGE, w, ORANGE_B) for t, n, w in [("0x10f0a", "MTB national", 5), ("0x10f0b", "MTB regional", 4), ("0x10f0c", "MTB lokal", 3)]])
@@ -74,4 +74,26 @@ Xpm="0 0 1 0"
 
 
 write("hoehenlinien", 3917, [thin("0x20", "Hoehenlinie 10 m", "#D2A878", 1), thin("0x21", "Hoehenlinie 50 m", "#B8864F", 1), thin("0x22", "Hoehenlinie 100 m", "#A5733A", 2)])
+def dash_line(t, name, col, on, off, h=2):
+    """einfarbig gestrichelte Linie ohne Rand; die durchsichtige Farbe steht zuerst in der Farbtabelle"""
+    row = '"' + (("1" * on + "3" * off) * 32)[:32] + '"'
+    rows = "\n".join([row] * h)
+    return f'''[_line]
+Type={t}
+String1=0x04,{name}
+Xpm="32 {h} 2 1"
+"3 c none"
+"1 c {col}"
+{rows}
+[end]
+'''
+
+
+# Wanderwege: schwarz wie in der swisstopo-Zeichenerklaerung, keine Farbcodierung; Linienart nach Wegtyp.
+# Breite 2 Pixel (statt 1 wie in der gedruckten Karte), damit die Linien auf dem Display sichtbar bleiben.
+SCHWARZ = "#000000"
+write("wanderwege", 3911, [thin("0x10f00", "Weg 2 m", SCHWARZ, 2),
+                           dash_line("0x10f01", "Weg 1 m", SCHWARZ, 5, 3, h=2),
+                           dash_line("0x10f02", "Markierte Spur", SCHWARZ, 1, 2, h=2),
+                           thin("0x10f0d", "Wanderweg auf Strasse", SCHWARZ, 1)])
 print("TYP-Dateien geschrieben:", sorted(os.listdir(OUT)))
