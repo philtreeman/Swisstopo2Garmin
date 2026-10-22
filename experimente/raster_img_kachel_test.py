@@ -16,7 +16,10 @@ BLOCK = 65536
 LAYER = "ch.swisstopo.pixelkarte-farbe-pk25.noscale"
 URL = "https://wmts.geo.admin.ch/1.0.0/{layer}/default/current/3857/{z}/{x}/{y}.jpeg"
 OLD_NAME = b"TOPO Switzerland PRO Raster"
-NEW_NAME = b"SWISSTOPO".ljust(len(OLD_NAME))
+# 20 Zeichen: genau das Feld im Dateikopf. Der Edge hängt die Beschreibung nicht mehr an.
+LIST_NAME = b"SwissTOPO2026 Raster"
+assert len(LIST_NAME) == 20
+NEW_NAME = LIST_NAME.ljust(len(OLD_NAME))
 # Familie 0x1151 ist das gekaufte Produkt und hängt an den SQL-Dateien.
 # 21332 gehört zu keinem Garmin-Produkt, die Karte bleibt eine einzelne IMG.
 OLD_ID = b"\x01\x00\x51\x11"
@@ -402,7 +405,7 @@ def patch_names(path):
     size, block = mps_entry(path)
     with open(path, "r+b") as f:
         f.seek(0x49)
-        f.write(b"SWISSTOPO".ljust(20, b"\x00"))
+        f.write(LIST_NAME.ljust(20, b"\x00"))
         f.seek(0x65)
         f.write(b" " * (0x83 - 0x65))
         f.seek(block * BLOCK)
