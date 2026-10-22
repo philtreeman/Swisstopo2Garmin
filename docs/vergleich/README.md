@@ -15,4 +15,6 @@ Erzeugt mit `scripts/compare_vector.py <shp-ordner> <präfix> <lon> <lat> <breit
 
 Die Zoomstufen sind angenommen: 400 m = feinste Ebene (24), 1500 m = 22, 5000 m = 20. Einzelbäume, Schutzverbauungen und Treppen erscheinen nur in der feinsten Ebene. Bei welchem Massstab das Gerät die Ebenen wechselt, ist ungeprüft.
 
-Aufgefallen: Felsstriche der Rasterkarte gibt es in den Daten nicht, im Vektor erscheinen Fels und Geröll als graue Flächen. Höhenlinien fehlen hier (eigenes Overlay), ebenso Wanderwege (eigenes Overlay), Bergnamen und Höhenpunkte.
+Fels und Geröll: SwissTOPO Vector hat dafür eine Textur (Fels = graue Fläche mit kurzen dunklen Strichen, Geröll = Punkte), die dem Muster der Garmin-Vektorkarte nachempfunden ist. Die Zeichnung deutet sie nur mit Schraffur an; auf dem Gerät sieht sie anders aus (ungeprüft). Die Striche der Rasterkarte, die der Geländeform folgen, gibt es in den Daten nicht.
+
+Es fehlen hier: Höhenlinien und Wanderwege (eigene Overlays), Bergnamen, Höhenpunkte.

@@ -95,7 +95,12 @@ def draw(w, ax, res):
     if on(20): poly(b[t.isin(["Wald", "Wald offen", "Gebueschwald"])].geometry, WALD, 4)
     if on(22): poly(b[t == "Gehoelzflaeche"].geometry, "#D9EDA8", 3)
     if on(21):
-        poly(b[t.isin(["Fels", "Fels locker"])].geometry, FELS, 4); poly(b[t == "Lockergestein"].geometry, GEROELL, 4)
+        for sel, bgc, fgc, hat in ((t.isin(["Fels", "Fels locker"]), FELS, FELS_TEXTUR, "//////"), (t == "Lockergestein", GEROELL, WEG, "......")):
+            poly(b[sel].geometry, bgc, 4)                       # Textur wie im TYP: kurze dunkle Striche (Fels), Punkte (Geroell)
+            for g in b[sel].geometry:
+                for pp in shapely.get_parts(shapely.force_2d(g)):
+                    if pp.geom_type == "Polygon":
+                        ax.add_patch(PathPatch(Path(np.array(pp.exterior.coords)), fc="none", ec=fgc, hatch=hat, lw=0, zorder=4.5))
     if on(20):
         poly(b[t.isin(["Stehende Gewaesser", "Fliessgewaesser"])].geometry, WASSER_FL, 5); poly(read("STEHENDES_GEWAESSER", bb).geometry, WASSER_FL, 5)
     if on(21):
