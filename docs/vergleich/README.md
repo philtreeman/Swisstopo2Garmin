@@ -11,10 +11,10 @@ Erzeugt mit `scripts/compare_vector.py <shp-ordner> <präfix> <lon> <lat> <breit
 | Wald (Sihlwald) | `wald_sihlwald_{400,1500,5000}m.png` |
 | Stadt (Zürich) | `stadt_zuerich_{400,1500,5000}m.png` |
 | Kleinstadt, Hang mit Reben und Treppen (Baden) | `baden_{400,1500,5000}m.png` |
-| Reben (Twann) | `reben_twann_{400,1500}m.png` |
+| Reben (Wettingen, Rebberg an der Mooshaldenstrasse, wie dein Screenshot) | `reben_wettingen_{500,1500}m.png` |
 
 Die Zoomstufen sind angenommen: 400 m = feinste Ebene (24), 1500 m = 22, 5000 m = 20. Einzelbäume, Schutzverbauungen und Treppen erscheinen nur in der feinsten Ebene. Bei welchem Massstab das Gerät die Ebenen wechselt, ist ungeprüft.
 
-Fels und Geröll: SwissTOPO Vector hat dafür eine Textur (Fels = graue Fläche mit kurzen dunklen Strichen, Geröll = Punkte), die dem Muster der Garmin-Vektorkarte nachempfunden ist. Die Zeichnung deutet sie nur mit Schraffur an; auf dem Gerät sieht sie anders aus (ungeprüft). Die Striche der Rasterkarte, die der Geländeform folgen, gibt es in den Daten nicht.
+Fels und Geröll: SwissTOPO Vector hat dafür eine Textur (Fels = graue Fläche mit kurzen dunklen Strichen, Geröll = Punkte), die dem Muster der Garmin-Vektorkarte nachempfunden ist. Die Bilder zeichnen die Muster jetzt pixelgenau aus der TYP-Definition (`scripts/vector_patterns.py`); Farben und Raster sind an deinen Screenshots gemessen. Wie das Gerät sie skaliert, ist ungeprüft. Die Striche der Rasterkarte, die der Geländeform folgen, gibt es in den Daten nicht.
 
 Es fehlen hier: Höhenlinien und Wanderwege (eigene Overlays), Bergnamen, Höhenpunkte.

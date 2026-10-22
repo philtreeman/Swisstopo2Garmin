@@ -17,6 +17,7 @@ from matplotlib.path import Path
 from PIL import Image
 from pyproj import Transformer
 from vector_palette import *
+from vector_patterns import PATTERNS
 
 shp, prefix, lon, lat = sys.argv[1], sys.argv[2], float(sys.argv[3]), float(sys.argv[4])
 widths = [float(w) for w in sys.argv[5:]]
@@ -76,6 +77,25 @@ def draw(w, ax, res):
                     a = np.array(r.coords); v += list(a); c += [Path.MOVETO] + [Path.LINETO] * (len(a) - 2) + [Path.CLOSEPOLY]
                 ax.add_patch(PathPatch(Path(v, c), fc=col, ec="none", zorder=z))
 
+    def pat_poly(geoms, typ, z):
+        """Flaeche mit dem 32x32-Muster der TYP-Datei, ein Musterpixel = ein Bildschirmpixel (564 px Breite)"""
+        _, bg, fg, rows = PATTERNS[typ]
+        m = np.array([[c == "f" for c in r] for r in rows])
+        rgb = lambda h: [int(h[i:i + 2], 16) for i in (1, 3, 5)]
+        tile = np.where(m[..., None], rgb(fg), rgb(bg)).astype(np.uint8)
+        arr = np.tile(tile, (PX // 32 + 1, PX // 32 + 1, 1))[:PX, :PX]
+        for g in geoms:
+            if g is None or g.is_empty: continue
+            for p in shapely.get_parts(shapely.force_2d(g)):
+                if p.geom_type != "Polygon": continue
+                v, c = [], []
+                for r in [p.exterior] + list(p.interiors):
+                    a = np.array(r.coords); v += list(a); c += [Path.MOVETO] + [Path.LINETO] * (len(a) - 2) + [Path.CLOSEPOLY]
+                patch = PathPatch(Path(v, c), fc="none", ec="none", transform=ax.transData); ax.add_patch(patch)
+                im = ax.imshow(arr, extent=(x0, x1, y0, y1), interpolation="nearest", zorder=z, aspect="equal")
+                im.set_clip_path(patch)
+        ax.set_xlim(x0, x1); ax.set_ylim(y0, y1)
+
     def line(geoms, col, px, z, ls="-"):
         for g in geoms:
             if g is None: continue
@@ -93,14 +113,9 @@ def draw(w, ax, res):
     if on(23): poly(read("VERKEHRSAREAL", bb).geometry, VERKEHR, 2)
     b = read("BODENBEDECKUNG", bb); t = b.OBJEKTART
     if on(20): poly(b[t.isin(["Wald", "Wald offen", "Gebueschwald"])].geometry, WALD, 4)
-    if on(22): poly(b[t == "Gehoelzflaeche"].geometry, "#D9EDA8", 3)
+    if on(22): pat_poly(b[t == "Gehoelzflaeche"].geometry, "0x4f", 3)
     if on(21):
-        for sel, bgc, fgc, hat in ((t.isin(["Fels", "Fels locker"]), FELS, FELS_TEXTUR, "//////"), (t == "Lockergestein", GEROELL, WEG, "......")):
-            poly(b[sel].geometry, bgc, 4)                       # Textur wie im TYP: kurze dunkle Striche (Fels), Punkte (Geroell)
-            for g in b[sel].geometry:
-                for pp in shapely.get_parts(shapely.force_2d(g)):
-                    if pp.geom_type == "Polygon":
-                        ax.add_patch(PathPatch(Path(np.array(pp.exterior.coords)), fc="none", ec=fgc, hatch=hat, lw=0, zorder=4.5))
+        pat_poly(b[t.isin(["Fels", "Fels locker"])].geometry, "0x52", 4); pat_poly(b[t == "Lockergestein"].geometry, "0x53", 4)
     if on(20):
         poly(b[t.isin(["Stehende Gewaesser", "Fliessgewaesser"])].geometry, WASSER_FL, 5); poly(read("STEHENDES_GEWAESSER", bb).geometry, WASSER_FL, 5)
     if on(21):
@@ -115,11 +130,7 @@ def draw(w, ax, res):
         road(s, t.isin(["4m Strasse", "3m Strasse", "Verbindung", "Dienstzufahrt", "Zufahrt", "Ausfahrt", "Einfahrt"]) & ~(big & nat), NEBEN, 3, 6)
     if on(22):                                                 # Reben, Obst: Gittermuster
         a = read("NUTZUNGSAREAL", bb); a = a[a.OBJEKTART.isin(["Reben", "Obstanlage"])]
-        poly(a.geometry, "#F2F8CC", 3)
-        for g in a.geometry:
-            for pp in shapely.get_parts(shapely.force_2d(g)):
-                if pp.geom_type == "Polygon":
-                    ax.add_patch(PathPatch(Path(np.array(pp.exterior.coords)), fc="none", ec=REBEN, hatch="xxxx", lw=0, zorder=3.5))
+        pat_poly(a.geometry, "0x4e", 3)
     if on(23):                                                 # Wege schwarz nach swisstopo-Legende, kein Farbcode
         line(s[t == "2m Weg"].geometry, SCHWARZ, 1.2, 6)
         line(s[t == "1m Weg"].geometry, SCHWARZ, 1.2, 6, ls=(0, (5, 3)))

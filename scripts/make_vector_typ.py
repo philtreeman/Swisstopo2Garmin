@@ -5,33 +5,22 @@ Farben und Muster sind an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 10
 (Untergrund creme, Wald gruen, Gebaeude grau auf grauem Siedlungsgebiet, Wege dunkelgrau gestrichelt).
 Die Typ-Codes passen zu mkgmap/vector/style/{lines,polygons}.
 """
-import os, random
+import os
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", "swisstopo_vector.txt")
 
 from vector_palette import *  # noqa: F401,F403  (Farben, gemeinsam mit preview_vector.py)
+from vector_patterns import PATTERNS
 
 
 def solid_poly(t, name, col):
     return f'[_polygon]\nType={t}\nString1=0x04,{name}\nXpm="0 0 1 0"\n"1 c {col}"\n[end]\n'
 
 
-def pattern_poly(t, name, bg, fg, density, run, seed, grid=False):
-    """32x32-Muster: Hintergrundfarbe bg, Vordergrund fg als zufaellige kurze Striche (run Pixel) oder Raster"""
-    rnd = random.Random(seed)
-    g = [["b"] * 32 for _ in range(32)]
-    if grid:
-        for y in range(32):
-            for x in range(32):
-                if (x + y) % 6 == 0 or (x - y) % 6 == 0:
-                    g[y][x] = "f"
-    else:
-        for _ in range(int(32 * 32 * density / run)):
-            y, x = rnd.randrange(32), rnd.randrange(32)
-            for k in range(run):
-                g[y][(x + k) % 32] = "f"
-    rows = "\n".join('"' + "".join(r) + '"' for r in g)
-    return f'[_polygon]\nType={t}\nString1=0x04,{name}\nXpm="32 32 2 1"\n"b c {bg}"\n"f c {fg}"\n{rows}\n[end]\n'
+def pattern_poly(t):
+    name, bg, fg, rows = PATTERNS[t]
+    body = "\n".join('"' + r + '"' for r in rows)
+    return f'[_polygon]\nType={t}\nString1=0x04,{name}\nXpm="32 32 2 1"\n"b c {bg}"\n"f c {fg}"\n{body}\n[end]\n'
 
 
 def solid_line(t, name, fill, w, border=None):
@@ -89,14 +78,14 @@ parts = [
     solid_poly("0x0c", "Areal", AREAL),
     solid_poly("0x0e", "Verkehrsareal", VERKEHR),
     solid_poly("0x50", "Wald", WALD),
-    pattern_poly("0x4f", "Gehoelz", BG, GEHOELZ, 0.30, 2, 1),
-    pattern_poly("0x4e", "Reben, Obst", "#F2F8CC", REBEN, 0, 1, 2, grid=True),
+    pattern_poly("0x4f"),
+    pattern_poly("0x4e"),
     solid_poly("0x17", "Park", PARK),
     solid_poly("0x1a", "Friedhof", FRIEDHOF),
     solid_poly("0x19", "Sport und Freizeit", SPORT),
-    pattern_poly("0x51", "Feuchtgebiet", BG, FEUCHT, 0.22, 3, 3),
-    pattern_poly("0x52", "Fels", FELS, FELS_TEXTUR, 0.32, 3, 4),
-    pattern_poly("0x53", "Geroell", GEROELL, WEG, 0.08, 1, 5),
+    pattern_poly("0x51"),
+    pattern_poly("0x52"),
+    pattern_poly("0x53"),
     solid_poly("0x3f", "Gewaesser", WASSER_FL),
     solid_poly("0x10e05", "Gebaeude", GEBAEUDE),
     # Strassen: Fuellung plus Rand
