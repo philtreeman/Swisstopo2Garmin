@@ -34,8 +34,8 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | Ordner | Inhalt | Grösse |
 |---|---|---|
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m, ganze Schweiz, in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 167 MB |
-| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 272 MB |
-| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 267 MB |
+| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 281 MB |
+| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 268 MB |
 | `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 
@@ -140,7 +140,7 @@ Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in
 
 | | **SwissTOPO Vector Edge** (3900) | **SwissTOPO Vector Fenix** (3901) |
 |---|---|---|
-| Ordner | `karten/swisstopo_vector_edge_schweiz/` (272 MB) | `karten/swisstopo_vector_fenix_schweiz/` (267 MB) |
+| Ordner | `karten/swisstopo_vector_edge_schweiz/` (281 MB) | `karten/swisstopo_vector_fenix_schweiz/` (268 MB) |
 | Fels | graue Fläche mit Textur | einfach grau |
 | Namen | Orts-, Strassen-, Gewässer-, Flur-, Geländenamen, Berge mit Höhe («Säntis 2502») | nur die Höhe an Gipfeln und Pässen |
 | Grenzen (swissBOUNDARIES3D) | Landes-, Kantons-, Gemeindegrenzen, magenta | keine |
