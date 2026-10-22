@@ -1,6 +1,7 @@
 """32x32-Muster der Flaechen (gemeinsam fuer make_vector_typ.py und compare_vector.py). 'b' = Hintergrund, 'f' = Vordergrund."""
 import random
 from vector_palette import *  # noqa: F401,F403
+import vector_pattern_tiles as T
 
 
 def grid(density=0.0, run=1, seed=0, kind="strokes"):
@@ -42,8 +43,8 @@ def grid(density=0.0, run=1, seed=0, kind="strokes"):
 # Typ -> (Name, Hintergrund, Vordergrund, Muster)
 PATTERNS = {
     "0x4f": ("Gehoelz", BG, GEHOELZ, grid(0.30, 2, 1)),
-    "0x4e": ("Reben, Obst", REBEN_BG, REBEN, grid(kind="bolts")),
+    "0x4e": ("Reben, Obst", REBEN_BG, REBEN, T.REBEN),
     "0x51": ("Feuchtgebiet", BG, FEUCHT, grid(0.22, 3, 3)),
-    "0x52": ("Fels", FELS, FELS_TEXTUR, grid(0.34, 5, 7, kind="meander")),
+    "0x52": ("Fels", FELS, FELS_TEXTUR, T.FELS),
     "0x53": ("Geroell", BG, WEG_FEST, grid(0.14, 1, 5)),
 }
