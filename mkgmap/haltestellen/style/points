@@ -1,0 +1,5 @@
+# Haltestellen aus swissTLM3D (Layer HALTESTELLE); die Symbole stehen in typ/haltestellen.txt
+poi=halt & art=bus [0x10f01 resolution 24]
+poi=halt & art=bahn [0x10f02 resolution 22]
+poi=halt & art=schiff [0x10f03 resolution 22]
+poi=halt & art=uebrige [0x10f04 resolution 22]

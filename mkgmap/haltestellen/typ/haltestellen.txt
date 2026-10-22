@@ -1,0 +1,99 @@
+; -*- coding: cp1252 -*-
+; TYP fuer die Haltestellen-Karte (Family-ID 3918), erzeugt von scripts/make_haltestellen_typ.py
+[_id]
+ProductCode=1
+FID=3918
+CodePage=1252
+[end]
+[_point]
+Type=0x10f01
+String1=0x04,Haltestelle Bus
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="12 12 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #0079C2"
+"233333333332"
+"333333333333"
+"331111111133"
+"331333333133"
+"331333333133"
+"331111111133"
+"331111111133"
+"331111111133"
+"331133331133"
+"331133331133"
+"333333333333"
+"233333333332"
+[end]
+[_point]
+Type=0x10f02
+String1=0x04,Haltestelle Bahn
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="12 12 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #003F87"
+"233333333332"
+"333111111333"
+"333133331333"
+"333133331333"
+"333133331333"
+"333111111333"
+"333131131333"
+"333111111333"
+"333111111333"
+"333133331333"
+"331333333133"
+"233333333332"
+[end]
+[_point]
+Type=0x10f03
+String1=0x04,Haltestelle Schiff
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="12 12 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #1AA0E8"
+"233333333332"
+"333331133333"
+"333331133333"
+"333311113333"
+"333311113333"
+"333311113333"
+"311111111113"
+"331111111133"
+"331111111133"
+"333111111333"
+"333333333333"
+"233333333332"
+[end]
+[_point]
+Type=0x10f04
+String1=0x04,Uebrige Bahnen
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="12 12 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #7A4FA0"
+"233333333332"
+"333333333333"
+"311111111113"
+"333331333333"
+"333111111333"
+"333133331333"
+"333133331333"
+"333111111333"
+"333111111333"
+"333333333333"
+"333333333333"
+"233333333332"
+[end]

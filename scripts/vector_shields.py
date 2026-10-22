@@ -9,6 +9,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 NUMMERN = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 28, 29]
 TYPEN = {f"N{n}": 0x10f01 + i for i, n in enumerate(NUMMERN)}
+# Hauptstrassen (ASTRA hauptstrassennetz, Feld RoadNumber): erweiterte Punkttypen 0x11100.. (je 32 Untertypen)
+HAUPT = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 13, 16, 17, 18, 19, 21, 24, 27, 28, 29, 30, 101, 105, 106, 111, 123, 144, 181, 182, 189, 190,
+         201, 203, 206, 212, 213, 219, 226, 295, 320, 332, 371, 374, 388, 398, 399, 405, 416, 417, 433, 447, 448, 462, 470, 505, 560]
+TYPEN.update({f"H{n}": 0x11100 + (i // 32) * 0x100 + i % 32 for i, n in enumerate(HAUPT)})
 
 
 def symbol(text):
@@ -33,17 +37,17 @@ def symbol(text):
 def typ_eintraege():
     out = []
     for name, t in TYPEN.items():
-        rows = symbol(name)
+        rows = symbol(name.lstrip("H"))
         w, h = len(rows[0]), len(rows)
         tab = {"n": "2", "w": "1", "k": "3"}          # durchsichtige Farbe muss zuerst stehen
         body = "\n".join('"' + "".join(tab[c] for c in r) + '"' for r in rows)
-        out.append(f'[_point]\nType=0x{t:x}\nString1=0x04,Nationalstrasse {name}\nDayXpm="{w} {h} 3 1"\n"2 c none"\n"1 c #FFFFFF"\n"3 c #000000"\n{body}\n[end]\n')
+        out.append(f'[_point]\nType=0x{t:x}\nString1=0x04,{"Nationalstrasse" if name[0] == "N" else "Hauptstrasse"} {name}\nDayXpm="{w} {h} 3 1"\n"2 c none"\n"1 c #FFFFFF"\n"3 c #000000"\n{body}\n[end]\n')
     return "".join(out)
 
 
 if __name__ == "__main__":
     if "--style" in sys.argv:
         for name, t in TYPEN.items():
-            print(f"tlm_layer=nsr & tlm_type={name} [0x{t:x} resolution 21]")
+            print(f"tlm_layer={'nsr' if name[0] == 'N' else 'hsr'} & tlm_type={name} [0x{t:x} resolution {21 if name[0] == 'N' else 22}]")
     else:
         print("\n".join(symbol("N13")))
