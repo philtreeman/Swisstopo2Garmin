@@ -2,6 +2,7 @@
 tlm_layer=strasse & tlm_type=Autobahn [0x01 resolution 18]
 tlm_layer=strasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 resolution 19]
 tlm_layer=strasse & tlm_type='6m Strasse' [0x04 resolution 20]
+tlm_layer=strasse & (tlm_type='4m Strasse' | tlm_type='3m Strasse') & tlm_belag=Natur [0x07 resolution 22]
 tlm_layer=strasse & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x06 resolution 22]
 tlm_layer=strasse & tlm_type=Platz [0x06 resolution 23]
 # Wege: Bergwanderweg / Wanderweg / uebrige Wege

@@ -1,0 +1,399 @@
+; -*- coding: cp1252 -*-
+; TYP fuer SwissTOPO Vector (Family-ID 3900), erzeugt von scripts/make_vector_typ.py
+[_id]
+ProductCode=1
+FID=3900
+CodePage=1252
+[end]
+
+[_drawOrder]
+Type=0x4b,1
+Type=0x01,2
+Type=0x0c,2
+Type=0x0e,2
+Type=0x17,3
+Type=0x1a,3
+Type=0x19,3
+Type=0x4f,3
+Type=0x4e,3
+Type=0x51,3
+Type=0x53,3
+Type=0x52,3
+Type=0x50,4
+Type=0x3f,5
+Type=0x10e05,6
+[end]
+
+[_polygon]
+Type=0x4b
+String1=0x04,Untergrund
+Xpm="0 0 1 0"
+"1 c #FFFAE6"
+[end]
+[_polygon]
+Type=0x01
+String1=0x04,Siedlung
+Xpm="0 0 1 0"
+"1 c #EEEEEE"
+[end]
+[_polygon]
+Type=0x0c
+String1=0x04,Areal
+Xpm="0 0 1 0"
+"1 c #E6E6E6"
+[end]
+[_polygon]
+Type=0x0e
+String1=0x04,Verkehrsareal
+Xpm="0 0 1 0"
+"1 c #DEDEDE"
+[end]
+[_polygon]
+Type=0x50
+String1=0x04,Wald
+Xpm="0 0 1 0"
+"1 c #A4D26A"
+[end]
+[_polygon]
+Type=0x4f
+String1=0x04,Gehoelz
+Xpm="32 32 2 1"
+"b c #FFFAE6"
+"f c #A9DC63"
+"bbffbffbbbbbbbbbbbffbbbbbbbbffbb"
+"fffbbbbbbbffbbffbbbbffbbbffbbbbb"
+"bffbffbbbbbbffbbbbbbbbbbbbffbbff"
+"bbbbbbbbbbbbbbbbbbbffbbbbbbbbbff"
+"bbffffbbbbbbbbbbbbbbffbbffbbbbbb"
+"bffbbbbbffbbbbbbffbbbbbbbbbbffbb"
+"bbffbbbbbbffbbbbffbbffbbffbffbbb"
+"bffbbbbbbbbbbbbbbbbbbffbbbbbbbbb"
+"bbbbffbbbbbbbffbbbbbbffbbbbbbbbb"
+"bbffbbbbffbbbbbbbbbbbbbbbbbbbbbb"
+"bbffbbbffbffbbbbbbbbbbbbbbffffbb"
+"bbbbbbbbbbbffbbbbbffbbffbbbbbbbb"
+"fbbbbbbbbbbbbbffffbbffbbbbbbbbbf"
+"bbbbbbffbbbbbbbbbfffffbbbbbffffb"
+"ffbbbffbbbbbbbbbbbbbbbbbbbbbfffb"
+"bbbbbbbbbbffbbbbbbbbbbbbbfffbbbb"
+"bbbbbbbffffffffbbbbbbbbbbbbbbbff"
+"ffbbbffffbbbbbfffbffbbbffbbbbbbb"
+"fffbffbffbbbbbbffbbbbbbbbbbbbbbf"
+"bbbbbbbbbbbbbbbbbbfffbbbfffbbbbb"
+"bbbbbbffbbbbbbbbbbbbbbbbbbbfffbb"
+"bbbbbbbffbbbbbffffbbbbbbbbffbffb"
+"ffbbbbffbbbbbbffbbbbbbbbbbffbffb"
+"bbbbbffbbbbbffbbbbbbbffffbbbbbbb"
+"bbbbffbbffbbfffbbbfffbffbbbffbbb"
+"bbbbffbbbbbbbbbbbbfffffffbbbbbbb"
+"fbbbbbfffbbffbbbbbbbbbbbbbbbbbbf"
+"bffbbbbbbbbbffffbbbbbbbbbbbbbbbb"
+"ffbbbffbbbffbbffbbbbbbbbbbbbbbbb"
+"bbbbbbbffbbbbbbbbffbffbbbbbbbbbb"
+"bbffbbbbbbbbbbbbbbbbbbffffbbbbbb"
+"bffbbbbbffbbbbfffbbbbbbbbffbffff"
+[end]
+[_polygon]
+Type=0x4e
+String1=0x04,Reben, Obst
+Xpm="32 32 2 1"
+"b c #F6FAD8"
+"f c #BDF27B"
+"fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bbbfbbbbbfbbbbbfbbbbbfbbbbbfbbbb"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bbbfbbbbbfbbbbbfbbbbbfbbbbbfbbbb"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bbbfbbbbbfbbbbbfbbbbbfbbbbbfbbbb"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bbbfbbbbbfbbbbbfbbbbbfbbbbbfbbbb"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bbbfbbbbbfbbbbbfbbbbbfbbbbbfbbbb"
+"bbfbfbbbfbfbbbfbfbbbfbfbbbfbfbbb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+"fbbbbbfbbbbbfbbbbbfbbbbbfbbbbbfb"
+"bfbbbfbfbbbfbfbbbfbfbbbfbfbbbfbf"
+[end]
+[_polygon]
+Type=0x17
+String1=0x04,Park
+Xpm="0 0 1 0"
+"1 c #C3E48F"
+[end]
+[_polygon]
+Type=0x1a
+String1=0x04,Friedhof
+Xpm="0 0 1 0"
+"1 c #CFE8AE"
+[end]
+[_polygon]
+Type=0x19
+String1=0x04,Sport und Freizeit
+Xpm="0 0 1 0"
+"1 c #B4DC84"
+[end]
+[_polygon]
+Type=0x51
+String1=0x04,Feuchtgebiet
+Xpm="32 32 2 1"
+"b c #FFFAE6"
+"f c #7FC8E8"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbfffbbb"
+"bbbbbbbbfffbbbbbbffffbbbbbbbbbbb"
+"bbbbbbbbfffbfffbbbbffffffffbbbbb"
+"bfffbbbbbbbbbbbbbbbbbfffbbbbbbbb"
+"fffbbbfffbfffbbbbbbbbbbbbbbbbbff"
+"bbbbbbbbbbbbbbbbbbbbbfffbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbfffbbbbbbbbb"
+"bbfffbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbfffbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbfffbbbbbbbbbbbb"
+"bbbbbbbbbffffffbbbbbbbbbbbbbbbbb"
+"bbfffbbbfffbbbbbbbbfffbbbbbbbbbb"
+"bbbbbbbbbfffbbbbbbbfffbbbbbfffbb"
+"bbbbbbbbbbfffbbfffbbbbbbbbbfffbb"
+"bbbbbbbfffbbbbbbbbbbbbbbbbbbbbbb"
+"fffbbbbbbbbbbbfffbbbbfffbbfffbbb"
+"bfffbbfffbbfffbbbbbbbbbfffbbbbbb"
+"bfffbbbbbbbbbbffffffbbbbbbbbbbbb"
+"bbbbfffbbbbbbbbbbfffbbbbbbbbbbbb"
+"fbbbbbfffbbfffbbfffbbbbbbbbbbbff"
+"fffbbbfffffbbbbbbbbbbbfffbbbbfff"
+"bbbbbbbbbfffbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbfffbbfffbfffbbbbbbbbbbb"
+"bbbbbbfffbbbbbbbfffbbbbbbffffbbb"
+"bbbbbbbbfffffbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbffffffbbbbbbb"
+"fbbbbfffbbbbbbbbfffbbbbbfffbbbff"
+"bfffbbbbbbbbbfffbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x52
+String1=0x04,Fels
+Xpm="32 32 2 1"
+"b c #B4B6B4"
+"f c #7C7A7C"
+"bbbbbbbbbbbbbbbbffffffbfffbbbbbb"
+"bbffffffbbbbbbbbbbbbfffbbfffbbbb"
+"ffbbbfffffbbbbfffffbbbbbbfffbfff"
+"bbbfffbbbbfffffbbbbbfffbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbfffbbbbbbbbbbb"
+"bbbbfffbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbfffbbbbbbbbbbfffbbbbbbffffffb"
+"bbbbbbbbbbbbbbbbbbfffbbbbfffbbbb"
+"bbfffbbbbbbbbbbbbfffbbbbbbbbbbbb"
+"bbfffbbbbbbbbbbbbbbbfffbbbfffbbb"
+"bbbbbbbbbbbbbbfffbbbbfffffbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfffbbbbbbb"
+"bbfffffbbbfffbbbbbbbfffbbbfffffb"
+"ffffbbbffffffbffffffbbbbbbbfffbf"
+"bbbbbbbbbbbbbbbbbfffbbbfffbbbbbb"
+"fbbbbbbfffbfffbbbbbfffbbbbbfffff"
+"bbbbbbbbbbbbbbbfffffbbbbfffbbbbb"
+"fbbbbfffbbbffffbbbbbbbbbbbbbbbff"
+"fbbfffbbfffbbbbbbbbffffbbbbbbfff"
+"fffbbbbbbbbbbbbbfffffbbbbbbbbbbb"
+"bbfffbbbbbbbbbbbbbbbbbbbbbfffbbb"
+"bbbbbbbbbfffffbbbbbbbbbbffffbbbb"
+"bbbbbfffbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfffbbbbbbbbbbfffbbbbbbbbbbb"
+"bbbbbfffbbbbbbfffbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbfffbbbbb"
+"ffbbbbbbbbbbfffbfffbbbbbbbbbffff"
+"bbbbbbbbbbbbbfffbbfffffbbbbbfffb"
+"bbbbbbbbbbbbbbbbbfffbbbbbbbbbbbb"
+"fbbbbbbbbbbbbbbbbbbbbbbbbbbbbbff"
+"bbbbbbbbbffffffbbbbbbbbbbbbbfffb"
+"bbbbfffbbbbbbbbffffbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x53
+String1=0x04,Geroell
+Xpm="32 32 2 1"
+"b c #EFEDE6"
+"f c #414041"
+"fbbbbbbbbbbbbfbbbbbbbbbbbbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbfbbfbb"
+"bbbbbbbbbbbfbbbbbbbfbbbbbbbbbbbb"
+"bbfbbfbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbffbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbf"
+"bbbbbbbbbbfbbbbfbbbbbbbfbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbfbbbbbbb"
+"bbbbbbbbfbbbbbbbbbbbbbbbbbfbfbbb"
+"bbbfbbbbbbbbbbbbfbbfbbbbbbbbbfbb"
+"bbbbfbbfbbfbbbbbbbbbbbbbbbbbbfbb"
+"bbbfbfbbbbbbfbbbbbbbbbbbfbbbbbbf"
+"bbbbbbbfbbbbbfbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbfbbbbfbbbbbbbfbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbfbbbbbbbbbbbbbbbbbbfbfbbbbfbb"
+"bfbbbbbbbbbbbbbbbbbbbbfbbbbbbfbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbbbbbbb"
+"bbfbbbbbbbbbbbbbbbbbffbbbbbbbbfb"
+"fbbbbbbbbbbbbbbbbbbbbbfbbbbbbbfb"
+"bbbbbbbbbbbfbbbbbbbfbbbbbbbbbbbb"
+"bbbbfbbbbbbfbbbbbfbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfbbfbbbbbb"
+"bbbbbbbbbfbbbbbbbfbbbbbbfbbbbbfb"
+"bbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbb"
+"bbfbbbbbbfbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbffbbbbbbffbbbbbbbbbbbbb"
+"bbbbbfbbbbbbbbbbbbbbbbbfbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbfbbbbbbfbbbbbbbbbbbbfb"
+"bbbbbbbbbbbbbbbbfbbbffbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x3f
+String1=0x04,Gewaesser
+Xpm="0 0 1 0"
+"1 c #A8DCFA"
+[end]
+[_polygon]
+Type=0x10e05
+String1=0x04,Gebaeude
+Xpm="0 0 1 0"
+"1 c #8B898B"
+[end]
+[_line]
+Type=0x01
+String1=0x04,Autobahn
+LineWidth=6
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FF9900"
+"2 c #734400"
+[end]
+[_line]
+Type=0x02
+String1=0x04,Hauptstrasse
+LineWidth=5
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFCE62"
+"2 c #B38600"
+[end]
+[_line]
+Type=0x04
+String1=0x04,Strasse
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFAFF"
+"2 c #8B898B"
+[end]
+[_line]
+Type=0x06
+String1=0x04,Nebenstrasse
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #A4A5A4"
+[end]
+[_line]
+Type=0x07
+String1=0x04,Naturstrasse
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #F6F2D5"
+"2 c #C9BE7A"
+[end]
+[_line]
+Type=0x0a
+String1=0x04,Feldweg
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #626162"
+[end]
+[_line]
+Type=0x16
+String1=0x04,Wanderweg
+Xpm="32 2 2 1"
+"3 c none"
+"1 c #414041"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+[end]
+[_line]
+Type=0x10e00
+String1=0x04,Bergwanderweg
+Xpm="32 2 2 1"
+"3 c none"
+"1 c #414041"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+[end]
+[_line]
+Type=0x10e01
+String1=0x04,Pfad
+Xpm="32 1 2 1"
+"3 c none"
+"1 c #414041"
+"11113333111133331111333311113333"
+[end]
+[_line]
+Type=0x14
+String1=0x04,Bahn
+Xpm="32 3 2 1"
+"1 c #414041"
+"2 c #FFFFFF"
+"11111111111111111111111111111111"
+"11111122222211111122222211111122"
+"11111111111111111111111111111111"
+[end]
+[_line]
+Type=0x18
+String1=0x04,Bach
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #52BAF6"
+[end]
+[_line]
+Type=0x10e03
+String1=0x04,Trockenrinne
+Xpm="32 1 2 1"
+"3 c none"
+"1 c #52BAF6"
+"11333113331133311333113331133311"
+[end]
+[_line]
+Type=0x10e04
+String1=0x04,Mauer
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #8B898B"
+[end]
+[_line]
+Type=0x10e02
+String1=0x04,Seilbahn
+Xpm="32 1 2 1"
+"3 c none"
+"1 c #000000"
+"11333311333311333311333311333311"
+[end]

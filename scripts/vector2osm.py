@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""swissTLM3D (Shapefile, LV95) -> OSM-XML fuer mkgmap (Basiskarte, Pilot).
+"""swissTLM3D (Shapefile, LV95) -> OSM-XML fuer mkgmap (SwissTOPO Vector).
 
 Die Objekte bekommen eigene Tags (tlm_layer, tlm_type, ...), die der mkgmap-Style
-in mkgmap/basiskarte/style/ auf Garmin-Typen abbildet.
+in mkgmap/vector/style/ auf Garmin-Typen abbildet. Zusaetzlich wird aus den Gebaeuden ein
+Siedlungsgebiet (tlm_layer=siedlung) abgeleitet: Union der um 14 m vergroesserten Gebaeude.
 
-  python3 basiskarte2osm.py --shp DIR --bbox W S E N --out DIR [--tile-km 20]
+  python3 vector2osm.py --shp DIR --bbox W S E N --out DIR [--tile-km 20]
 
 --bbox in WGS84. Mit --tile-km wird in Kacheln gearbeitet (Speicher); ein Objekt
 landet nur in der Kachel, in der sein Repraesentationspunkt liegt (keine Duplikate).
@@ -22,7 +23,7 @@ FROM_WGS = Transformer.from_crs(4326, 2056, always_xy=True)
 LAYERS = [
     ("BODENBEDECKUNG_OST", "bb", {}), ("BODENBEDECKUNG_WEST", "bb", {}),
     ("STEHENDES_GEWAESSER", "see", {}), ("NUTZUNGSAREAL", "areal", {}),
-    ("VERKEHRSAREAL", "vareal", {}),
+    ("VERKEHRSAREAL", "vareal", {}), ("FREIZEITAREAL", "freizeit", {}),
     ("GEBAEUDE_FOOTPRINT_OST", "gebaeude", {}), ("GEBAEUDE_FOOTPRINT_WEST", "gebaeude", {}),
     ("STRASSE", "strasse", {"WANDERWEGE": "hiking", "BELAGSART": "belag", "KUNSTBAUTE": "kunst", "STUFE": "stufe"}),
     ("FLIESSGEWAESSER", "fluss", {"STUFE": "stufe"}),
@@ -34,21 +35,52 @@ LAYERS = [
 ]
 
 
+PAD = 80            # Rand (m) um die Kachel, damit das Siedlungsgebiet an Kachelgrenzen nahtlos ist
+SIEDLUNG_PUFFER = 14  # Meter um jedes Gebaeude
+SIEDLUNG_MIN_FLAECHE = 8000  # m2, kleinere Gruppen (Einzelhaeuser) bekommen keinen Untergrund
+POINT_KINDS = ("ort", "namepkt", "gelaende", "flur", "eo", "halt")
+
+
+def to_wgs(g):
+    return _t(g, lambda c: __import__("numpy").column_stack(TO_WGS.transform(c[:, 0], c[:, 1])))
+
+
+def emit_geom(w, g, kind, tags):
+    parts = list(g.geoms) if g.geom_type.startswith("Multi") else [g]
+    for part in parts:
+        if part.geom_type == "Point":
+            w.node(part.x, part.y, tags)
+        elif part.geom_type == "LineString":
+            if kind in POINT_KINDS:
+                pt = part.interpolate(0.5, normalized=True); w.node(pt.x, pt.y, tags)
+            else:
+                w.way(list(part.coords), tags)
+        elif part.geom_type == "Polygon":
+            if kind in POINT_KINDS:
+                pt = part.representative_point(); w.node(pt.x, pt.y, tags)
+            else:
+                emit_polygon(w, part, tags)
+
+
 def convert_tile(shp_dir, bb_lv95, out_path, simplify):
     w = Writer(out_path)
     x0, y0, x1, y1 = bb_lv95
     counts = {}
+    settle = []  # Gebaeude fuer das Siedlungsgebiet (inkl. Rand)
     for suffix, kind, extra in LAYERS:
         p = os.path.join(shp_dir, f"swissTLM3D_TLM_{suffix}.shp")
         if not os.path.exists(p):
             print("fehlt:", p, file=sys.stderr); continue
-        df = pyogrio.read_dataframe(p, bbox=tuple(bb_lv95))
+        rb = (x0 - PAD, y0 - PAD, x1 + PAD, y1 + PAD) if kind == "gebaeude" else tuple(bb_lv95)
+        df = pyogrio.read_dataframe(p, bbox=rb)
         n = 0
         for row in df.itertuples(index=False):
             g = row.geometry
             if g is None or g.is_empty:
                 continue
             g = shapely.force_2d(g)
+            if kind == "gebaeude" and getattr(row, "OBJEKTART", None) != "Unterirdisches Gebaeude":
+                settle.append(g)
             rp = g.representative_point()
             if not (x0 <= rp.x < x1 and y0 <= rp.y < y1):
                 continue  # gehoert zur Nachbarkachel
@@ -62,25 +94,17 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify):
                 g = g.simplify(simplify, preserve_topology=True)
                 if g.is_empty:
                     continue
-            g = _t(g, lambda c: __import__("numpy").column_stack(TO_WGS.transform(c[:, 0], c[:, 1])))
-            parts = list(g.geoms) if g.geom_type.startswith("Multi") else [g]
-            for part in parts:
-                if part.geom_type == "Point":
-                    w.node(part.x, part.y, tags)
-                elif part.geom_type == "LineString":
-                    if kind in ("ort", "namepkt", "gelaende", "flur", "eo", "halt"):
-                        pt = part.interpolate(0.5, normalized=True); w.node(pt.x, pt.y, tags)
-                    else:
-                        w.way(list(part.coords), tags)
-                elif part.geom_type == "Polygon":
-                    if kind in ("ort", "namepkt", "gelaende", "flur", "eo", "halt"):
-                        pt = part.representative_point(); w.node(pt.x, pt.y, tags)
-                    else:
-                        emit_polygon(w, part, tags)
-                else:
-                    continue
+            emit_geom(w, to_wgs(g), kind, tags)
             n += 1
         counts[suffix] = n
+    if settle:
+        u = shapely.union_all([g.buffer(SIEDLUNG_PUFFER, quad_segs=2) for g in settle])
+        u = u.simplify(6, preserve_topology=True).intersection(shapely.box(x0, y0, x1, y1))
+        k = 0
+        for poly in (list(u.geoms) if hasattr(u, "geoms") else [u]):
+            if poly.geom_type == "Polygon" and poly.area >= SIEDLUNG_MIN_FLAECHE:
+                emit_geom(w, to_wgs(poly), "siedlung", {"tlm_layer": "siedlung", "tlm_type": "Siedlung"}); k += 1
+        counts["SIEDLUNG"] = k
     w.close()
     return counts
 
