@@ -19,3 +19,5 @@ NEBEN = ("#FFFFFF", "#A4A5A4"); NATUR = ("#F6F2D5", "#C9BE7A")
 SCHWARZ = "#1A1A1A"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
 LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
 BAUM = "#83B200"         # Einzelbaeume (Punkt)
+GRENZE = "#BD008B"        # Landes-, Kantons-, Gemeindegrenzen (magenta, wie auf der Garmin-Karte)
+FELS_GRAU = "#D0D0D0"    # Fels ohne Textur (Variante Fenix)

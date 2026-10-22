@@ -66,12 +66,21 @@ def emit_geom(w, g, kind, tags):
                 emit_polygon(w, part, tags)
 
 
-def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False):
+# Varianten: edge = mit Namen (Berge mit Hoehe, Gewaesser, Fluren, Gelaende) und Grenzen, fenix = ohne Namen ausser der Hoehe an
+# Gipfeln und Paessen (kleines Display, weniger Daten)
+VARIANTS = ("edge", "fenix")
+NAMENSLOS = ("see", "fluss", "flur", "gelaende", "eo")   # Ebenen, deren Namen in der Variante fenix wegfallen
+GRENZ_ARTEN = {"1": "Landesgrenze", "2": "Kantonsgrenze", "4": "Gemeindegrenze"}   # swissBOUNDARIES3D (3 = Bezirksgrenze, nicht verwendet)
+
+
+def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edge", grenzen=None):
     w = Writer(out_path)
     x0, y0, x1, y1 = bb_lv95
     counts = {}
     settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
     for suffix, kind, extra in LAYERS + (LAYERS_TREES if trees else []):
+        if variant == "fenix" and suffix in ("FLURNAME", "GELAENDENAME"):
+            continue
         p = os.path.join(shp_dir, f"swissTLM3D_TLM_{suffix}.shp")
         if not os.path.exists(p):
             print("fehlt:", p, file=sys.stderr); continue
@@ -90,8 +99,15 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False):
                 continue  # gehoert zur Nachbarkachel
             tags = {"tlm_layer": kind, "tlm_type": getattr(row, "OBJEKTART", None)}
             name = getattr(row, "NAME", None)
-            if isinstance(name, str) and name.strip():
-                tags["name"] = name.strip()
+            name = name.strip() if isinstance(name, str) and name.strip() else None
+            if kind == "namepkt":                       # Gipfel, Huegel, Paesse: Edge "Name 2502", Fenix nur "2502"
+                h = getattr(row, "HOEHE", None)
+                h = str(int(round(float(h)))) if h is not None and str(h) not in ("nan", "") else None
+                name = (h if variant == "fenix" else f"{name} {h}" if name and h else name)
+            elif variant == "fenix" and kind in NAMENSLOS:
+                name = None
+            if name:
+                tags["name"] = name
             for fld, key in extra.items():
                 tags[f"tlm_{key}"] = getattr(row, fld, None)
             if simplify and g.geom_type != "Point":
@@ -101,6 +117,19 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False):
             emit_geom(w, to_wgs(g), kind, tags)
             n += 1
         counts[suffix] = n
+    if grenzen and variant == "edge":
+        box = shapely.box(x0, y0, x1, y1)
+        gdf = pyogrio.read_dataframe(grenzen, layer="tlm_hoheitsgrenze", bbox=tuple(bb_lv95))
+        n = 0
+        for row in gdf.itertuples(index=False):
+            art = GRENZ_ARTEN.get(str(row.objektart))
+            g = row.geometry
+            if art is None or g is None or g.is_empty:
+                continue
+            for part in shapely.get_parts(shapely.force_2d(g).intersection(box)):
+                if part.geom_type == "LineString" and part.length > 0:
+                    emit_geom(w, to_wgs(part.simplify(simplify or 0.1, preserve_topology=True)), "grenze", {"tlm_layer": "grenze", "tlm_type": art}); n += 1
+        counts["GRENZEN"] = n
     settle = np.array(settle, dtype=object)
     if len(settle):
         # vektorisiert puffern, vereinigen, kleine Gruppen verwerfen, erst dann vereinfachen (schneller)
@@ -144,12 +173,14 @@ def main():
                    help="genau eine Kachel in LV95 konvertieren (mit --out-file)")
     a.add_argument("--out-file")
     a.add_argument("--trees", action="store_true", help="Einzelbaeume als Punkte mitschreiben (gross)")
+    a.add_argument("--variant", choices=VARIANTS, default="edge", help="edge: mehr Namen und Grenzen; fenix: nur Hoehenpunkte")
+    a.add_argument("--grenzen", help="swissBOUNDARIES3D-GeoPackage (Layer tlm_hoheitsgrenze), nur Variante edge")
     o = a.parse_args()
     if o.print_grid:
         print_grid(o.bbox or CH_BBOX, o.print_grid)
         return
     if o.lv95_tile:
-        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify, o.trees)
+        c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify, o.trees, o.variant, o.grenzen)
         print(o.out_file, f"{os.path.getsize(o.out_file)/1e6:.1f} MB", sum(c.values()), "Objekte", flush=True)
         return
     os.makedirs(o.out, exist_ok=True)
@@ -160,7 +191,7 @@ def main():
         for j in range(ny):
             bb = (x0 + i * step, y0 + j * step, min(x0 + (i + 1) * step, x1), min(y0 + (j + 1) * step, y1))
             path = os.path.join(o.out, f"tlm_{i:02d}_{j:02d}.osm")
-            c = convert_tile(o.shp, bb, path, o.simplify, o.trees)
+            c = convert_tile(o.shp, bb, path, o.simplify, o.trees, o.variant, o.grenzen)
             print(path, f"{os.path.getsize(path)/1e6:.1f} MB", c, flush=True)
 
 

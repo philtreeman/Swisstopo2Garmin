@@ -1,8 +1,8 @@
 ; -*- coding: cp1252 -*-
-; TYP fuer SwissTOPO Vector (Family-ID 3900), erzeugt von scripts/make_vector_typ.py
+; TYP fuer SwissTOPO Vector (Family-ID 3901), erzeugt von scripts/make_vector_typ.py
 [_id]
 ProductCode=1
-FID=3900
+FID=3901
 CodePage=1252
 [end]
 
@@ -192,41 +192,8 @@ Xpm="32 32 2 1"
 [_polygon]
 Type=0x52
 String1=0x04,Fels
-Xpm="32 32 2 1"
-"b c #DEDEDE"
-"f c #A4A5A4"
-"bbffbbfbbbfffbffbbbbfbbbbbbffbbb"
-"bbbbbffbfbbbbbbfffffffbfbbbbbfff"
-"fbbbffbbfffbbbbbbbbbbfbbfbbbbbbf"
-"ffbbfbbbbbbffffbbbbbbbbbfffbbbbb"
-"bbbbfbfbbbbbbbffffbffbbbbbffbbbb"
-"bbbffbffffbbbbbbbfffbbbbbbbfffbb"
-"bbbbfbbbbbbbbffbbbbbfbbbbffbbffb"
-"bbbbfbbffffbbbbffbbffbbbbbffbbff"
-"fffbfbbbbbfffbbbfbbfbbffffbbbbbf"
-"bbfbbffbbbbbbfbbbbffbbbbbbfffbbb"
-"bffbbbffffffbffbbbfbbbbbbbbbffff"
-"bfbbbbbbbbbffbbfbbbbfffffbbbbbbb"
-"fbbfbbbffbbbbbbbffbbbbbbfffffbbb"
-"ffbfffbbbffbbbbbbfffbbbbbbbbfffb"
-"bffbbbffffbbbbfbbbbfffffbbbbbbbf"
-"bbfffbbbbfffbbfbbbbbbbbbfffbbbfb"
-"bbbbffffbbbbbfbbbfffbbbbbbbbbbfb"
-"ffbbbbbffffbbbfbbbbbffffbbbbbffb"
-"bffbbbbbbbfbbbfbbbbbbbbbfffbbbbb"
-"bbbffbbbbbbbbbfbffffbbbbbbbfffbb"
-"bbbbffffbbbbfbbbbbbbffffbbbbbbff"
-"ffbbbbbbbbbfffbfbbbbbbbfbbbbbbbf"
-"bbffbbbbbbffbbbffbbbbbbbbbbffbbb"
-"bbbbfffbfffbbfbbbffffffbbbbfbbfb"
-"ffbbbbfbfbbbbffbbbbbbbffbbfbbbbf"
-"bbfffbbbfbbffbffbbbbbbbbfbbbfbbb"
-"bbbbfffbfbbbfbbfffbbbbbbbfbbfffb"
-"ffffbbbbfbbbbbbbbbfffbbbffbbbbff"
-"bbbfffbffbfbbbbbbbbbffbbfbbffbbb"
-"bbbbbfbbbbbffbffbbbbbbbffbbbbffb"
-"fbbbbbfbbbbbfbbfffbbbbffbbbbbbbf"
-"fffbbbfffbfbbfbbbfbbbfbbbffbbbbb"
+Xpm="0 0 1 0"
+"1 c #D0D0D0"
 [end]
 [_polygon]
 Type=0x53
@@ -362,6 +329,33 @@ String1=0x04,Schutzverbauung
 LineWidth=3
 Xpm="0 0 1 0"
 "1 c #734400"
+[end]
+[_line]
+Type=0x10e0a
+String1=0x04,Landesgrenze
+Xpm="32 3 2 1"
+"3 c none"
+"1 c #BD008B"
+"11111133111111331111113311111133"
+"11111133111111331111113311111133"
+"11111133111111331111113311111133"
+[end]
+[_line]
+Type=0x10e0b
+String1=0x04,Kantonsgrenze
+Xpm="32 2 2 1"
+"3 c none"
+"1 c #BD008B"
+"11133311133311133311133311133311"
+"11133311133311133311133311133311"
+[end]
+[_line]
+Type=0x10e0c
+String1=0x04,Gemeindegrenze
+Xpm="32 1 2 1"
+"3 c none"
+"1 c #BD008B"
+"13331333133313331333133313331333"
 [end]
 [_line]
 Type=0x14

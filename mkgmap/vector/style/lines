@@ -19,3 +19,7 @@ tlm_layer=mauer [0x10e04 resolution 24]
 # Verbauungen: Schutzverbauung (Lawinen, Steinschlag) braun, Trockenmauer grau
 tlm_layer=verbauung & tlm_type=Schutzverbauung [0x10e06 resolution 24]
 tlm_layer=verbauung & tlm_type=Trockenmauer [0x10e04 resolution 24]
+# Grenzen (nur Variante edge; swissBOUNDARIES3D)
+tlm_layer=grenze & tlm_type=Landesgrenze [0x10e0a resolution 18]
+tlm_layer=grenze & tlm_type=Kantonsgrenze [0x10e0b resolution 20]
+tlm_layer=grenze & tlm_type=Gemeindegrenze [0x10e0c resolution 23]

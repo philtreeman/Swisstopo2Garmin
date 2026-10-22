@@ -5,9 +5,12 @@ Farben und Muster sind an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 10
 (Untergrund creme, Wald gruen, Gebaeude grau auf grauem Siedlungsgebiet, Wege dunkelgrau gestrichelt).
 Die Typ-Codes passen zu mkgmap/vector/style/{lines,polygons}.
 """
-import os
+import os, sys
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", "swisstopo_vector.txt")
+VARIANT = sys.argv[1] if len(sys.argv) > 1 else "edge"   # edge: Fels mit Textur, Grenzen; fenix: Fels einfach grau
+assert VARIANT in ("edge", "fenix")
+FID = 3900 if VARIANT == "edge" else 3901
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", f"swisstopo_vector_{VARIANT}.txt")
 
 from vector_palette import *  # noqa: F401,F403  (Farben, gemeinsam mit preview_vector.py)
 from vector_patterns import PATTERNS
@@ -44,11 +47,11 @@ def rail_line(t, name):
     return f'[_line]\nType={t}\nString1=0x04,{name}\nXpm="32 3 2 1"\n"1 c {WEG}"\n"2 c #FFFFFF"\n{a}\n{b}\n{a}\n[end]\n'
 
 
-hdr = """; -*- coding: cp1252 -*-
-; TYP fuer SwissTOPO Vector (Family-ID 3900), erzeugt von scripts/make_vector_typ.py
+hdr = f"""; -*- coding: cp1252 -*-
+; TYP fuer SwissTOPO Vector (Family-ID {FID}), erzeugt von scripts/make_vector_typ.py
 [_id]
 ProductCode=1
-FID=3900
+FID={FID}
 CodePage=1252
 [end]
 
@@ -84,7 +87,7 @@ parts = [
     solid_poly("0x1a", "Friedhof", FRIEDHOF),
     solid_poly("0x19", "Sport und Freizeit", SPORT),
     pattern_poly("0x51"),
-    pattern_poly("0x52"),
+    pattern_poly("0x52") if VARIANT == "edge" else solid_poly("0x52", "Fels", FELS_GRAU),
     pattern_poly("0x53"),
     solid_poly("0x3f", "Gewaesser", WASSER_FL),
     solid_poly("0x10e05", "Gebaeude", GEBAEUDE),
@@ -101,6 +104,9 @@ parts = [
     dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=1),
     dash_line("0x10e09", "Treppe", "#E60000", 1, 2, h=2),
     solid_line("0x10e06", "Schutzverbauung", LAWINE, 3),
+    dash_line("0x10e0a", "Landesgrenze", GRENZE, 6, 2, h=3),
+    dash_line("0x10e0b", "Kantonsgrenze", GRENZE, 3, 3, h=2),
+    dash_line("0x10e0c", "Gemeindegrenze", GRENZE, 1, 3, h=1),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),
