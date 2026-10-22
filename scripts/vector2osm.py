@@ -11,6 +11,7 @@ Siedlungsgebiet (tlm_layer=siedlung) abgeleitet: Union der um 14 m vergroesserte
 landet nur in der Kachel, in der sein Repraesentationspunkt liegt (keine Duplikate).
 """
 import argparse, math, os, sys
+import numpy as np
 import pyogrio, shapely
 from shapely import transform as _t
 from pyproj import Transformer
@@ -66,7 +67,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify):
     w = Writer(out_path)
     x0, y0, x1, y1 = bb_lv95
     counts = {}
-    settle = []  # Gebaeude fuer das Siedlungsgebiet (inkl. Rand)
+    settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
     for suffix, kind, extra in LAYERS:
         p = os.path.join(shp_dir, f"swissTLM3D_TLM_{suffix}.shp")
         if not os.path.exists(p):
@@ -97,13 +98,18 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify):
             emit_geom(w, to_wgs(g), kind, tags)
             n += 1
         counts[suffix] = n
-    if settle:
-        u = shapely.union_all([g.buffer(SIEDLUNG_PUFFER, quad_segs=2) for g in settle])
-        u = u.simplify(6, preserve_topology=True).intersection(shapely.box(x0, y0, x1, y1))
+    settle = np.array(settle, dtype=object)
+    if len(settle):
+        # vektorisiert puffern, vereinigen, kleine Gruppen verwerfen, erst dann vereinfachen (schneller)
+        u = shapely.union_all(shapely.buffer(settle, SIEDLUNG_PUFFER, quad_segs=1))
+        box = shapely.box(x0, y0, x1, y1)
         k = 0
         for poly in (list(u.geoms) if hasattr(u, "geoms") else [u]):
-            if poly.geom_type == "Polygon" and poly.area >= SIEDLUNG_MIN_FLAECHE:
-                emit_geom(w, to_wgs(poly), "siedlung", {"tlm_layer": "siedlung", "tlm_type": "Siedlung"}); k += 1
+            if poly.geom_type != "Polygon" or poly.area < SIEDLUNG_MIN_FLAECHE:
+                continue
+            for q in shapely.get_parts(poly.simplify(6, preserve_topology=True).intersection(box)):
+                if q.geom_type == "Polygon" and q.area >= SIEDLUNG_MIN_FLAECHE / 2:
+                    emit_geom(w, to_wgs(q), "siedlung", {"tlm_layer": "siedlung", "tlm_type": "Siedlung"}); k += 1
         counts["SIEDLUNG"] = k
     w.close()
     return counts

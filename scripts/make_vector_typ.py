@@ -9,20 +9,7 @@ import os, random
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", "swisstopo_vector.txt")
 
-# ---- Farben (aus den Bildschirmfotos) ----
-BG = "#FFFAE6"          # Untergrund
-SIEDLUNG = "#EEEEEE"    # Siedlungsgebiet
-AREAL = "#E6E6E6"       # Industrie-/Schul-/Spitalareale
-VERKEHR = "#DEDEDE"     # Parkplaetze, Verkehrsflaechen
-WALD = "#A4D26A"
-GEBAEUDE = "#8B898B"
-WASSER_FL = "#A8DCFA"   # Seen
-WASSER_LI = "#52BAF6"   # Fliessgewaesser
-PARK = "#C3E48F"
-SPORT = "#B4DC84"
-FRIEDHOF = "#CFE8AE"
-WEG = "#414041"         # Pfade, Wanderwege (gestrichelt)
-WEG_FEST = "#626162"    # Feldwege
+from vector_palette import *  # noqa: F401,F403  (Farben, gemeinsam mit preview_vector.py)
 
 
 def solid_poly(t, name, col):
@@ -102,22 +89,22 @@ parts = [
     solid_poly("0x0c", "Areal", AREAL),
     solid_poly("0x0e", "Verkehrsareal", VERKEHR),
     solid_poly("0x50", "Wald", WALD),
-    pattern_poly("0x4f", "Gehoelz", "#FFFAE6", "#A9DC63", 0.30, 2, 1),
-    pattern_poly("0x4e", "Reben, Obst", "#F6FAD8", "#BDF27B", 0, 1, 2, grid=True),
+    pattern_poly("0x4f", "Gehoelz", BG, GEHOELZ, 0.30, 2, 1),
+    pattern_poly("0x4e", "Reben, Obst", "#F6FAD8", REBEN, 0, 1, 2, grid=True),
     solid_poly("0x17", "Park", PARK),
     solid_poly("0x1a", "Friedhof", FRIEDHOF),
     solid_poly("0x19", "Sport und Freizeit", SPORT),
-    pattern_poly("0x51", "Feuchtgebiet", "#FFFAE6", "#7FC8E8", 0.22, 3, 3),
-    pattern_poly("0x52", "Fels", "#B4B6B4", "#7C7A7C", 0.32, 3, 4),
-    pattern_poly("0x53", "Geroell", "#EFEDE6", "#414041", 0.08, 1, 5),
+    pattern_poly("0x51", "Feuchtgebiet", BG, FEUCHT, 0.22, 3, 3),
+    pattern_poly("0x52", "Fels", FELS, FELS_TEXTUR, 0.32, 3, 4),
+    pattern_poly("0x53", "Geroell", GEROELL, WEG, 0.08, 1, 5),
     solid_poly("0x3f", "Gewaesser", WASSER_FL),
     solid_poly("0x10e05", "Gebaeude", GEBAEUDE),
     # Strassen: Fuellung plus Rand
-    solid_line("0x01", "Autobahn", "#FF9900", 6, "#734400"),
-    solid_line("0x02", "Hauptstrasse", "#FFCE62", 5, "#B38600"),
-    solid_line("0x04", "Strasse", "#FFFAFF", 4, "#8B898B"),
-    solid_line("0x06", "Nebenstrasse", "#FFFFFF", 3, "#A4A5A4"),
-    solid_line("0x07", "Naturstrasse", "#F6F2D5", 3, "#C9BE7A"),
+    solid_line("0x01", "Autobahn", AUTOBAHN[0], 6, AUTOBAHN[1]),
+    solid_line("0x02", "Hauptstrasse", HAUPT[0], 5, HAUPT[1]),
+    solid_line("0x04", "Strasse", STRASSE[0], 4, STRASSE[1]),
+    solid_line("0x06", "Nebenstrasse", NEBEN[0], 3, NEBEN[1]),
+    solid_line("0x07", "Naturstrasse", NATUR[0], 3, NATUR[1]),
     solid_line("0x0a", "Feldweg", WEG_FEST, 1),
     # Pfade und Wanderwege: dunkelgrau gestrichelt (die Farben der Wanderwege liegen im Overlay)
     dash_line("0x16", "Wanderweg", WEG, 6, 4),
