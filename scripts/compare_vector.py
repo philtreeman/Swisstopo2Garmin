@@ -132,9 +132,9 @@ def draw(w, ax, res):
         a = read("NUTZUNGSAREAL", bb); a = a[a.OBJEKTART.isin(["Reben", "Obstanlage"])]
         pat_poly(a.geometry, "0x4e", 3)
     if on(23):                                                 # Wege schwarz nach swisstopo-Legende, kein Farbcode
-        line(s[t == "2m Weg"].geometry, SCHWARZ, 1.2, 6)
-        line(s[t == "1m Weg"].geometry, SCHWARZ, 1.2, 6, ls=(0, (5, 3)))
-        line(s[t == "Markierte Spur"].geometry, SCHWARZ, 1.2, 6, ls=(0, (1, 2)))
+        line(s[t == "2m Weg"].geometry, SCHWARZ, 2, 6)
+        line(s[t == "1m Weg"].geometry, SCHWARZ, 2, 6, ls=(0, (5, 3)))
+        line(s[t == "Markierte Spur"].geometry, SCHWARZ, 2, 6, ls=(0, (1, 2)))
     if on(24):                                                 # Treppen rot gepunktet
         k = s[s.KUNSTBAUTE.isin(["Treppe", "Bruecke mit Treppe", "Unterfuehrung mit Treppe"])]
         line(k.geometry, "#E60000", 2.2, 9, ls=(0, (1, 2)))

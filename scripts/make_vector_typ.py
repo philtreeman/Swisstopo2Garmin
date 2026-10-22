@@ -101,9 +101,9 @@ parts = [
     solid_line("0x07", "Naturstrasse", NATUR[0], 3, NATUR[1]),
     # Wege nach der swisstopo-Zeichenerklaerung: 2 m-Weg durchgezogen, 1 m-Weg gestrichelt, markierte Spur punktiert.
     # Wanderwege sind hier nicht farbig codiert (sie liegen im Overlay).
-    solid_line("0x0a", "Weg 2 m", SCHWARZ, 1),
-    dash_line("0x10e01", "Weg 1 m", SCHWARZ, 5, 3, h=1),
-    dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=1),
+    solid_line("0x0a", "Weg 2 m", SCHWARZ, 2),
+    dash_line("0x10e01", "Weg 1 m", SCHWARZ, 5, 3, h=2),
+    dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=2),
     dash_line("0x10e09", "Treppe", "#E60000", 1, 2, h=2),
     solid_line("0x10e06", "Schutzverbauung", LAWINE, 2),
     dash_line("0x10e0a", "Landesgrenze", GRENZE, 6, 2, h=3),
@@ -128,7 +128,7 @@ DayXpm="3 3 2 1"
 [end]
 '''.replace('" 1 "','"212"'))
 # Ortsnamen: reiner Text (Symbol durchsichtig), schwarz mit Schriftgroesse je Ortsklasse
-for t, name, font in (("0x0c00", "Ort", "LargeFont"), ("0x0d00", "Quartier", "NormalFont"), ("0x0e00", "Quartierteil", "SmallFont")):
+for t, name, font in (("0x6600", "Flur- und Gelaendename", "SmallFont"), ("0x0c00", "Ort", "LargeFont"), ("0x0d00", "Quartier", "NormalFont"), ("0x0e00", "Quartierteil", "SmallFont")):
     parts.append(f'''[_point]
 Type={t}
 String1=0x04,{name}

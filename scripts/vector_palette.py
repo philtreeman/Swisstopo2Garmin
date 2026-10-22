@@ -16,7 +16,7 @@ WEG_FEST = "#626162"    # Feldwege
 GEHOELZ = "#A9DC63"; REBEN = "#FF9900"; REBEN_BG = "#DEFAAC"; FEUCHT = "#7FC8E8"; FELS = "#DEDEDE"; FELS_TEXTUR = "#A4A5A4"; GEROELL = "#EFEDE6"
 AUTOBAHN = ("#FF9900", "#734400"); HAUPT = ("#FFCE62", "#B38600"); STRASSE = ("#FFFAFF", "#8B898B")
 NEBEN = ("#FFFFFF", "#A4A5A4"); NATUR = ("#F6F2D5", "#C9BE7A")
-SCHWARZ = "#1A1A1A"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
+SCHWARZ = "#414041"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
 LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
 BAUM = "#83B200"         # Einzelbaeume (Punkt)
 GRENZE = "#BD008B"        # Landes-, Kantons-, Gemeindegrenzen (magenta, wie auf der Garmin-Karte)
