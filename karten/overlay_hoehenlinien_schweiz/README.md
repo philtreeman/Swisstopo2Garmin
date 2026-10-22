@@ -1,9 +1,9 @@
-# Höhenlinien-Overlay ganze Schweiz (10 m Äquidistanz)
+# Höhenlinien-Overlay ganze Schweiz (20 m Äquidistanz)
 
-`swisstopo_overlay_hoehenlinien.img` (167 MB, Family-ID 3917, Name im Gerätemenü «Hoehenlinien 10 m») aus **swissALTI3D** (2 m Raster, neuestes Jahr je Kachel 2019–2026, 43'650 Kacheln). Gebaut mit `scripts/build_hoehenlinien.sh`. Auf keinem Gerät geprüft.
+`swisstopo_overlay_hoehenlinien.img` (109 MB, Family-ID 3917, Name im Gerätemenü «Hoehenlinien 20 m») aus **swissALTI3D** (2 m Raster, neuestes Jahr je Kachel 2019–2026, 43'650 Kacheln). Gebaut mit `scripts/build_hoehenlinien.sh`. Auf keinem Gerät geprüft.
 
-- Äquidistanz **10 m**. Jede 50 m eine stärkere Zwischenlinie, jede 100 m eine Hauptlinie, beide mit Höhenbeschriftung.
-- Hellbraun (10 m, 1 px), mittelbraun (50 m, 1 px), dunkelbraun (100 m, 2 px).
+- Äquidistanz **20 m**. Jede 100 m eine Hauptlinie mit Höhenbeschriftung. Die Linien verwenden erweiterte Garmin-Linientypen (0x10f10, 0x10f11) wie die Routen-Overlays, weil der Edge die Standardtypen 0x20 bis 0x22 nicht zeigte (ungeprüft, ob das die Ursache war).
+- Hellbraun (20 m, 1 px), dunkelbraun (100 m, 2 px).
 - Ist ein Overlay: ohne Basiskarte. Darüber lassen sich Basiskarte und die Routen-Overlays legen.
 - Linien sind 1-km-Kachelweise berechnet und mit 2,5 m vereinfacht. An Kachelrändern bleibt eine Lücke von einem Pixel (2 m), das ist nicht sichtbar. Beschriftungen wiederholen sich deshalb etwa alle Kilometer.
 

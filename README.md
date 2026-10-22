@@ -3,7 +3,7 @@
 Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img`):
 
 - **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit mehr Namen, Grenzen und Schildern; Fenix reduziert).
-- **Höhenlinien** (10 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
+- **Höhenlinien** (20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
 
 **Teststand:**
 - **Garmin Edge 1040: geprüft, funktioniert.** Der Nutzer hat Overlays für Skirouten, Wanderwege und Fahrradrouten aufs Gerät geladen. Mehrere `.img`-Dateien nebeneinander werden also geladen. Welche der beiden Fahrradkarten (Veloland, Mountainbike) einzeln geprüft wurde, ist nicht festgehalten.
@@ -19,7 +19,7 @@ Die Overlays:
 | `swisstopo_overlay_mountainbike.img` | Mountainbikeland-Routen (SchweizMobil) | orange |
 | `swisstopo_overlay_skirouten_blau.img` | Skirouten (swisstopo/SAC u. a.) | blau, durchgezogen, weisser Rand (wie auf der Rasterkarte) |
 | `swisstopo_overlay_skirouten_schwierigkeit.img` | gleiche Skirouten | gestrichelt, nach SAC-Schwierigkeit: grün L, blau WS, orange ZS, rot S, violett unbekannt |
-| `swisstopo_overlay_hoehenlinien.img` | Höhenlinien, Äquidistanz 10 m (swissALTI3D 2 m) | braun; 50 m und 100 m stärker, mit Höhenangabe |
+| `swisstopo_overlay_hoehenlinien.img` | Höhenlinien, Äquidistanz 20 m (swissALTI3D 2 m) | hellbraun; alle 100 m dunkler und stärker, mit Höhenangabe |
 
 Die Routen von SchweizMobil tragen «Nummer Name» als Beschriftung (z. B. «1 Via Alpina»), die Skirouten «Name Schwierigkeit». Bei Wanderland, Veloland und Mountainbikeland sind die Linien nach national (breit), regional und lokal gestuft.
 
@@ -33,7 +33,7 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 
 | Ordner | Inhalt | Grösse |
 |---|---|---|
-| `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m, ganze Schweiz, in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 167 MB |
+| `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 20 m, ganze Schweiz, in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 109 MB |
 | `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 281 MB |
 | `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 268 MB |
 | `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
@@ -64,7 +64,7 @@ scripts/                       alle Skripte
   routes2mkgmap.py                  GeoPackage → OSM-XML für die Routen-Overlays
   make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
   mkgmap_xml_writer.py                  gemeinsame OSM-XML-Ausgabe
-  build_hoehenlinien.sh          baut das Höhenlinien-Overlay (10 m) aus swissALTI3D
+  build_hoehenlinien.sh          baut das Höhenlinien-Overlay (20 m) aus swissALTI3D
   hoehenlinien2mkgmap.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
   swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
@@ -127,7 +127,7 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 - Polygone erscheinen nur, wenn sie im TYP unter `[_drawOrder]` stehen (relevant für SwissTOPO Vector).
 
 ## Höhenlinien-Overlay (`swisstopo_overlay_hoehenlinien.img`)
-`scripts/build_hoehenlinien.sh` berechnet aus swissALTI3D (2 m Raster) Höhenlinien mit **10 m Äquidistanz** für die ganze Schweiz (167 MB, Family-ID 3917). Jede 50 m eine Zwischenlinie, jede 100 m eine Hauptlinie, beide mit Höhenangabe. Es ist ein Overlay: es lässt sich über die Basiskarte und die Routen-Overlays legen. Auf keinem Gerät geprüft.
+`scripts/build_hoehenlinien.sh` berechnet aus swissALTI3D (2 m Raster) Höhenlinien mit **20 m Äquidistanz** für die ganze Schweiz (109 MB, Family-ID 3917). Jede 50 m eine Zwischenlinie, jede 100 m eine Hauptlinie, beide mit Höhenangabe. Es ist ein Overlay: es lässt sich über die Basiskarte und die Routen-Overlays legen. Auf keinem Gerät geprüft.
 ```
 scripts/swissalti3d_kachelliste.py tiles_2m.json                  # einmalig, 15–20 Minuten
 scripts/build_hoehenlinien.sh tiles_2m.json mkgmap.jar out/                     # ganze Schweiz
