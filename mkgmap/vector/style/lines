@@ -16,5 +16,5 @@ tlm_layer=fluss & (tlm_type=Fliessgewaesser) & tlm_stufe=0 [0x18 resolution 21]
 tlm_layer=fluss & tlm_type=Trockenrinne [0x10e03 resolution 23]
 tlm_layer=mauer [0x10e04 resolution 24]
 # Verbauungen: Schutzverbauung (Lawinen, Steinschlag) braun, Trockenmauer grau
-tlm_layer=verbauung & tlm_type=Schutzverbauung [0x10e06 resolution 22]
+tlm_layer=verbauung & tlm_type=Schutzverbauung [0x10e06 resolution 24]
 tlm_layer=verbauung & tlm_type=Trockenmauer [0x10e04 resolution 24]
