@@ -50,7 +50,7 @@ work() {  # work i j x0 y0 x1 y1
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \
-      --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 \
+      --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 --lower-case \
       --draw-priority=20 --remove-short-arcs --reduce-point-density=3 --reduce-point-density-polygon=4 \
       --min-size-polygon=8 --keep-going "$osm" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
     cp "$OUT/tiles/$name/$name.img" "$OUT/tiles/$name.img"
@@ -65,7 +65,7 @@ xargs -P "$JOBS" -L1 bash -c 'work "$@"' _ < "$OUT/kacheln.txt"
 mkdir -p "$OUT/final"
 java -Xmx6g -jar "$JAR" --output-dir="$OUT/final" --family-id=$FID --product-id=1 \
   --family-name="$LABEL" --series-name="$LABEL" --description="$LABEL" \
-  --code-page=1252 --gmapsupp "$OUT"/tiles/${PFX}*.img "$TYP" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
+  --code-page=1252 --lower-case --gmapsupp "$OUT"/tiles/${PFX}*.img "$TYP" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
 cp "$OUT/final/gmapsupp.img" "$OUT/$NAME.img"
 ls -la "$OUT/$NAME.img"
 if [ "$(stat -c%s "$OUT/$NAME.img")" -gt $((SPLIT_MB*1024*1024)) ]; then

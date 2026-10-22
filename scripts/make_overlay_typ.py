@@ -73,7 +73,7 @@ Xpm="0 0 1 0"
 """
 
 
-write("hoehenlinien", 3917, [thin("0x20", "Hoehenlinie 10 m", "#D2A878", 1), thin("0x21", "Hoehenlinie 50 m", "#B8864F", 1), thin("0x22", "Hoehenlinie 100 m", "#A5733A", 2)])
+write("hoehenlinien", 3917, [thin("0x10f10", "Hoehenlinie 20 m", "#D2A878", 1), thin("0x10f11", "Hoehenlinie 100 m", "#A5733A", 2)])
 def dash_line(t, name, col, on, off, h=2):
     """einfarbig gestrichelte Linie ohne Rand; die durchsichtige Farbe steht zuerst in der Farbtabelle"""
     row = '"' + (("1" * on + "3" * off) * 32)[:32] + '"'

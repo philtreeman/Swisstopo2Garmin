@@ -1,3 +1,5 @@
+# Beschriftung: der Name aus dem Namens-Tag wird zum Label (ohne diese Regel schreibt mkgmap keine Labels)
+name=* { name '${name}' }
 tlm_layer=bb & (tlm_type=Wald | tlm_type='Wald offen' | tlm_type=Gebueschwald) [0x50 resolution 20]
 tlm_layer=bb & tlm_type=Gehoelzflaeche [0x4f resolution 22]
 tlm_layer=bb & (tlm_type=Fels | tlm_type='Fels locker') [0x52 resolution 21]

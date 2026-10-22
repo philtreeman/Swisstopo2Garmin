@@ -2,11 +2,11 @@
 """swissALTI3D (2 m, GeoTIFF) -> Hoehenlinien als OSM-XML fuer mkgmap.
 
   python3 hoehenlinien2mkgmap.py --tiles tiles_2m.json --print-blocks [--bbox W S E N]
-  python3 hoehenlinien2mkgmap.py --tiles tiles_2m.json --block I J --out block.osm [--interval 10]
+  python3 hoehenlinien2mkgmap.py --tiles tiles_2m.json --block I J --out block.osm [--interval 20]
 
 Die 1-km-Kacheln werden zu 20-km-Bloecken im LV95-Raster zusammengefasst (gleicher Ursprung wie
-SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 10 m) mit contourpy berechnet,
-mit 2,5 m vereinfacht und mit den Tags contour=<10|50|100> (hoechste passende Stufe) und ele=<Hoehe> geschrieben.
+SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 20 m) mit contourpy berechnet,
+mit 2,5 m vereinfacht und mit den Tags contour=<20|100> (100 = Haupthoehenlinie, alle 100 m) und ele=<Hoehe> geschrieben.
 Kachelnamen sind die untere linke Ecke in LV95-km; an den Kachelraendern bleibt eine Luecke von einem Pixel (2 m).
 """
 import argparse, io, json, math, os, time, urllib.request
@@ -64,7 +64,7 @@ def main():
     a.add_argument("--print-blocks", action="store_true")
     a.add_argument("--block", nargs=2, type=int, metavar=("I", "J"))
     a.add_argument("--out")
-    a.add_argument("--interval", type=int, default=10)
+    a.add_argument("--interval", type=int, default=20)
     a.add_argument("--simplify", type=float, default=2.5)
     a.add_argument("--workers", type=int, default=4)
     o = a.parse_args()
@@ -91,7 +91,7 @@ def main():
         for lines in ex.map(work, keys):
             for lv, xy in lines:
                 lon, lat = TO_WGS.transform(xy[:, 0], xy[:, 1])
-                tags = {"contour": 100 if lv % 100 == 0 else 50 if lv % 50 == 0 else 10, "ele": lv}
+                tags = {"contour": 100 if lv % 100 == 0 else 20, "ele": lv}
                 w.way(list(zip(lon, lat)), tags)
                 n += 1
     w.close()

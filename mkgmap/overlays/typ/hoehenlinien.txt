@@ -6,21 +6,14 @@ FID=3917
 CodePage=1252
 [end]
 [_line]
-Type=0x20
-String1=0x04,Hoehenlinie 10 m
+Type=0x10f10
+String1=0x04,Hoehenlinie 20 m
 LineWidth=1
 Xpm="0 0 1 0"
 "1 c #D2A878"
 [end]
 [_line]
-Type=0x21
-String1=0x04,Hoehenlinie 50 m
-LineWidth=1
-Xpm="0 0 1 0"
-"1 c #B8864F"
-[end]
-[_line]
-Type=0x22
+Type=0x10f11
 String1=0x04,Hoehenlinie 100 m
 LineWidth=2
 Xpm="0 0 1 0"

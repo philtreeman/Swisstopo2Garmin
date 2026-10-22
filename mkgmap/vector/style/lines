@@ -1,3 +1,5 @@
+# Beschriftung: der Name aus dem Namens-Tag wird zum Label (ohne diese Regel schreibt mkgmap keine Labels)
+name=* { name '${name}' }
 # swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
 tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 24]
 # Tunnel nach swisstopo-Zeichenerklaerung: gestrichelt statt durchgezogen (je Strassenklasse)

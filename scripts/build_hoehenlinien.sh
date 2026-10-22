@@ -1,9 +1,9 @@
 #!/bin/bash
-# Baut das Hoehenlinien-Overlay (Aequidistanz 10 m) aus swissALTI3D als swisstopo_overlay_hoehenlinien.img.
+# Baut das Hoehenlinien-Overlay (Aequidistanz 20 m) aus swissALTI3D als swisstopo_overlay_hoehenlinien.img.
 #   scripts/build_hoehenlinien.sh <kachelliste.json> <mkgmap.jar> <out-ordner> [W S E N]
 #   <kachelliste.json>  Ergebnis von scripts/swissalti3d_kachelliste.py
 #   [W S E N]           optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz
-# Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90), INTERVAL (Standard 10)
+# Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90), INTERVAL (Standard 20)
 #
 # Ablauf:
 #   1. hoehenlinien2mkgmap.py --print-blocks   Liste der 20-km-Bloecke (LV95-Raster) mit vorhandenen 1-km-Kacheln
@@ -14,7 +14,7 @@
 set -e
 LIST=$(realpath "$1"); JAR=$(realpath "$2"); OUT=$(realpath -m "$3"); shift 3
 S=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$S")
-JOBS=${JOBS:-3}; SPLIT_MB=${SPLIT_MB:-90}; INTERVAL=${INTERVAL:-10}
+JOBS=${JOBS:-3}; SPLIT_MB=${SPLIT_MB:-90}; INTERVAL=${INTERVAL:-20}
 STYLE="$R/mkgmap/overlays/style"; TYP="$R/mkgmap/overlays/typ/hoehenlinien.txt"
 python3 "$S/make_overlay_typ.py" >/dev/null
 mkdir -p "$OUT/osm" "$OUT/tiles"
@@ -31,7 +31,7 @@ work() {  # work i j anzahl
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \
-      --family-id=3917 --product-id=1 --mapname="$name" --description="Hoehenlinien 10 m" --code-page=1252 \
+      --family-id=3917 --product-id=1 --mapname="$name" --description="Hoehenlinien 20 m" --code-page=1252 --lower-case \
       --transparent --draw-priority=30 --remove-short-arcs --keep-going "$osm" 2>&1 \
       | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
     cp "$OUT/tiles/$name/$name.img" "$OUT/tiles/$name.img"
@@ -45,7 +45,7 @@ xargs -P "$JOBS" -L1 bash -c 'BB=($BB_STR); work "$@"' _ < "$OUT/bloecke.txt"
 
 mkdir -p "$OUT/final"
 java -Xmx6g -jar "$JAR" --output-dir="$OUT/final" --family-id=3917 --product-id=1 \
-  --family-name="swisstopo Hoehenlinien" --series-name="swisstopo Hoehenlinien" --description="Hoehenlinien 10 m" \
+  --family-name="swisstopo Hoehenlinien" --series-name="swisstopo Hoehenlinien" --description="Hoehenlinien 20 m" \
   --code-page=1252 --gmapsupp "$OUT"/tiles/6391*.img "$TYP" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
 NAME=swisstopo_overlay_hoehenlinien
 cp "$OUT/final/gmapsupp.img" "$OUT/$NAME.img"

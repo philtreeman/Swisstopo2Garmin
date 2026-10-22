@@ -147,6 +147,37 @@ DayXpm="3 3 2 1"
 " 1 "
 [end]
 '''.replace('" 1 "','"212"'))
+# Berge, Huegel, Paesse mit Hoehe im Namen: kleine braune Raute; Bildstoecke und Brunnen: kleines schwarzes Quadrat mit weissem Rand
+for t, name in (("0x6616", "Gipfel und Huegel"), ("0x6615", "Pass")):
+    parts.append(f'''[_point]
+Type={t}
+String1=0x04,{name}
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="5 5 2 1"
+"2 c none"
+"1 c #9C5A1E"
+"22122"
+"21112"
+"11111"
+"21112"
+"22122"
+[end]
+''')
+parts.append('''[_point]
+Type=0x2c0b
+String1=0x04,Bildstock oder Brunnen
+FontStyle=NoLabel
+DayXpm="3 3 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"111"
+"131"
+"111"
+[end]
+''')
 # Strassenschilder der Nationalstrassen (Symbole aus vector_shields.py)
 parts.append(vector_shields.typ_eintraege())
 # Ortsnamen: reiner Text (Symbol durchsichtig), schwarz mit Schriftgroesse je Ortsklasse

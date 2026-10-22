@@ -508,6 +508,48 @@ DayXpm="3 3 2 1"
 "212"
 [end]
 [_point]
+Type=0x6616
+String1=0x04,Gipfel und Huegel
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="5 5 2 1"
+"2 c none"
+"1 c #9C5A1E"
+"22122"
+"21112"
+"11111"
+"21112"
+"22122"
+[end]
+[_point]
+Type=0x6615
+String1=0x04,Pass
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="5 5 2 1"
+"2 c none"
+"1 c #9C5A1E"
+"22122"
+"21112"
+"11111"
+"21112"
+"22122"
+[end]
+[_point]
+Type=0x2c0b
+String1=0x04,Bildstock oder Brunnen
+FontStyle=NoLabel
+DayXpm="3 3 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"111"
+"131"
+"111"
+[end]
+[_point]
 Type=0x10f01
 String1=0x04,Nationalstrasse N1
 DayXpm="19 11 3 1"
