@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Routen-/Wegenetze (LV95-GeoPackage) -> OSM-XML fuer mkgmap (Overlay-Karten).
 
-  python3 routes2osm.py --kind wanderwege --gpkg SWISSTLM3D_WANDERWEGE.gpkg --out w.osm [--bbox W S E N]
-  python3 routes2osm.py --kind wanderland|veloland|mtb --gpkg wanderland.gpkg --out r.osm [--bbox ...]
-  python3 routes2osm.py --kind ski --gpkg ski_routes_2056.gpkg --out s.osm [--bbox ...]
+  python3 routes2mkgmap.py --kind wanderwege --gpkg SWISSTLM3D_WANDERWEGE.gpkg --out w.osm [--bbox W S E N]
+  python3 routes2mkgmap.py --kind wanderland|veloland|mtb --gpkg wanderland.gpkg --out r.osm [--bbox ...]
+  python3 routes2mkgmap.py --kind ski --gpkg ski_routes_2056.gpkg --out s.osm [--bbox ...]
 
 Tags: route_layer=<kind>, route_class=<Kategorie; Wanderwege: weg2|weg1|spur|strasse nach Wegtyp>, name=<Beschriftung>.
 Quellen: swisstopo (swissTLM3D Wanderwege, Skirouten), SchweizMobil/ASTRA (Wanderland, Veloland, Mountainbikeland).
@@ -11,7 +11,7 @@ Quellen: swisstopo (swissTLM3D Wanderwege, Skirouten), SchweizMobil/ASTRA (Wande
 import argparse
 import numpy as np, pyogrio, shapely
 from pyproj import Transformer
-from osm_writer import Writer
+from mkgmap_xml_writer import Writer
 
 TO_WGS = Transformer.from_crs(2056, 4326, always_xy=True)
 FROM_WGS = Transformer.from_crs(4326, 2056, always_xy=True)

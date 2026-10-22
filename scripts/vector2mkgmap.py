@@ -5,7 +5,7 @@ Die Objekte bekommen eigene Tags (tlm_layer, tlm_type, ...), die der mkgmap-Styl
 in mkgmap/vector/style/ auf Garmin-Typen abbildet. Zusaetzlich wird aus den Gebaeuden ein
 Siedlungsgebiet (tlm_layer=siedlung) abgeleitet: Union der um 14 m vergroesserten Gebaeude.
 
-  python3 vector2osm.py --shp DIR --bbox W S E N --out DIR [--tile-km 20]
+  python3 vector2mkgmap.py --shp DIR --bbox W S E N --out DIR [--tile-km 20]
 
 --bbox in WGS84. Mit --tile-km wird in Kacheln gearbeitet (Speicher); ein Objekt
 landet nur in der Kachel, in der sein Repraesentationspunkt liegt (keine Duplikate).
@@ -15,7 +15,7 @@ import numpy as np
 import pyogrio, shapely
 from shapely import transform as _t
 from pyproj import Transformer
-from osm_writer import Writer, emit_polygon
+from mkgmap_xml_writer import Writer, emit_polygon
 
 TO_WGS = Transformer.from_crs(2056, 4326, always_xy=True)
 FROM_WGS = Transformer.from_crs(4326, 2056, always_xy=True)
@@ -69,7 +69,7 @@ def emit_geom(w, g, kind, tags):
 # Varianten: edge = mit Namen (Berge mit Hoehe, Gewaesser, Fluren, Gelaende) und Grenzen, fenix = ohne Namen ausser der Hoehe an
 # Gipfeln und Paessen (kleines Display, weniger Daten)
 VARIANTS = ("edge", "fenix")
-NAMENSLOS = ("see", "fluss", "flur", "gelaende", "eo")   # Ebenen, deren Namen in der Variante fenix wegfallen
+NAMENSLOS = ("see", "fluss", "flur", "gelaende", "eo", "ort", "strasse", "halt")   # Ebenen, deren Namen in der Variante fenix wegfallen
 GRENZ_ARTEN = {"1": "Landesgrenze", "2": "Kantonsgrenze", "4": "Gemeindegrenze"}   # swissBOUNDARIES3D (3 = Bezirksgrenze, nicht verwendet)
 
 
@@ -79,7 +79,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
     counts = {}
     settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
     for suffix, kind, extra in LAYERS + (LAYERS_TREES if trees else []):
-        if variant == "fenix" and suffix in ("FLURNAME", "GELAENDENAME"):
+        if variant == "fenix" and suffix in ("FLURNAME", "GELAENDENAME", "FREIZEITAREAL"):   # Sportplaetze nur im Edge
             continue
         p = os.path.join(shp_dir, f"swissTLM3D_TLM_{suffix}.shp")
         if not os.path.exists(p):
@@ -100,6 +100,9 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             tags = {"tlm_layer": kind, "tlm_type": getattr(row, "OBJEKTART", None)}
             name = getattr(row, "NAME", None)
             name = name.strip() if isinstance(name, str) and name.strip() else None
+            if kind == "strasse" and not name:           # Strassennamen stehen in STRNAME (NAME hat nur Bruecken u. a.)
+                sn = getattr(row, "STRNAME", None)
+                name = sn.strip() if isinstance(sn, str) and sn.strip() else None
             if kind == "namepkt":                       # Gipfel, Huegel, Paesse: Edge "Name 2502", Fenix nur "2502"
                 h = getattr(row, "HOEHE", None)
                 h = str(int(round(float(h)))) if h is not None and str(h) not in ("nan", "") else None

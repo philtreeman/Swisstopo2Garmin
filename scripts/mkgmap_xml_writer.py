@@ -1,4 +1,4 @@
-"""Gemeinsame OSM-XML-Ausgabe fuer die Konverter (vector2osm.py, routes2osm.py).
+"""Gemeinsame OSM-XML-Ausgabe fuer die Konverter (vector2mkgmap.py, routes2mkgmap.py).
 
 Schreibt Knoten, Wege und Multipolygon-Relationen in drei Zwischendateien und fuegt sie am Ende
 in der von mkgmap erwarteten Reihenfolge (Knoten, Wege, Relationen) zusammen.

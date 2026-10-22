@@ -6,7 +6,7 @@
 # Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90), INTERVAL (Standard 10)
 #
 # Ablauf:
-#   1. hoehenlinien2osm.py --print-blocks   Liste der 20-km-Bloecke (LV95-Raster) mit vorhandenen 1-km-Kacheln
+#   1. hoehenlinien2mkgmap.py --print-blocks   Liste der 20-km-Bloecke (LV95-Raster) mit vorhandenen 1-km-Kacheln
 #   2. je Block (parallel, fortsetzbar): swissALTI3D-Kacheln laden (je ca. 1 MB), Hoehenlinien rechnen -> OSM -> mkgmap
 #      -> <out>/tiles/6391NNNN.img; OSM und Rohdaten werden nicht aufbewahrt
 #   3. mkgmap fuegt alle Block-Karten und die TYP-Datei (Family-ID 3917) zu <out>/swisstopo_overlay_hoehenlinien.img zusammen
@@ -19,7 +19,7 @@ STYLE="$R/mkgmap/overlays/style"; TYP="$R/mkgmap/overlays/typ/hoehenlinien.txt"
 python3 "$S/make_overlay_typ.py" >/dev/null
 mkdir -p "$OUT/osm" "$OUT/tiles"
 BB=(); [ $# -eq 4 ] && BB=(--bbox "$@")
-python3 "$S/hoehenlinien2osm.py" --tiles "$LIST" --print-blocks "${BB[@]}" > "$OUT/bloecke.txt"
+python3 "$S/hoehenlinien2mkgmap.py" --tiles "$LIST" --print-blocks "${BB[@]}" > "$OUT/bloecke.txt"
 echo "$(wc -l < "$OUT/bloecke.txt") Bloecke a 20 km"
 
 work() {  # work i j anzahl
@@ -27,7 +27,7 @@ work() {  # work i j anzahl
   name=$(printf "6391%04d" $((i*100+j)))
   [ -e "$OUT/tiles/$name.done" ] && return 0
   osm="$OUT/osm/$name.osm"
-  python3 "$S/hoehenlinien2osm.py" --tiles "$LIST" --block "$i" "$j" --out "$osm" --interval "$INTERVAL" "${BB[@]}" >/dev/null
+  python3 "$S/hoehenlinien2mkgmap.py" --tiles "$LIST" --block "$i" "$j" --out "$osm" --interval "$INTERVAL" "${BB[@]}" >/dev/null
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \

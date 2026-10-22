@@ -63,6 +63,7 @@ Type=0x0e,2
 Type=0x17,3
 Type=0x1a,3
 Type=0x19,3
+Type=0x10e07,3
 Type=0x4f,3
 Type=0x4e,3
 Type=0x51,3
@@ -85,7 +86,8 @@ parts = [
     pattern_poly("0x4e"),
     solid_poly("0x17", "Park", PARK),
     solid_poly("0x1a", "Friedhof", FRIEDHOF),
-    solid_poly("0x19", "Sport und Freizeit", SPORT),
+    solid_poly("0x19", "Freizeit", SPORT),
+    solid_poly("0x10e07", "Sportplatz", SPORTPLATZ),
     pattern_poly("0x51"),
     pattern_poly("0x52") if VARIANT == "edge" else solid_poly("0x52", "Fels", FELS_GRAU),
     pattern_poly("0x53"),
@@ -103,7 +105,7 @@ parts = [
     dash_line("0x10e01", "Weg 1 m", SCHWARZ, 5, 3, h=1),
     dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=1),
     dash_line("0x10e09", "Treppe", "#E60000", 1, 2, h=2),
-    solid_line("0x10e06", "Schutzverbauung", LAWINE, 3),
+    solid_line("0x10e06", "Schutzverbauung", LAWINE, 2),
     dash_line("0x10e0a", "Landesgrenze", GRENZE, 6, 2, h=3),
     dash_line("0x10e0b", "Kantonsgrenze", GRENZE, 3, 3, h=2),
     dash_line("0x10e0c", "Gemeindegrenze", GRENZE, 1, 3, h=1),
@@ -125,6 +127,21 @@ DayXpm="3 3 2 1"
 " 1 "
 [end]
 '''.replace('" 1 "','"212"'))
+# Ortsnamen: reiner Text (Symbol durchsichtig), schwarz mit Schriftgroesse je Ortsklasse
+for t, name, font in (("0x0c00", "Ort", "LargeFont"), ("0x0d00", "Quartier", "NormalFont"), ("0x0e00", "Quartierteil", "SmallFont")):
+    parts.append(f'''[_point]
+Type={t}
+String1=0x04,{name}
+FontStyle={font}
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"2 c none"
+"1 c #000000"
+"22"
+"22"
+[end]
+''')
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 open(OUT, "w", encoding="latin1").write(hdr + "".join(parts))
 print("geschrieben:", os.path.normpath(OUT))

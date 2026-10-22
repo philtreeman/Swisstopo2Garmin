@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """swissALTI3D (2 m, GeoTIFF) -> Hoehenlinien als OSM-XML fuer mkgmap.
 
-  python3 hoehenlinien2osm.py --tiles tiles_2m.json --print-blocks [--bbox W S E N]
-  python3 hoehenlinien2osm.py --tiles tiles_2m.json --block I J --out block.osm [--interval 10]
+  python3 hoehenlinien2mkgmap.py --tiles tiles_2m.json --print-blocks [--bbox W S E N]
+  python3 hoehenlinien2mkgmap.py --tiles tiles_2m.json --block I J --out block.osm [--interval 10]
 
 Die 1-km-Kacheln werden zu 20-km-Bloecken im LV95-Raster zusammengefasst (gleicher Ursprung wie
 SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 10 m) mit contourpy berechnet,
@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 import numpy as np, rasterio, contourpy, shapely
 from rasterio.io import MemoryFile
 from pyproj import Transformer
-from osm_writer import Writer
+from mkgmap_xml_writer import Writer
 
 GRID_X0, GRID_Y0, BLOCK = 2480000, 1070000, 20000
 TO_WGS = Transformer.from_crs(2056, 4326, always_xy=True)

@@ -9,7 +9,7 @@
 # Umgebungsvariablen: KACHEL_KM (Standard 20), JOBS (parallele Kacheln, Standard 3), SPLIT_MB (Standard 90)
 #
 # Ablauf:
-#   1. vector2osm.py --print-grid     Kachelliste im LV95-Raster (Standard 20 x 20 km)
+#   1. vector2mkgmap.py --print-grid     Kachelliste im LV95-Raster (Standard 20 x 20 km)
 #   2. je Kachel (parallel, fortsetzbar): swissTLM3D -> OSM-XML -> mkgmap -> <out>/tiles/<Praefix>NNNN.img;
 #      das OSM wird danach geloescht (die ganze Schweiz waeren ca. 14 GB)
 #   3. mkgmap fuegt alle Kachel-Karten und die TYP-Datei zu <out>/swisstopo_vector_<variante>_schweiz.img (Family-ID 3900/3901, Name im
@@ -36,7 +36,7 @@ mkdir -p "$OUT/osm" "$OUT/tiles"
 
 BB=(); NAME=swisstopo_vector_${VARIANT}_schweiz
 [ $# -eq 4 ] && { BB=(--bbox "$@"); NAME=swisstopo_vector_${VARIANT}_region; }
-python3 "$S/vector2osm.py" --print-grid "$KM" "${BB[@]}" > "$OUT/kacheln.txt"
+python3 "$S/vector2mkgmap.py" --print-grid "$KM" "${BB[@]}" > "$OUT/kacheln.txt"
 echo "$(wc -l < "$OUT/kacheln.txt") Kacheln a $KM km"
 
 work() {  # work i j x0 y0 x1 y1
@@ -44,7 +44,7 @@ work() {  # work i j x0 y0 x1 y1
   name=$(printf "%s%04d" "$PFX" $((i*100+j)))              # eindeutiger 8-stelliger Mapname
   [ -e "$OUT/tiles/$name.done" ] && return 0           # fortsetzen: fertige Kacheln ueberspringen
   osm="$OUT/osm/$name.osm"
-  python3 "$S/vector2osm.py" --shp "$SHP" --lv95-tile "$3" "$4" "$5" "$6" --out-file "$osm" --variant "$VARIANT" $TREES_FLAG $GR_FLAG >/dev/null 2>&1
+  python3 "$S/vector2mkgmap.py" --shp "$SHP" --lv95-tile "$3" "$4" "$5" "$6" --out-file "$osm" --variant "$VARIANT" $TREES_FLAG $GR_FLAG >/dev/null 2>&1
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \

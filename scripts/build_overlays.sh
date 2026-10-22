@@ -12,7 +12,7 @@
 #   [W S E N]       optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz in 2x2 Kacheln
 #
 # Ablauf:
-#   1. routes2osm.py   GeoPackage (LV95) -> OSM-XML (eigene Tags route_layer/route_class/name), je Kachel
+#   1. routes2mkgmap.py   GeoPackage (LV95) -> OSM-XML (eigene Tags route_layer/route_class/name), je Kachel
 #   2. make_overlay_typ.py  schreibt je Karte eine TYP-Datei (Farben, Linienbreiten, Muster)
 #   3. mkgmap          OSM + mkgmap/overlays/style + TYP -> gmapsupp.img, kopiert nach <out>/swisstopo_overlay_<name>.img
 # Zwischenstaende (<out>/osm/*.osm) werden wiederverwendet; zum Neuberechnen loeschen.
@@ -30,7 +30,7 @@ mkdir -p "$OUT/osm"
 conv() {  # conv <kind> <geopackage>
   local i=0
   for t in "${TILES[@]}"; do
-    [ -s "$OUT/osm/$1_$i.osm" ] || python3 "$S/routes2osm.py" --kind "$1" --gpkg "$D/$2" --out "$OUT/osm/$1_$i.osm" --bbox $t
+    [ -s "$OUT/osm/$1_$i.osm" ] || python3 "$S/routes2mkgmap.py" --kind "$1" --gpkg "$D/$2" --out "$OUT/osm/$1_$i.osm" --bbox $t
     i=$((i+1))
   done
 }

@@ -25,7 +25,7 @@ Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), *
 
 ## Technische Fallstricke
 Siehe README, Abschnitt «Technische Fallstricke (mkgmap)». Zusätzlich:
-- Skripte im Repo **nicht** mit `python3 -I` starten (der isolierte Modus findet `osm_writer.py` nicht). Heruntergeladene Daten nur lesen, nie als Python-Code ausführen.
+- Skripte im Repo **nicht** mit `python3 -I` starten (der isolierte Modus findet `mkgmap_xml_writer.py` nicht). Heruntergeladene Daten nur lesen, nie als Python-Code ausführen.
 - Die Cloud-Umgebung blockiert unbekannte Hosts. Freigegeben werden mussten `wmts.geo.admin.ch`, `data.geo.admin.ch`, `www.mkgmap.org.uk`, `viewfinderpanoramas.org` (Netzwerkzugriff → «Benutzerdefiniert»). «Zugangsdaten hinzufügen» ist der falsche Dialog.
 - Dateien an den Nutzer im Chat: höchstens 30 MiB je Datei.
 - `.gitignore` schliesst `*.img` aus, mit Ausnahme `karten/**/*.img`. `out/` ist lokal in `.git/info/exclude`.

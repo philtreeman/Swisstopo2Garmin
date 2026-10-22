@@ -14,6 +14,7 @@ Type=0x0e,2
 Type=0x17,3
 Type=0x1a,3
 Type=0x19,3
+Type=0x10e07,3
 Type=0x4f,3
 Type=0x4e,3
 Type=0x51,3
@@ -146,9 +147,15 @@ Xpm="0 0 1 0"
 [end]
 [_polygon]
 Type=0x19
-String1=0x04,Sport und Freizeit
+String1=0x04,Freizeit
 Xpm="0 0 1 0"
 "1 c #B4DC84"
+[end]
+[_polygon]
+Type=0x10e07
+String1=0x04,Sportplatz
+Xpm="0 0 1 0"
+"1 c #FFCE62"
 [end]
 [_polygon]
 Type=0x51
@@ -326,7 +333,7 @@ Xpm="32 2 2 1"
 [_line]
 Type=0x10e06
 String1=0x04,Schutzverbauung
-LineWidth=3
+LineWidth=2
 Xpm="0 0 1 0"
 "1 c #734400"
 [end]
@@ -406,4 +413,40 @@ DayXpm="3 3 2 1"
 "212"
 "111"
 "212"
+[end]
+[_point]
+Type=0x0c00
+String1=0x04,Ort
+FontStyle=LargeFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"2 c none"
+"1 c #000000"
+"22"
+"22"
+[end]
+[_point]
+Type=0x0d00
+String1=0x04,Quartier
+FontStyle=NormalFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"2 c none"
+"1 c #000000"
+"22"
+"22"
+[end]
+[_point]
+Type=0x0e00
+String1=0x04,Quartierteil
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"2 c none"
+"1 c #000000"
+"22"
+"22"
 [end]

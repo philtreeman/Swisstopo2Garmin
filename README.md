@@ -60,14 +60,14 @@ AGENTS.md                      Kontext für KI-Assistenten (Ziel, Entscheide, St
 scripts/                       alle Skripte
   download_daten.sh              lädt die Overlay-Datensätze von data.geo.admin.ch
   build_overlays.sh              baut die 6 Overlay-.img (Hauptskript, siehe unten)
-  routes2osm.py                  GeoPackage → OSM-XML für die Routen-Overlays
+  routes2mkgmap.py                  GeoPackage → OSM-XML für die Routen-Overlays
   make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
-  osm_writer.py                  gemeinsame OSM-XML-Ausgabe
+  mkgmap_xml_writer.py                  gemeinsame OSM-XML-Ausgabe
   build_hoehenlinien.sh          baut das Höhenlinien-Overlay (10 m) aus swissALTI3D
-  hoehenlinien2osm.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
+  hoehenlinien2mkgmap.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
   swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
-  vector2osm.py                  swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
+  vector2mkgmap.py                  swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
   make_vector_typ.py             schreibt die TYP-Datei (Farben, Muster, Linien)
   vector_palette.py              Farben von SwissTOPO Vector (aus Edge-1040-Bildschirmfotos)
   preview_vector.py              Vorschau-Zeichnung von SwissTOPO Vector
@@ -99,7 +99,7 @@ Ergebnis: `out/swisstopo_overlay_*.img`. Die ganze Schweiz braucht einige Minute
 Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 
 1. **Kacheln festlegen.** Mit Bounding Box eine Kachel, sonst die Schweiz in 2 × 2 Kacheln, damit der Speicher reicht.
-2. **Konvertieren** (`routes2osm.py`). Liest je Ebene das GeoPackage, schneidet die Linien auf die Kachel zu, vereinfacht sie (2 m) und schreibt OSM-XML mit den Tags `route_layer` (wanderwege, wanderland, veloland, mtb, ski), `route_class` (z. B. national/regional/lokal, Wanderweg/Berg/Alpin, SAC-Klasse 1–4) und `name`. Hin- und Rückweg identischer SchweizMobil-Routen werden nur einmal geschrieben.
+2. **Konvertieren** (`routes2mkgmap.py`). Liest je Ebene das GeoPackage, schneidet die Linien auf die Kachel zu, vereinfacht sie (2 m) und schreibt OSM-XML mit den Tags `route_layer` (wanderwege, wanderland, veloland, mtb, ski), `route_class` (z. B. national/regional/lokal, Wanderweg/Berg/Alpin, SAC-Klasse 1–4) und `name`. Hin- und Rückweg identischer SchweizMobil-Routen werden nur einmal geschrieben.
 3. **TYP-Dateien schreiben** (`make_overlay_typ.py`). Pro Overlay eine TYP-Datei mit eigener Family-ID: Farben, Linienbreiten, Strichmuster.
 4. **mkgmap aufrufen**, einmal je Overlay. mkgmap liest die OSM-Dateien, ordnet über `mkgmap/overlays/style/lines` jedem Tag-Satz einen Garmin-Linientyp zu und verpackt alles mit der TYP-Datei in eine `gmapsupp.img`. Der Name im Gerätemenü kommt aus `--description`.
 5. **Umbenennen** nach `swisstopo_overlay_<name>.img` im Ausgabeordner.

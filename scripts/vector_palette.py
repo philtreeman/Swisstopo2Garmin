@@ -21,3 +21,4 @@ LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
 BAUM = "#83B200"         # Einzelbaeume (Punkt)
 GRENZE = "#BD008B"        # Landes-, Kantons-, Gemeindegrenzen (magenta, wie auf der Garmin-Karte)
 FELS_GRAU = "#D0D0D0"    # Fels ohne Textur (Variante Fenix)
+SPORTPLATZ = "#FFCE62"     # Sportplaetze (orange, wie auf der Garmin-Karte)
