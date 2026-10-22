@@ -1,6 +1,6 @@
 # AGENTS.md – Projektkontext für KI-Assistenten
 
-Stand: 2026-10-16. Sprache des Nutzers: Deutsch (Schweiz). Das README beschreibt Bedienung und Technik; diese Datei hält Ziel, Entscheide und offene Punkte fest. Nicht wiederholen, was schon im README steht.
+Stand: 2026-10-22. Sprache des Nutzers: Deutsch (Schweiz). Das README beschreibt Bedienung und Technik; diese Datei hält Ziel, Entscheide und offene Punkte fest. Nicht wiederholen, was schon im README steht.
 
 ## Ziel
 Offene swisstopo-/SchweizMobil-Daten als **Vektor-Overlays für die Garmin Fenix 5S Plus** (`.img`, je Ebene eine eigene Karte): Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten. Die Farben hat der Nutzer festgelegt: Wanderwege nach Kategorie (gelb/rot/blau gestrichelt), Wanderland gelb, Veloland hellblau, Mountainbike orange, Skirouten in zwei Versionen (blau durchgezogen wie auf der Rasterkarte, und nach SAC-Schwierigkeit). **Jede Ebene muss eine eigene `.img` sein.**
@@ -14,7 +14,9 @@ Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), *
 - **Edge 1040: geprüft.** Skirouten, Wanderwege und Fahrradrouten als Overlays funktionieren, mehrere `.img` nebeneinander werden geladen (Rückmeldung des Nutzers vom 2026-10-16; welche Fahrradkarte genau, nicht festgehalten).
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` (mögliche Lösung: alle Overlays in eine `gmapsupp.img` bündeln; mkgmap kann mehrere Karten pro Datei), Lesbarkeit der Linien auf dem kleinen Display, einzelnes Schalten der Overlays.
 - Das **Höhenlinien-Overlay (10 m Äquidistanz, swissALTI3D 2 m) ist für die ganze Schweiz gebaut** (`karten/overlay_hoehenlinien_schweiz/`, 167 MB in 2 Teilen, Family-ID 3917) und auf keinem Gerät geprüft. Skript: `scripts/build_hoehenlinien.sh` (ca. 40 Minuten, rund 45 GB Download).
-- **SwissTOPO Vector** (`swisstopo_vector_schweiz.img`, 201 MB in 3 Teilen, Family-ID 3900) ist für die ganze Schweiz gebaut (`karten/swisstopo_vector_schweiz/`) und **auf keinem Gerät geprüft**. Der Stil stammt aus 11 Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040, die der Nutzer geschickt hat (Farben in `scripts/vector_palette.py`). Offen: Einzelbäume, Felsbänder, Grenzen, Schriftstil.
+- **SwissTOPO Vector in zwei Varianten** (ganze Schweiz, gebaut am 2026-10-22, `karten/swisstopo_vector_{edge,fenix}_schweiz/`, je 3 Teile): **Edge** (272 MB, Family-ID 3900: Fels mit Textur, Orts-/Strassen-/Gewässer-/Flur-/Geländenamen, Berge mit Höhe, Grenzen, Schilder der Nationalstrassen und Hauptstrassen, Sportplätze orange) und **Fenix** (267 MB, 3901: Fels einfach grau, nur Höhen an Gipfeln und Pässen, keine Grenzen/Schilder/Sportplätze). Beide mit Einzelbäumen, Schutzverbauungen (2 px braun), Treppen (rot gepunktet), Reben (orange Blitzstriche), Tunnel (graue Punktreihen), Brücken (schwarzer Rand), Wege dunkelgrau 2 px. Stil aus Bildschirmfotos der Garmin-Karte auf dem Edge 1040; Fels- und Reben-Kacheln wurden mit `scripts/extract_pattern.py` aus diesen Fotos ausgelesen (Nutzer: persönlicher Gebrauch, besitzt die Garmin-Lizenz, Repo privat). **Auf keinem Gerät geprüft** (der Nutzer sah nur eine frühere Fassung auf dem Edge, sie lud).
+- **Haltestellen-Overlay** (`swisstopo_overlay_haltestellen.img`, 3918, 28'042 Haltestellen) ist ein eigener Layer, nicht mehr in der Basiskarte. Ungeprüft.
+- Alle Daten stammen aus swisstopo, SchweizMobil/ASTRA (Schilder, Routen); das «OSM» in früheren Skriptnamen war nur das XML-Zwischenformat für mkgmap, die Skripte heissen jetzt `*2mkgmap.py`. OpenStreetMap wird nirgends verwendet.
 - Vorschau-PNGs sind eigene Zeichnungen mit denselben Farben und **kein Rendering** vom Gerät; so auch benennen.
 
 ## Entscheide und verworfene Wege (Details in der Git-History)
@@ -35,7 +37,9 @@ Siehe README, Abschnitt «Technische Fallstricke (mkgmap)». Zusätzlich:
 1. Rückmeldung des Nutzers zur Fenix 5S Plus abwarten (Laden mehrerer `.img`, Lesbarkeit). Bei Problemen Overlays bündeln oder Wanderwege ausdünnen (`resolution` in `mkgmap/overlays/style/lines`).
 2. Skirouten blau: Nutzer schrieb «blaudurchegzigen»; gelesen als «blau durchgezogen» (an der Rasterkarte geprüft). Bei Zweifel nachfragen.
 3. Optional: Hangneigung (> 30°) aus swissALTI3D (Daten und Skript für die Höhenlinien sind vorhanden), Wildruhezonen (BAFU, nicht geprüft).
-4. SwissTOPO Vector auf einem Gerät prüfen (Edge 1040 oder Fenix 5S Plus): Laden, Lesbarkeit, Vergleich mit der Garmin-Karte (Wald, Fels, Gebäude, Siedlung), Speicherbedarf (201 MB), Reaktionszeit beim Zoomen.
+4. Beide Vektorkarten auf dem Gerät prüfen: Laden, Lesbarkeit, Ortsnamen und Strassennamen (ob das Gerät die als Text definierten Punkte zeigt), Schilder, Tunnel, Speicherbedarf (rund 270 MB je Karte), Reaktionszeit beim Zoomen, ab welchem Massstab die feinste Ebene (Bäume, Schutzverbauungen, Treppen) beginnt.
+5. **POI-Layer aus OpenStreetMap** (Restaurants, Cafés, Parkplätze, Toiletten, Museen, Schulen, Geschäfte): vom Nutzer gewünscht, **noch nicht gebaut**. Braucht die Freigabe von `download.geofabrik.de` (Netzwerkzugriff → «Benutzerdefiniert»); Plan: Geofabrik-Auszug Schweiz, als eigene Karte (eigene Family-ID), ODbL-Namensnennung.
+6. Offen aus Nutzerwünschen: Parkplatz-Symbol «P» aus VERKEHRSAREAL, Galerien, Kantonsstrassen-Schilder (nicht in den ASTRA-Daten), Repo-Grösse (jede Kartenversion +ca. 270 MB; bei Wachstum Releases oder LFS).
 
 ## Kommunikationsvorgaben des Nutzers
 Direkte, kritische Beratung auf Deutsch: unbequeme Wahrheit zuerst, keine Floskeln («Absolut», «Du hast völlig recht»), Aussagen mit **[Sicher]**, **[Wahrscheinlich]**, **[Vermutung]** kennzeichnen, bei Widerspruch begründen (Grund, Alternative, Risiko), bei unveränderter Faktenlage nicht einknicken. Ungeprüftes (Verhalten am Gerät) ausdrücklich als ungeprüft markieren.

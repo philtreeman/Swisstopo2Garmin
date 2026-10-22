@@ -2,7 +2,7 @@
 
 Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img`):
 
-- **SwissTOPO Vector** (`swisstopo_vector_schweiz.img`): die Basiskarte der ganzen Schweiz aus swissTLM3D. Im Gerätemenü heisst sie «SwissTOPO Vector».
+- **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit mehr Namen, Grenzen und Schildern; Fenix reduziert).
 - **Höhenlinien** (10 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
 
 **Teststand:**
@@ -34,7 +34,8 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | Ordner | Inhalt | Grösse |
 |---|---|---|
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m, ganze Schweiz, in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 167 MB |
-| `karten/swisstopo_vector_schweiz/` | **SwissTOPO Vector**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) plus `vorschau_baden.png` | 201 MB |
+| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 272 MB |
+| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 267 MB |
 | `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 
@@ -134,31 +135,45 @@ scripts/build_hoehenlinien.sh tiles_2m.json mkgmap.jar out/ 8.24 47.44 8.38 47.5
 ```
 Ablauf: 20-km-Blöcke im LV95-Raster → je Block parallel (3 Prozesse) die 1-km-Kacheln laden (ca. 1 MB je Kachel, die ganze Schweiz sind rund 45 GB Download, nichts davon wird gespeichert), mit `contourpy` Linien im Abstand von 10 m berechnen, mit 2,5 m vereinfachen, als OSM-XML schreiben, mit mkgmap zur Block-Karte bauen, am Ende alle Blöcke und die TYP-Datei zusammenführen. Dauer für die ganze Schweiz: etwa 40 Minuten. Fortsetzbar. Die Linien liegen im Typ `0x20` (10 m), `0x21` (50 m), `0x22` (100 m); Farben und Breiten stehen in `scripts/make_overlay_typ.py`, Sichtbarkeit je Zoom in `mkgmap/overlays/style/lines`.
 
-## SwissTOPO Vector (`swisstopo_vector_schweiz.img`)
-Die Vektorkarte der ganzen Schweiz aus swissTLM3D (201 MB, Family-ID 3900, Name im Gerätemenü **«SwissTOPO Vector»**). Die Darstellung ist an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen: cremefarbener Untergrund, kräftig grüner Wald, graue Gebäude auf grauem Siedlungsgebiet, weisse Strassen mit grauem Rand, dunkelgrau gestrichelte Pfade, hellblaue Gewässer, Geröll und Fels als graue Muster. **Auf keinem Gerät geprüft.** Die fertige Karte liegt in `karten/swisstopo_vector_schweiz/` (drei Teile wegen der GitHub-Grenze von 100 MB; Anleitung im Ordner).
+## SwissTOPO Vector, zwei Varianten (Family-ID 3900 und 3901)
+Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in drei Teilen wegen der GitHub-Grenze von 100 MB. Die Darstellung ist an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen; die Flächenmuster für Fels und Reben sind aus diesen Fotos ausgelesen (`scripts/extract_pattern.py`, persönlicher Gebrauch, das Repo ist privat). **Auf keinem Gerät geprüft** (der Nutzer hat nur eine frühere Fassung auf dem Edge 1040 gesehen, sie lud).
+
+| | **SwissTOPO Vector Edge** (3900) | **SwissTOPO Vector Fenix** (3901) |
+|---|---|---|
+| Ordner | `karten/swisstopo_vector_edge_schweiz/` (272 MB) | `karten/swisstopo_vector_fenix_schweiz/` (267 MB) |
+| Fels | graue Fläche mit Textur | einfach grau |
+| Namen | Orts-, Strassen-, Gewässer-, Flur-, Geländenamen, Berge mit Höhe («Säntis 2502») | nur die Höhe an Gipfeln und Pässen |
+| Grenzen (swissBOUNDARIES3D) | Landes-, Kantons-, Gemeindegrenzen, magenta | keine |
+| Strassenschilder (ASTRA) | Nationalstrassen N1 … N29 und 56 Hauptstrassennummern | keine |
+| Sportplätze, Freizeitflächen | ja (Sportplätze orange) | nein |
+
+Gemeinsam: Einzelbäume, Schutzverbauungen und Treppen (rot gepunktet) nur in der feinsten Zoomstufe; Reben (orange Blitzstriche auf hellgrün); Tunnel als zwei graue Punktreihen an den Rändern (wie auf der Garmin-Karte); Brücken als Strasse mit schwarzem Rand; Wege 2 px in Dunkelgrau `#414041` nach swisstopo-Legende (2-m-Weg durchgezogen, 1-m-Weg gestrichelt, markierte Spur punktiert); Schutzverbauungen braun, 2 px.
 
 | Element | Darstellung |
 |---|---|
 | Untergrund | creme `#FFFAE6` |
 | Siedlungsgebiet | hellgrau `#EEEEEE`, **abgeleitet** aus den Gebäuden (jedes Gebäude 14 m vergrössert, vereinigt, Gruppen unter 8'000 m² verworfen) |
 | Gebäude | grau `#8B898B` |
-| Wald / Gehölz / Reben, Obst | grün `#A4D26A` / hellgrünes Punktmuster / hellgrünes Gittermuster |
-| Fels / Geröll | graue Textur / helle Fläche mit dunklen Punkten |
+| Wald / Gehölz | grün `#A4D26A` / hellgrünes Punktmuster |
 | Gewässer | See hellblau, Bäche und Flüsse `#52BAF6` |
 | Strassen | Autobahn orange, Hauptstrasse gelb, übrige weiss mit grauem Rand, Naturstrassen hellgelb |
-| Pfade | schwarz nach swisstopo-Legende: 2-m-Weg durchgezogen, 1-m-Weg gestrichelt, markierte Spur punktiert |
+
+Haltestellen sind **nicht** in der Basiskarte, sondern ein eigener Layer: `karten/overlays_schweiz/swisstopo_overlay_haltestellen.img` (Family-ID 3918, 28'042 Haltestellen aus swissTLM3D mit Namen und Symbolen für Bus, Bahn, Schiff, übrige Bahnen). Gebaut mit `scripts/build_haltestellen.sh <shp-ordner> mkgmap.jar out/`.
 
 ```
-scripts/build_vector.sh <shp-ordner> mkgmap.jar out/                      # ganze Schweiz → swisstopo_vector_schweiz.img
-scripts/build_vector.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51   # Region → swisstopo_vector_region.img
+# ganze Schweiz, Edge (Grenzen und Schilder brauchen die Zusatzdaten, siehe unten)
+VARIANT=edge GRENZEN=<gpkg> ACHSEN=<gdb> HAUPT=<gdb> scripts/build_vector.sh <shp-ordner> mkgmap.jar out/
+VARIANT=fenix scripts/build_vector.sh <shp-ordner> mkgmap.jar out/
+scripts/build_vector.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51   # Region (Datei *_region.img)
+scripts/download_vector_zusatz.sh <ordner>    # swissBOUNDARIES3D, ASTRA Nationalstrassenachsen und Hauptstrassennetz
 ```
-Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen im Ordner `<shp-ordner>` entpackt liegen (`swissTLM3D_TLM_*.shp`; gebraucht werden Strassen, Bodenbedeckung, Gewässer, Bahn, Gebäude-Footprints, Namen, Areale, Freizeitareale).
+Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen entpackt im `<shp-ordner>` liegen (`swissTLM3D_TLM_*.shp`).
 
-Ablauf: Kachelliste im LV95-Raster (20 × 20 km) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML (mit Siedlungsgebiet) → mkgmap → Kachel-`.img` (das OSM wird gelöscht, die ganze Schweiz wären über 14 GB) → mkgmap fügt alle Kacheln und die TYP-Datei zu einer Datei zusammen. Fertige Kacheln werden bei einem erneuten Aufruf übersprungen. Dauer für die ganze Schweiz: etwa 40 Minuten mit 4 Kernen und 15 GB RAM. Ist das Ergebnis über 90 MB, entstehen zusätzlich Teile `*.img.part_aa, _ab, …`.
+Ablauf: Kachelliste im LV95-Raster (20 × 20 km, 234 Kacheln) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML (das ist nur das Zwischenformat für mkgmap, keine OpenStreetMap-Daten; es werden keine OSM-Daten verwendet) → mkgmap → Kachel-`.img` → mkgmap fügt alle Kacheln und die TYP-Datei zusammen. Fertige Kacheln werden übersprungen. Dauer je Variante etwa 45 bis 60 Minuten mit 4 Kernen und 15 GB RAM. Ist das Ergebnis über 90 MB, entstehen Teile `*.img.part_aa, _ab, …`.
 
-**Farben und Muster ändern:** `scripts/vector_palette.py` (Farben) und `scripts/make_vector_typ.py` (Muster, Linienbreiten). Zuordnung Objektart → Typ: `mkgmap/vector/style/`. Vorschau: `python3 scripts/preview_vector.py <shp-ordner> out.png [lon lat [breite_m]]`.
+**Farben und Muster ändern:** `scripts/vector_palette.py` (Farben), `scripts/vector_pattern_tiles.py` und `scripts/vector_patterns.py` (Flächenmuster), `scripts/vector_shields.py` (Strassenschilder), `scripts/make_vector_typ.py [edge|fenix]` (Linien, Punkte, Reihenfolge). Zuordnung Objektart → Typ: `mkgmap/vector/style/`. Zeichnungen zum Vergleich mit der Rasterkarte: `scripts/compare_vector.py`, Ergebnisse in `docs/vergleich/` (eigene Zeichnungen, **kein** Geräte-Rendering).
 
-**Noch nicht umgesetzt:** Einzelbäume (grüne Punkte, würden die Datei stark vergrössern), Felsbänder, Gemeinde- und Schutzgebietsgrenzen, Schriftstil. Höhenlinien kommen aus dem eigenen Overlay.
+**Noch nicht umgesetzt:** POIs wie Restaurants, Parkplatzsymbole, Museen (nicht in swisstopo-Daten; als eigene Karte aus OpenStreetMap geplant, braucht Freigabe von `download.geofabrik.de`), Brücken mit Geländer, Galerien, Strassennummern-Schild für Kantonsstrassen, Felsschraffur wie auf der Rasterkarte (nicht als Vektordaten vorhanden).
 
 ## Weitere Anleitungen
 - [Populäre Trails finden: Strava-Heatmap in Gaia und Route auf den Edge](docs/anleitung_strava_heatmap_gaia.md) (nicht getestet, kein Teil der Pipeline)
