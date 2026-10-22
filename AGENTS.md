@@ -5,7 +5,7 @@ Stand: 2026-10-16. Sprache des Nutzers: Deutsch (Schweiz). Das README beschreibt
 ## Ziel
 Offene swisstopo-/SchweizMobil-Daten als **Vektor-Overlays für die Garmin Fenix 5S Plus** (`.img`, je Ebene eine eigene Karte): Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten. Die Farben hat der Nutzer festgelegt: Wanderwege nach Kategorie (gelb/rot/blau gestrichelt), Wanderland gelb, Veloland hellblau, Mountainbike orange, Skirouten in zwei Versionen (blau durchgezogen wie auf der Rasterkarte, und nach SAC-Schwierigkeit). **Jede Ebene muss eine eigene `.img` sein.**
 
-Der Nutzer hat ausserdem Wunsch nach einer aktuellen Vektor-Basiskarte im Stil der swisstopo-Landeskarte (`scripts/build_basiskarte.sh`, ganze Schweiz gebaut, ohne Höhenlinien). Das Repo bleibt **privat**; die Datenlizenzen stehen im STAC als «proprietary».
+Der Nutzer hat ausserdem Wunsch nach einer aktuellen Vektor-Basiskarte im Stil der swisstopo-Landeskarte (**SwissTOPO Vector**, `scripts/build_vector.sh`, ganze Schweiz gebaut; die Höhenlinien sind ein eigenes Overlay). Das Repo bleibt **privat**; die Datenlizenzen stehen im STAC als «proprietary».
 
 Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), **Fenix 5S Plus** (Vektor-IMG, OpenTopoMap installiert; Test der Overlays offen), Forerunner 935 (keine Karten).
 
@@ -14,7 +14,7 @@ Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), *
 - **Edge 1040: geprüft.** Skirouten, Wanderwege und Fahrradrouten als Overlays funktionieren, mehrere `.img` nebeneinander werden geladen (Rückmeldung des Nutzers vom 2026-10-16; welche Fahrradkarte genau, nicht festgehalten).
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` (mögliche Lösung: alle Overlays in eine `gmapsupp.img` bündeln; mkgmap kann mehrere Karten pro Datei), Lesbarkeit der Linien auf dem kleinen Display, einzelnes Schalten der Overlays.
 - Das **Höhenlinien-Overlay (10 m Äquidistanz, swissALTI3D 2 m) ist für die ganze Schweiz gebaut** (`karten/overlay_hoehenlinien_schweiz/`, 167 MB in 2 Teilen, Family-ID 3917) und auf keinem Gerät geprüft. Skript: `scripts/build_hoehenlinien.sh` (ca. 40 Minuten, rund 45 GB Download).
-- Die **Basiskarte für die ganze Schweiz ist gebaut** (`karten/basiskarte_schweiz/`, 190 MB in 3 Teilen wegen der GitHub-Grenze von 100 MB je Datei, SHA-256 liegt bei) und **auf keinem Gerät geprüft**. Offen: Geländeschummerung, Baum-/Rebpunkte, Schriftstil. Höhenlinien kommen aus dem eigenen Overlay (swissTLM3D hat keine).
+- **SwissTOPO Vector** (`swisstopo_vector_schweiz.img`, 201 MB in 3 Teilen, Family-ID 3900) ist für die ganze Schweiz gebaut (`karten/swisstopo_vector_schweiz/`) und **auf keinem Gerät geprüft**. Der Stil stammt aus 11 Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040, die der Nutzer geschickt hat (Farben in `scripts/vector_palette.py`). Offen: Einzelbäume, Felsbänder, Grenzen, Schriftstil.
 - Vorschau-PNGs sind eigene Zeichnungen mit denselben Farben und **kein Rendering** vom Gerät; so auch benennen.
 
 ## Entscheide und verworfene Wege (Details in der Git-History)
@@ -35,7 +35,7 @@ Siehe README, Abschnitt «Technische Fallstricke (mkgmap)». Zusätzlich:
 1. Rückmeldung des Nutzers zur Fenix 5S Plus abwarten (Laden mehrerer `.img`, Lesbarkeit). Bei Problemen Overlays bündeln oder Wanderwege ausdünnen (`resolution` in `mkgmap/overlays/style/lines`).
 2. Skirouten blau: Nutzer schrieb «blaudurchegzigen»; gelesen als «blau durchgezogen» (an der Rasterkarte geprüft). Bei Zweifel nachfragen.
 3. Optional: Hangneigung (> 30°) aus swissALTI3D (Daten und Skript für die Höhenlinien sind vorhanden), Wildruhezonen (BAFU, nicht geprüft).
-4. Basiskarte auf einem Gerät prüfen (Edge 1040 oder Fenix 5S Plus): Laden, Lesbarkeit, Darstellung von Wald/Fels/Gebäuden, Speicherbedarf (190 MB).
+4. SwissTOPO Vector auf einem Gerät prüfen (Edge 1040 oder Fenix 5S Plus): Laden, Lesbarkeit, Vergleich mit der Garmin-Karte (Wald, Fels, Gebäude, Siedlung), Speicherbedarf (201 MB), Reaktionszeit beim Zoomen.
 
 ## Kommunikationsvorgaben des Nutzers
 Direkte, kritische Beratung auf Deutsch: unbequeme Wahrheit zuerst, keine Floskeln («Absolut», «Du hast völlig recht»), Aussagen mit **[Sicher]**, **[Wahrscheinlich]**, **[Vermutung]** kennzeichnen, bei Widerspruch begründen (Grund, Alternative, Risiko), bei unveränderter Faktenlage nicht einknicken. Ungeprüftes (Verhalten am Gerät) ausdrücklich als ungeprüft markieren.
