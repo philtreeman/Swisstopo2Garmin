@@ -96,11 +96,56 @@ def schilder(quelle, layer, feld, praefix, box, nur=None):
     return out
 
 
+def clip_to_box(g, box):
+    """Geometrie auf die Kachel zuschneiden (Flaechen bleiben Flaechen, Linien bleiben Linien). Jedes Objekt, das mehrere Kacheln
+    beruehrt, wird in jede dieser Kacheln geschrieben, damit sich die Kartenkacheln nicht ueberlappen: das Geraet zeichnet in
+    ueberlappenden Bereichen nur eine Kachel, sonst fehlen z. B. Waelder an den Kachelraendern."""
+    if g.geom_type in ("Polygon", "MultiPolygon") and not g.is_valid:
+        g = shapely.make_valid(g)
+    c = shapely.intersection(g, box)
+    if c.is_empty:
+        return None
+    want = ("Polygon",) if g.geom_type in ("Polygon", "MultiPolygon") else ("LineString",)
+    parts = [q for q in shapely.get_parts(c) if q.geom_type in want and not q.is_empty]
+    if not parts:
+        return None
+    if want == ("Polygon",):
+        return parts[0] if len(parts) == 1 else shapely.MultiPolygon(parts)
+    return parts[0] if len(parts) == 1 else shapely.MultiLineString(parts)
+
+
+BUE_HALB = 4.0   # m: halbe Laenge des roten Balkens an einem Bahnuebergang
+
+
+def bahnuebergaenge(strassen, bahnen):
+    """Kreuzungen von Strassen und Bahnlinien auf gleicher Hoehe -> kurze Linien (8 m) entlang der Strasse"""
+    out = []
+    if len(strassen) == 0 or len(bahnen) == 0:
+        return out
+    tree = shapely.STRtree(strassen)
+    for rail in bahnen:
+        for i in tree.query(rail, predicate="intersects"):
+            road = strassen[i]
+            pts = shapely.get_parts(shapely.intersection(road, rail))
+            for p in pts:
+                if p.geom_type != "Point":
+                    continue
+                d = road.project(p)
+                if d <= 0 or d >= road.length:
+                    continue
+                a, b = road.interpolate(max(d - BUE_HALB, 0)), road.interpolate(min(d + BUE_HALB, road.length))
+                if a.distance(b) > 1:
+                    out.append(shapely.LineString([a, p, b]))
+    return out
+
+
 def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edge", grenzen=None, achsen=None, haupt=None):
     w = Writer(out_path)
     x0, y0, x1, y1 = bb_lv95
     counts = {}
     settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
+    tbox = shapely.box(x0, y0, x1, y1)
+    gl_strassen, gl_bahnen = [], []   # Strassen und Bahnen auf Bodenhoehe fuer die Bahnuebergaenge
     for suffix, kind, extra in LAYERS + (LAYERS_TREES if trees else []):
         if variant == "fenix" and suffix in ("FLURNAME", "GELAENDENAME", "FREIZEITAREAL"):   # Sportplaetze nur im Edge
             continue
@@ -117,9 +162,17 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             g = shapely.force_2d(g)
             if kind == "gebaeude" and getattr(row, "OBJEKTART", None) != "Unterirdisches Gebaeude":
                 settle.append(g)
-            rp = g.representative_point()
-            if not (x0 <= rp.x < x1 and y0 <= rp.y < y1):
-                continue  # gehoert zur Nachbarkachel
+            if kind in ("strasse", "bahn") and str(getattr(row, "STUFE", "0")) == "0" and getattr(row, "KUNSTBAUTE", "Keine") in ("Keine", "k_W", "Furt") \
+                    and getattr(row, "OBJEKTART", "") not in ("Autobahn", "Autostrasse"):
+                (gl_strassen if kind == "strasse" else gl_bahnen).append(g)
+            if kind in POINT_KINDS or g.geom_type == "Point":
+                rp = g.representative_point()
+                if not (x0 <= rp.x < x1 and y0 <= rp.y < y1):
+                    continue  # Punkte gehoeren zu genau einer Kachel
+            else:
+                g = clip_to_box(g, tbox)
+                if g is None:
+                    continue
             tags = {"tlm_layer": kind, "tlm_type": getattr(row, "OBJEKTART", None)}
             name = getattr(row, "NAME", None)
             name = name.strip() if isinstance(name, str) and name.strip() else None
@@ -143,6 +196,13 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             emit_geom(w, to_wgs(g), kind, tags)
             n += 1
         counts[suffix] = n
+    if variant == "edge":
+        n = 0
+        for ln in bahnuebergaenge(np.array(gl_strassen, dtype=object), np.array(gl_bahnen, dtype=object)):
+            ln = shapely.intersection(ln, tbox)
+            if ln.geom_type == "LineString" and not ln.is_empty:
+                emit_geom(w, to_wgs(ln), "bahnuebergang", {"tlm_layer": "bahnuebergang", "tlm_type": "Bahnuebergang"}); n += 1
+        counts["BAHNUEBERGAENGE"] = n
     if grenzen and variant == "edge":
         box = shapely.box(x0, y0, x1, y1)
         gdf = pyogrio.read_dataframe(grenzen, layer="tlm_hoheitsgrenze", bbox=tuple(bb_lv95))

@@ -75,6 +75,8 @@ Type=0x19,3
 Type=0x10e07,3
 Type=0x4f,3
 Type=0x4e,3
+Type=0x10e08,3
+Type=0x10e09,3
 Type=0x51,3
 Type=0x53,3
 Type=0x52,3
@@ -93,6 +95,8 @@ parts = [
     solid_poly("0x50", "Wald", WALD),
     pattern_poly("0x4f"),
     pattern_poly("0x4e"),
+    pattern_poly("0x10e08"),
+    pattern_poly("0x10e09"),
     solid_poly("0x17", "Park", PARK),
     solid_poly("0x1a", "Friedhof", FRIEDHOF),
     solid_poly("0x19", "Freizeit", SPORT),
@@ -129,6 +133,7 @@ parts = [
     solid_line("0x10e16", "Hauptstrasse auf Bruecke", HAUPT[0], 5, "#000000"),
     solid_line("0x10e17", "Strasse auf Bruecke", STRASSE[0], 4, "#000000"),
     solid_line("0x10e18", "Nebenstrasse auf Bruecke", NEBEN[0], 3, "#000000"),
+    solid_line("0x10e19", "Bahnuebergang", "#E60000", 3),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),

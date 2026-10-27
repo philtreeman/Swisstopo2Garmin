@@ -17,6 +17,14 @@ def grid(density=0.0, run=1, seed=0, kind="strokes"):
             for x in range(2 + (5 if r % 2 else 0), 32, 11):
                 for dx, dy in ((2, 0), (1, 1), (2, 1), (0, 2), (1, 2), (0, 3), (1, 3), (0, 4)):
                     g[(y + dy) % 32][(x + dx) % 32] = "f"
+    elif kind == "dots":                        # Obstanlage: verstreute 1- und 2-Pixel-Punkte im Raster (3 x 3 Zellen), wie auf der Garmin-Karte
+        for cy in range(3):
+            for cx in range(3):
+                x, y = int((cx + 0.15 + 0.7 * rnd.random()) * 32 / 3), int((cy + 0.15 + 0.7 * rnd.random()) * 32 / 3)
+                size = 2 if rnd.random() < 0.6 else 1
+                for dy in range(size):
+                    for dx in range(size):
+                        g[(y + dy) % 32][(x + dx) % 32] = "f"
     elif kind == "meander":                     # Fels: kurze, leicht gewellte Striche mit Luecke dazwischen (wie Garmin)
         todo, tries = int(32 * 32 * density / run), 0
         while todo > 0 and tries < 4000:
@@ -44,6 +52,8 @@ def grid(density=0.0, run=1, seed=0, kind="strokes"):
 PATTERNS = {
     "0x4f": ("Gehoelz", BG, GEHOELZ, grid(0.30, 2, 1)),
     "0x4e": ("Reben, Obst", REBEN_BG, REBEN, T.REBEN),
+    "0x10e08": ("Obstanlage", REBEN_BG, REBEN, grid(kind="dots", seed=11)),
+    "0x10e09": ("Baumschule", REBEN_BG, "#5AA000", grid(kind="dots", seed=12)),
     "0x51": ("Feuchtgebiet", BG, FEUCHT, grid(0.22, 3, 3)),
     "0x52": ("Fels", FELS, FELS_TEXTUR, T.FELS),
     "0x53": ("Geroell", BG, WEG_FEST, grid(0.14, 1, 5)),

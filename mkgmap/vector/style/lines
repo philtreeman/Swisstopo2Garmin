@@ -1,7 +1,8 @@
 # Beschriftung: der Name aus dem Namens-Tag wird zum Label (ohne diese Regel schreibt mkgmap keine Labels)
 name=* { name '${name}' }
 # swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
-tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 24]
+tlm_layer=bahnuebergang [0x10e19 resolution 23]
+tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 22]
 # Tunnel nach swisstopo-Zeichenerklaerung: gestrichelt statt durchgezogen (je Strassenklasse)
 tlm_layer=strasse & tlm_kunst=Tunnel & tlm_type=Autobahn [0x10e10 resolution 18]
 tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x10e11 resolution 19]
@@ -31,7 +32,7 @@ tlm_layer=fluss & (tlm_type=Fliessgewaesser) & tlm_stufe=0 [0x18 resolution 21]
 tlm_layer=fluss & tlm_type=Trockenrinne [0x10e03 resolution 23]
 tlm_layer=mauer [0x10e04 resolution 24]
 # Verbauungen: Schutzverbauung (Lawinen, Steinschlag) braun, Trockenmauer grau
-tlm_layer=verbauung & tlm_type=Schutzverbauung [0x10e06 resolution 24]
+tlm_layer=verbauung & tlm_type=Schutzverbauung [0x10e06 resolution 22]
 tlm_layer=verbauung & tlm_type=Trockenmauer [0x10e04 resolution 24]
 # Grenzen (nur Variante edge; swissBOUNDARIES3D)
 tlm_layer=grenze & tlm_type=Landesgrenze [0x10e0a resolution 18]

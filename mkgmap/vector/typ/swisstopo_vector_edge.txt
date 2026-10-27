@@ -17,6 +17,8 @@ Type=0x19,3
 Type=0x10e07,3
 Type=0x4f,3
 Type=0x4e,3
+Type=0x10e08,3
+Type=0x10e09,3
 Type=0x51,3
 Type=0x53,3
 Type=0x52,3
@@ -132,6 +134,84 @@ Xpm="32 32 2 1"
 "bbbbbbbbffbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbfbbbbbbbbbbbfbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbffbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e08
+String1=0x04,Obstanlage
+Xpm="32 32 2 1"
+"b c #DEFAAC"
+"f c #FF9900"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbfbbbbbbbbbbffbbbbbbbfbbbbbbb"
+"bbbbbbbbbbbbbbbffbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbffbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbffbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbfbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbffbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbffbbbbbb"
+"bbbbbbbbbbbbffbbbbbbbbbbbbbbbbbb"
+"bbbbbbffbbbbffbbbbbbbbbbbbbbbbbb"
+"bbbbbbffbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e09
+String1=0x04,Baumschule
+Xpm="32 32 2 1"
+"b c #DEFAAC"
+"f c #5AA000"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbffbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbffbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbfbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbfbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbffbbbbbbbbbbbbbbbbb"
+"bbbbbbfbbbbbbffbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbffbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbffbbbbbbbbbbbffbbbbbbffbbbbbbb"
+"bbbbbbbbbbbbbbbffbbbbbbffbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 [end]
 [_polygon]
 Type=0x17
@@ -489,6 +569,13 @@ BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #FFFFFF"
 "2 c #000000"
+[end]
+[_line]
+Type=0x10e19
+String1=0x04,Bahnuebergang
+LineWidth=3
+Xpm="0 0 1 0"
+"1 c #E60000"
 [end]
 [_line]
 Type=0x14

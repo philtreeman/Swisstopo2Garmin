@@ -50,7 +50,7 @@ work() {  # work i j x0 y0 x1 y1
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \
-      --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 --lower-case \
+      --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 --lower-case --merge-lines \
       --draw-priority=20 --remove-short-arcs --reduce-point-density=3 --reduce-point-density-polygon=4 \
       --min-size-polygon=8 --keep-going "$osm" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
     cp "$OUT/tiles/$name/$name.img" "$OUT/tiles/$name.img"
