@@ -17,11 +17,14 @@ def grid(density=0.0, run=1, seed=0, kind="strokes"):
             for x in range(2 + (5 if r % 2 else 0), 32, 11):
                 for dx, dy in ((2, 0), (1, 1), (2, 1), (0, 2), (1, 2), (0, 3), (1, 3), (0, 4)):
                     g[(y + dy) % 32][(x + dx) % 32] = "f"
-    elif kind == "dots":                        # Obstanlage: verstreute 1- und 2-Pixel-Punkte im Raster (3 x 3 Zellen), wie auf der Garmin-Karte
-        for cy in range(3):
-            for cx in range(3):
-                x, y = int((cx + 0.15 + 0.7 * rnd.random()) * 32 / 3), int((cy + 0.15 + 0.7 * rnd.random()) * 32 / 3)
-                size = 2 if rnd.random() < 0.6 else 1
+    elif kind == "dots":                        # Obstanlage: verstreute 1- und 2-Pixel-Punkte, ca. 32 je 32 x 32 Pixel (an der Garmin-Karte gezaehlt:
+        n = 6                                   # 3 % der Flaeche orange); 6 x 6 Zellen mit Zufallsversatz, etwa jede fuenfte Zelle bleibt leer
+        for cy in range(n):
+            for cx in range(n):
+                if rnd.random() < 0.2:
+                    continue
+                x, y = int((cx + 0.1 + 0.8 * rnd.random()) * 32 / n), int((cy + 0.1 + 0.8 * rnd.random()) * 32 / n)
+                size = 2 if rnd.random() < 0.4 else 1
                 for dy in range(size):
                     for dx in range(size):
                         g[(y + dy) % 32][(x + dx) % 32] = "f"
