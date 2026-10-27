@@ -2,13 +2,13 @@
 name=* { name '${name}' }
 tlm_layer=ort & tlm_type=Ort [0x0c00 resolution 20]
 tlm_layer=ort & (tlm_type=Quartier | tlm_type=Ortsteil) [0x0d00 resolution 22]
-tlm_layer=ort & tlm_type=Quartierteil [0x0e00 resolution 23]
+tlm_layer=ort & tlm_type=Quartierteil [0x0e00 resolution 22]
 tlm_layer=namepkt & (tlm_type=Hauptgipfel | tlm_type=Gipfel | tlm_type='Alpiner Gipfel' | tlm_type=Felskopf) [0x6616 resolution 22]
-tlm_layer=namepkt & (tlm_type=Haupthuegel | tlm_type=Huegel) [0x6616 resolution 23]
+tlm_layer=namepkt & (tlm_type=Haupthuegel | tlm_type=Huegel) [0x6616 resolution 22]
 tlm_layer=namepkt & (tlm_type=Pass | tlm_type=Strassenpass) [0x6615 resolution 22]
-tlm_layer=flur [0x6600 resolution 24]
-tlm_layer=gelaende [0x6600 resolution 23]
-tlm_layer=eo & (tlm_type=Bildstock | tlm_type=Brunnen) [0x2c0b resolution 24]
+tlm_layer=flur [0x6600 resolution 22]
+tlm_layer=gelaende [0x6600 resolution 22]
+tlm_layer=eo & (tlm_type=Bildstock | tlm_type=Brunnen) [0x2c0b resolution 22]
 # Einzelbaeume (nur mit --trees im Konverter)
 tlm_layer=baum [0x10f00 resolution 22]
 # Strassenschilder der Nationalstrassen und Hauptstrassen (nur Variante edge, ASTRA-Achsen)

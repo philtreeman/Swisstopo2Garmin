@@ -14,8 +14,8 @@ tlm_layer=areal & tlm_type=Baumschule [0x10e09 resolution 22]
 tlm_layer=areal & tlm_type=Friedhof [0x1a resolution 22]
 tlm_layer=areal & tlm_type='Oeffentliches Parkareal' [0x17 resolution 22]
 tlm_layer=areal [0x0c resolution 22]
-tlm_layer=vareal [0x0e resolution 23]
-tlm_layer=gebaeude & (tlm_type=Gebaeude | tlm_type=Hochhaus | tlm_type='Sakrales Gebaeude' | tlm_type='Offenes Gebaeude' | tlm_type=Flugdach | tlm_type=Treibhaus) [0x10e05 resolution 23]
+tlm_layer=vareal [0x0e resolution 22]
+tlm_layer=gebaeude & (tlm_type=Gebaeude | tlm_type=Hochhaus | tlm_type='Sakrales Gebaeude' | tlm_type='Offenes Gebaeude' | tlm_type=Flugdach | tlm_type=Treibhaus) [0x10e05 resolution 22]
 # abgeleitet aus Gebaeuden (scripts/vector2mkgmap.py): grauer Untergrund unter Siedlungen
 tlm_layer=siedlung [0x01 resolution 21]
 # Sport-, Freizeit- und Erholungsflaechen
