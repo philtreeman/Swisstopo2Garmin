@@ -6,7 +6,7 @@
 
 Die 1-km-Kacheln werden zu 20-km-Bloecken im LV95-Raster zusammengefasst (gleicher Ursprung wie
 SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 20 m) mit contourpy berechnet,
-mit 2,5 m vereinfacht und mit den Tags contour=<20|100> (100 = Haupthoehenlinie, alle 100 m) und ele=<Hoehe> geschrieben.
+mit 2,5 m vereinfacht und mit den Tags contour=<Intervall|50|100> (100 = Haupthoehenlinie alle 100 m, 50 = Zwischenlinie bei 10 m Intervall) und ele=<Hoehe> geschrieben.
 Kachelnamen sind die untere linke Ecke in LV95-km; an den Kachelraendern bleibt eine Luecke von einem Pixel (2 m).
 """
 import argparse, io, json, math, os, time, urllib.request
@@ -91,7 +91,7 @@ def main():
         for lines in ex.map(work, keys):
             for lv, xy in lines:
                 lon, lat = TO_WGS.transform(xy[:, 0], xy[:, 1])
-                tags = {"contour": 100 if lv % 100 == 0 else 20, "ele": lv}
+                tags = {"contour": 100 if lv % 100 == 0 else 50 if (o.interval <= 10 and lv % 50 == 0) else o.interval, "ele": lv}
                 w.way(list(zip(lon, lat)), tags)
                 n += 1
     w.close()

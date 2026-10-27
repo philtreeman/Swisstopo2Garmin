@@ -10,7 +10,7 @@ tlm_layer=flur [0x6600 resolution 22]
 tlm_layer=gelaende [0x6600 resolution 22]
 tlm_layer=eo & (tlm_type=Bildstock | tlm_type=Brunnen) [0x2c0b resolution 22]
 # Einzelbaeume (nur mit --trees im Konverter)
-tlm_layer=baum [0x10f00 resolution 22]
+tlm_layer=baum [0x10f00 resolution 24]
 # Strassenschilder der Nationalstrassen und Hauptstrassen (nur Variante edge, ASTRA-Achsen)
 tlm_layer=nsr & tlm_type=N1 [0x10f01 resolution 21]
 tlm_layer=nsr & tlm_type=N2 [0x10f02 resolution 21]

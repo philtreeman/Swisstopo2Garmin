@@ -19,7 +19,9 @@ route_layer=ski & route_class=3 [0x11003 resolution 20]
 route_layer=ski & route_class=2 [0x11002 resolution 20]
 route_layer=ski & route_class=1 [0x11001 resolution 20]
 route_layer=ski [0x11000 resolution 21]
-# Hoehenlinien (swissALTI3D, Aequidistanz 20 m; alle 100 m Haupthoehenlinie mit Beschriftung). Erweiterte Typen wie bei den
-# Routen-Overlays (die Standardtypen 0x20-0x22 zeigte der Edge nicht).
+# Hoehenlinien (swissALTI3D). Zwei Karten: 20 m (contour=20 und 100) und 10 m (contour=10, 50, 100); je Karte eigenes TYP.
+# Erweiterte Typen wie bei den Routen-Overlays (die Standardtypen 0x20-0x22 zeigte der Edge nicht).
 contour=100 { name '${ele}' } [0x10f11 resolution 20]
+contour=50 { name '${ele}' } [0x10f12 resolution 21]
 contour=20 [0x10f10 resolution 22]
+contour=10 [0x10f10 resolution 23]

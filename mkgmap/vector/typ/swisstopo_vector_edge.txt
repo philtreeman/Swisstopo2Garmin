@@ -620,12 +620,13 @@ Xpm="32 1 2 1"
 [_point]
 Type=0x10f00
 String1=0x04,Einzelbaum
-DayXpm="3 3 2 1"
-"2 c none"
-"1 c #83B200"
-"212"
-"111"
-"212"
+DayXpm="3 3 3 1"
+"1 c #A4DE00"
+"2 c #83B200"
+"3 c #6A9D00"
+"121"
+"232"
+"121"
 [end]
 [_point]
 Type=0x6616

@@ -21,7 +21,8 @@ from vector_patterns import PATTERNS
 
 shp, prefix, lon, lat = sys.argv[1], sys.argv[2], float(sys.argv[3]), float(sys.argv[4])
 widths = [float(w) for w in sys.argv[5:]]
-PX = 564
+import os
+PX = int(os.environ.get("PXN", 564))   # Bildpunkte je Seite; 282 = Aufloesung des Edge 1040
 cx, cy = Transformer.from_crs(4326, 2056, always_xy=True).transform(lon, lat)
 to3857 = Transformer.from_crs(2056, 3857, always_xy=True)
 
@@ -110,7 +111,7 @@ def draw(w, ax, res):
         u = shapely.union_all(shapely.buffer(shapely.force_2d(gdf.geometry.values), 14, quad_segs=1))
         poly([p for p in shapely.get_parts(u) if p.area >= 8000], SIEDLUNG, 2)
     if on(22): poly(read("NUTZUNGSAREAL", bb).geometry, AREAL, 2); poly(read("FREIZEITAREAL", bb).geometry, SPORT, 3)
-    if on(23): poly(read("VERKEHRSAREAL", bb).geometry, VERKEHR, 2)
+    if on(22): poly(read("VERKEHRSAREAL", bb).geometry, VERKEHR, 2)
     b = read("BODENBEDECKUNG", bb); t = b.OBJEKTART
     if on(20): poly(b[t.isin(["Wald", "Wald offen", "Gebueschwald"])].geometry, WALD, 4)
     if on(22): pat_poly(b[t == "Gehoelzflaeche"].geometry, "0x4f", 3)
@@ -131,7 +132,7 @@ def draw(w, ax, res):
     if on(22):                                                 # Reben, Obst: Gittermuster
         a = read("NUTZUNGSAREAL", bb); a = a[a.OBJEKTART.isin(["Reben", "Obstanlage"])]
         pat_poly(a.geometry, "0x4e", 3)
-    if on(23):                                                 # Wege schwarz nach swisstopo-Legende, kein Farbcode
+    if on(22):                                                 # Wege schwarz nach swisstopo-Legende, kein Farbcode
         line(s[t == "2m Weg"].geometry, SCHWARZ, 2, 6)
         line(s[t == "1m Weg"].geometry, SCHWARZ, 2, 6, ls=(0, (5, 3)))
         line(s[t == "Markierte Spur"].geometry, SCHWARZ, 2, 6, ls=(0, (1, 2)))
@@ -148,10 +149,24 @@ def draw(w, ax, res):
     if on(20): line(e, WEG, 3, 11); line(e, "#FFFFFF", 1, 11.2, ls=(0, (4, 4)))
     if on(24):
         line(read("VERBAUUNG", bb).query("OBJEKTART == 'Schutzverbauung'").geometry, LAWINE, 3, 9)
+        ov = np.zeros((PX, PX, 4), np.uint8)               # Einzelbaeume: 3 x 3 Pixel wie auf der Garmin-Karte, je 70-m-Zelle einer
+        icon = np.array([[(0xA4, 0xDE, 0x00), (0x83, 0xB2, 0x00), (0xA4, 0xDE, 0x00)], [(0x83, 0xB2, 0x00), (0x6A, 0x9D, 0x00), (0x83, 0xB2, 0x00)],
+                         [(0xA4, 0xDE, 0x00), (0x83, 0xB2, 0x00), (0xA4, 0xDE, 0x00)]], np.uint8)
+        best = {}
         for geom in read("EINZELBAUM", bb).geometry:
             p = shapely.force_2d(geom)
-            if p is not None and x0 < p.x < x1 and y0 < p.y < y1: ax.plot(p.x, p.y, "o", ms=2.2, color=BAUM, mew=0, zorder=15)
-    if on(23): poly(gdf[gdf.OBJEKTART != "Unterirdisches Gebaeude"].geometry, GEBAEUDE, 20)
+            if p is None or not (x0 < p.x < x1 and y0 < p.y < y1):
+                continue
+            c = (int(p.x // 70), int(p.y // 70)); d = (p.x % 70 - 35) ** 2 + (p.y % 70 - 35) ** 2
+            if c not in best or d < best[c][0]:
+                best[c] = (d, p)
+        for _, p in best.values():
+            ix, iy = int((p.x - x0) / (x1 - x0) * PX), int((y1 - p.y) / (y1 - y0) * PX)
+            if 1 <= ix < PX - 1 and 1 <= iy < PX - 1:
+                ov[iy - 1:iy + 2, ix - 1:ix + 2, :3] = icon; ov[iy - 1:iy + 2, ix - 1:ix + 2, 3] = 255
+        ax.imshow(ov, extent=(x0, x1, y0, y1), interpolation="nearest", zorder=15, aspect="equal")
+        ax.set_xlim(x0, x1); ax.set_ylim(y0, y1)
+    if on(22): poly(gdf[gdf.OBJEKTART != "Unterirdisches Gebaeude"].geometry, GEBAEUDE, 20)
     for r in read("SIEDLUNGSNAME", bb).itertuples():
         if getattr(r, "OBJEKTART", "") == "Ort" and r.NAME and on(21):
             p = shapely.force_2d(r.geometry).representative_point()

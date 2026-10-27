@@ -1,8 +1,8 @@
 ; -*- coding: cp1252 -*-
-; TYP fuer Overlay-Karte hoehenlinien
+; TYP fuer Overlay-Karte hoehenlinien_20m
 [_id]
 ProductCode=1
-FID=3917
+FID=3920
 CodePage=1252
 [end]
 [_line]

@@ -114,6 +114,7 @@ def clip_to_box(g, box):
     return parts[0] if len(parts) == 1 else shapely.MultiLineString(parts)
 
 
+BAUM_ZELLE = 70.0   # m: je Zelle (absolutes LV95-Raster) bleibt nur der Baum nahe der Mitte; entspricht etwa der Dichte der Garmin-Karte (ca. 165 Baeume/km2 statt 1300)
 BUE_HALB = 4.0   # m: halbe Laenge des roten Balkens an einem Bahnuebergang
 
 
@@ -145,6 +146,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
     counts = {}
     settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
     tbox = shapely.box(x0, y0, x1, y1)
+    baeume = {}                       # Zelle -> (Abstand zur Zellenmitte, Punkt)
     gl_strassen, gl_bahnen = [], []   # Strassen und Bahnen auf Bodenhoehe fuer die Bahnuebergaenge
     for suffix, kind, extra in LAYERS + (LAYERS_TREES if trees else []):
         if variant == "fenix" and suffix in ("FLURNAME", "GELAENDENAME", "FREIZEITAREAL"):   # Sportplaetze nur im Edge
@@ -165,6 +167,13 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             if kind in ("strasse", "bahn") and str(getattr(row, "STUFE", "0")) == "0" and getattr(row, "KUNSTBAUTE", "Keine") in ("Keine", "k_W", "Furt") \
                     and getattr(row, "OBJEKTART", "") not in ("Autobahn", "Autostrasse"):
                 (gl_strassen if kind == "strasse" else gl_bahnen).append(g)
+            if kind == "baum":
+                if x0 <= g.x < x1 and y0 <= g.y < y1:
+                    c = (int(g.x // BAUM_ZELLE), int(g.y // BAUM_ZELLE))
+                    d = (g.x % BAUM_ZELLE - BAUM_ZELLE / 2) ** 2 + (g.y % BAUM_ZELLE - BAUM_ZELLE / 2) ** 2
+                    if c not in baeume or d < baeume[c][0]:
+                        baeume[c] = (d, g)
+                continue
             if kind in POINT_KINDS or g.geom_type == "Point":
                 rp = g.representative_point()
                 if not (x0 <= rp.x < x1 and y0 <= rp.y < y1):
@@ -196,6 +205,9 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             emit_geom(w, to_wgs(g), kind, tags)
             n += 1
         counts[suffix] = n
+    for _, pt in baeume.values():
+        emit_geom(w, to_wgs(pt), "baum", {"tlm_layer": "baum", "tlm_type": "Einzelbaum"})
+    counts["BAEUME"] = len(baeume)
     if variant == "edge":
         n = 0
         for ln in bahnuebergaenge(np.array(gl_strassen, dtype=object), np.array(gl_bahnen, dtype=object)):

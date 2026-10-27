@@ -140,18 +140,19 @@ parts = [
     solid_line("0x10e04", "Mauer", GEBAEUDE, 1),
     dash_line("0x10e02", "Seilbahn", "#000000", 2, 4, h=1),
 ]
-# Einzelbaum: gruener Punkt 3 x 3 (nur wenn die Karte mit --trees gebaut wird)
-parts.append(f'''[_point]
+# Einzelbaum: 3 x 3 Pixel wie auf der Garmin-Karte (Ecken #A4DE00, Kanten #83B200, Mitte #6A9D00; aus Bildschirmfotos gemessen)
+parts.append('''[_point]
 Type=0x10f00
 String1=0x04,Einzelbaum
-DayXpm="3 3 2 1"
-"2 c none"
-"1 c {BAUM}"
-" 1 "
-"111"
-" 1 "
+DayXpm="3 3 3 1"
+"1 c #A4DE00"
+"2 c #83B200"
+"3 c #6A9D00"
+"121"
+"232"
+"121"
 [end]
-'''.replace('" 1 "','"212"'))
+''')
 # Berge, Huegel, Paesse mit Hoehe im Namen: kleine braune Raute; Bildstoecke und Brunnen: kleines schwarzes Quadrat mit weissem Rand
 for t, name in (("0x6616", "Gipfel und Huegel"), ("0x6615", "Pass")):
     parts.append(f'''[_point]
