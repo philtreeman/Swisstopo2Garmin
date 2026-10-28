@@ -1,18 +1,18 @@
-# Höhenlinien-Overlay ganze Schweiz (20 m Äquidistanz)
+# Höhenlinien-Overlays ganze Schweiz (zwei Varianten)
 
-`swisstopo_overlay_hoehenlinien.img` (109 MB, Family-ID 3917, Name im Gerätemenü «Hoehenlinien 20 m») aus **swissALTI3D** (2 m Raster, neuestes Jahr je Kachel 2019–2026, 43'650 Kacheln). Gebaut mit `scripts/build_hoehenlinien.sh`. Auf keinem Gerät geprüft.
+Aus **swissALTI3D** (2 m Raster, jüngstes Jahr je Kachel), berechnet mit `scripts/build_hoehenlinien.sh`. Zwei getrennte Karten mit **eigener Family-ID** und eigenem Dateinamen, damit das Gerät beide laden kann und der Name im Kartenmenü stimmt:
 
-- Äquidistanz **20 m**. Jede 100 m eine Hauptlinie mit Höhenbeschriftung. Die Linien verwenden erweiterte Garmin-Linientypen (0x10f10, 0x10f11) wie die Routen-Overlays, weil der Edge die Standardtypen 0x20 bis 0x22 nicht zeigte (ungeprüft, ob das die Ursache war).
-- Hellbraun (20 m, 1 px), dunkelbraun (100 m, 2 px).
-- Ist ein Overlay: ohne Basiskarte. Darüber lassen sich Basiskarte und die Routen-Overlays legen.
-- Linien sind 1-km-Kachelweise berechnet und mit 2,5 m vereinfacht. An Kachelrändern bleibt eine Lücke von einem Pixel (2 m), das ist nicht sichtbar. Beschriftungen wiederholen sich deshalb etwa alle Kilometer.
+| Datei (zusammensetzen mit `cat`) | Gerätemenü | Family-ID | Inhalt | Grösse |
+|---|---|---|---|---|
+| `swisstopo_overlay_hoehenlinien_20m.img` | «swisstopo Hoehenlinien 20 m» | 3920 | alle 20 m, alle 100 m eine dunklere, dickere Hauptlinie mit Höhenzahl | 109 MB |
+| `swisstopo_overlay_hoehenlinien_10m.img` | «swisstopo Hoehenlinien 10 m» | 3919 | alle 10 m, 50 m als Zwischenlinie, 100 m als Hauptlinie mit Höhenzahl | 168 MB |
 
-`vorschau_baden.png` ist eine eigene Zeichnung der Höhenlinien (dieselben Farben) über einer grauen Landeskarte, kein Rendering vom Gerät.
-
-## Wegen der Grösse in Teile zerlegt
-GitHub erlaubt höchstens 100 MB je Datei. Zusammensetzen:
 ```
-cat swisstopo_overlay_hoehenlinien.img.part_* > swisstopo_overlay_hoehenlinien.img
+cat swisstopo_overlay_hoehenlinien_20m.img.part_* > swisstopo_overlay_hoehenlinien_20m.img
+cat swisstopo_overlay_hoehenlinien_10m.img.part_* > swisstopo_overlay_hoehenlinien_10m.img
 shasum -a 256 -c SHA256SUMS        # Linux: sha256sum -c SHA256SUMS
 ```
-Danach nach `Garmin/` auf das Gerät kopieren. Daten: © swisstopo (swissALTI3D), Lizenz laut STAC «proprietary».
+
+**Wichtig:** Die frühere Datei `swisstopo_overlay_hoehenlinien.img` (Family-ID 3917, Menüname «Hoehenlinien 10 m» bzw. später 20 m) vom Gerät **löschen**. Gleiche Family-IDs lädt das Gerät nur einmal; wer die alte Datei liegen lässt, sieht womöglich nur sie.
+
+Hellbraun (1 px), 50 m mittelbraun, 100 m dunkelbraun (2 px). Die Linien verwenden erweiterte Garmin-Linientypen (0x10f10 bis 0x10f12) wie die Routen-Overlays; die Standardtypen 0x20 bis 0x22 zeigte der Edge früher nicht. Der Edge zeigte die Höhenlinien der 20-m-Fassung mit Beschriftung («137 M»), nach Screenshots vom 2026-10-27. Die 10-m-Variante ist auf keinem Gerät geprüft. Daten: © swisstopo (swissALTI3D).

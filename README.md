@@ -3,7 +3,7 @@
 Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img`):
 
 - **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit mehr Namen, Grenzen und Schildern; Fenix reduziert).
-- **Höhenlinien** (20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
+- **Höhenlinien** (10 m und 20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
 
 **Teststand:**
 - **Garmin Edge 1040: geprüft, funktioniert.** Der Nutzer hat Overlays für Skirouten, Wanderwege und Fahrradrouten aufs Gerät geladen. Mehrere `.img`-Dateien nebeneinander werden also geladen. Welche der beiden Fahrradkarten (Veloland, Mountainbike) einzeln geprüft wurde, ist nicht festgehalten.
@@ -33,7 +33,7 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 
 | Ordner | Inhalt | Grösse |
 |---|---|---|
-| `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 20 m, ganze Schweiz, in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 109 MB |
+| `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m und 20 m, ganze Schweiz, je in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 168 MB und 109 MB |
 | `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 241 MB |
 | `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 225 MB |
 | `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
@@ -64,7 +64,7 @@ scripts/                       alle Skripte
   routes2mkgmap.py                  GeoPackage → OSM-XML für die Routen-Overlays
   make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
   mkgmap_xml_writer.py                  gemeinsame OSM-XML-Ausgabe
-  build_hoehenlinien.sh          baut das Höhenlinien-Overlay (20 m) aus swissALTI3D
+  build_hoehenlinien.sh          baut das Höhenlinien-Overlays (10 m und 20 m) aus swissALTI3D
   hoehenlinien2mkgmap.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
   swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
