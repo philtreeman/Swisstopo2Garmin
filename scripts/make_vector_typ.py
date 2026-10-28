@@ -7,9 +7,12 @@ Die Typ-Codes passen zu mkgmap/vector/style/{lines,polygons}.
 """
 import os, sys
 
-VARIANT = sys.argv[1] if len(sys.argv) > 1 else "edge"   # edge: Fels mit Textur, Grenzen; fenix: Fels einfach grau
-assert VARIANT in ("edge", "fenix")
-FID = 3900 if VARIANT == "edge" else 3901
+VARIANT = sys.argv[1] if len(sys.argv) > 1 else "edge"   # edge: Fels mit Textur, Grenzen; fenix: Fels einfach grau; *_swisstopo: Farben der Landeskarte
+assert VARIANT in ("edge", "fenix", "edge_swisstopo", "fenix_swisstopo")
+if VARIANT.endswith("_swisstopo"):
+    os.environ["VECTOR_DESIGN"] = "swisstopo"      # muss vor dem Import der Palette gesetzt sein
+BASIS = VARIANT.split("_")[0]
+FID = 3900 if BASIS == "edge" else 3901
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", f"swisstopo_vector_{VARIANT}.txt")
 
 from vector_palette import *  # noqa: F401,F403  (Farben, gemeinsam mit preview_vector.py)
@@ -102,7 +105,7 @@ parts = [
     solid_poly("0x19", "Freizeit", SPORT),
     solid_poly("0x10e07", "Sportplatz", SPORTPLATZ),
     pattern_poly("0x51"),
-    pattern_poly("0x52") if VARIANT == "edge" else solid_poly("0x52", "Fels", FELS_GRAU),
+    pattern_poly("0x52") if BASIS == "edge" and not VARIANT.endswith("_swisstopo") else solid_poly("0x52", "Fels", FELS_GRAU),
     pattern_poly("0x53"),
     solid_poly("0x3f", "Gewaesser", WASSER_FL),
     solid_poly("0x10e05", "Gebaeude", GEBAEUDE),

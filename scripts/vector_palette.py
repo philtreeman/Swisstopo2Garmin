@@ -22,3 +22,14 @@ BAUM = "#83B200"         # Einzelbaeume (Punkt)
 GRENZE = "#BD008B"        # Landes-, Kantons-, Gemeindegrenzen (magenta, wie auf der Garmin-Karte)
 FELS_GRAU = "#D0D0D0"    # Fels ohne Textur (Variante Fenix)
 SPORTPLATZ = "#FFCE62"     # Sportplaetze (orange, wie auf der Garmin-Karte)
+
+import os
+if os.environ.get("VECTOR_DESIGN") == "swisstopo":   # Variante «swisstopo-Stil»: Farben der Landeskarte statt der Garmin-Karte (an der Pixelkarte gemessen)
+    BG = "#FEFFED"; SIEDLUNG = "#FEFFED"; AREAL = "#EDEDED"; VERKEHR = "#E8E8E8"
+    WALD = "#C8E6B2"; GEBAEUDE = "#222222"
+    WASSER_FL = "#D3EEFF"; WASSER_LI = "#7BC5F0"
+    PARK = "#DFF0CC"; SPORT = "#E1F2D3"; FRIEDHOF = "#DDEBCB"; SPORTPLATZ = "#E1F2D3"
+    WEG = "#000000"; WEG_FEST = "#333333"; SCHWARZ = "#000000"
+    GEHOELZ = "#D9EFC4"; FEUCHT = "#BFE3EF"; FELS = "#CFCFCF"; FELS_GRAU = "#C8C8C8"; GEROELL = "#EFEFE0"
+    AUTOBAHN = ("#F5A700", "#000000"); HAUPT = ("#FFFFFF", "#000000"); STRASSE = ("#FFFFFF", "#000000")
+    NEBEN = ("#FFFFFF", "#000000"); NATUR = ("#FFFFFF", "#555555")
