@@ -20,7 +20,8 @@ Die Overlays:
 | `swisstopo_overlay_skirouten_blau.img` | Skirouten (swisstopo/SAC u. a.) | blau, durchgezogen, weisser Rand (wie auf der Rasterkarte) |
 | `swisstopo_overlay_skirouten_schwierigkeit.img` | gleiche Skirouten | gestrichelt, nach SAC-Schwierigkeit: grün L, blau WS, orange ZS, rot S, violett unbekannt |
 | `swisstopo_overlay_skilifte.img` | Bahnen, die im Winter fahren (`ch.swisstopo.bahnen-winter`, wie Landeskarte Winter): Skilifte, Sessel-, Gondel-, Luftseil-, Standseilbahnen | wie Landeskarte Winter: Skilift ocker-orange mit Querstrichen, Sessel-/Gondelbahn dunkelrot mit Kreisen (Masten, in festem Abstand), Luftseilbahn dunkelrot 3 px, Standseilbahn rote Doppellinie mit Sprossen; Name erst in den feinen Zoomstufen |
-| `swisstopo_overlay_huetten.img` | Hütten: Unterkünfte Winter (SAC/swisstopo) und Hütten aus swissNAMES3D | Haussymbol: rotes Dach = im Winter offene Unterkunft, braunes Dach = Schutzhütte/Clubhütte/Biwak, kleines graues Dach = übrige Hütte (Alp-, Ski-, Berghütte); Name mit Höhe («Kesch-Hütte SAC 2623») |
+| `swisstopo_overlay_unterkuenfte_winter.img` | Unterkünfte Winter (`ch.swisstopo.unterkuenfte-winter`, swisstopo/SAC), ergänzt um Hütten aus swissNAMES3D | roter Ring (13 px, `#FF1900`, innen leer, weisser Rand) wie im swisstopo-Viewer, schon weit herausgezoomt, Name mit Höhe ab mittlerer Zoomstufe («Kesch-Hütte SAC 2623»); nur in der feinsten Stufe zusätzlich kleine Häuser: braun = SAC-Hütte ausserhalb des Winter-Datensatzes, grau = übrige Hütte |
+| `swisstopo_overlay_schneeschuhrouten.img` | Schneeschuhrouten (`ch.swisstopo-karto.schneeschuhrouten`, swisstopo/SAC und Winterwanderwege VS) | türkisgrün `#008A79`, durchgezogen, weisser Rand (wie swisstopo); Name mit WT-Schwierigkeit in der feinsten Stufe |
 | `swisstopo_overlay_hoehenlinien.img` | Höhenlinien, Äquidistanz 20 m (swissALTI3D 2 m) | hellbraun; alle 100 m dunkler und stärker, mit Höhenangabe |
 
 Die Routen von SchweizMobil tragen «Nummer Name» als Beschriftung (z. B. «1 Via Alpina»), die Skirouten «Name Schwierigkeit». Bei Wanderland, Veloland und Mountainbikeland sind die Linien nach national (breit), regional und lokal gestuft.
@@ -54,7 +55,8 @@ Alle Daten sind offen auf `data.geo.admin.ch` verfügbar (STAC-Collection in Kla
 | Skirouten | `ch.swisstopo-karto.skitouren`, 10'789 Routen: swisstopo/SAC 9'384, Petzl Foundation/Skitourenguru 884, DAV/ÖAV/AVS 439, topo.verlag 82 (Feld `source`) | 2025-12 |
 | SwissTOPO Vector | swissTLM3D (`ch.swisstopo.swisstlm3d`), Ausgabe 2026-02 | 2026-02 |
 | Skilifte | Bahnen Winter (`ch.swisstopo.bahnen-winter`, swisstopo/SAC, jährlich nachgeführt, in der Schweiz eine Auswahl aus swissTLM3D), 1'805 Bahnen: 840 Skilifte, 361 Sesselbahnen, 137 Gondelbahnen, 193 Luftseilbahnen, 251 Standseilbahnen, 23 andere; inkl. grenznaher Gebiete im Ausland | 2025-11-20 |
-| Hütten | Unterkünfte Winter (`ch.swisstopo.unterkuenfte-winter`, swisstopo/SAC), 506 Unterkünfte, dazu aus swissNAMES3D 2026 (`ch.swisstopo.swissnames3d`, Gebäudenamen) 113 Schutz-/Clubhütten und Biwaks sowie 901 weitere Hütten (Name enthält Hütte, Cabane, Refuge, Capanna, Berghaus …; ohne Forst-/Waldhütten; Doppel unter 250 m weggelassen) | 2025-11-20 / 2026 |
+| Unterkünfte Winter | `ch.swisstopo.unterkuenfte-winter` (swisstopo/SAC), alle 506 Unterkünfte als roter Ring; dazu aus swissNAMES3D 2026 (`ch.swisstopo.swissnames3d`, Gebäudenamen) 27 SAC-Hütten, die nicht im Winter-Datensatz stehen (Name enthält «SAC» oder «CAS»; ein Eigentümer-Attribut gibt es nicht), und 987 übrige Hütten (Schutzhütten, andere Clubhütten, Biwaks, Name mit Hütte, Cabane, Refuge, Capanna, Berghaus …; ohne Forst-/Waldhütten); Punkte unter 250 m neben einem Punkt mit Vorrang weggelassen | 2025-11-20 / 2026 |
+| Schneeschuhrouten | `ch.swisstopo-karto.schneeschuhrouten`, Datei `snowshoe_routes_2056.gpkg`, 2'825 Routen (4'630 km): swisstopo/SAC 2'485, Winterwanderwege Kt. VS 340; 292 mit Name und WT-Schwierigkeit | 2025-12-11 |
 | Höhenlinien | swissALTI3D (`ch.swisstopo.swissalti3d`), 2-m-Raster, neuestes Jahr je 1-km-Kachel | 2019–2026 |
 
 ## Aufbau des Repos
@@ -69,7 +71,8 @@ scripts/                       alle Skripte
   make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
   mkgmap_xml_writer.py                  gemeinsame OSM-XML-Ausgabe
   build_skilifte.sh              baut das Skilifte-Overlay (skilifte2mkgmap.py, make_skilifte_typ.py)
-  build_huetten.sh               baut das Hütten-Overlay (huetten2mkgmap.py, make_huetten_typ.py)
+  build_unterkuenfte_winter.sh   baut das Overlay Unterkünfte Winter (unterkuenfte2mkgmap.py, make_unterkuenfte_typ.py)
+  build_schneeschuhrouten.sh     baut das Schneeschuhrouten-Overlay (routes2mkgmap.py --kind schneeschuh, make_schneeschuh_typ.py)
   build_hoehenlinien.sh          baut das Höhenlinien-Overlays (10 m und 20 m) aus swissALTI3D
   hoehenlinien2mkgmap.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
   swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
@@ -121,7 +124,8 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 | Skirouten nach Schwierigkeit | 3916 | 63916001 |
 | Haltestellen | 3918 | 63918001 |
 | Skilifte (`scripts/build_skilifte.sh`) | 3921 | 63921001 |
-| Hütten (`scripts/build_huetten.sh`) | 3922 | 63922001 |
+| Unterkünfte Winter (`scripts/build_unterkuenfte_winter.sh`) | 3922 | 63922001 |
+| Schneeschuhrouten (`scripts/build_schneeschuhrouten.sh`) | 3923 | 63923001 |
 
 ### Aussehen anpassen
 - **Farben, Breiten, Strichmuster:** `scripts/make_overlay_typ.py` (Konstanten oben: `YELLOW`, `LBLUE`, `ORANGE`, `SKI_BLUE`, Breiten je Kategorie). Danach `build_overlays.sh` neu starten; die OSM-Zwischendateien werden wiederverwendet.
@@ -167,10 +171,11 @@ Gemeinsam: Einzelbäume, Schutzverbauungen und Treppen (rot gepunktet) nur in de
 | Gewässer | See hellblau, Bäche und Flüsse `#52BAF6` |
 | Strassen | Autobahn orange, Hauptstrasse gelb, übrige weiss mit grauem Rand, Naturstrassen hellgelb |
 
-Skilifte und Hütten sind ebenfalls eigene Layer (`karten/overlays_schweiz/`, Family-ID 3921 und 3922, auf keinem Gerät geprüft):
+Skilifte, Unterkünfte Winter und Schneeschuhrouten sind ebenfalls eigene Layer (`karten/overlays_schweiz/`, Family-ID 3921, 3922 und 3923, auf keinem Gerät geprüft):
 ```
 scripts/build_skilifte.sh daten/bahnen-winter_2056.gpkg mkgmap.jar out/ [W S E N]
-scripts/build_huetten.sh daten/unterkuenfte-winter_2056.gpkg daten/swissnames3d_2026_2056.gpkg mkgmap.jar out/ [W S E N]
+scripts/build_unterkuenfte_winter.sh daten/unterkuenfte-winter_2056.gpkg daten/swissnames3d_2026_2056.gpkg mkgmap.jar out/ [W S E N]
+scripts/build_schneeschuhrouten.sh daten/snowshoe_routes_2056.gpkg mkgmap.jar out/ [W S E N]
 ```
 
 Haltestellen sind **nicht** in der Basiskarte, sondern ein eigener Layer: `karten/overlays_schweiz/swisstopo_overlay_haltestellen.img` (Family-ID 3918, 28'042 Haltestellen aus swissTLM3D mit Namen und Symbolen für Bus, Bahn, Schiff, übrige Bahnen). Gebaut mit `scripts/build_haltestellen.sh <shp-ordner> mkgmap.jar out/`.

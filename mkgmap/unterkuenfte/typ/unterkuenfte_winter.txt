@@ -1,5 +1,5 @@
 ; -*- coding: cp1252 -*-
-; TYP fuer die Huetten-Karte (Family-ID 3922), erzeugt von scripts/make_huetten_typ.py
+; TYP fuer die Karte Unterkuenfte Winter (Family-ID 3922), erzeugt von scripts/make_unterkuenfte_typ.py
 [_id]
 ProductCode=1
 FID=3922
@@ -14,46 +14,42 @@ DayCustomColor=#000000
 DayXpm="13 13 4 1"
 ". c none"
 "K c #000000"
-"R c #E2231A"
+"R c #FF1900"
 "W c #FFFFFF"
-"......K......"
-".....KRK....."
-"....KRRRK...."
-"...KRRRRRK..."
-"..KRRRRRRRK.."
-".KRRRRRRRRRK."
-"KKKKKKKKKKKKK"
-".KWWWWWWWWWK."
-".KWWWWWWWWWK."
-".KWWWKKKWWWK."
-".KWWWKKKWWWK."
-".KWWWKKKWWWK."
-".KKKKKKKKKKK."
+"....WWWWW...."
+"...WRRRRRW..."
+"..WRRRRRRRW.."
+".WRRRWWWRRRW."
+"WRRRW...WRRRW"
+"WRRW.....WRRW"
+"WRRW.....WRRW"
+"WRRW.....WRRW"
+"WRRRW...WRRRW"
+".WRRRWWWRRRW."
+"..WRRRRRRRW.."
+"...WRRRRRW..."
+"....WWWWW...."
 [end]
 [_point]
 Type=0x10f01
-String1=0x04,Schutzhütte / Biwak
+String1=0x04,SAC-Hütte
 FontStyle=SmallFont
 CustomColor=Day
 DayCustomColor=#000000
-DayXpm="13 13 4 1"
+DayXpm="9 9 4 1"
 ". c none"
 "K c #000000"
 "R c #8C4A1E"
 "W c #FFFFFF"
-"......K......"
-".....KRK....."
-"....KRRRK...."
-"...KRRRRRK..."
-"..KRRRRRRRK.."
-".KRRRRRRRRRK."
-"KKKKKKKKKKKKK"
-".KWWWWWWWWWK."
-".KWWWWWWWWWK."
-".KWWWKKKWWWK."
-".KWWWKKKWWWK."
-".KWWWKKKWWWK."
-".KKKKKKKKKKK."
+"....K...."
+"...KRK..."
+"..KRRRK.."
+".KRRRRRK."
+"KKKKKKKKK"
+".KWWWWWK."
+".KWWKWWK."
+".KWWKWWK."
+".KKKKKKK."
 [end]
 [_point]
 Type=0x10f02
@@ -64,7 +60,7 @@ DayCustomColor=#000000
 DayXpm="9 9 4 1"
 ". c none"
 "K c #000000"
-"R c #6E6E6E"
+"R c #8C8C8C"
 "W c #FFFFFF"
 "....K...."
 "...KRK..."

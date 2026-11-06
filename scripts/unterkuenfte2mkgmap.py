@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
-"""Huetten (Punkte) -> OSM-XML (nur Zwischenformat fuer mkgmap), Tags poi=huette, art=winter|schutz|huette, name.
+"""Unterkuenfte Winter (+ Huetten aus swissNAMES3D) -> OSM-XML (nur Zwischenformat fuer mkgmap).
+Tags: poi=huette, art=winter|sac|huette, name.
 
 Quellen (beide offen, data.geo.admin.ch):
   1. ch.swisstopo.unterkuenfte-winter (unterkuenfte-winter_2056.gpkg): Unterkuenfte, die im Winter offen sind,
-     von swisstopo und SAC fuer die Landeskarte mit Schneesportthemen gepflegt              -> art=winter
-  2. swissNAMES3D (swissnames3d_<jahr>_2056.gpkg, Layer swissnames3d_pkt), Gebaeudenamen:
-     - Gebaeudenutzung «Schutzhuette», Clubhuetten (SAC/CAS/CAI/AACB ...) und Biwaks       -> art=schutz
-     - uebrige Gebaeude mit Huettennamen (Huette, Cabane, Refuge, Capanna, Berghaus ...)   -> art=huette
-       (ohne Forst- und Waldhuetten)
-  Punkte aus 2., die naeher als 250 m an einem Punkt einer hoeheren Art liegen, werden weggelassen (Doppel).
-  Die Hoehe kommt aus der Z-Koordinate von swissNAMES3D (fuer Winter-Unterkuenfte vom naechsten Gebaeudenamen
-  bis 250 m) und wird an den Namen angehaengt, wie auf der Landeskarte («Keschhuette SAC 2632»).
+     von swisstopo und SAC fuer die Landeskarte mit Schneesportthemen gepflegt          -> art=winter (alle Punkte)
+  2. swissNAMES3D (swissnames3d_<jahr>_2056.gpkg, Layer swissnames3d_pkt), Gebaeudenamen, nur als Ergaenzung:
+     - SAC-Huetten, die nicht in 1. stehen (Name enthaelt das Wort «SAC» oder «CAS»,
+       Schreibweise der Landeskarte, z. B. «Rottalhuette SAC»)                         -> art=sac
+     - uebrige Huetten: Gebaeudenutzung «Schutzhuette», andere Clubhuetten (AACZ, CAI ...),
+       Biwaks, Gebaeude mit Huettennamen (Huette, Cabane, Refuge, Capanna, Berghaus ...),
+       ohne Forst- und Waldhuetten                                                     -> art=huette
+  Vorrang winter > sac > huette: ein Punkt faellt weg, wenn ein Punkt mit Vorrang naeher als 250 m liegt;
+  SAC-Punkte aus 2. auch untereinander (gierig). Ein Eigentuemer-Attribut gibt es in keiner Quelle
+  (url_sac_* in 1. verweist auf das SAC-Tourenportal, das auch private Huetten und Rifugi fuehrt).
+  Die Hoehe kommt aus der Z-Koordinate von swissNAMES3D (fuer 1. vom naechsten Gebaeudenamen bis 250 m)
+  und wird an den Namen angehaengt, wie auf der Landeskarte («Kesch-Huette SAC 2623»).
 
-  python3 huetten2mkgmap.py <unterkuenfte-winter.gpkg> <swissnames3d.gpkg> out.osm [W S E N]
+  python3 unterkuenfte2mkgmap.py <unterkuenfte-winter.gpkg> <swissnames3d.gpkg> out.osm [W S E N]
 """
 import re
 import sys
@@ -23,7 +28,8 @@ from pyproj import Transformer
 from mkgmap_xml_writer import Writer
 
 DUP = 250.0   # m
-CLUB = re.compile(r"\b(?:SAC|CAS|CAI|AACB|AACZ|AACBe|ASAC|SAT|OTC|CAF|FAT|UTOE|SOSAT)\b")
+SAC = re.compile(r"\b(?:SAC|CAS)\b")
+CLUB = re.compile(r"\b(?:CAI|CAAI|AACB|AACBs|AACZ|ASAC|SAT|OTC|CAF|FAT|UTOE|SOSAT)\b")
 BIWAK = re.compile(r"(?i)biwak|bivacco|bivouac|bivacc")
 HUETTE = re.compile(r"(?i)h[uü]tt|hitt|h[oö]tt|huette|cabane|capanna|chamanna|chamonna|refuge|rifugio|baita|berghaus|skihaus|"
                     r"ski-?haus|clubhaus|naturfreundehaus|ferienhaus|alpbeizli|buvette d'alpage")
@@ -37,8 +43,10 @@ win = pyogrio.read_dataframe(win_path)
 nam = pyogrio.read_dataframe(names_path, layer="swissnames3d_pkt",
                              where="objektart IN ('Gebaeude', 'Offenes Gebaeude')")
 nam = nam[nam.name.notna()]
-club = nam.name.str.contains(CLUB) | nam.name.str.contains(BIWAK) | (nam.gebaeudenutzung == "Schutzhuette")
-hut = nam.name.str.contains(HUETTE) & ~nam.name.str.contains(NICHT) & ~club
+n_sac = nam.name.str.contains(SAC).values
+n_hut = ~n_sac & ~nam.name.str.contains(NICHT).values & (
+    nam.name.str.contains(CLUB).values | nam.name.str.contains(BIWAK).values
+    | (nam.gebaeudenutzung == "Schutzhuette").values | nam.name.str.contains(HUETTE).values)
 
 wxy = shapely.get_coordinates(win.geometry.values)
 nxyz = shapely.get_coordinates(nam.geometry.values, include_z=True)
@@ -46,7 +54,8 @@ nxyz = shapely.get_coordinates(nam.geometry.values, include_z=True)
 
 def near(xy, ref, d=DUP):
     """True je Punkt in xy, wenn ein Punkt aus ref naeher als d liegt"""
-    if len(ref) == 0:
+    ref = np.asarray(ref).reshape(-1, 2)
+    if len(ref) == 0 or len(xy) == 0:
         return np.zeros(len(xy), bool)
     tree = shapely.STRtree(shapely.points(ref))
     idx = tree.query(shapely.points(xy), predicate="dwithin", distance=d)
@@ -59,12 +68,12 @@ tree = shapely.STRtree(shapely.points(nxyz[:, :2]))
 wi, ni = tree.query_nearest(shapely.points(wxy), max_distance=DUP, all_matches=False)
 wz = np.full(len(wxy), np.nan); wz[wi] = nxyz[ni, 2]
 
-cm, hm = club.values, hut.values
-schutz_ok = cm & ~near(nxyz[:, :2], wxy)
-huette_ok = hm & ~near(nxyz[:, :2], np.vstack([wxy, nxyz[schutz_ok, :2]]))
-
-pts = [(x, y, z, n, "winter") for (x, y), z, n in zip(wxy, wz, win.name)]
-pts += [(x, y, z, n, "schutz") for (x, y, z), n in zip(nxyz[schutz_ok], nam.name.values[schutz_ok])]
+pts = [(x, y, z, n, "winter") for (x, y), z, n in zip(wxy, wz, win.name.values)]
+kept = [tuple(p) for p in wxy]
+for (x, y, z), n in zip(nxyz[n_sac], nam.name.values[n_sac]):   # SAC-Huetten, die nicht im Winter-Datensatz stehen
+    if not near(np.array([[x, y]]), kept)[0]:
+        kept.append((x, y)); pts.append((x, y, z, n, "sac"))
+huette_ok = n_hut & ~near(nxyz[:, :2], kept)
 pts += [(x, y, z, n, "huette") for (x, y, z), n in zip(nxyz[huette_ok], nam.name.values[huette_ok])]
 
 w = Writer(out)

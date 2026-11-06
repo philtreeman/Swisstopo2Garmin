@@ -1,0 +1,5 @@
+# Schneeschuhrouten (swisstopo/SAC), Linie in typ/schneeschuhrouten.txt: tuerkisgruen #008A79 mit weissem Rand wie die
+# swisstopo-Ebene ch.swisstopo-karto.schneeschuhrouten. Linie ab Aufloesung 20, Name (mit WT-Schwierigkeit) erst ab 22.
+route_layer=schneeschuh [0x10f13 resolution 20-21 continue]
+route_layer=schneeschuh & name=* { name '${name}' } [0x10f13 resolution 22-24]
+route_layer=schneeschuh & name!=* [0x10f13 resolution 22-24]
