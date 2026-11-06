@@ -1,0 +1,7 @@
+# Huetten, Symbole in typ/huetten.txt. Wenige Objekte, daher Unterkuenfte und Schutzhuetten schon weit herausgezoomt
+# (Aufloesung 18); der Name (mit Hoehe) erst ab Aufloesung 21, uebrige Huetten ab 22. Name je Regel gesetzt.
+poi=huette & art=winter [0x10f00 resolution 18-20 continue]
+poi=huette & art=winter { name '${name}' } [0x10f00 resolution 21-24]
+poi=huette & art=schutz [0x10f01 resolution 18-20 continue]
+poi=huette & art=schutz { name '${name}' } [0x10f01 resolution 21-24]
+poi=huette & art=huette { name '${name}' } [0x10f02 resolution 22-24]

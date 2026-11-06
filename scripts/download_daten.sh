@@ -1,5 +1,5 @@
 #!/bin/bash
-# Laedt die offenen Datensaetze fuer die Overlays von data.geo.admin.ch (ca. 750 MB, Stand der Dateien siehe README).
+# Laedt die offenen Datensaetze fuer die Overlays von data.geo.admin.ch (ca. 1,2 GB, Stand der Dateien siehe README).
 #   scripts/download_daten.sh <ziel-ordner>
 set -e
 D=$(realpath -m "${1:?Zielordner angeben}"); mkdir -p "$D"; cd "$D"
@@ -13,4 +13,9 @@ get "$B/ch.swisstopo.swisstlm3d-wanderwege/swisstlm3d-wanderwege/swisstlm3d-wand
 # swisstopo/SAC: Skirouten (ZIP mit ski_routes_2056.gpkg und ski_network_2056.gpkg)
 get "$B/ch.swisstopo-karto.skitouren/skitouren/skitouren_2056.gpkg.zip" skitouren.zip
 [ -s ski_routes_2056.gpkg ] || unzip -o -q skitouren.zip
+# swisstopo/SAC: Bahnen Winter und Unterkuenfte Winter (Landeskarte mit Schneesportthemen) fuer Skilifte und Huetten
+get "$B/ch.swisstopo.bahnen-winter/bahnen-winter/bahnen-winter_2056.gpkg" bahnen-winter_2056.gpkg
+get "$B/ch.swisstopo.unterkuenfte-winter/unterkuenfte-winter/unterkuenfte-winter_2056.gpkg" unterkuenfte-winter_2056.gpkg
+# swisstopo: swissNAMES3D (Gebaeudenamen fuer die Huetten, ca. 460 MB)
+get "$B/ch.swisstopo.swissnames3d/swissnames3d_2026/swissnames3d_2026_2056.gpkg" swissnames3d_2026_2056.gpkg
 ls -la "$D"/*.gpkg
