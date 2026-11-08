@@ -12,7 +12,7 @@ python3 "$S/make_unterkuenfte_typ.py" >/dev/null
 python3 "$S/unterkuenfte2mkgmap.py" "$U" "$N" "$OUT/unterkuenfte.osm" "$@"
 java -Xmx4g -jar "$JAR" --style-file="$R/mkgmap/unterkuenfte/style" --output-dir="$OUT/img_unterkuenfte" \
   --family-id=3922 --product-id=1 --family-name="swisstopo Unterkuenfte Winter" --series-name="swisstopo Unterkuenfte Winter" \
-  --description="Unterkuenfte Winter" --mapname=63922001 --code-page=1252 --lower-case --gmapsupp --keep-going --transparent \
+  --description="Unterkuenfte Winter" --mapname=64392201 --code-page=1252 --lower-case --gmapsupp --keep-going --transparent \
   --draw-priority=31 "$OUT/unterkuenfte.osm" "$R/mkgmap/unterkuenfte/typ/unterkuenfte_winter.txt" 2>&1 | tee "$OUT/mkgmap_unterkuenfte.log" | grep -E "Exception|SEVERE" || true
 cp "$OUT/img_unterkuenfte/gmapsupp.img" "$OUT/swisstopo_overlay_unterkuenfte_winter.img"
 ls -la "$OUT/swisstopo_overlay_unterkuenfte_winter.img"

@@ -11,7 +11,7 @@ python3 "$S/make_skilifte_typ.py" >/dev/null
 python3 "$S/skilifte2mkgmap.py" "$G" "$OUT/skilifte.osm" "$@"
 java -Xmx4g -jar "$JAR" --style-file="$R/mkgmap/skilifte/style" --output-dir="$OUT/img_skilifte" \
   --family-id=3921 --product-id=1 --family-name="swisstopo Skilifte" --series-name="swisstopo Skilifte" \
-  --description="Skilifte" --mapname=63921001 --code-page=1252 --lower-case --gmapsupp --keep-going --transparent \
+  --description="Skilifte" --mapname=64392101 --code-page=1252 --lower-case --gmapsupp --keep-going --transparent \
   --draw-priority=30 "$OUT/skilifte.osm" "$R/mkgmap/skilifte/typ/skilifte.txt" 2>&1 | tee "$OUT/mkgmap_skilifte.log" | grep -E "Exception|SEVERE" || true
 cp "$OUT/img_skilifte/gmapsupp.img" "$OUT/swisstopo_overlay_skilifte.img"
 ls -la "$OUT/swisstopo_overlay_skilifte.img"

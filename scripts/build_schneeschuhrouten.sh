@@ -12,7 +12,7 @@ if [ $# -eq 4 ]; then BB=(--bbox "$@"); else BB=(); fi
 python3 "$S/routes2mkgmap.py" --kind schneeschuh --gpkg "$G" --out "$OUT/schneeschuh.osm" "${BB[@]}"
 java -Xmx4g -jar "$JAR" --style-file="$R/mkgmap/schneeschuh/style" --output-dir="$OUT/img_schneeschuh" \
   --family-id=3923 --product-id=1 --family-name="swisstopo Schneeschuhrouten" --series-name="swisstopo Schneeschuhrouten" \
-  --description="Schneeschuhrouten" --mapname=63923001 --code-page=1252 --lower-case --gmapsupp --keep-going --transparent \
+  --description="Schneeschuhrouten" --mapname=64392301 --code-page=1252 --lower-case --gmapsupp --keep-going --transparent \
   --draw-priority=30 "$OUT/schneeschuh.osm" "$R/mkgmap/schneeschuh/typ/schneeschuhrouten.txt" 2>&1 | tee "$OUT/mkgmap_schneeschuh.log" | grep -E "Exception|SEVERE" || true
 cp "$OUT/img_schneeschuh/gmapsupp.img" "$OUT/swisstopo_overlay_schneeschuhrouten.img"
 ls -la "$OUT/swisstopo_overlay_schneeschuhrouten.img"

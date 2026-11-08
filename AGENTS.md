@@ -30,6 +30,7 @@ Geräte: **Edge 1040** (Overlays **vom Nutzer getestet und funktionsfähig**), *
 
 ## Technische Fallstricke
 Siehe README, Abschnitt «Technische Fallstricke (mkgmap)». Zusätzlich:
+- **Kartennummern (`--mapname`) müssen geräteweit eindeutig sein:** Vektor 6390NNNN/6391NNNN, Höhenlinien 6392NNNN/6393NNNN, Overlays `64` + Family-ID + 2-stellige laufende Nummer (z. B. Wanderwege 64391101–64391104); neue Overlays nie mit `6<FamilyID>…` nummerieren.
 - **Labels:** mkgmap schreibt Namen nur, wenn die Stilregel `name=* { name '${name}' }` (am Anfang von lines/points/polygons) sie ausdrücklich setzt, und in Grossbuchstaben, wenn `--lower-case` fehlt. Ohne beides enthält die Karte keine Beschriftungen (bei den ersten Fassungen der Fall). Prüfen: LBL-Teildatei enthält Text; Umlaute stehen als Latin-1 (`grep -P 'Z\xfcrcherstrasse'`).
 - Standardlinientypen 0x20-0x22 (Höhenlinien) zeigte der Edge im Overlay nicht; erweiterte Typen 0x10f.. funktionieren.
 - Skripte im Repo **nicht** mit `python3 -I` starten (der isolierte Modus findet `mkgmap_xml_writer.py` nicht). Heruntergeladene Daten nur lesen, nie als Python-Code ausführen.

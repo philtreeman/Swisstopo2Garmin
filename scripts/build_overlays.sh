@@ -50,8 +50,8 @@ for spec in "wanderwege:wanderwege:3911:Wanderwege" "wanderland:wanderland:3912:
   rm -rf "$OUT/img_$name"; mkdir -p "$OUT/img_$name"
   java -Xmx6g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/img_$name" \
     --family-id=$fid --product-id=1 --family-name="swisstopo $desc" --series-name="swisstopo $desc" \
-    --description="$desc" --mapname=6${fid}001 --code-page=1252 --gmapsupp --keep-going --transparent \
-    --draw-priority=30 $(ls "$OUT"/osm/${osm}_*.osm) "$TYPDIR/$name.txt" | grep -E "Exception|SEVERE" || true
+    --description="$desc" --mapname=64${fid}01 --code-page=1252 --gmapsupp --keep-going --transparent \
+    --draw-priority=30 $(ls "$OUT"/osm/${osm}_*.osm) "$TYPDIR/$name.txt" 2>&1 | tee "$OUT/mkgmap_$name.log" | grep -E "Exception|SEVERE" || true
   cp "$OUT/img_$name/gmapsupp.img" "$OUT/swisstopo_overlay_$name.img"
 done
 ls -la "$OUT"/swisstopo_overlay_*.img

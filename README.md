@@ -114,18 +114,18 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 4. **mkgmap aufrufen**, einmal je Overlay. mkgmap liest die OSM-Dateien, ordnet über `mkgmap/overlays/style/lines` jedem Tag-Satz einen Garmin-Linientyp zu und verpackt alles mit der TYP-Datei in eine `gmapsupp.img`. Der Name im Gerätemenü kommt aus `--description`.
 5. **Umbenennen** nach `swisstopo_overlay_<name>.img` im Ausgabeordner.
 
-| Overlay | Family-ID | Mapname |
+| Overlay | Family-ID | Mapname (64 + Family-ID + laufende Nr.) |
 |---|---|---|
-| Wanderwege | 3911 | 63911001 |
-| Wanderland | 3912 | 63912001 |
-| Veloland | 3913 | 63913001 |
-| Mountainbikeland | 3914 | 63914001 |
-| Skirouten blau | 3915 | 63915001 |
-| Skirouten nach Schwierigkeit | 3916 | 63916001 |
-| Haltestellen | 3918 | 63918001 |
-| Skilifte (`scripts/build_skilifte.sh`) | 3921 | 63921001 |
-| Unterkünfte Winter (`scripts/build_unterkuenfte_winter.sh`) | 3922 | 63922001 |
-| Schneeschuhrouten (`scripts/build_schneeschuhrouten.sh`) | 3923 | 63923001 |
+| Wanderwege | 3911 | 64391101 bis 64391104 (4 Kacheln) |
+| Wanderland | 3912 | 643912xx |
+| Veloland | 3913 | 643913xx |
+| Mountainbikeland | 3914 | 643914xx |
+| Skirouten blau | 3915 | 643915xx |
+| Skirouten nach Schwierigkeit | 3916 | 643916xx |
+| Haltestellen | 3918 | 64391801 |
+| Skilifte (`scripts/build_skilifte.sh`) | 3921 | 64392101 |
+| Unterkünfte Winter (`scripts/build_unterkuenfte_winter.sh`) | 3922 | 64392201 |
+| Schneeschuhrouten (`scripts/build_schneeschuhrouten.sh`) | 3923 | 64392301 |
 
 ### Aussehen anpassen
 - **Farben, Breiten, Strichmuster:** `scripts/make_overlay_typ.py` (Konstanten oben: `YELLOW`, `LBLUE`, `ORANGE`, `SKI_BLUE`, Breiten je Kategorie). Danach `build_overlays.sh` neu starten; die OSM-Zwischendateien werden wiederverwendet.
@@ -136,7 +136,7 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 - `--style-file` zeigt direkt auf das Style-Verzeichnis. Mit zusätzlichem `--style=.` nutzt mkgmap still den Standard-Style und ignoriert die eigenen Tags.
 - Erweiterte Linientypen: Code `0x10f00`–`0x10f1f` (Subtyp höchstens `0x1f`), Skirouten `0x11000`–`0x11004`.
 - Die TYP-Compiler-Fehler sind stumm (nur `MapFailedExceptions: 1`). Muster-Linien brauchen Breite 32 (`Xpm="32 H N 1"`), und die durchsichtige Farbe (`none`) muss in der Farbtabelle **zuerst** stehen.
-- `--mapname` hat 8 Ziffern und muss je Overlay eindeutig sein.
+- `--mapname` hat 8 Ziffern und muss über **alle** geladenen `.img`-Dateien eindeutig sein. Schema: Vektorkarten `6390NNNN` (Edge) und `6391NNNN` (Fenix), Höhenlinien `6392NNNN` (20 m) und `6393NNNN` (10 m), mit NNNN = i*100+j der 20-km-Kachel. Overlays: `64` + Family-ID (4 Ziffern) + laufende Nummer (2 Ziffern, 01..99), z. B. Wanderwege `64391101`–`64391104`. Das Präfix 64 kann nie mit 6390–6393 kollidieren (frühere Overlay-Nummern wie `63911001` kollidierten mit Fenix-Kacheln).
 - Polygone erscheinen nur, wenn sie im TYP unter `[_drawOrder]` stehen (relevant für SwissTOPO Vector).
 
 ## Höhenlinien-Overlay (`swisstopo_overlay_hoehenlinien.img`)
