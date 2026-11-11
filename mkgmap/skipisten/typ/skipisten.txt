@@ -1,0 +1,332 @@
+; -*- coding: cp1252 -*-
+; TYP fuer die Skipisten-Karte (Family-ID 3926), erzeugt von scripts/make_skipisten_typ.py
+[_id]
+ProductCode=1
+FID=3926
+CodePage=1252
+[end]
+[_drawOrder]
+Type=0x10e00,1
+Type=0x10e01,2
+Type=0x10e02,3
+Type=0x10e03,4
+Type=0x10e04,5
+[end]
+[_line]
+Type=0x10f00
+String1=0x04,Piste leicht
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #0B5CD6"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x10f01
+String1=0x04,Piste mittel
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #E01B1B"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x10f02
+String1=0x04,Piste schwer
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #111111"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x10f03
+String1=0x04,Piste Freeride
+Xpm="32 5 3 1"
+"3 c none"
+"1 c #FF8A00"
+"2 c #FFFFFF"
+"22222233332222223333222222333322"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+"22222233332222223333222222333322"
+[end]
+[_line]
+Type=0x10f04
+String1=0x04,Piste unbekannt
+LineWidth=3
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #808080"
+"2 c #FFFFFF"
+[end]
+[_line]
+Type=0x10f05
+String1=0x04,Langlaufloipe
+Xpm="32 5 3 1"
+"3 c none"
+"1 c #1E9E3C"
+"2 c #FFFFFF"
+"22222233332222223333222222333322"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+"22222233332222223333222222333322"
+[end]
+[_line]
+Type=0x10f06
+String1=0x04,Skitourenroute
+Xpm="32 5 3 1"
+"3 c none"
+"1 c #8E2BB5"
+"2 c #FFFFFF"
+"22333322333322333322333322333322"
+"11333311333311333311333311333311"
+"11333311333311333311333311333311"
+"11333311333311333311333311333311"
+"22333322333322333322333322333322"
+[end]
+[_line]
+Type=0x10f07
+String1=0x04,Schlittelbahn
+Xpm="32 5 3 1"
+"3 c none"
+"1 c #8B5A2B"
+"2 c #FFFFFF"
+"22222233332222223333222222333322"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+"11111133331111113333111111333311"
+"22222233332222223333222222333322"
+[end]
+[_line]
+Type=0x10f08
+String1=0x04,Pistenumriss leicht
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #0B5CD6"
+[end]
+[_line]
+Type=0x10f09
+String1=0x04,Pistenumriss mittel
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #E01B1B"
+[end]
+[_line]
+Type=0x10f0a
+String1=0x04,Pistenumriss schwer
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #111111"
+[end]
+[_line]
+Type=0x10f0b
+String1=0x04,Pistenumriss Freeride
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #FF8A00"
+[end]
+[_line]
+Type=0x10f0c
+String1=0x04,Pistenumriss unbekannt
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #808080"
+[end]
+[_polygon]
+Type=0x10e00
+String1=0x04,Skipiste leicht
+Xpm="32 32 2 1"
+"a c none"
+"b c #0B5CD6"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+[end]
+[_polygon]
+Type=0x10e01
+String1=0x04,Skipiste mittel
+Xpm="32 32 2 1"
+"a c none"
+"b c #E01B1B"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+[end]
+[_polygon]
+Type=0x10e02
+String1=0x04,Skipiste schwer
+Xpm="32 32 2 1"
+"a c none"
+"b c #111111"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+[end]
+[_polygon]
+Type=0x10e03
+String1=0x04,Skipiste Freeride
+Xpm="32 32 2 1"
+"a c none"
+"b c #FF8A00"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+[end]
+[_polygon]
+Type=0x10e04
+String1=0x04,Skipiste unbekannt
+Xpm="32 32 2 1"
+"a c none"
+"b c #808080"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+"babababababababababababababababa"
+"abababababababababababababababab"
+[end]

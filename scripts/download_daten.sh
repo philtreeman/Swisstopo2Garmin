@@ -1,5 +1,5 @@
 #!/bin/bash
-# Laedt die offenen Datensaetze fuer die Overlays von data.geo.admin.ch (ca. 1,2 GB, Stand der Dateien siehe README).
+# Laedt die offenen Datensaetze fuer die Overlays von data.geo.admin.ch (ca. 1,9 GB inkl. OSM-Auszug, Stand der Dateien siehe README).
 #   scripts/download_daten.sh <ziel-ordner>
 set -e
 D=$(realpath -m "${1:?Zielordner angeben}"); mkdir -p "$D"; cd "$D"
@@ -21,4 +21,7 @@ get "$B/ch.swisstopo.bahnen-winter/bahnen-winter/bahnen-winter_2056.gpkg" bahnen
 get "$B/ch.swisstopo.unterkuenfte-winter/unterkuenfte-winter/unterkuenfte-winter_2056.gpkg" unterkuenfte-winter_2056.gpkg
 # swisstopo: swissNAMES3D (Gebaeudenamen und Hoehen fuer Unterkuenfte Winter, ca. 460 MB)
 get "$B/ch.swisstopo.swissnames3d/swissnames3d_2026/swissnames3d_2026_2056.gpkg" swissnames3d_2026_2056.gpkg
-ls -la "$D"/*.gpkg
+# OpenStreetMap (nur fuer das Skipisten-Overlay): Auszug Schweiz von OpenStreetMap France (ca. 680 MB; Geofabrik war nicht erreichbar).
+# Daten © OpenStreetMap-Mitwirkende, ODbL.
+get "https://download.openstreetmap.fr/extracts/europe/switzerland-latest.osm.pbf" switzerland-latest.osm.pbf
+ls -la "$D"/*.gpkg "$D"/*.pbf

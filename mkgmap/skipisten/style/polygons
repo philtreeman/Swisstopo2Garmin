@@ -1,0 +1,6 @@
+# Pistenflaechen (OpenStreetMap, piste:type=downhill), halbdurchsichtige Muster in typ/skipisten.txt. Sichtbar ab Aufloesung 20.
+piste_area=yes & piste_class=blue [0x10e00 resolution 20]
+piste_area=yes & piste_class=red [0x10e01 resolution 20]
+piste_area=yes & piste_class=black [0x10e02 resolution 20]
+piste_area=yes & piste_class=orange [0x10e03 resolution 20]
+piste_area=yes [0x10e04 resolution 20]
