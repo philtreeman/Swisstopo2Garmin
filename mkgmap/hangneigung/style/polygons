@@ -1,0 +1,11 @@
+# Hangneigung (swissALTIRegio 10 m, scripts/hangneigung2mkgmap.py): Tag hang=<untere Klassengrenze in Grad>.
+# Beide Karten (3924 Hangneigung, 3925 Hangneigungsklassen) nutzen diese Regeln; die Klassen-Karte enthaelt nur hang>=30.
+# Farben und Muster in typ/ (scripts/make_hangneigung_typ.py). Sichtbar ab Aufloesung 20.
+hang=10 [0x10e0d resolution 20]
+hang=20 [0x10e0e resolution 20]
+hang=25 [0x10e0f resolution 20]
+hang=30 [0x10e1b resolution 20]
+hang=35 [0x10e1c resolution 20]
+hang=40 [0x10e1d resolution 20]
+hang=45 [0x10e1e resolution 20]
+hang=50 [0x10e1f resolution 20]

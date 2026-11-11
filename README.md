@@ -4,6 +4,7 @@ Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img
 
 - **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit mehr Namen, Grenzen und Schildern; Fenix reduziert).
 - **Höhenlinien** (10 m und 20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
+- **Hangneigung** und **Hangneigungsklassen** (ab 30°, wie swisstopo «Hangneigung über 30°»): zwei semitransparente Flächen-Overlays aus swissALTIRegio (10 m), siehe Abschnitt [Hangneigungs-Overlays](#hangneigungs-overlays).
 
 **Teststand:**
 - **Garmin Edge 1040: geprüft, funktioniert.** Der Nutzer hat Overlays für Skirouten, Wanderwege und Fahrradrouten aufs Gerät geladen. Mehrere `.img`-Dateien nebeneinander werden also geladen. Welche der beiden Fahrradkarten (Veloland, Mountainbike) einzeln geprüft wurde, ist nicht festgehalten.
@@ -23,6 +24,8 @@ Die Overlays:
 | `swisstopo_overlay_unterkuenfte_winter.img` | Unterkünfte Winter (`ch.swisstopo.unterkuenfte-winter`, swisstopo/SAC), ergänzt um Hütten aus swissNAMES3D | roter Ring (13 px, `#FF1900`, innen leer, weisser Rand) wie im swisstopo-Viewer, schon weit herausgezoomt, Name mit Höhe ab mittlerer Zoomstufe («Kesch-Hütte SAC 2623»); nur in der feinsten Stufe zusätzlich kleine Häuser: braun = SAC-Hütte ausserhalb des Winter-Datensatzes, grau = übrige Hütte |
 | `swisstopo_overlay_schneeschuhrouten.img` | Schneeschuhrouten (`ch.swisstopo-karto.schneeschuhrouten`, swisstopo/SAC und Winterwanderwege VS) | türkisgrün `#008A79`, durchgezogen, weisser Rand (wie swisstopo); Name mit WT-Schwierigkeit in der feinsten Stufe |
 | `swisstopo_overlay_hoehenlinien.img` | Höhenlinien, Äquidistanz 20 m (swissALTI3D 2 m) | hellbraun; alle 100 m dunkler und stärker, mit Höhenangabe |
+| `swisstopo_overlay_hangneigung.img` | Hangneigung in 8 Stufen ab 10° (swissALTIRegio 10 m, Klassen auf 20-m-Raster) | semitransparent (Punktmuster): 10–20° hellgrün, 20–25° grün, 25–30° dunkelgrün (je 25 % der Pixel), ab 30° wie die Klassen-Karte (50 %); unter 10° leer |
+| `swisstopo_overlay_hangneigungsklassen.img` | Lawinen-Hangneigungsklassen ab 30° wie `ch.swisstopo.hangneigung-ueber_30` (10-m-Raster) | semitransparent (Schachbrett, 50 % der Pixel): 30–35° gelb `#F2E50A`, 35–40° orange `#F46F24`, 40–45° rot `#DE055B`, 45–50° violett `#C889BB`, über 50° grau `#4B4B4B` (Farben an der WMTS-Ebene gemessen) |
 
 Die Routen von SchweizMobil tragen «Nummer Name» als Beschriftung (z. B. «1 Via Alpina»), die Skirouten «Name Schwierigkeit». Bei Wanderland, Veloland und Mountainbikeland sind die Linien nach national (breit), regional und lokal gestuft.
 
@@ -39,7 +42,7 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m und 20 m, ganze Schweiz, je in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 168 MB und 109 MB |
 | `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 241 MB |
 | `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 225 MB |
-| `karten/overlays_schweiz/` | alle 6 Overlays, ganze Schweiz | 14 MB |
+| `karten/overlays_schweiz/` | alle Overlays einzeln, ganze Schweiz (Routen, Haltestellen, Winter, Hangneigung) | 135 MB, davon Hangneigung 75 MB und Hangneigungsklassen 45 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 
 Installation: gewünschte `.img` nach `Garmin/` auf das Gerät kopieren (USB), neu starten, unter Einstellungen → Karte aktivieren. Eine vorhandene `gmapsupp.img` nicht überschreiben.
@@ -58,6 +61,7 @@ Alle Daten sind offen auf `data.geo.admin.ch` verfügbar (STAC-Collection in Kla
 | Unterkünfte Winter | `ch.swisstopo.unterkuenfte-winter` (swisstopo/SAC), alle 506 Unterkünfte als roter Ring; dazu aus swissNAMES3D 2026 (`ch.swisstopo.swissnames3d`, Gebäudenamen) 27 SAC-Hütten, die nicht im Winter-Datensatz stehen (Name enthält «SAC» oder «CAS»; ein Eigentümer-Attribut gibt es nicht), und 987 übrige Hütten (Schutzhütten, andere Clubhütten, Biwaks, Name mit Hütte, Cabane, Refuge, Capanna, Berghaus …; ohne Forst-/Waldhütten); Punkte unter 250 m neben einem Punkt mit Vorrang weggelassen | 2025-11-20 / 2026 |
 | Schneeschuhrouten | `ch.swisstopo-karto.schneeschuhrouten`, Datei `snowshoe_routes_2056.gpkg`, 2'825 Routen (4'630 km): swisstopo/SAC 2'485, Winterwanderwege Kt. VS 340; 292 mit Name und WT-Schwierigkeit | 2025-12-11 |
 | Höhenlinien | swissALTI3D (`ch.swisstopo.swissalti3d`), 2-m-Raster, neuestes Jahr je 1-km-Kachel | 2019–2026 |
+| Hangneigung | swissALTIRegio (`ch.swisstopo.swissaltiregio`), 10-m-Raster, eine Cloud-Optimized-GeoTIFF-Datei (10 GB, es werden nur die Ausschnitte gelesen); begrenzt auf Schweiz + Liechtenstein + 1 km aus swissBOUNDARIES3D (`ch.swisstopo.swissboundaries3d`, Layer `tlm_landesgebiet`) | 2026-05 / 2026-01 |
 
 ## Aufbau des Repos
 
@@ -76,6 +80,10 @@ scripts/                       alle Skripte
   build_hoehenlinien.sh          baut das Höhenlinien-Overlays (10 m und 20 m) aus swissALTI3D
   hoehenlinien2mkgmap.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
   swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
+  build_hangneigung.sh           baut die Overlays Hangneigung und Hangneigungsklassen aus swissALTIRegio
+  hangneigung2mkgmap.py             Höhenmodell → Neigung → Klassenflächen als OSM-XML
+  make_hangneigung_typ.py        schreibt die beiden TYP-Dateien (Farben, Punktmuster)
+  preview_hangneigung.py         Vergleichszeichnung gegen die swisstopo-WMTS-Ebenen
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
   vector2mkgmap.py                  swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
   make_vector_typ.py             schreibt die TYP-Datei (Farben, Muster, Linien)
@@ -126,6 +134,8 @@ Das Skript baut aus den GeoPackages die sechs `.img`-Dateien:
 | Skilifte (`scripts/build_skilifte.sh`) | 3921 | 64392101 |
 | Unterkünfte Winter (`scripts/build_unterkuenfte_winter.sh`) | 3922 | 64392201 |
 | Schneeschuhrouten (`scripts/build_schneeschuhrouten.sh`) | 3923 | 64392301 |
+| Hangneigung (`scripts/build_hangneigung.sh`) | 3924 | 64392401 bis 64392444 (44 Blöcke à 40 km) |
+| Hangneigungsklassen (`scripts/build_hangneigung.sh`) | 3925 | 64392501 bis 64392544 |
 
 ### Aussehen anpassen
 - **Farben, Breiten, Strichmuster:** `scripts/make_overlay_typ.py` (Konstanten oben: `YELLOW`, `LBLUE`, `ORANGE`, `SKI_BLUE`, Breiten je Kategorie). Danach `build_overlays.sh` neu starten; die OSM-Zwischendateien werden wiederverwendet.
@@ -147,6 +157,31 @@ scripts/build_hoehenlinien.sh tiles_2m.json mkgmap.jar out/                     
 scripts/build_hoehenlinien.sh tiles_2m.json mkgmap.jar out/ 8.24 47.44 8.38 47.51   # Region
 ```
 Ablauf: 20-km-Blöcke im LV95-Raster → je Block parallel (3 Prozesse) die 1-km-Kacheln laden (ca. 1 MB je Kachel, die ganze Schweiz sind rund 45 GB Download, nichts davon wird gespeichert), mit `contourpy` Linien im Abstand von 10 m berechnen, mit 2,5 m vereinfachen, als OSM-XML schreiben, mit mkgmap zur Block-Karte bauen, am Ende alle Blöcke und die TYP-Datei zusammenführen. Dauer für die ganze Schweiz: etwa 40 Minuten. Fortsetzbar. Die Linien liegen im Typ `0x20` (10 m), `0x21` (50 m), `0x22` (100 m); Farben und Breiten stehen in `scripts/make_overlay_typ.py`, Sichtbarkeit je Zoom in `mkgmap/overlays/style/lines`.
+
+## Hangneigungs-Overlays
+Zwei Flächen-Overlays aus derselben Neigungsberechnung, je eine eigene Karte (auf keinem Gerät geprüft):
+
+| Datei | Gerätemenü | Family-ID | Inhalt | Raster | Grösse |
+|---|---|---|---|---|---|
+| `swisstopo_overlay_hangneigung.img` | «swisstopo Hangneigung» | 3924 | 10–20, 20–25, 25–30, 30–35, 35–40, 40–45, 45–50, > 50° (unter 10° leer) | 20 m | 75 MB |
+| `swisstopo_overlay_hangneigungsklassen.img` | «swisstopo Hangneigungsklassen» | 3925 | nur die Lawinenklassen 30–35, 35–40, 40–45, 45–50, > 50° | 10 m | 45 MB |
+
+```
+scripts/build_hangneigung.sh swissBOUNDARIES3D_1_5_LV95_LN02.gpkg mkgmap.jar out/                        # ganze Schweiz
+scripts/build_hangneigung.sh swissBOUNDARIES3D_1_5_LV95_LN02.gpkg mkgmap.jar out/ 9.75 46.75 9.95 46.90   # Region
+```
+- **Daten:** swissALTIRegio (10 m) statt swissALTI3D: swisstopo bietet die Neigung nicht als Datensatz an (im STAC gibt es keine Collection dazu, nur die WMTS-Ebenen), und swissALTI3D gibt es nur in 0,5 m und 2 m (45 GB Download für die Schweiz). swissALTIRegio ist ein einziges Cloud-Optimized GeoTIFF; das Skript liest nur die Blockausschnitte (rund 3 GB Download für die Schweiz, nichts wird gespeichert). Die swisstopo-Ebenen «Hangneigung ab 30°» sind laut Beschreibung ebenfalls aus einem 10-m-Modell abgeleitet.
+- **Neigung:** Horn-Verfahren (3 × 3 Zellen, wie `gdaldem slope`) auf 10 m. Abgleich mit der WMTS-Ebene `ch.swisstopo.hangneigung-ueber_30` (Raum Davos, Zoom 14, 262'000 Pixel, davon 93'600 farbig): bei 99,9 % der Pixel fällt die eigene Neigung in dieselbe Klasse wie bei swisstopo (Median gelb 32,5°, orange 37,2°, rot 41,6°, violett 46,7°, grau 52,2°); swisstopo rechnet also offenbar gleich. Daraus auch: swisstopo hat eine fünfte Klasse **über 50° (grau `#4B4B4B`)**.
+- **Flächen:** Klassenraster → Flecken unter 400 m² gehen in der Nachbarklasse auf (`rasterio.features.sieve`) → Polygone (`rasterio.features.shapes`) → gemeinsam vereinfacht als Flächendeckung (`shapely.coverage_simplify`, 0,6 × Rasterweite, Nachbarflächen behalten die gemeinsame Kante) → exakt am Blockrand zugeschnitten. Die Karte Hangneigung nutzt das Mittel von 2 × 2 Zellen (20 m), weil sie mit 10 m hochgerechnet rund 100 MB gross würde (Testregion Davos: 0,85 statt 0,65 MB) und für die Übersicht unter 30° kein 10-m-Detail braucht; die Klassen-Karte bleibt bei 10 m.
+- **Dauer und Bedarf:** ganze Schweiz rund 26 Minuten (4 Kerne, `JOBS=3`, je Block bis etwa 3 GB RAM und bis 1,3 GB OSM-Zwischendatei, die gleich wieder gelöscht wird). Python braucht zusätzlich `rasterio` (`venv/bin/pip install rasterio`).
+- **Blöcke:** 40 × 40 km im LV95-Raster (Ursprung 2480000/1070000, also je 2 × 2 der 20-km-Kacheln der anderen Karten), 44 Blöcke. Grund: das Nummernschema `64<FamilyID>NN` erlaubt höchstens 99 Kacheln, mit 20 km wären es 148.
+- **Semitransparent:** Garmin-TYP kennt kein Alpha. Jede Klasse ist ein 32 × 32-Muster aus einer Farbe und `none` (durchsichtig): ab 30° Schachbrett (50 % der Pixel farbig), unter 30° jeder zweite Pixel jeder zweiten Zeile (25 %). Ein Dichtetest (eigene Zeichnung) zeigte: 25 % ist für die Lawinenklassen zu blass (gelb verschwindet fast), 50 % für die grossen Flächen unter 30° zu deckend. Dichte änderbar mit `scripts/make_hangneigung_typ.py --dichte 50|25 --dichte-flach 50|25`.
+- **Typen und Zoom:** erweiterte Flächentypen `0x10e0d`–`0x10e0f` (unter 30°) und `0x10e1b`–`0x10e1f` (ab 30°), in keiner anderen TYP-Datei des Repos belegt; Standardtypen vermieden, weil ein Kartenthema sie umfärben kann. Sichtbar ab Auflösung 20 (`mkgmap/hangneigung/style/polygons`), Ebenen `0:22, 1:20` (die feinste Ebene 22 statt 24 halbiert die Dateigrösse, die Koordinaten sind dann auf rund 5–10 m gerundet, passend zum 10-m-Raster). `--draw-priority=26`: über SwissTOPO Vector (20), unter den Linien-Overlays (30).
+- Die Neigung ist eine Planungshilfe; sie ersetzt weder Lawinenbulletin noch Beurteilung vor Ort. Nahe der Landesgrenze stammt swissALTIRegio aus den Modellen der Nachbarländer (Genauigkeit laut swisstopo dort nicht garantiert).
+
+![Vorschau Hangneigung](karten/overlays_schweiz/vorschau_hangneigung.png)
+
+*Raum Davos, Schiahorn (Zoom 15): links eigene Zeichnung der beiden Overlays mit den TYP-Mustern 1:1 über der grauen Landeskarte, rechts die swisstopo-WMTS-Ebenen. Eigene Zeichnung, kein Rendering vom Gerät.*
 
 ## SwissTOPO Vector, zwei Varianten (Family-ID 3900 und 3901)
 Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in drei Teilen wegen der GitHub-Grenze von 100 MB. Die Darstellung ist an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen; die Flächenmuster für Fels und Reben sind aus diesen Fotos ausgelesen (`scripts/extract_pattern.py`, persönlicher Gebrauch, das Repo ist privat). **Auf keinem Gerät geprüft** (der Nutzer hat nur eine frühere Fassung auf dem Edge 1040 gesehen, sie lud).
@@ -202,4 +237,4 @@ Ablauf: Kachelliste im LV95-Raster (20 × 20 km, 234 Kacheln) → je Kachel para
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays. Auf dem Edge 1040 laufen die Overlays (siehe Teststand).
 - SwissTOPO Vector ist auf keinem Gerät geprüft.
 - Die Overlays und die Höhenlinien haben keine Basiskarte. Sie ergänzen eine vorhandene Karte, zum Beispiel SwissTOPO Vector.
-- Die Skirouten ersetzen weder das Lawinenbulletin noch eine Tourenplanung.
+- Die Skirouten und die Hangneigung ersetzen weder das Lawinenbulletin noch eine Tourenplanung.
