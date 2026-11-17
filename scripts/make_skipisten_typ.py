@@ -4,7 +4,7 @@
 Linien (3 px mit 1 px weissem Rand, Pistenfarben nach europaeischer Konvention):
   0x10f00 blau (novice/easy)   0x10f01 rot (intermediate)   0x10f02 schwarz (advanced/expert)
   0x10f03 orange gestrichelt (freeride/extreme)   0x10f04 grau (Schwierigkeit unbekannt)
-  0x10f05 nordic gruen gestrichelt   0x10f06 skitour violett gepunktet   0x10f07 sled braun gestrichelt
+  0x10f05 nordic gruen gestrichelt   0x10f07 sled braun gestrichelt (0x10f06 frei: Skitouren entfernt)
   0x10f08-0x10f0c Umriss von Pistenflaechen, 1 px in den Pistenfarben (blau, rot, schwarz, orange, grau)
 Flaechen (halbdurchsichtig: Schachbrett aus Farbe und 'none'): 0x10e00-0x10e04 blau, rot, schwarz, orange, grau.
 Farbtabelle: die durchsichtige Farbe 'none' steht zuerst, Linienmuster haben Breite 32 (sonst bricht der TYP-Compiler still ab).
@@ -50,7 +50,6 @@ def main():
     txt += pattern("0x10f03", "Piste Freeride", COL["orange"], 6, 4)
     txt += solid("0x10f04", "Piste unbekannt", COL["grey"])
     txt += pattern("0x10f05", "Langlaufloipe", "#1E9E3C", 6, 4)
-    txt += pattern("0x10f06", "Skitourenroute", "#8E2BB5", 2, 4)
     txt += pattern("0x10f07", "Schlittelbahn", "#8B5A2B", 6, 4)
     txt += "".join(thin(f"0x10f{8 + i:02x}", f"Pistenumriss {NAMEN[c]}", COL[c]) for i, c in enumerate(k))
     txt += "".join(flaeche(f"0x10e0{i}", NAMEN[c], COL[c]) for i, c in enumerate(k))

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""OpenStreetMap-Auszug (.osm.pbf) -> OSM-XML fuer mkgmap: Pisten (piste:type=downhill|nordic|skitour|sled).
+"""OpenStreetMap-Auszug (.osm.pbf) -> OSM-XML fuer mkgmap: Pisten (piste:type=downhill|nordic|sled).
 
   python3 skipisten2mkgmap.py --pbf switzerland-latest.osm.pbf --out skipisten.osm [--bbox W S E N]
 
 Daten: OpenStreetMap-Mitwirkende, ODbL (https://www.openstreetmap.org/copyright). Einzige OSM-Quelle im Repo.
 Gelesen werden Wege (Linien oder, bei area=yes bzw. geschlossen und piste:type=downhill mit area=yes, Flaechen) und
 Multipolygon-Relationen mit piste:type. Tags der Ausgabe:
-  piste_layer = downhill | nordic | skitour | sled
+  piste_layer = downhill | nordic | sled
   piste_class = blue | red | black | orange | grey   (nur downhill; nach piste:difficulty)
   piste_area=yes  Flaeche (nur downhill),  piste_outline=yes  Umriss derselben Flaeche (als Linie)
   name        = piste:name | name | piste:ref | ref
@@ -20,7 +20,7 @@ from shapely.geometry import LineString, Polygon, MultiPolygon, box
 from shapely.ops import unary_union, polygonize
 from mkgmap_xml_writer import Writer, emit_polygon
 
-LAYERS = ("downhill", "nordic", "skitour", "sled")
+LAYERS = ("downhill", "nordic", "sled")
 CLASS = {"novice": "blue", "easy": "blue", "intermediate": "red", "advanced": "black", "expert": "black",
          "freeride": "orange", "extreme": "orange"}
 
