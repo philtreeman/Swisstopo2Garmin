@@ -1,12 +1,13 @@
 # swisstopo → Garmin: SwissTOPO Vector, Höhenlinien und Routen-Overlays
 
-Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img`):
+Dieses Repo baut aus offenen Bundesdaten Karten für Garmin-Geräte (`.img`):
 
+- **SwissTOPO2026 Raster** (`out/TopoCH-swisstopo.img`): aktuelle swisstopo-Landeskarte (pk25) in der Hülle der lizenzierten Garmin-Rasterkarte TOPO Switzerland PRO. **Braucht die gekaufte Vorlage `TopoCHProV5raster.img` (nicht im Repo).**
 - **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit mehr Namen, Grenzen und Schildern; Fenix reduziert).
 - **Höhenlinien** (10 m und 20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
 
 **Teststand:**
-- **Garmin Edge 1040: geprüft, funktioniert.** Der Nutzer hat Overlays für Skirouten, Wanderwege und Fahrradrouten aufs Gerät geladen. Mehrere `.img`-Dateien nebeneinander werden also geladen. Welche der beiden Fahrradkarten (Veloland, Mountainbike) einzeln geprüft wurde, ist nicht festgehalten.
+- **Garmin Edge 1040: geprüft.** Overlays für Skirouten, Wanderwege und Fahrradrouten funktionieren. SwissTOPO2026 Raster läuft ohne die SQL-Dateien des Originalprodukts; Listenname «SwissTOPO2026 Raster».
 - **Garmin Fenix 5S Plus: Test offen.** Ob die Uhr mehrere `.img` nebeneinander lädt und wie die Linien auf dem kleinen Display aussehen, ist ungeprüft.
 
 Die Overlays:
@@ -59,16 +60,17 @@ Alle Daten sind offen auf `data.geo.admin.ch` verfügbar (STAC-Collection in Kla
 README.md                      diese Datei
 AGENTS.md                      Kontext für KI-Assistenten (Ziel, Entscheide, Stand)
 scripts/                       alle Skripte
+  build_raster.sh / build_raster.py   SwissTOPO2026 Raster (braucht TopoCHProV5raster.img)
   download_daten.sh              lädt die Overlay-Datensätze von data.geo.admin.ch
   build_overlays.sh              baut die 6 Overlay-.img (Hauptskript, siehe unten)
-  routes2mkgmap.py                  GeoPackage → OSM-XML für die Routen-Overlays
+  routes2mkgmap.py               GeoPackage → OSM-XML für die Routen-Overlays
   make_overlay_typ.py            schreibt die TYP-Dateien (Farben, Breiten, Muster)
-  mkgmap_xml_writer.py                  gemeinsame OSM-XML-Ausgabe
+  mkgmap_xml_writer.py           gemeinsame OSM-XML-Ausgabe
   build_hoehenlinien.sh          baut das Höhenlinien-Overlays (10 m und 20 m) aus swissALTI3D
-  hoehenlinien2mkgmap.py            swissALTI3D-Kacheln → Höhenlinien als OSM-XML
+  hoehenlinien2mkgmap.py         swissALTI3D-Kacheln → Höhenlinien als OSM-XML
   swissalti3d_kachelliste.py     listet alle swissALTI3D-Kacheln (neuestes Jahr)
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
-  vector2mkgmap.py                  swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
+  vector2mkgmap.py               swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
   make_vector_typ.py             schreibt die TYP-Datei (Farben, Muster, Linien)
   vector_palette.py              Farben von SwissTOPO Vector (aus Edge-1040-Bildschirmfotos)
   preview_vector.py              Vorschau-Zeichnung von SwissTOPO Vector
@@ -76,11 +78,66 @@ mkgmap/
   overlays/style/                mkgmap-Regeln: Tags → Garmin-Linientypen
   overlays/typ/                  erzeugte TYP-Dateien, eine je Overlay
   vector/style/, typ/            dasselbe für SwissTOPO Vector
-karten/                        fertige Karten
-experimente/                   Einzelversuche, nicht Teil der Pipeline
+karten/                        fertige Vektor-/Overlay-Karten
+out/                           Build-Ausgabe (gitignored), inkl. Raster-IMG und WMTS-Cache
+TopoCHProV5raster.img          Vorlage fürs Raster (lokal, nicht im Git, *.img ignoriert)
+experimente/                   Einzelversuche; Raster-Bau liegt unter scripts/
 ```
 
-## Eigene Karten bauen
+## SwissTOPO2026 Raster (`out/TopoCH-swisstopo.img`)
+
+Aktuelle swisstopo-Landeskarte (WMTS `ch.swisstopo.pixelkarte-farbe-pk25.noscale`, Zoom bis 16) in der Dateihülle von **TOPO Switzerland PRO Raster**. Es wird **kein** neues IMG-Format geschrieben: die 40'735 JPEG-Slots der Vorlage werden mit swisstopo-Ausschnitten gleicher oder kürzerer Länge überschrieben (Rest mit Nullen). Die Vorlage selbst gehört **nicht** ins Repo und darf nicht verteilt werden.
+
+### Zwei Bauwege
+| | **Mit Vorlage** (empfohlen) | **Standalone** (nur Repo) |
+|---|---|---|
+| Voraussetzung | `TopoCHProV5raster.img` (Lizenz, ~3,5 GB, nicht im Git) | Format-Stubben `scripts/_raster_*.bin` (im Repo) |
+| Verfahren | JPEG-Slots in der Garmin-Hülle ersetzen | eigene DSKIMG/GMP-Hülle schreiben |
+| Gerät | Edge 1040 **geprüft** | **ungeprüft** |
+| Ausgabe | gleiche Dateigrösse wie die Vorlage | neu berechnet, oft kleiner/gröber gerastert |
+
+### Voraussetzungen
+- Python 3 mit **Pillow** (`pip install Pillow`)
+- Internetzugang zu `wmts.geo.admin.ch`
+- Ca. 4 GB frei für die Ausgabe, plus WMTS-Cache unter `out/wmts/`
+- Optional: Vorlage im Repo-Root als `TopoCHProV5raster.img` (oder `TOPO_SRC` / Argument)
+- Dauer mit Vorlage: etwa 30–140 Minuten; Standalone: ähnlich, abhängig vom WMTS-Cache
+
+### Bau
+```
+scripts/build_raster.sh                          # Vorlage nutzen, sonst Standalone
+python3 scripts/build_raster.py /pfad/zur/Vorlage.img
+python3 scripts/build_raster.py                  # Standalone, falls keine Vorlage liegt
+python3 scripts/build_raster.py --standalone     # Standalone erzwingen (auch wenn Vorlage da ist)
+python3 scripts/build_raster.py --probe          # nur mit Vorlage: Index der 190 Kacheln prüfen
+```
+Ergebnis: `out/TopoCH-swisstopo.img`. Mit Vorlage: Fortschritt in `out/swisstopo.done`. Standalone: Zellen 0,020°×0,015°, GMP-Gruppen 0,30°×0,25°; Stubben und Schreiber in `scripts/raster_img_format.py` / `scripts/_raster_*.bin`.
+
+### Installation auf dem Edge
+1. Alte `TopoCHProV5raster.img` und frühere Test-IMGs aus `Garmin/` löschen (gleiche Produktfamilie kollidiert sonst).
+2. Nur `out/TopoCH-swisstopo.img` nach `Garmin/` kopieren (nicht `CustomMaps/`).
+3. Edge neu starten, unter Einstellungen → Karte → Kartenübersicht **SwissTOPO2026 Raster** einschalten.
+4. Die SQL-Dateien unter `Garmin/SQL/` des Originalprodukts werden **nicht** benötigt (eigene Family-ID `21332` / `0x5354`).
+
+### Was das Skript an der Vorlage ändert
+| Stelle | Inhalt |
+|---|---|
+| Dateikopf 0x49 (20 Byte) | Anzeigename `SwissTOPO2026 Raster` |
+| MPS F/L-Namen | derselbe Name, auf 27 Byte aufgefüllt |
+| Produkt/Familie in allen 191 MPS-Einträgen | von `01 00 51 11` auf `01 00 54 53` (ohne SQL-Bindung) |
+| Copyright-Texte in jeder GMP | durch Leerzeichen gleicher Länge ersetzt |
+| JPEG-Slots | swisstopo-Ausschnitt ≤ Slotlänge; zu kleine Slots behalten das Original |
+
+Unverändert und nötig für den Decoder: `GARMIN` / `KDSKIMG` im Kopf, `GARMIN GMP|TRE|RGN|LBL` in den Kacheln, FAT, Blockkette, Indexlängen.
+
+### Bekannte Fallstricke (Raster)
+- **Koordinaten:** die 16 Bytes *vor* der JPEG-Länge im Index sind die Ecken der Zelle; die 16 Bytes am Eintragsende sind die Nachbarspalte im Osten (~1 km). Falsche Lesart verschiebt die ganze Karte.
+- **Doppelte JPEG-Längen:** Indexreihenfolge ≠ Dateireihenfolge. `resolve_dup_boxes` ordnet bei gleichen Längen die Box dem Slot zu, dessen *Original*-JPEG am besten zur Box passt (sonst z. B. Magglingen/Péry vertauscht).
+- **Rand zur Landesgrenze:** swisstopo liefert ausserhalb der Schweiz weisse Kacheln; die Zellen bleiben dann weiss.
+- **WMTS 404:** wird als leere Kachel abgelegt; andere Fehler brechen den Lauf ab.
+- Ausgabe und Cache liegen unter `out/` (in `.gitignore`).
+
+## Eigene Vektor-/Overlay-Karten bauen
 
 ### Voraussetzungen
 - Python 3 mit `pyogrio shapely pyproj numpy` (für die Vorschau zusätzlich `geopandas matplotlib`), z. B. `python3 -m venv venv && venv/bin/pip install pyogrio shapely pyproj numpy geopandas matplotlib`
