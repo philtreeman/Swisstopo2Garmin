@@ -1,0 +1,15 @@
+# Bahnen Winter (ch.swisstopo.bahnen-winter), Symbole in typ/skilifte.txt.
+# Grobe Stufen (Aufloesung 18-21) ohne Namen, feine Stufen (22-24) mit Namen: so stehen die Bahnnamen
+# erst beim Hineinzoomen auf dem Display. Der Name wird je Regel gesetzt (keine allgemeine Regel name=*).
+lift=luft [0x10f03 resolution 18-21 continue]
+lift=luft { name '${name}' } [0x10f03 resolution 22-24]
+lift=gondel [0x10f02 resolution 18-21 continue]
+lift=gondel { name '${name}' } [0x10f02 resolution 22-24]
+lift=sessel [0x10f01 resolution 20-21 continue]
+lift=sessel { name '${name}' } [0x10f01 resolution 22-24]
+lift=stand [0x10f04 resolution 18-21 continue]
+lift=stand { name '${name}' } [0x10f04 resolution 22-24]
+lift=skilift [0x10f00 resolution 21 continue]
+lift=skilift { name '${name}' } [0x10f00 resolution 22-24]
+lift=andere [0x10f05 resolution 20-21 continue]
+lift=andere { name '${name}' } [0x10f05 resolution 22-24]

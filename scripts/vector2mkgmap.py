@@ -115,7 +115,7 @@ def clip_to_box(g, box):
 
 
 BAUM_ZELLE = 70.0   # m: je Zelle (absolutes LV95-Raster) bleibt nur der Baum nahe der Mitte; entspricht etwa der Dichte der Garmin-Karte (ca. 165 Baeume/km2 statt 1300)
-BUE_HALB = 4.0   # m: halbe Laenge des roten Balkens an einem Bahnuebergang
+BUE_HALB = 7.0   # m: halbe Laenge des roten Balkens an einem Bahnuebergang (14 m, bei 80 m Massstab etwa 7 Pixel)
 
 
 def bahnuebergaenge(strassen, bahnen):

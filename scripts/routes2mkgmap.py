@@ -4,9 +4,10 @@
   python3 routes2mkgmap.py --kind wanderwege --gpkg SWISSTLM3D_WANDERWEGE.gpkg --out w.osm [--bbox W S E N]
   python3 routes2mkgmap.py --kind wanderland|veloland|mtb --gpkg wanderland.gpkg --out r.osm [--bbox ...]
   python3 routes2mkgmap.py --kind ski --gpkg ski_routes_2056.gpkg --out s.osm [--bbox ...]
+  python3 routes2mkgmap.py --kind schneeschuh --gpkg snowshoe_routes_2056.gpkg --out r.osm [--bbox ...]
 
 Tags: route_layer=<kind>, route_class=<Kategorie; Wanderwege: weg2|weg1|spur|strasse nach Wegtyp>, name=<Beschriftung>.
-Quellen: swisstopo (swissTLM3D Wanderwege, Skirouten), SchweizMobil/ASTRA (Wanderland, Veloland, Mountainbikeland).
+Quellen: swisstopo (swissTLM3D Wanderwege, Skirouten, Schneeschuhrouten), SchweizMobil/ASTRA (Wanderland, Veloland, Mountainbikeland).
 """
 import argparse
 import numpy as np, pyogrio, shapely
@@ -47,11 +48,18 @@ def records(kind, df):
                 nm = ""
             dd = s(r.difficulty_de)
             yield r.geometry, str(cls), f"{nm} {dd}".strip() if nm else ""
+    elif kind == "schneeschuh":
+        # Schneeschuhrouten (swisstopo/SAC, Kanton VS): Klasse 1 = Route mit Name/Info, 0 = ohne; Name mit WT-Schwierigkeit
+        for r in df.itertuples(index=False):
+            nm = next((s(x) for x in (r.name_de, r.name) if s(x)), "")
+            if nm.startswith("Keine Routeninfo"):
+                nm = ""
+            yield r.geometry, "1" if nm else "0", f"{nm} {s(r.difficulty_de)}".strip() if nm else ""
 
 
 def main():
     a = argparse.ArgumentParser()
-    a.add_argument("--kind", required=True, choices=["wanderwege", "wanderland", "veloland", "mtb", "ski"])
+    a.add_argument("--kind", required=True, choices=["wanderwege", "wanderland", "veloland", "mtb", "ski", "schneeschuh"])
     a.add_argument("--gpkg", required=True)
     a.add_argument("--out", required=True)
     a.add_argument("--bbox", nargs=4, type=float, metavar=("W", "S", "E", "N"))
@@ -61,7 +69,7 @@ def main():
     if o.bbox:
         (x0, y0), (x1, y1) = FROM_WGS.transform(o.bbox[0], o.bbox[1]), FROM_WGS.transform(o.bbox[2], o.bbox[3])
         bb = (x0, y0, x1, y1)
-    layer = {"wanderwege": None, "wanderland": "Route", "veloland": "Route", "mtb": "Route", "ski": None}[o.kind]
+    layer = {"wanderwege": None, "wanderland": "Route", "veloland": "Route", "mtb": "Route", "ski": None, "schneeschuh": None}[o.kind]
     if o.kind == "wanderwege":
         layer = "tlm_strassen_strasse"
     mk = {"mtb": "mountainbikeland"}
@@ -69,7 +77,7 @@ def main():
     w = Writer(o.out)
     n = 0
     for geom, cls, name in records(o.kind, df):
-        if geom is None or geom.is_empty or not cls and o.kind != "ski":
+        if geom is None or geom.is_empty or not cls and o.kind not in ("ski", "schneeschuh"):
             continue
         g = shapely.force_2d(geom)
         if bb:

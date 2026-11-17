@@ -573,9 +573,11 @@ Xpm="0 0 2 0"
 [_line]
 Type=0x10e19
 String1=0x04,Bahnuebergang
-LineWidth=3
-Xpm="0 0 1 0"
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
 "1 c #E60000"
+"2 c #FFFFFF"
 [end]
 [_line]
 Type=0x14

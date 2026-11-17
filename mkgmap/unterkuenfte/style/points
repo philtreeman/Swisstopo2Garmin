@@ -1,0 +1,9 @@
+# Unterkuenfte Winter, Symbole in typ/unterkuenfte_winter.txt.
+# Alle Punkte aus ch.swisstopo.unterkuenfte-winter: roter Ring schon weit herausgezoomt (Aufloesung 18), Name mit Hoehe ab 21.
+# Ergaenzung aus swissNAMES3D (SAC-Huetten ausserhalb des Winter-Datensatzes: kleines braunes Haus; uebrige Huetten:
+# kleines graues Haus) nur in der feinsten Stufe (22), damit sie dem roten Ring keine Konkurrenz machen.
+# Name je Regel gesetzt (keine globale Namensregel, damit grobe Stufen ohne Namen bleiben).
+poi=huette & art=winter [0x10f00 resolution 18-20 continue]
+poi=huette & art=winter { name '${name}' } [0x10f00 resolution 21-24]
+poi=huette & art=sac { name '${name}' } [0x10f01 resolution 22-24]
+poi=huette & art=huette { name '${name}' } [0x10f02 resolution 22-24]

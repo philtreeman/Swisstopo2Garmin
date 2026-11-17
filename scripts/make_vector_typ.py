@@ -136,7 +136,7 @@ parts = [
     solid_line("0x10e16", "Hauptstrasse auf Bruecke", HAUPT[0], 5, "#000000"),
     solid_line("0x10e17", "Strasse auf Bruecke", STRASSE[0], 4, "#000000"),
     solid_line("0x10e18", "Nebenstrasse auf Bruecke", NEBEN[0], 3, "#000000"),
-    solid_line("0x10e19", "Bahnuebergang", "#E60000", 3),
+    solid_line("0x10e19", "Bahnuebergang", "#E60000", 4, "#FFFFFF"),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),
     dash_line("0x10e03", "Trockenrinne", WASSER_LI, 2, 3, h=1),
