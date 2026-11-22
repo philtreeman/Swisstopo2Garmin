@@ -1,0 +1,74 @@
+# Routing-Regeln fuer SwissTOPO Vector, nur aktiv mit --style-option=routing=1 (build_vector.sh mit ROUTING=1).
+# Eingebunden am Anfang von ../lines. Die Darstellung bleibt gleich: dieselben Garmin-Typen wie in ../lines, nur mit
+# road_class/road_speed. Objekte, die in ../lines einen erweiterten Typ (0x10e..) bekommen, sind in mkgmap nicht routbar
+# (routbar sind nur 0x01-0x13, 0x16, 0x1a, 0x1b); sie bekommen zusaetzlich eine unsichtbare routbare Linie
+# (0x13 Strasse, 0x16 Weg; in der TYP-Datei durchsichtig) und laufen dann mit «continue» weiter zu ihrer Regel in ../lines.
+# swissTLM3D-Attribute (vector2mkgmap.py --routing): tlm_richtung=RICHTUNGSG, tlm_vbeschr=VERKEHRSBE,
+# tlm_befahrbar=BEFAHRBARK, tlm_vbed=VERKEHRSBD, tlm_belag=BELAGSART, tlm_kunst=KUNSTBAUTE.
+
+# --- Strassenklasse (0-4) und Geschwindigkeitsklasse (0-7) je Objektart; ueberschreibt road_class/road_speed der Typregel
+tlm_layer=strasse & tlm_type=Autobahn { set mkgmap:road-class=4; set mkgmap:road-speed-class=7 }
+tlm_layer=strasse & tlm_type=Autostrasse { set mkgmap:road-class=4; set mkgmap:road-speed-class=6 }
+tlm_layer=strasse & (tlm_type=Einfahrt | tlm_type=Ausfahrt) { set mkgmap:road-class=4; set mkgmap:road-speed-class=4 }
+tlm_layer=strasse & tlm_type=Raststaette { set mkgmap:road-class=1; set mkgmap:road-speed-class=2 }
+tlm_layer=strasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') { set mkgmap:road-class=3; set mkgmap:road-speed-class=5 }
+tlm_layer=strasse & tlm_type='6m Strasse' { set mkgmap:road-class=2; set mkgmap:road-speed-class=4 }
+tlm_layer=strasse & tlm_type='4m Strasse' { set mkgmap:road-class=1; set mkgmap:road-speed-class=3 }
+tlm_layer=strasse & tlm_type=Verbindung { set mkgmap:road-class=1; set mkgmap:road-speed-class=3 }
+tlm_layer=strasse & tlm_type='3m Strasse' { set mkgmap:road-class=0; set mkgmap:road-speed-class=2 }
+tlm_layer=strasse & (tlm_type=Platz | tlm_type=Zufahrt | tlm_type=Dienstzufahrt | tlm_type='2m Weg') { set mkgmap:road-class=0; set mkgmap:road-speed-class=1 }
+tlm_layer=strasse & (tlm_type='1m Weg' | tlm_type='Markierte Spur') { set mkgmap:road-class=0; set mkgmap:road-speed-class=0 }
+# Naturbelag: langsam und als unbefestigt markiert (manche Geraete koennen unbefestigte Strassen meiden)
+tlm_layer=strasse & tlm_belag=Natur & (tlm_type='4m Strasse' | tlm_type='3m Strasse') { set mkgmap:road-class=0; set mkgmap:road-speed-class=1 }
+tlm_layer=strasse & tlm_belag=Natur { set mkgmap:unpaved=1 }
+# Verkehrsbedeutung hebt die Klasse an (Durchgangsstrassen sollen fuer die Routenwahl vor Quartierstrassen kommen)
+tlm_layer=strasse & (tlm_vbed=Hochleistungsstrasse | tlm_vbed=Durchgangsstrasse) & mkgmap:road-class!=4 { set mkgmap:road-class=3 }
+tlm_layer=strasse & (tlm_vbed=Hochleistungsstrasse | tlm_vbed=Durchgangsstrasse) & (mkgmap:road-speed-class=0 | mkgmap:road-speed-class=1 | mkgmap:road-speed-class=2 | mkgmap:road-speed-class=3) { set mkgmap:road-speed-class=4 }
+tlm_layer=strasse & tlm_vbed=Verbindungsstrasse & (mkgmap:road-class=0 | mkgmap:road-class=1) { set mkgmap:road-class=2 }
+# Treppen: Schrittgeschwindigkeit
+tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') { set mkgmap:road-class=0; set mkgmap:road-speed-class=0 }
+
+# --- Einbahn: richtungsgetrennte Fahrbahnen (Autobahn, Rampen, Kreisel, getrennte Fahrbahnen) sind in Fahrtrichtung erfasst
+tlm_layer=strasse & tlm_richtung=Wahr { set oneway=yes }
+
+# --- Zugang. mkgmap: ohne Angabe ist alles erlaubt, «no» sperrt das Verkehrsmittel.
+# Wege und Treppen: keine Motorfahrzeuge
+tlm_layer=strasse & (tlm_type='2m Weg' | tlm_type='1m Weg' | tlm_type='Markierte Spur' | tlm_type='1m Wegfragment' | tlm_type='2m Wegfragment' | tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe')
+  { set mkgmap:car=no; set mkgmap:truck=no; set mkgmap:bus=no; set mkgmap:taxi=no; set mkgmap:delivery=no; set mkgmap:emergency=no }
+# Treppen nur zu Fuss
+tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') { set mkgmap:bicycle=no }
+# Autobahn, Autostrasse, Rampen, Raststaetten: nicht zu Fuss und nicht mit dem Velo
+tlm_layer=strasse & (tlm_type=Autobahn | tlm_type=Autostrasse | tlm_type=Einfahrt | tlm_type=Ausfahrt | tlm_type=Raststaette) { set mkgmap:foot=no; set mkgmap:bicycle=no }
+# Dienstzufahrt (Betriebszufahrt) und Fahrverbote: keine Motorfahrzeuge (Velo und Fussgaenger bleiben erlaubt; Fahrverbote
+# mit «Zubringerdienst gestattet» o. ae. sind in swissTLM3D nicht unterscheidbar)
+tlm_layer=strasse & (tlm_type=Dienstzufahrt | tlm_vbeschr='Allgemeine Verkehrsbeschraenkung' | tlm_vbeschr=Teststrecke | tlm_vbeschr=Panzerpiste | tlm_befahrbar=Falsch)
+  { set mkgmap:car=no; set mkgmap:truck=no; set mkgmap:bus=no; set mkgmap:taxi=no; set mkgmap:delivery=no }
+# gesperrte Strassen: fuer alle gesperrt
+tlm_layer=strasse & tlm_vbeschr=Gesperrt
+  { set mkgmap:car=no; set mkgmap:truck=no; set mkgmap:bus=no; set mkgmap:taxi=no; set mkgmap:delivery=no; set mkgmap:emergency=no; set mkgmap:bicycle=no; set mkgmap:foot=no }
+
+# --- Unsichtbare routbare Unterlage fuer Objekte mit erweitertem (nicht routbarem) Typ in ../lines.
+# Die Bedingungen entsprechen genau den Regeln mit 0x10e.. in ../lines; «continue with_actions» uebergibt die Markierung
+# tlm_rt=unterlage an die folgenden Regeln, damit die Regeln unten (routbare sichtbare Typen) das Objekt auslassen.
+tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe')
+  { set tlm_rt=unterlage } [0x16 road_class=0 road_speed=0 resolution 24 continue with_actions]
+tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type=Autobahn | tlm_type='10m Strasse' | tlm_type='8m Strasse' | tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt)
+  { set tlm_rt=unterlage } [0x13 road_class=0 road_speed=1 resolution 24 continue with_actions]
+tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='2m Weg' | tlm_type='1m Weg')
+  { set tlm_rt=unterlage } [0x16 road_class=0 road_speed=1 resolution 24 continue with_actions]
+tlm_layer=strasse & tlm_kunst=Bruecke & (tlm_type=Autobahn | tlm_type='10m Strasse' | tlm_type='8m Strasse' | tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt)
+  { set tlm_rt=unterlage } [0x13 road_class=0 road_speed=1 resolution 24 continue with_actions]
+tlm_layer=strasse & (tlm_type='1m Weg' | tlm_type='Markierte Spur')
+  { set tlm_rt=unterlage } [0x16 road_class=0 road_speed=0 resolution 24 continue with_actions]
+# Autostrasse und Raststaette haben in ../lines keine Regel (werden nicht gezeichnet); fuer ein zusammenhaengendes Netz
+# trotzdem routbar, aber unsichtbar
+tlm_layer=strasse & (tlm_type=Autostrasse | tlm_type=Raststaette) [0x13 road_class=0 road_speed=1 resolution 24]
+
+# --- Sichtbare Strassen mit routbarem Standardtyp: gleiche Typen und Aufloesungen wie in ../lines, plus road_class/road_speed
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_type=Autobahn [0x01 road_class=4 road_speed=7 resolution 18]
+tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 road_class=3 road_speed=5 resolution 19]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_type='6m Strasse' [0x04 road_class=2 road_speed=4 resolution 20]
+tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='4m Strasse' | tlm_type='3m Strasse') & tlm_belag=Natur [0x07 road_class=0 road_speed=1 resolution 22]
+tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x06 road_class=1 road_speed=3 resolution 22]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_type=Platz [0x06 road_class=0 road_speed=1 resolution 22]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_type='2m Weg' [0x0a road_class=0 road_speed=1 resolution 22]

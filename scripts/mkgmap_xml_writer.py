@@ -8,10 +8,15 @@ from xml.sax.saxutils import quoteattr
 
 
 class Writer:
-    def __init__(self, path):
+    """bounds=(W, S, E, N) schreibt ein <bounds>-Element: mkgmap schneidet dann alle Objekte genau an diesem Rechteck zu und setzt
+    dort die Begrenzungsknoten fuer das Routing ueber Kachelgrenzen (Routing-Build, siehe vector2mkgmap.py --routing)."""
+
+    def __init__(self, path, bounds=None):
         self.path = path
+        self.bounds = bounds
         self.nodes, self.ways, self.rels = open(path + ".n", "w"), open(path + ".w", "w"), open(path + ".r", "w")
         self.nid = self.wid = self.rid = 0
+        self.shared = {}   # "lat lon" -> Knoten-ID fuer Wege mit share=True (gemeinsame Knoten an Kreuzungen)
 
     def _tags(self, tags):
         return "".join(f"<tag k={quoteattr(k)} v={quoteattr(str(v))}/>" for k, v in tags.items() if v is not None and str(v) not in ("", "k_W", "nan", "None"))
@@ -22,8 +27,16 @@ class Writer:
         self.nodes.write(f'<node id="{self.nid}" lat="{y:.7f}" lon="{x:.7f}" version="1">{t}</node>\n' if t else f'<node id="{self.nid}" lat="{y:.7f}" lon="{x:.7f}" version="1"/>\n')
         return self.nid
 
-    def way(self, coords, tags, closed=False):
-        ids = [self.node(x, y) for x, y in coords]
+    def shared_node(self, x, y):
+        """Knoten, der von allen Wegen mit share=True an derselben (auf 1e-7 Grad gerundeten) Stelle gemeinsam benutzt wird"""
+        k = f"{y:.7f} {x:.7f}"
+        nid = self.shared.get(k)
+        if nid is None:
+            nid = self.shared[k] = self.node(x, y)
+        return nid
+
+    def way(self, coords, tags, closed=False, share=False):
+        ids = [self.shared_node(x, y) if share else self.node(x, y) for x, y in coords]
         if closed:
             ids[-1] = ids[0]
         self.wid -= 1
@@ -36,6 +49,9 @@ class Writer:
             f.close()
         with open(self.path, "w") as out:
             out.write('<?xml version="1.0" encoding="UTF-8"?>\n<osm version="0.6" generator="tlm2osm">\n')
+            if self.bounds:
+                w, s, e, n = self.bounds
+                out.write(f'<bounds minlat="{s!r}" minlon="{w!r}" maxlat="{n!r}" maxlon="{e!r}"/>\n')
             for ext in (".n", ".w", ".r"):
                 with open(self.path + ext) as f:
                     for line in f:

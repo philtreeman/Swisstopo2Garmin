@@ -1,5 +1,9 @@
 # Beschriftung: der Name aus dem Namens-Tag wird zum Label (ohne diese Regel schreibt mkgmap keine Labels)
 name=* { name '${name}' }
+# Routing (nur mit --style-option=routing=1): Strassenklassen, Zugang, Einbahn; ohne die Option bleibt alles wie bisher
+if (mkgmap:option:routing=1) then
+include "inc/routing_lines";
+end
 # swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
 tlm_layer=bahnuebergang [0x10e19 resolution 22]
 tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 22]
