@@ -33,11 +33,12 @@ FARBEN = {
     "MPM_RIVER_CHNL_CLR": ("#7BC5F0", "#5BB4EA"), "MPM_MISC_WATER_LINE_CLR": ("#7BC5F0", "#5BB4EA"), "MPM_GLACIER_CLR": ("#E6F4FF", "#BFE3F7"),
     "MPM_BUILDING_CLR": ("#222222", "#222222"), "MPM_BUILDING_SHADOW_CLR": ("#222222", "#222222"),
     "MPM_RWY_HSRFC_CLR": ("#E8E8E8", "#B0B0B0"),
-    # Strassen: Autobahn orange, Hauptstrassen gelb, uebrige weiss, alle mit schwarzem Rand
-    "MPM_INTERSTATE_CLR": ("#F5A700", "#000000"), "MPM_SS_INTERSTATE_CLR": ("#F5A700", "#000000"),
-    "MPM_MJR_HWY_CLR": ("#FFD54D", "#000000"), "MPM_MNR_HWY_CLR": ("#FFD54D", "#000000"),
+    # Strassen nach der Zeichenerklaerung: Autobahn/Autostrasse orange (Typ 0x01), Durchgangsstrasse rosa (0x02, Principal Highway),
+    # Verbindungsstrasse gelb (0x03, Other Highway), uebrige weiss, alle mit schwarzem Rand
+    "MPM_INTERSTATE_CLR": ("#F7A71F", "#000000"), "MPM_SS_INTERSTATE_CLR": ("#F7A71F", "#000000"),
+    "MPM_MJR_HWY_CLR": ("#F8C7C8", "#000000"), "MPM_MNR_HWY_CLR": ("#FFF481", "#000000"),
     "MPM_ARTERIAL_CLR": ("#FFFFFF", "#000000"), "MPM_COLLECTOR_CLR": ("#FFFFFF", "#000000"), "MPM_RESIDENTIAL_CLR": ("#FFFFFF", "#000000"),
-    "MPM_RAMP_CLR": ("#F5A700", "#000000"), "MPM_UNPAVED_CLR": ("#FFFFFF", "#555555"), "MPM_BRIDGE_CLR": ("#FFFFFF", "#000000"),
+    "MPM_RAMP_CLR": ("#F7A71F", "#000000"), "MPM_UNPAVED_CLR": ("#FFFFFF", "#555555"), "MPM_BRIDGE_CLR": ("#FFFFFF", "#000000"),
     "MPM_TRAIL_CLR": ("#000000", "#000000"), "MPM_CARTO_LINE_CLR": ("#000000", "#000000"), "MPM_MISC_LINE_CLR": ("#000000", "#000000"),
     "MPM_RAILRD_CLR": ("#000000", "#FFFFFF"),
     # Hoehenlinien braun

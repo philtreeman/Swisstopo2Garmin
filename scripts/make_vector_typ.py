@@ -40,9 +40,9 @@ def pattern_poly(t):
     return f'[_polygon]\nType={t}\nString1=0x04,{name}\nXpm="32 32 2 1"\n"b c {bg}"\n"f c {fg}"\n{body}\n[end]\n'
 
 
-def solid_line(t, name, fill, w, border=None):
+def solid_line(t, name, fill, w, border=None, bw=1):
     if border:
-        return f'[_line]\nType={t}\nString1=0x04,{name}\nLineWidth={w}\nBorderWidth=1\nXpm="0 0 2 0"\n"1 c {fill}"\n"2 c {border}"\n[end]\n'
+        return f'[_line]\nType={t}\nString1=0x04,{name}\nLineWidth={w}\nBorderWidth={bw}\nXpm="0 0 2 0"\n"1 c {fill}"\n"2 c {border}"\n[end]\n'
     return f'[_line]\nType={t}\nString1=0x04,{name}\nLineWidth={w}\nXpm="0 0 1 0"\n"1 c {fill}"\n[end]\n'
 
 
@@ -60,6 +60,21 @@ def edge_dots_line(t, name, col, h, on=1, off=2):
     gap = '"' + "3" * 32 + '"'
     rows = "\n".join([dots] + [gap] * (h - 2) + [dots])
     return f'[_line]\nType={t}\nString1=0x04,{name}\nXpm="32 {h} 2 1"\n"3 c none"\n"1 c {col}"\n{rows}\n[end]\n'
+
+
+def gallery_line(t, name, fill, h):
+    """Galerie / gedeckte Bruecke (Zeichenerklaerung): Strassenfarbe, schwarze Raender, Querstriche alle 4 Pixel"""
+    edge = '"' + "2" * 32 + '"'
+    mid = '"' + ("2111" * 8) + '"'
+    rows = "\n".join([edge] + [mid] * (h - 2) + [edge])
+    return f'[_line]\nType={t}\nString1=0x04,{name}\nXpm="32 {h} 2 1"\n"1 c {fill}"\n"2 c #000000"\n{rows}\n[end]\n'
+
+
+def treppe_line():
+    """Treppe (Zeichenerklaerung): schwarze Doppellinie mit rot punktierter Mitte"""
+    black = '"' + "2" * 32 + '"'
+    dots = '"' + ("13" * 16) + '"'
+    return f'[_line]\nType=0x10e09\nString1=0x04,Treppe\nXpm="32 3 3 1"\n"3 c none"\n"1 c {TREPPE}"\n"2 c #000000"\n{black}\n{dots}\n{black}\n[end]\n'
 
 
 def rail_line(t, name):
@@ -119,33 +134,45 @@ parts = [
     pattern_poly("0x53"),
     solid_poly("0x3f", "Gewaesser", WASSER_FL),
     solid_poly("0x10e05", "Gebaeude", GEBAEUDE),
-    # Strassen: Fuellung plus Rand
-    solid_line("0x01", "Autobahn", AUTOBAHN[0], 6, AUTOBAHN[1]),
-    solid_line("0x02", "Hauptstrasse", HAUPT[0], 5, HAUPT[1]),
-    solid_line("0x04", "Strasse", STRASSE[0], 4, STRASSE[1]),
-    solid_line("0x06", "Nebenstrasse", NEBEN[0], 3, NEBEN[1]),
-    solid_line("0x07", "Naturstrasse", NATUR[0], 3, NATUR[1]),
-    # Wege nach der swisstopo-Zeichenerklaerung: 2 m-Weg durchgezogen, 1 m-Weg gestrichelt, markierte Spur punktiert.
+    # Strassen nach der swisstopo-Zeichenerklaerung (1:25 000): Farbe nach Verkehrsbedeutung (VERKEHRSBD), schwarzer Rand
+    solid_line("0x01", "Autobahn, Autostrasse", AUTOBAHN[0], 6, AUTOBAHN[1]),
+    solid_line("0x02", "Durchgangsstrasse", DURCHGANG[0], 5, DURCHGANG[1]),
+    solid_line("0x03", "Verbindungsstrasse", VERBINDUNG[0], 4, VERBINDUNG[1]),
+    solid_line("0x04", "Strasse 6 m", STRASSE[0], 4, STRASSE[1]),
+    solid_line("0x05", "Strasse 8 und 10 m", HAUPT[0], 5, HAUPT[1]),
+    solid_line("0x06", "Strasse 3 und 4 m", NEBEN[0], 3, NEBEN[1]),
+    solid_line("0x07", "Strasse Naturbelag", NATUR, 1),
+    # Wege: 2 m-Weg Hartbelag Doppellinie (0x0a), Naturbelag und Steg feine Volllinie (0x0b), 1 m-Weg gestrichelt, markierte Spur punktiert.
     # Wanderwege sind hier nicht farbig codiert (sie liegen im Overlay).
-    solid_line("0x0a", "Weg 2 m", SCHWARZ, 2),
+    solid_line("0x0a", "Weg 2 m Hartbelag", "#FFFFFF", 2, "#000000"),
+    solid_line("0x0b", "Weg 2 m Naturbelag, Steg", SCHWARZ, 1),
     dash_line("0x10e01", "Weg 1 m", SCHWARZ, 5, 3, h=2),
     dash_line("0x10e08", "Markierte Spur", SCHWARZ, 1, 2, h=2),
-    dash_line("0x10e09", "Treppe", "#E60000", 1, 2, h=2),
+    treppe_line(),
+    dash_line("0x10e00", "Klettersteig", KLETTERSTEIG, 4, 4, h=2),
     solid_line("0x10e06", "Schutzverbauung", LAWINE, 2),
     dash_line("0x10e0a", "Landesgrenze", GRENZE, 6, 2, h=3),
     dash_line("0x10e0b", "Kantonsgrenze", GRENZE, 3, 3, h=2),
     dash_line("0x10e0c", "Gemeindegrenze", GRENZE, 1, 3, h=1),
-    # Tunnel wie auf der Garmin-Karte: die Raender der Strasse als feine graue Punktreihen, innen durchsichtig
-    edge_dots_line("0x10e10", "Autobahn im Tunnel", WEG, 5),
-    edge_dots_line("0x10e11", "Hauptstrasse im Tunnel", WEG, 5),
-    edge_dots_line("0x10e12", "Strasse im Tunnel", WEG, 4),
-    edge_dots_line("0x10e13", "Nebenstrasse im Tunnel", WEG, 3),
+    # Tunnel nach der Zeichenerklaerung: immer schwarz gestrichelt ohne Farbe (zwei Randlinien, innen durchsichtig), unabhaengig
+    # von der Verkehrsbedeutung; Strassen bis 4 m nur eine gestrichelte Linie
+    edge_dots_line("0x10e10", "Autobahn im Tunnel", "#000000", 6, 4, 4),
+    edge_dots_line("0x10e11", "Strasse 8 und 10 m im Tunnel", "#000000", 5, 4, 4),
+    edge_dots_line("0x10e12", "Strasse 6 m im Tunnel", "#000000", 4, 4, 4),
+    dash_line("0x10e13", "Strasse 3 und 4 m im Tunnel", "#000000", 4, 4, h=1),
     edge_dots_line("0x10e14", "Bahn im Tunnel", WEG, 3),
-    # Bruecken: Strassenfarbe mit schwarzem Rand
-    solid_line("0x10e15", "Autobahn auf Bruecke", AUTOBAHN[0], 6, "#000000"),
-    solid_line("0x10e16", "Hauptstrasse auf Bruecke", HAUPT[0], 5, "#000000"),
-    solid_line("0x10e17", "Strasse auf Bruecke", STRASSE[0], 4, "#000000"),
-    solid_line("0x10e18", "Nebenstrasse auf Bruecke", NEBEN[0], 3, "#000000"),
+    # Bruecken: Strassenfarbe nach Verkehrsbedeutung, kraeftiger schwarzer Rand (2 px)
+    solid_line("0x10e15", "Autobahn auf Bruecke", AUTOBAHN[0], 6, "#000000", 2),
+    solid_line("0x10e16", "Strasse 8 und 10 m auf Bruecke", HAUPT[0], 5, "#000000", 2),
+    solid_line("0x10e17", "Strasse 6 m auf Bruecke", STRASSE[0], 4, "#000000", 2),
+    solid_line("0x10e18", "Strasse 3 und 4 m auf Bruecke", NEBEN[0], 3, "#000000", 2),
+    solid_line("0x10e1a", "Durchgangsstrasse auf Bruecke", DURCHGANG[0], 5, "#000000", 2),
+    solid_line("0x10e1b", "Verbindungsstrasse auf Bruecke", VERBINDUNG[0], 4, "#000000", 2),
+    # Galerien und gedeckte Bruecken: Strassenfarbe, Querstriche
+    gallery_line("0x10e1c", "Galerie Durchgangsstrasse", DURCHGANG[0], 7),
+    gallery_line("0x10e1d", "Galerie Verbindungsstrasse", VERBINDUNG[0], 6),
+    gallery_line("0x10e1e", "Galerie Strasse", STRASSE[0], 6),
+    gallery_line("0x10e1f", "Galerie Autobahn, Autostrasse", AUTOBAHN[0], 8),
     solid_line("0x10e19", "Bahnuebergang", "#E60000", 4, "#FFFFFF"),
     rail_line("0x14", "Bahn"),
     solid_line("0x18", "Bach", WASSER_LI, 1),

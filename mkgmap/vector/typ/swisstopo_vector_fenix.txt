@@ -335,53 +335,78 @@ Xpm="0 0 1 0"
 [end]
 [_line]
 Type=0x01
-String1=0x04,Autobahn
+String1=0x04,Autobahn, Autostrasse
 LineWidth=6
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #FF9900"
-"2 c #734400"
+"1 c #F7A71F"
+"2 c #000000"
 [end]
 [_line]
 Type=0x02
-String1=0x04,Hauptstrasse
+String1=0x04,Durchgangsstrasse
 LineWidth=5
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #FFCE62"
-"2 c #B38600"
+"1 c #F8C7C8"
+"2 c #000000"
 [end]
 [_line]
-Type=0x04
-String1=0x04,Strasse
+Type=0x03
+String1=0x04,Verbindungsstrasse
 LineWidth=4
 BorderWidth=1
 Xpm="0 0 2 0"
-"1 c #FFFAFF"
-"2 c #8B898B"
+"1 c #FFF481"
+"2 c #000000"
+[end]
+[_line]
+Type=0x04
+String1=0x04,Strasse 6 m
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #000000"
+[end]
+[_line]
+Type=0x05
+String1=0x04,Strasse 8 und 10 m
+LineWidth=5
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #000000"
 [end]
 [_line]
 Type=0x06
-String1=0x04,Nebenstrasse
+String1=0x04,Strasse 3 und 4 m
 LineWidth=3
 BorderWidth=1
 Xpm="0 0 2 0"
 "1 c #FFFFFF"
-"2 c #A4A5A4"
+"2 c #000000"
 [end]
 [_line]
 Type=0x07
-String1=0x04,Naturstrasse
-LineWidth=3
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #F6F2D5"
-"2 c #C9BE7A"
+String1=0x04,Strasse Naturbelag
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #000000"
 [end]
 [_line]
 Type=0x0a
-String1=0x04,Weg 2 m
+String1=0x04,Weg 2 m Hartbelag
 LineWidth=2
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #000000"
+[end]
+[_line]
+Type=0x0b
+String1=0x04,Weg 2 m Naturbelag, Steg
+LineWidth=1
 Xpm="0 0 1 0"
 "1 c #414041"
 [end]
@@ -406,11 +431,22 @@ Xpm="32 2 2 1"
 [_line]
 Type=0x10e09
 String1=0x04,Treppe
+Xpm="32 3 3 1"
+"3 c none"
+"1 c #E3000B"
+"2 c #000000"
+"22222222222222222222222222222222"
+"13131313131313131313131313131313"
+"22222222222222222222222222222222"
+[end]
+[_line]
+Type=0x10e00
+String1=0x04,Klettersteig
 Xpm="32 2 2 1"
 "3 c none"
-"1 c #E60000"
-"13313313313313313313313313313313"
-"13313313313313313313313313313313"
+"1 c #E3000B"
+"11113333111133331111333311113333"
+"11113333111133331111333311113333"
 [end]
 [_line]
 Type=0x10e06
@@ -449,47 +485,46 @@ Xpm="32 1 2 1"
 [_line]
 Type=0x10e10
 String1=0x04,Autobahn im Tunnel
-Xpm="32 5 2 1"
+Xpm="32 6 2 1"
 "3 c none"
-"1 c #414041"
-"13313313313313313313313313313313"
+"1 c #000000"
+"11113333111133331111333311113333"
 "33333333333333333333333333333333"
 "33333333333333333333333333333333"
 "33333333333333333333333333333333"
-"13313313313313313313313313313313"
+"33333333333333333333333333333333"
+"11113333111133331111333311113333"
 [end]
 [_line]
 Type=0x10e11
-String1=0x04,Hauptstrasse im Tunnel
+String1=0x04,Strasse 8 und 10 m im Tunnel
 Xpm="32 5 2 1"
 "3 c none"
-"1 c #414041"
-"13313313313313313313313313313313"
+"1 c #000000"
+"11113333111133331111333311113333"
 "33333333333333333333333333333333"
 "33333333333333333333333333333333"
 "33333333333333333333333333333333"
-"13313313313313313313313313313313"
+"11113333111133331111333311113333"
 [end]
 [_line]
 Type=0x10e12
-String1=0x04,Strasse im Tunnel
+String1=0x04,Strasse 6 m im Tunnel
 Xpm="32 4 2 1"
 "3 c none"
-"1 c #414041"
-"13313313313313313313313313313313"
+"1 c #000000"
+"11113333111133331111333311113333"
 "33333333333333333333333333333333"
 "33333333333333333333333333333333"
-"13313313313313313313313313313313"
+"11113333111133331111333311113333"
 [end]
 [_line]
 Type=0x10e13
-String1=0x04,Nebenstrasse im Tunnel
-Xpm="32 3 2 1"
+String1=0x04,Strasse 3 und 4 m im Tunnel
+Xpm="32 1 2 1"
 "3 c none"
-"1 c #414041"
-"13313313313313313313313313313313"
-"33333333333333333333333333333333"
-"13313313313313313313313313313313"
+"1 c #000000"
+"11113333111133331111333311113333"
 [end]
 [_line]
 Type=0x10e14
@@ -505,44 +540,119 @@ Xpm="32 3 2 1"
 Type=0x10e15
 String1=0x04,Autobahn auf Bruecke
 LineWidth=6
-BorderWidth=1
+BorderWidth=2
 Xpm="0 0 2 0"
-"1 c #FF9900"
+"1 c #F7A71F"
 "2 c #000000"
 [end]
 [_line]
 Type=0x10e16
-String1=0x04,Hauptstrasse auf Bruecke
+String1=0x04,Strasse 8 und 10 m auf Bruecke
 LineWidth=5
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FFCE62"
-"2 c #000000"
-[end]
-[_line]
-Type=0x10e17
-String1=0x04,Strasse auf Bruecke
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #FFFAFF"
-"2 c #000000"
-[end]
-[_line]
-Type=0x10e18
-String1=0x04,Nebenstrasse auf Bruecke
-LineWidth=3
-BorderWidth=1
+BorderWidth=2
 Xpm="0 0 2 0"
 "1 c #FFFFFF"
 "2 c #000000"
 [end]
 [_line]
+Type=0x10e17
+String1=0x04,Strasse 6 m auf Bruecke
+LineWidth=4
+BorderWidth=2
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #000000"
+[end]
+[_line]
+Type=0x10e18
+String1=0x04,Strasse 3 und 4 m auf Bruecke
+LineWidth=3
+BorderWidth=2
+Xpm="0 0 2 0"
+"1 c #FFFFFF"
+"2 c #000000"
+[end]
+[_line]
+Type=0x10e1a
+String1=0x04,Durchgangsstrasse auf Bruecke
+LineWidth=5
+BorderWidth=2
+Xpm="0 0 2 0"
+"1 c #F8C7C8"
+"2 c #000000"
+[end]
+[_line]
+Type=0x10e1b
+String1=0x04,Verbindungsstrasse auf Bruecke
+LineWidth=4
+BorderWidth=2
+Xpm="0 0 2 0"
+"1 c #FFF481"
+"2 c #000000"
+[end]
+[_line]
+Type=0x10e1c
+String1=0x04,Galerie Durchgangsstrasse
+Xpm="32 7 2 1"
+"1 c #F8C7C8"
+"2 c #000000"
+"22222222222222222222222222222222"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"22222222222222222222222222222222"
+[end]
+[_line]
+Type=0x10e1d
+String1=0x04,Galerie Verbindungsstrasse
+Xpm="32 6 2 1"
+"1 c #FFF481"
+"2 c #000000"
+"22222222222222222222222222222222"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"22222222222222222222222222222222"
+[end]
+[_line]
+Type=0x10e1e
+String1=0x04,Galerie Strasse
+Xpm="32 6 2 1"
+"1 c #FFFFFF"
+"2 c #000000"
+"22222222222222222222222222222222"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"22222222222222222222222222222222"
+[end]
+[_line]
+Type=0x10e1f
+String1=0x04,Galerie Autobahn, Autostrasse
+Xpm="32 8 2 1"
+"1 c #F7A71F"
+"2 c #000000"
+"22222222222222222222222222222222"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"21112111211121112111211121112111"
+"22222222222222222222222222222222"
+[end]
+[_line]
 Type=0x10e19
 String1=0x04,Bahnuebergang
-LineWidth=3
-Xpm="0 0 1 0"
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
 "1 c #E60000"
+"2 c #FFFFFF"
 [end]
 [_line]
 Type=0x14

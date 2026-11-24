@@ -32,7 +32,7 @@ LAYERS = [
     ("STEHENDES_GEWAESSER", "see", {}), ("NUTZUNGSAREAL", "areal", {}),
     ("VERKEHRSAREAL", "vareal", {}), ("FREIZEITAREAL", "freizeit", {}),
     ("GEBAEUDE_FOOTPRINT_OST", "gebaeude", {}), ("GEBAEUDE_FOOTPRINT_WEST", "gebaeude", {}),
-    ("STRASSE", "strasse", {"WANDERWEGE": "hiking", "BELAGSART": "belag", "KUNSTBAUTE": "kunst", "STUFE": "stufe"}),
+    ("STRASSE", "strasse", {"WANDERWEGE": "hiking", "BELAGSART": "belag", "KUNSTBAUTE": "kunst", "STUFE": "stufe", "VERKEHRSBD": "vbed"}),
     ("FLIESSGEWAESSER", "fluss", {"STUFE": "stufe"}),
     ("EISENBAHN", "bahn", {"KUNSTBAUTE": "kunst", "STUFE": "stufe", "ZAHNRADBAH": "zahnrad"}),
     ("UEBRIGE_BAHN", "ubahn", {}), ("MAUER", "mauer", {}),
@@ -43,8 +43,9 @@ LAYERS = [
 ]
 # nur mit --trees: rund 11,5 Mio. Einzelbaeume (je ein Punkt); vergroessert die Karte stark
 LAYERS_TREES = [("EINZELBAUM_OST", "baum", {}), ("EINZELBAUM_WEST", "baum", {})]
-# nur mit --routing: zusaetzliche Strassen-Attribute fuer Einbahn, Zugang und Strassenklasse (mkgmap/vector/style/inc/routing_lines)
-ROUTING_EXTRA = {"RICHTUNGSG": "richtung", "VERKEHRSBE": "vbeschr", "BEFAHRBARK": "befahrbar", "VERKEHRSBD": "vbed"}
+# nur mit --routing: zusaetzliche Strassen-Attribute fuer Einbahn, Zugang und Strassenklasse (mkgmap/vector/style/inc/routing_lines).
+# VERKEHRSBD (tlm_vbed, Verkehrsbedeutung) steht immer im Strassen-Layer: die Strassenfarbe richtet sich danach.
+ROUTING_EXTRA = {"RICHTUNGSG": "richtung", "VERKEHRSBE": "vbeschr", "BEFAHRBARK": "befahrbar"}
 RAND_ROUTING = 100   # m: Rand um die WGS84-Kachel beim Vorzuschnitt (mkgmap schneidet dann genau am <bounds>-Rechteck)
 GARMIN_BLOCK = 2048 * 360 / 2 ** 24   # Grad: 2048 Garmin-Einheiten (0.0439453125), Raster der Routing-Kacheln wie bei splitter
 

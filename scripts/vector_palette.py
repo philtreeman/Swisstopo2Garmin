@@ -14,8 +14,11 @@ FRIEDHOF = "#CFE8AE"
 WEG = "#414041"         # Pfade, Wanderwege (gestrichelt)
 WEG_FEST = "#626162"    # Feldwege
 GEHOELZ = "#A9DC63"; REBEN = "#FF9900"; REBEN_BG = "#DEFAAC"; FEUCHT = "#7FC8E8"; FELS = "#DEDEDE"; FELS_TEXTUR = "#A4A5A4"; GEROELL = "#EFEDE6"
-AUTOBAHN = ("#FF9900", "#734400"); HAUPT = ("#FFCE62", "#B38600"); STRASSE = ("#FFFAFF", "#8B898B")
-NEBEN = ("#FFFFFF", "#A4A5A4"); NATUR = ("#F6F2D5", "#C9BE7A")
+# Strassen nach der swisstopo-Zeichenerklaerung (Landeskarten 1:25 000, an der PDF gemessen), in beiden Designs gleich:
+# Farbe nach Verkehrsbedeutung (VERKEHRSBD), schwarzer Rand. HAUPT = 8/10 m-Strasse ohne Bedeutung (weiss), STRASSE = 6 m, NEBEN = 4/3 m.
+AUTOBAHN = ("#F7A71F", "#000000"); DURCHGANG = ("#F8C7C8", "#000000"); VERBINDUNG = ("#FFF481", "#000000")
+HAUPT = ("#FFFFFF", "#000000"); STRASSE = ("#FFFFFF", "#000000"); NEBEN = ("#FFFFFF", "#000000"); NATUR = "#000000"
+KLETTERSTEIG = "#E3000B"; TREPPE = "#E3000B"
 SCHWARZ = "#414041"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
 LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
 BAUM = "#83B200"         # Einzelbaeume (Punkt)
@@ -31,5 +34,4 @@ if os.environ.get("VECTOR_DESIGN") == "swisstopo":   # Variante «swisstopo-Stil
     PARK = "#DFF0CC"; SPORT = "#E1F2D3"; FRIEDHOF = "#DDEBCB"; SPORTPLATZ = "#E1F2D3"
     WEG = "#000000"; WEG_FEST = "#333333"; SCHWARZ = "#000000"
     GEHOELZ = "#D9EFC4"; FEUCHT = "#BFE3EF"; FELS = "#CFCFCF"; FELS_GRAU = "#C8C8C8"; GEROELL = "#EFEFE0"
-    AUTOBAHN = ("#F5A700", "#000000"); HAUPT = ("#FFFFFF", "#000000"); STRASSE = ("#FFFFFF", "#000000")
-    NEBEN = ("#FFFFFF", "#000000"); NATUR = ("#FFFFFF", "#555555")
+    pass   # Strassenfarben: siehe oben (in beiden Designs die der Zeichenerklaerung)

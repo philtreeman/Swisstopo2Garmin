@@ -3,7 +3,7 @@
 # road_class/road_speed. Objekte, die in ../lines einen erweiterten Typ (0x10e..) bekommen, sind in mkgmap nicht routbar
 # (routbar sind nur 0x01-0x13, 0x16, 0x1a, 0x1b); sie bekommen zusaetzlich eine unsichtbare routbare Linie
 # (0x13 Strasse, 0x16 Weg; in der TYP-Datei durchsichtig) und laufen dann mit «continue» weiter zu ihrer Regel in ../lines.
-# swissTLM3D-Attribute (vector2mkgmap.py --routing): tlm_richtung=RICHTUNGSG, tlm_vbeschr=VERKEHRSBE,
+# swissTLM3D-Attribute (tlm_vbed immer, die uebrigen nur mit vector2mkgmap.py --routing): tlm_richtung=RICHTUNGSG, tlm_vbeschr=VERKEHRSBE,
 # tlm_befahrbar=BEFAHRBARK, tlm_vbed=VERKEHRSBD, tlm_belag=BELAGSART, tlm_kunst=KUNSTBAUTE.
 
 # --- Strassenklasse (0-4) und Geschwindigkeitsklasse (0-7) je Objektart; ueberschreibt road_class/road_speed der Typregel
@@ -50,6 +50,8 @@ tlm_layer=strasse & tlm_vbeschr=Gesperrt
 # --- Unsichtbare routbare Unterlage fuer Objekte mit erweitertem (nicht routbarem) Typ in ../lines.
 # Die Bedingungen entsprechen genau den Regeln mit 0x10e.. in ../lines; «continue with_actions» uebergibt die Markierung
 # tlm_rt=unterlage an die folgenden Regeln, damit die Regeln unten (routbare sichtbare Typen) das Objekt auslassen.
+# Steg: sichtbar als routbarer Typ 0x0b (auch 1 m-Weg), deshalb vor den Unterlagen-Regeln und ohne «continue»
+tlm_layer=strasse & tlm_kunst=Steg [0x0b road_class=0 road_speed=1 resolution 22]
 tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe')
   { set tlm_rt=unterlage } [0x16 road_class=0 road_speed=0 resolution 24 continue with_actions]
 tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type=Autobahn | tlm_type=Autostrasse | tlm_type='10m Strasse' | tlm_type='8m Strasse' | tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt)
@@ -58,6 +60,8 @@ tlm_layer=strasse & tlm_kunst=Tunnel & ((tlm_type='2m Weg' | tlm_type='2m Wegfra
   { set tlm_rt=unterlage } [0x16 road_class=0 road_speed=1 resolution 24 continue with_actions]
 tlm_layer=strasse & tlm_kunst=Bruecke & (tlm_type=Autobahn | tlm_type=Autostrasse | tlm_type='10m Strasse' | tlm_type='8m Strasse' | tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt)
   { set tlm_rt=unterlage } [0x13 road_class=0 road_speed=1 resolution 24 continue with_actions]
+tlm_layer=strasse & (tlm_kunst=Galerie | tlm_kunst='Bruecke mit Galerie' | tlm_kunst='Gedeckte Bruecke') & (tlm_type=Autobahn | tlm_type=Autostrasse | tlm_type='10m Strasse' | tlm_type='8m Strasse' | tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt)
+  { set tlm_rt=unterlage } [0x13 road_class=0 road_speed=1 resolution 24 continue with_actions]
 tlm_layer=strasse & ((tlm_type='1m Weg' | tlm_type='1m Wegfragment') | tlm_type='Markierte Spur')
   { set tlm_rt=unterlage } [0x16 road_class=0 road_speed=0 resolution 24 continue with_actions]
 # Raststaette hat in ../lines keine Regel (wird nicht gezeichnet); fuer ein zusammenhaengendes Netz routbar, aber unsichtbar
@@ -65,10 +69,15 @@ tlm_layer=strasse & tlm_type=Raststaette [0x13 road_class=0 road_speed=1 resolut
 
 # --- Sichtbare Strassen mit routbarem Standardtyp: gleiche Typen und Aufloesungen wie in ../lines, plus road_class/road_speed
 tlm_layer=strasse & tlm_rt!=unterlage & tlm_type=Autobahn [0x01 road_class=4 road_speed=7 resolution 18]
-tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 road_class=3 road_speed=5 resolution 19]
-tlm_layer=strasse & tlm_rt!=unterlage & tlm_type=Autostrasse [0x02 road_class=4 road_speed=6 resolution 19]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_type=Autostrasse [0x01 road_class=4 road_speed=6 resolution 19]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_vbed=Durchgangsstrasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x02 road_class=3 road_speed=5 resolution 19]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_vbed=Durchgangsstrasse & (tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung) [0x02 road_class=3 road_speed=4 resolution 19]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_vbed=Verbindungsstrasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x03 road_class=3 road_speed=5 resolution 20]
+tlm_layer=strasse & tlm_rt!=unterlage & tlm_vbed=Verbindungsstrasse & (tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung) [0x03 road_class=2 road_speed=4 resolution 20]
+tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='10m Strasse' | tlm_type='8m Strasse') [0x05 road_class=3 road_speed=5 resolution 19]
 tlm_layer=strasse & tlm_rt!=unterlage & tlm_type='6m Strasse' [0x04 road_class=2 road_speed=4 resolution 20]
 tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='4m Strasse' | tlm_type='3m Strasse') & tlm_belag=Natur [0x07 road_class=0 road_speed=1 resolution 22]
 tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x06 road_class=1 road_speed=3 resolution 22]
 tlm_layer=strasse & tlm_rt!=unterlage & tlm_type=Platz [0x06 road_class=0 road_speed=1 resolution 22]
+tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='2m Weg' | tlm_type='2m Wegfragment') & tlm_belag=Natur [0x0b road_class=0 road_speed=1 resolution 22]
 tlm_layer=strasse & tlm_rt!=unterlage & (tlm_type='2m Weg' | tlm_type='2m Wegfragment') [0x0a road_class=0 road_speed=1 resolution 22]
