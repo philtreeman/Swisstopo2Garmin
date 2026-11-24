@@ -73,8 +73,28 @@ Xpm="0 0 1 0"
 """
 
 
-write("hoehenlinien_20m", 3920, [thin("0x10f10", "Hoehenlinie 20 m", "#D2A878", 1), thin("0x10f11", "Hoehenlinie 100 m", "#A5733A", 2)])
-write("hoehenlinien_10m", 3919, [thin("0x10f10", "Hoehenlinie 10 m", "#D2A878", 1), thin("0x10f12", "Hoehenlinie 50 m", "#B8864F", 1), thin("0x10f11", "Hoehenlinie 100 m", "#A5733A", 2)])
+# Farbe nach Untergrund (Landeskarte 1:25 000: braun #CE7611 auf Boden, blau #008AD2 auf Gletschern; schwarz auf Fels nicht umgesetzt).
+# Braun: 0x10f10-0x10f12; Gletscher blau: 0x10f13 (100 m), 0x10f14 (50 m), 0x10f15 (Intervall).
+BRAUN = ("#D2A878", "#B8864F", "#A5733A")      # Intervall, 50 m, 100 m (aufgehellte Abstufungen von #CE7611)
+BLAU = ("#5CB5E1", "#2F9DD8", "#008AD2")
+
+
+def hl(typen, farben, name):
+    iv, z50, z100 = typen
+    return [thin(iv, f"{name} Intervall", farben[0], 1), thin(z50, f"{name} 50 m", farben[1], 1), thin(z100, f"{name} 100 m", farben[2], 2)]
+
+
+def hl_alle(zwischen):
+    out = []
+    for (iv, z50, z100), farben, name in [(("0x10f10", "0x10f12", "0x10f11"), BRAUN, "Hoehenlinie"),
+                                          (("0x10f15", "0x10f14", "0x10f13"), BLAU, "Hoehenlinie Gletscher")]:
+        t = hl((iv, z50, z100), farben, name)
+        out += t if zwischen else [t[0], t[2]]
+    return out
+
+
+write("hoehenlinien_20m", 3920, hl_alle(False))
+write("hoehenlinien_10m", 3919, hl_alle(True))
 def dash_line(t, name, col, on, off, h=2):
     """einfarbig gestrichelte Linie ohne Rand; die durchsichtige Farbe steht zuerst in der Farbtabelle"""
     row = '"' + (("1" * on + "3" * off) * 32)[:32] + '"'

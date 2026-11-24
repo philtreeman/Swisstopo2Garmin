@@ -5,12 +5,13 @@
 #   scripts/build_hoehenlinien.sh <kachelliste.json> <mkgmap.jar> <out-ordner> [W S E N]
 #   <kachelliste.json>  Ergebnis von scripts/swissalti3d_kachelliste.py
 #   [W S E N]           optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz
-# Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90)
+# Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90), TLM_DIR (Ordner mit swissTLM3D_TLM_BODENBEDECKUNG_OST/WEST.shp;
+#   gesetzt: Hoehenlinien auf Gletschern werden blau, siehe untergrund_polygone.py; ohne: alle braun)
 #
 # Ablauf:
 #   1. hoehenlinien2mkgmap.py --print-blocks   Liste der 20-km-Bloecke (LV95-Raster) mit vorhandenen 1-km-Kacheln
 #   2. je Block (parallel, fortsetzbar): swissALTI3D-Kacheln laden (je ca. 1 MB), Hoehenlinien im 10-m-Abstand rechnen -> OSM-XML
-#      (Zwischenformat fuer mkgmap) -> mkgmap -> <out>/tiles10/6393NNNN.img; daraus filter_hoehenlinien.py (nur Hoehen durch 20
+#      (Zwischenformat fuer mkgmap; mit TLM_DIR an den Gletscherraendern getrennt und mit untergrund=gletscher getaggt) -> mkgmap -> <out>/tiles10/6393NNNN.img; daraus filter_hoehenlinien.py (nur Hoehen durch 20
 #      teilbar) -> mkgmap -> <out>/tiles20/6392NNNN.img. Die Hoehendaten werden also nur einmal geladen.
 #   3. mkgmap fuegt je Variante alle Block-Karten und die TYP-Datei zusammen
 #   4. Ist eine Datei groesser als SPLIT_MB, entstehen Teile <name>.img.part_aa, _ab, ...
@@ -22,6 +23,10 @@ S=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$S")
 JOBS=${JOBS:-3}; SPLIT_MB=${SPLIT_MB:-90}
 STYLE="$R/mkgmap/overlays/style"; TYPDIR="$R/mkgmap/overlays/typ"
 python3 "$S/make_overlay_typ.py" >/dev/null
+UG=()
+if [ -n "$TLM_DIR" ]; then
+  mkdir -p "$OUT"; python3 "$S/untergrund_polygone.py" "$TLM_DIR" "$OUT/untergrund.npz"; UG=(--untergrund "$OUT/untergrund.npz")
+fi
 mkdir -p "$OUT/osm" "$OUT/tiles10" "$OUT/tiles20"
 BB=(); [ $# -eq 4 ] && BB=(--bbox "$@")
 python3 "$S/hoehenlinien2mkgmap.py" --tiles "$LIST" --print-blocks "${BB[@]}" > "$OUT/bloecke.txt"
@@ -42,7 +47,7 @@ work() {  # work i j anzahl
   n10=$(printf "6393%04d" $((i*100+j))); n20=$(printf "6392%04d" $((i*100+j)))
   [ -e "$OUT/tiles10/$n10.done" ] && return 0
   osm="$OUT/osm/$n10.osm"; osm20="$OUT/osm/$n20.osm"
-  python3 "$S/hoehenlinien2mkgmap.py" --tiles "$LIST" --block "$i" "$j" --out "$osm" --interval 10 "${BB[@]}" >/dev/null
+  python3 "$S/hoehenlinien2mkgmap.py" --tiles "$LIST" --block "$i" "$j" --out "$osm" --interval 10 "${BB[@]}" "${UG[@]}" >/dev/null
   if grep -q "<way" "$osm"; then
     compile "$osm" "$OUT/tiles10" "$n10" 3919 "Hoehenlinien 10 m"
     python3 "$S/filter_hoehenlinien.py" "$osm" "$osm20"
@@ -51,8 +56,8 @@ work() {  # work i j anzahl
   rm -f "$osm" "$osm20"; touch "$OUT/tiles10/$n10.done"
   echo "fertig $n10"
 }
-export -f work compile; export LIST JAR OUT S STYLE SPLIT_MB; export BB_STR="${BB[*]}"
-xargs -P "$JOBS" -L1 bash -c 'BB=($BB_STR); work "$@"' _ < "$OUT/bloecke.txt"
+export -f work compile; export LIST JAR OUT S STYLE SPLIT_MB; export BB_STR="${BB[*]}" UG_STR="${UG[*]}"
+xargs -P "$JOBS" -L1 bash -c 'BB=($BB_STR); UG=($UG_STR); work "$@"' _ < "$OUT/bloecke.txt"
 
 for spec in "10:3919:6393:swisstopo Hoehenlinien 10 m" "20:3920:6392:swisstopo Hoehenlinien 20 m"; do
   IFS=: read iv fid pfx label <<<"$spec"

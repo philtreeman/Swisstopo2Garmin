@@ -7,7 +7,7 @@ CodePage=1252
 [end]
 [_line]
 Type=0x10f10
-String1=0x04,Hoehenlinie 10 m
+String1=0x04,Hoehenlinie Intervall
 LineWidth=1
 Xpm="0 0 1 0"
 "1 c #D2A878"
@@ -25,4 +25,25 @@ String1=0x04,Hoehenlinie 100 m
 LineWidth=2
 Xpm="0 0 1 0"
 "1 c #A5733A"
+[end]
+[_line]
+Type=0x10f15
+String1=0x04,Hoehenlinie Gletscher Intervall
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #5CB5E1"
+[end]
+[_line]
+Type=0x10f14
+String1=0x04,Hoehenlinie Gletscher 50 m
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #2F9DD8"
+[end]
+[_line]
+Type=0x10f13
+String1=0x04,Hoehenlinie Gletscher 100 m
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #008AD2"
 [end]

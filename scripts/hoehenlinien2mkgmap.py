@@ -8,10 +8,15 @@ Die 1-km-Kacheln werden zu 20-km-Bloecken im LV95-Raster zusammengefasst (gleich
 SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Standard 20 m) mit contourpy berechnet,
 mit 2,5 m vereinfacht und mit den Tags contour=<Intervall|50|100> (100 = Haupthoehenlinie alle 100 m, 50 = Zwischenlinie bei 10 m Intervall) und ele=<Hoehe> geschrieben.
 Kachelnamen sind die untere linke Ecke in LV95-km; an den Kachelraendern bleibt eine Luecke von einem Pixel (2 m).
+
+Mit --untergrund <npz> (von untergrund_polygone.py) werden die Linien an den Raendern der Gletscherflaechen aufgeteilt
+und die Stuecke mit untergrund=gletscher getaggt (Landeskarte: Hoehenlinien auf Gletschern blau, sonst braun). Die Stilregeln dazu stehen in mkgmap/overlays/style/lines.
 """
 import argparse, io, json, math, os, time, urllib.request
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np, rasterio, contourpy, shapely
+from shapely import STRtree
+from shapely.geometry import box
 from rasterio.io import MemoryFile
 from pyproj import Transformer
 from mkgmap_xml_writer import Writer
@@ -36,8 +41,8 @@ def fetch(url):
     raise RuntimeError("Download fehlgeschlagen: " + url)
 
 
-def tile_lines(data, interval, tol):
-    """liefert [(hoehe, [(x, y), ...]), ...] in LV95"""
+def tile_lines(data, interval, tol, untergrund=None, bbox=None):
+    """liefert [(hoehe, [(x, y), ...], untergrund), ...] in LV95; untergrund = None, "gletscher" (siehe Untergrund)"""
     with MemoryFile(data) as mf, mf.open() as r:
         a = r.read(1).astype("float64"); T = r.transform; nodata = r.nodata
     a[(a == nodata) | (a < -1000)] = np.nan
@@ -46,6 +51,7 @@ def tile_lines(data, interval, tol):
     gen = contourpy.contour_generator(z=np.ma.masked_invalid(a), name="serial", line_type=contourpy.LineType.Separate)
     lo, hi = np.nanmin(a), np.nanmax(a)
     out = []
+    masks = untergrund.masks(bbox) if untergrund and bbox else []
     for lv in range(int(math.ceil(lo / interval)) * interval, int(hi // interval) * interval + 1, interval):
         for l in gen.lines(lv):
             if len(l) < 2:
@@ -53,8 +59,60 @@ def tile_lines(data, interval, tol):
             xy = np.column_stack([T.c + (l[:, 0] + 0.5) * T.a, T.f + (l[:, 1] + 0.5) * T.e])
             s = shapely.LineString(xy).simplify(tol, preserve_topology=False)
             if len(s.coords) >= 2:
-                out.append((lv, np.asarray(s.coords)))
+                if masks:
+                    out += [(lv, c, k) for k, c in Untergrund.split(s, masks)]
+                else:
+                    out.append((lv, np.asarray(s.coords), None))
     return out
+
+
+class Untergrund:
+    """Gletscherflaechen (LV95); trennt Linien einer Kachel an den Flaechenraendern"""
+    ORDER = ("gletscher",)   # Flaechenarten in Rangfolge
+
+    def __init__(self, npz):
+        d = np.load(npz, allow_pickle=True)
+        self.kinds = {}
+        for k in self.ORDER:
+            if k in d.files:
+                g = shapely.from_wkb(d[k])
+                self.kinds[k] = (g, STRtree(g))
+
+    def masks(self, bbox):
+        """je Art die auf die Kachel zugeschnittene, vorbereitete Flaeche"""
+        b = box(*bbox)
+        out = []
+        for k in self.ORDER:
+            if k not in self.kinds:
+                continue
+            g, tree = self.kinds[k]
+            idx = tree.query(b)
+            if len(idx):
+                m = shapely.union_all(g[idx]).intersection(b)
+                if not m.is_empty:
+                    shapely.prepare(m)
+                    out.append((k, m))
+        return out
+
+    @staticmethod
+    def split(line, masks):
+        """[(art|None, coords), ...]"""
+        res, rest = [], line
+        for k, m in masks:
+            if rest.is_empty or not m.intersects(rest):
+                continue
+            res += [(k, g) for g in lines_of(rest.intersection(m))]
+            rest = rest.difference(m)
+        res += [(None, g) for g in lines_of(rest)]
+        return [(k, np.asarray(g.coords)) for k, g in res if g.length > 0.3]
+
+
+def lines_of(g):
+    if g.is_empty:
+        return []
+    if g.geom_type == "LineString":
+        return [g]
+    return [x for p in getattr(g, "geoms", []) for x in lines_of(p)]
 
 
 def main():
@@ -66,6 +124,7 @@ def main():
     a.add_argument("--out")
     a.add_argument("--interval", type=int, default=20)
     a.add_argument("--simplify", type=float, default=2.5)
+    a.add_argument("--untergrund", help="npz von untergrund_polygone.py: Linien an Gletscherraendern trennen")
     a.add_argument("--workers", type=int, default=4)
     o = a.parse_args()
     tiles = json.load(open(o.tiles))
@@ -83,15 +142,18 @@ def main():
     keys = blocks[tuple(o.block)]
     w = Writer(o.out)
 
+    ug = Untergrund(o.untergrund) if o.untergrund else None
+
     def work(k):
-        return tile_lines(fetch(tiles[k][1]), o.interval, o.simplify)
+        e, n = (int(v) * 1000 for v in k.split("-"))
+        return tile_lines(fetch(tiles[k][1]), o.interval, o.simplify, ug, (e - 5, n - 5, e + 1005, n + 1005))
 
     n = 0
     with ThreadPoolExecutor(o.workers) as ex:
         for lines in ex.map(work, keys):
-            for lv, xy in lines:
+            for lv, xy, art in lines:
                 lon, lat = TO_WGS.transform(xy[:, 0], xy[:, 1])
-                tags = {"contour": 100 if lv % 100 == 0 else 50 if (o.interval <= 10 and lv % 50 == 0) else o.interval, "ele": lv}
+                tags = {"contour": 100 if lv % 100 == 0 else 50 if (o.interval <= 10 and lv % 50 == 0) else o.interval, "ele": lv, "untergrund": art}
                 w.way(list(zip(lon, lat)), tags)
                 n += 1
     w.close()
