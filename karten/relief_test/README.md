@@ -1,5 +1,7 @@
 # SwissTOPO Relief Test Baden (Reliefschattierung auf dem Gerät)
 
+> **Stand 2026-11-24: ersetzt.** Der Nutzer hat die Testkarte auf dem Edge 1040 getestet (funktioniert) und die feine mehrstufige Variante gewählt; sie steckt jetzt in `../swisstopo_vector_edge_schweiz/`. Diese Testkarte bleibt nützlich, um die Reliefschattierung auf der **Fenix 5S Plus** zu prüfen, bevor man das DEM (+117 MB) in die Fenix-Karte baut.
+
 Testkarte mit **eingebettetem Höhenmodell (DEM)**: Geräte, die Reliefschattierung unterstützen, zeichnen den Schattenwurf selbst. Raum Baden–Wettingen–Dättwil (gleiche sechs Kacheln wie `karten/routing_test/`, 388 km²), Edge-Variante von SwissTOPO Vector, routingfähig (`ROUTING=1`), Family-ID **3931**, Kartennummern **6395NNNN** (63952618–63952819), Name im Gerätemenü **«SwissTOPO Relief Test Baden»**. Gebaut am 2026-11-24 mit mkgmap r4924 (`scripts/build_dem_test.sh`, Technik und Daten: `docs/relief.md`). Stil und TYP: Stand des letzten Commits `a2498b6` (Strassenfarben nach VERKEHRSBD).
 
 **Auf keinem Gerät geprüft.** Geprüft ist nur: mkgmap meldet 0 Fehler, und jede der 6 Kachel-Karten enthält eine DEM-Teildatei (FAT-Verzeichnis der IMG: `RGN, NET, NOD, LBL, TRE, DEM`). Ob und wie das Gerät das Relief zeichnet, ist offen.

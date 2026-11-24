@@ -3,6 +3,7 @@
 Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img`):
 
 - **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit allen Details, Namen, Grenzen und Schildern; Fenix mit denselben Farben und Symbolen, aber reduziert), Darstellung nach der swisstopo-Zeichenerklärung.
+- **Reliefschattierung (DEM)** ist in der Edge-Karte eingebettet (fein, mehrstufig; Edge 1040 getestet am Testausschnitt Baden; am Gerät unter Karteneinstellungen → Reliefschattierung einschalten). Die Fenix-Karte hat keins. Quelle: swissALTIRegio (swisstopo), am Landesrand viewfinderpanoramas.org (J. de Ferranti); siehe `docs/relief.md`.
 - **Höhenlinien** (10 m und 20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
 - **Hangneigung** und **Hangneigungsklassen** (ab 30°, wie swisstopo «Hangneigung über 30°»): zwei semitransparente Flächen-Overlays aus swissALTIRegio (10 m), siehe Abschnitt [Hangneigungs-Overlays](#hangneigungs-overlays).
 
@@ -41,10 +42,11 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | Ordner | Inhalt | Grösse |
 |---|---|---|
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m und 20 m, ganze Schweiz, je in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 168 MB und 109 MB |
-| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 4 Teilen, routingfähig (zusammensetzen mit `cat`, siehe README im Ordner) | 304 MiB (318'267'392 Byte) |
+| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 5 Teilen, routingfähig, **mit Reliefschattierung (DEM)** (zusammensetzen mit `cat`, siehe README im Ordner) | 415 MiB (434'913'280 Byte, 5 Teile, mit Reliefschattierung) |
 | `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 4 Teilen, routingfähig | 278 MiB (291'241'984 Byte) |
 | `karten/overlays_schweiz/` | alle Overlays einzeln, ganze Schweiz (Routen, Haltestellen, Winter, Skipisten, Hangneigung) | 137 MB, davon Hangneigung 75 MB und Hangneigungsklassen 45 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
+| `karten/relief_test/` | Reliefschattierung-Testkarte Baden (Family-ID 3931, fünf DEM-Varianten); ersetzt durch das DEM in der Edge-Karte, nützlich für den Fenix-Test | 6 MB je Datei |
 | `karten/routing_test/` | **SwissTOPO Vector Routing Test** (Family-ID 3930): Edge-Variante als routingfähige Karte, Raum Baden–Wettingen–Dättwil, mit Testanleitung (siehe [Routing](#routing-status-test)) | 5,8 MB |
 
 Installation: gewünschte `.img` nach `Garmin/` auf das Gerät kopieren (USB), neu starten, unter Einstellungen → Karte aktivieren. Eine vorhandene `gmapsupp.img` nicht überschreiben.
@@ -230,7 +232,7 @@ Typnummern nach Art: Flächen `0x4b`…`0x10e0f`, Linien `0x01`…`0x1f`, `0x10e
 | Einzelbaum | grünes Plus 3 × 3, Ecken durchsichtig (0x10f00) |
 | Fels, Felsblöcke (auch «locker») | schwarze Striche, ca. 12 % (0x52); früher graue Fläche |
 | Geröll (Lockergestein, auch «locker») | schwarze Punkte, Dichte 0.06 (0x53) |
-| **Gletscher, Schneefeld/Toteis** | weiss `#FFFFFF` (0x10e00), fehlte bisher |
+| **Gletscher, Schneefeld/Toteis** | weiss mit blauen Eisstruktur-Strichen `#6EC1EE` (32 × 32-Muster, ca. 7 %, 0x10e00; Vorschau `docs/vergleich/legende_vorschau_gletscher_blau.png`; vorher einfarbig weiss) |
 | Feuchtgebiet | kurze waagrechte Striche `#008AD2`, 32-px-Muster, Reihen versetzt (0x51) |
 | Seen, Flussflächen | `#D4EDFC` (0x3f), `#BCE4FA` (0x10e03); **See mit wechselndem Wasserstand** heller `#E9F5FD` (0x10e0f, aus `WSTAND_WE`); Seeinsel Untergrundfarbe (0x10e0e; vorher fälschlich Rebenmuster) |
 | Bäche, Flüsse, Suonen | `#008AD2`, 1 px (0x18), jetzt für `VERLAUF` oberirdisch, Wasserfall und Brücke (schliesst Lücken; vorher nur `STUFE=0`); Seeufer als eigene Linie (0x11315, nur Seen ab 150 m Umfang); Druckleitung mit Querstrichen (0x11308), Druckstollen gestrichelt (0x11309), Trockenrinne schwarz gepunktet 1/2 (0x10e03), Gewässerverbauung blaue Linie (0x1130a, nur feinste Stufe), Hafensteg schwarz (0x1130b) |
@@ -279,6 +281,9 @@ Ablauf: Kachelliste im LV95-Raster (20 × 20 km, 234 Kacheln) → je Kachel para
 
 ### Strassenfarben nach swisstopo-Zeichenerklärung (2026-11-24)
 Quelle: «Zeichenerklärung Landeskarten 1:10 000 bis 1:1 Million» (swisstopo 2024), Seite 2, am PDF gemessen (Orange `#F7A71F`, Durchgangsstrasse `#F8C7C8`, Verbindungsstrasse `#FFF481`, Rand `#000000`, Klettersteig `#E3000B`). Bis dahin färbte `lines` nach Breite (10/8 m orange); die Hauptstrasse 5 (6-m-Strasse, Durchgangsstrasse) war deshalb nicht orange. Jetzt entscheidet `VERKEHRSBD` (immer als `tlm_vbed` im OSM, nicht nur mit `--routing`). Zuordnung `lines` (Auflösung): Autobahn 0x01 (18), Autostrasse 0x01 (19), Durchgangsstrasse der Breiten 10/8/6/4/3 m und Verbindung 0x02 (19), Verbindungsstrasse 0x03 (20), sonst 10/8 m 0x05 (19), 6 m 0x04 (20), 4/3 m 0x06 (22), Naturbelag 4/3 m 0x07. Erweiterte Typen (Linien; alle 0x10e00–0x10e1f sind jetzt belegt): Tunnel 0x10e10–0x10e13 nur nach Breite, schwarz gestrichelt; Brücken 0x10e15 (Autobahn/Autostrasse), 0x10e1a (Durchgang), 0x10e1b (Verbindung), 0x10e16–0x10e18 (übrige); Galerien/gedeckte Brücken 0x10e1c (Durchgang), 0x10e1d (Verbindung), 0x10e1e (übrige), 0x10e1f (Autobahn/Autostrasse); Klettersteig 0x10e00. KUNSTBAUTE ganze Schweiz: Keine 1'961'749, Treppe 38'328, Bruecke 56'012, Unterfuehrung 6'555, k_W 27'155, Furt 1'702, Tunnel 1'739, Bruecke mit Treppe 876, Galerie 440, Gedeckte Bruecke 424, Unterfuehrung mit Treppe 415, Steg 334, Staumauer/Wehr 232, in/auf Gebaeude 610, Staudamm 43, Bruecke mit Galerie 18; Zuordnung: Treppe/mit Treppe Treppensymbol, Galerie/Gedeckte Bruecke/Bruecke mit Galerie Galerie (nur Strassen, Wege bleiben Wege), Steg 0x0b, Tunnel und Brücke wie oben, Unterführung, Furt, Staumauer, Staudamm und «in/auf Gebäude» wie gewöhnliche Strasse (die Zeichenerklärung führt keine eigenen Symbole). Vorschau: `scripts/preview_strassen.py` (wertet die echten Stildateien aus, **kein Geräte-Rendering**).
+
+## Reliefschattierung (DEM)
+Die Edge-Karte (3900) enthält je Kachel ein eingebettetes Höhenmodell (`DEM=<hgt-ordner>` in `scripts/build_vector.sh`, `--dem-dists=1648,6592,13184,26368,52736`, fein, mehrstufig; `DEM_DISTS` überschreibt). Die Fenix-Karte (3901) bleibt ohne DEM (Unterstützung der Fenix 5S Plus ungeprüft, rund +117 MB). Einschalten am Edge: Karteneinstellungen → Reliefschattierung. Höhendaten (`scripts/make_dem_hgt.py --all`): swissALTIRegio (© swisstopo); ausserhalb des Datensatzes viewfinderpanoramas.org (J. de Ferranti). Technik, Messwerte, Risiken: `docs/relief.md`.
 
 ## Routing (Status: Test)
 Ziel: SwissTOPO Vector soll auf dem Edge 1040 (später Fenix 5S Plus) mit Garmins eigenem Routing nutzbar sein. **Stand 2026-11-22: beide grossen Karten (3900 Edge, 3901 Fenix) sind mit `ROUTING=1` für die ganze Schweiz neu gebaut** (je 153 WGS84-Kacheln, NET und NOD in jeder Kachel, MapFailedExceptions 0; Bauzeit 22 bzw. 25 Minuten mit 3 Prozessen). Der Bau erfolgte auf Wunsch des Nutzers **ohne vorherigen Gerätetest** der Testkarte (`karten/routing_test/`, Family-ID 3930, bleibt als Vergleich). **Gerätetest offen, auf keinem Gerät geprüft.** Grösse Edge 323'764'224 Byte, Fenix 304'742'400 Byte (Vorversion ohne Routing 240'799'744 bzw. 225'202'176 Byte, also +83 bzw. +80 MB, Hochrechnung unten +80 MB traf zu). Nicht routbar bzw. fehlend: **Einbahnstrassen** (swissTLM3D kennt nur richtungsgetrennte Fahrbahnen, Rampen, Kreisel) und **Abbiegeverbote**; Fahrverbote gelten nur für Motorfahrzeuge. Das Auto-Routing kann gegen Einbahnstrassen führen.

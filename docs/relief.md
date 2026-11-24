@@ -1,6 +1,6 @@
 # Reliefschattierung (DEM in den Vektorkarten)
 
-Stand: 2026-11-24. mkgmap kann in jede Kartenkachel ein Höhenmodell (DEM-Teildatei) einbetten (`--dem=<Ordner mit .hgt>`, `--dem-dists=...`). Geräte mit Reliefschattierung berechnen daraus den Schattenwurf selbst. Hier ist nur eine **Testkarte für Baden** gebaut (`karten/relief_test/`); die grossen Karten 3900/3901 sind **nicht** mit DEM gebaut. **Verhalten am Gerät ungeprüft.**
+Stand: 2026-11-24. mkgmap kann in jede Kartenkachel ein Höhenmodell (DEM-Teildatei) einbetten (`--dem=<Ordner mit .hgt>`, `--dem-dists=...`). Geräte mit Reliefschattierung berechnen daraus den Schattenwurf selbst. **Stand 2026-11-24:** Die Testkarte für Baden (`karten/relief_test/`) hat der Nutzer auf dem **Edge 1040 getestet: funktioniert**. Er wählte die **feine, mehrstufige** Variante (`--dem-dists=1648,6592,13184,26368,52736`); sie ist jetzt in der **Edge-Karte 3900 für die ganze Schweiz** eingebaut (`DEM=<hgt-ordner>` in `scripts/build_vector.sh`, siehe unten). Die **Fenix-Karte 3901 bleibt ohne DEM**: Ob die Fenix 5S Plus Reliefschattierung fremder Karten zeichnet, ist ungeprüft, und es käme rund +117 MB dazu; die Testkarte dient dafür als Probe. **Gerät:** Karteneinstellungen → Reliefschattierung einschalten. **Quelle und Namensnennung:** swissALTIRegio (© swisstopo); ausserhalb des Datensatzes (Randkacheln) viewfinderpanoramas.org (J. de Ferranti, 3"). Der Edge mit der grossen Karte ist noch **nicht** geprüft (nur die Testkarte).
 
 ## Höhendaten: HGT-Kacheln (`scripts/make_dem_hgt.py`)
 - **Quelle:** swissALTIRegio (swisstopo, 10 m, LV95, Cloud-Optimized GeoTIFF `data.geo.admin.ch/ch.swisstopo.swissaltiregio/…/swissaltiregio_2056_5728.tif`), dieselbe Datei wie bei der Hangneigung. Swissalti3d (0,5/2 m) wäre für 30-m-Gitter unnötig genau und ein Mehrfaches an Download.
@@ -16,7 +16,7 @@ scripts/build_dem_test.sh <shp-ordner> <mkgmap.jar> <out-ordner>
 ```
 `build_vector.sh` bleibt **unverändert**; das Skript legt eine Kopie an, in der `$DEM_OPT` im mkgmap-Aufruf je Kachel steht. Gleiches Raster wie `karten/routing_test` (`ROUTING=1`, `ROUTING_BLOECKE="2 2"`, Edge, Bbox 8.24 47.43 8.37 47.50), aber Family-ID 3931, Kartennummern 6395NNNN, «SwissTOPO Relief Test Baden». Es entstehen fünf Karten: ohne DEM, `--dem-dists` 3312 und 1648 je einstufig und mehrstufig (`HGT_TILES`/`BBOX` für andere Räume). Das DEM ist **in den Kachel-IMG** und geht beim Zusammenfügen unverändert in die gmapsupp-Datei.
 
-**Integration in `build_vector.sh` (später):** `$DEM_OPT` hinter `$ROUTE_OPT` im mkgmap-Aufruf der Kacheln, `export DEM_OPT`; ohne gesetzte Variable ist die Ausgabe unverändert. `--dem-dists` braucht **fünf Werte** (die Karte hat fünf Stufen, `mkgmap/vector/style/options`: `levels = 0:24, 1:22, 2:21, 3:20, 4:18`); mkgmap bricht sonst ab («More dem-dist values than levels», MapFailedException). Mit weniger Werten (z. B. nur 3312) baut mkgmap eine einzige DEM-Stufe.
+**Integration in `build_vector.sh` (erledigt, 2026-11-24):** `DEM=<hgt-ordner>` (opt-in), `DEM_DISTS` (Standard `1648,6592,13184,26368,52736`), `DEM_EXTRA`; daraus wird `$DEM_OPT` hinter `$ROUTE_OPT` im mkgmap-Aufruf der Kacheln. Ohne `DEM` ist die Ausgabe unverändert (Kontrolle: Kachel-IMG ohne DEM unterscheidet sich vom Stand davor nur in 6 Zeitstempelbytes). `build_dem_test.sh` ruft jetzt `build_vector.sh` mit `DEM`/`DEM_DISTS` auf (keine Skriptkopie mehr). `--dem-dists` braucht **fünf Werte** (die Karte hat fünf Stufen, `mkgmap/vector/style/options`: `levels = 0:24, 1:22, 2:21, 3:20, 4:18`); mkgmap bricht sonst ab («More dem-dist values than levels», MapFailedException). Mit weniger Werten (z. B. nur 3312) baut mkgmap eine einzige DEM-Stufe.
 
 ## Ergebnis (mkgmap r4924, 0 Fehler, DEM-Teildatei in allen 6 Kacheln)
 Baden, 6 Kacheln, 387,7 km²:
@@ -42,6 +42,9 @@ Grundlage: 153 Kacheln × 387,7 km² = rund 59'300 km² Kartenfläche (die Kache
 | 1648 mehrstufig | 94 MB | 145 MB | ca. 124 MB | +29 bis +45 % |
 
 (MB = 10^6 Byte; Mittel nur grob, nur zwei Messgebiete. Die Mehrgrösse kommt zu den bestehenden Dateien dazu und ist je Karte (Edge/Fenix) einmal fällig; beide Karten enthalten dasselbe DEM, wenn man beide baut. Bei SPLIT_MB = 90 kommen entsprechend 1 bis 2 Teile dazu. Der Bau selbst wird nicht merklich langsamer: je Kachel einige Sekunden.)
+
+## Ergebnis der Edge-Karte (ganze Schweiz, 2026-11-24)
+18 HGT-Kacheln N45E005 bis N47E010 mit 1" (`make_dem_hgt.py --all`, 0 % Lücken, rund 45 s je Kachel), Edge 3900 mit `DEM`: **434'913'280 Byte** (vorher 318'267'392, **+116'645'888 Byte = +36,6 %**, im erwarteten Bereich 94 bis 145 MB, Schätzung 124 MB), 5 Teile statt 4; 153 Kacheln, DEM-Teildatei in jeder Kachel, MapFailedExceptions 0, Bauzeit 43 Minuten (JOBS=3).
 
 ## Offen / Risiken
 - **Gerät:** Ob Edge 1040 und Fenix 5S Plus das eingebettete DEM einer Fremdkarte zeichnen, ist unbekannt. Edge: Karteneinstellungen → Reliefschattierung (Name ungeprüft). Fenix 5S Plus: ob das Gerät Reliefschattierung überhaupt kennt, ist nicht belegt; wenn nicht, bringt das DEM dort nur Grösse.

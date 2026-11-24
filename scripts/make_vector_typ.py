@@ -158,7 +158,7 @@ parts = [
     pattern_poly("0x4e"), pattern_poly("0x10e08"), pattern_poly("0x10e09"), pattern_poly("0x4f"),
     solid_poly("0x50", "Wald", WALD),
     pattern_poly("0x10e01"), pattern_poly("0x10e02"), pattern_poly("0x51"), pattern_poly("0x53"), pattern_poly("0x52"),
-    solid_poly("0x10e00", "Gletscher, Schneefeld", GLETSCHER),
+    pattern_poly("0x10e00"),
     solid_poly("0x3f", "See", WASSER_FL, BLAU_NAME("NormalFont")),
     solid_poly("0x10e0f", "See mit wechselndem Wasserstand", WASSER_SCHWANK, BLAU_NAME("NormalFont")),
     solid_poly("0x10e03", "Flussflaeche", WASSER_FLUSS),

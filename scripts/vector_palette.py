@@ -13,6 +13,7 @@ WASSER_FL = "#D4EDFC"   # Seen
 WASSER_FLUSS = "#BCE4FA"  # Flussflaechen
 WASSER_SCHWANK = "#E9F5FD"  # See mit stark wechselndem Wasserstand (heller)
 GLETSCHER = "#FFFFFF"
+GLETSCHER_STRICH = "#6EC1EE"   # blaue Eisstruktur-Striche im Gletschermuster (0x10e00)
 LEITUNG = "#0789CB"     # Hochspannungsleitung, Spital H
 BAHN = "#E3000B"        # Bahn, Klettersteig, Treppe, Seilbahnen
 SKILIFT = "#CE7611"

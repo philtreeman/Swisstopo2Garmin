@@ -12,6 +12,9 @@
 #   ROUTING=1   routingfaehige Karte (README, Abschnitt «Routing»): Kacheln in WGS84 auf dem 2048-Einheiten-Raster
 #               (ROUTING_BLOECKE, Standard "6 4" = ca. 20 x 19.5 km; KACHEL_KM gilt dann nicht), gemeinsame Strassenknoten,
 #               mkgmap --route und --style-option=routing=1; Logs je Kachel in <out>/logs/
+#   DEM=<ordner mit .hgt>   Reliefschattierung (docs/relief.md): bettet je Kachel ein Hoehenmodell ein (mkgmap --dem), Ordner mit
+#               SRTM-HGT-Kacheln (scripts/make_dem_hgt.py --all). DEM_DISTS (Standard 1648,6592,13184,26368,52736, ein Wert je
+#               Detailstufe, fein mehrstufig), DEM_EXTRA (weitere mkgmap-Optionen). Ohne DEM ist die Ausgabe unveraendert (+ca. 100-145 MB mit DEM)
 #   FAMILY_ID, MAP_PREFIX, MAP_LABEL, OUT_NAME   ueberschreiben Family-ID, Kartennummern-Praefix, Menuename und Dateiname
 #               (fuer Testkarten, die nicht mit der grossen Karte kollidieren sollen)
 #
@@ -41,7 +44,12 @@ case "$VARIANT" in
 esac
 ROUTING=${ROUTING:-0}; ROUTING_BLOECKE=${ROUTING_BLOECKE:-6 4}
 FID=${FAMILY_ID:-$FID}; PFX=${MAP_PREFIX:-$PFX}; LABEL=${MAP_LABEL:-$LABEL}
-export VARIANT PFX
+DEM_OPT=""
+if [ -n "$DEM" ]; then
+  DEM=$(realpath "$DEM"); [ -d "$DEM" ] || { echo "DEM-Ordner fehlt: $DEM"; exit 1; }
+  DEM_OPT="--dem=$DEM --dem-dists=${DEM_DISTS:-1648,6592,13184,26368,52736} $DEM_EXTRA"
+fi
+export VARIANT PFX DEM_OPT
 STYLE="$R/mkgmap/vector/style"; TYP="$R/mkgmap/vector/typ/swisstopo_vector_$VARIANT.txt"
 if [ "$ROUTING" = "1" ] || [ -n "$FAMILY_ID" ]; then
   # eigene TYP-Datei (andere Family-ID und/oder unsichtbare Routing-Linien); die Dateien der Varianten bleiben unveraendert
@@ -76,7 +84,7 @@ work() {  # work i j x0 y0 x1 y1
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --style-option="$STYLE_OPT" --output-dir="$OUT/tiles/$name" \
       --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 --lower-case --merge-lines \
       --draw-priority=20 --remove-short-arcs --reduce-point-density=3 --reduce-point-density-polygon=4 \
-      --min-size-polygon=8 $ROUTE_OPT --keep-going "$osm" > "$OUT/logs/$name.log" 2>&1 || true
+      --min-size-polygon=8 $ROUTE_OPT $DEM_OPT --keep-going "$osm" > "$OUT/logs/$name.log" 2>&1 || true
     grep -E "Exception|SEVERE" "$OUT/logs/$name.log" | grep -v "Exceptions: 0" || true
     cp "$OUT/tiles/$name/$name.img" "$OUT/tiles/$name.img"
     rm -rf "$OUT/tiles/$name"

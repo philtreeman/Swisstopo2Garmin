@@ -83,6 +83,28 @@ def striche(dichte, laenge=3, seed=0):
     return _out(g)
 
 
+def gletscher(dichte=0.07, seed=11):
+    """Gletscher: spaerliche, kurze blaue Striche (Spalten, Eisstruktur) auf weiss, leicht gekruemmt und schraeg, unregelmaessig;
+    dichte = Anteil der Pixel (LK25: blaue Strukturlinien auf weissem Grund)"""
+    rnd = random.Random(seed); g = _leer(); n = 0; ziel = int(1024 * dichte); tries = 0
+    while n < ziel and tries < 20000:
+        tries += 1
+        x, y = float(rnd.randrange(32)), float(rnd.randrange(32))
+        L = rnd.randrange(5, 10)
+        a = rnd.choice((-1, 1)) * rnd.uniform(0.25, 0.9)       # Schraege (Steigung dy/dx)
+        kr = rnd.uniform(-0.08, 0.08)                          # Kruemmung
+        pts = []
+        for k in range(L):
+            pts.append((int(round(x + k)) % 32, int(round(y + a * k + kr * k * k)) % 32))
+        pts = list(dict.fromkeys(pts))
+        if any(g[(py + dy) % 32][(px + dx) % 32] == "f" for px, py in pts for dy in (-2, -1, 0, 1, 2) for dx in (-2, -1, 0, 1, 2)):
+            continue
+        for px, py in pts:
+            g[py][px] = "f"
+        n += len(pts)
+    return _out(g)
+
+
 # Typ -> (Name, Hintergrund, Vordergrund, Muster)
 PATTERNS = {
     "0x10e01": ("Wald offen", BG, GRUEN, punkte(20, 2, 1, 2)),          # 2 x 2 Punkte, ca. 8 % der Flaeche
@@ -95,6 +117,7 @@ PATTERNS = {
     "0x1a": ("Friedhof", PARK, SCHWARZ, kreuze()),
     "0x10e04": ("Schrebergarten", PARK, SCHWARZ, raster_punkte(8, 2, 4)),
     "0x52": ("Fels", BG, SCHWARZ, striche(0.12, 3, 5)),                   # schwarze Striche, ca. 12 %
+    "0x10e00": ("Gletscher, Schneefeld", WEISS, GLETSCHER_STRICH, gletscher()),
     "0x53": ("Geroell", BG, SCHWARZ, punkte(61, 1, 6, 2)),                # schwarze Punkte, Dichte 0.06
     "0x10e0a": ("Offenes Gebaeude, Treibhaus, Flugdach", WEISS, SCHWARZ,
                 ["".join("f" if (x + y) % 4 == 0 else "b" for x in range(32)) for y in range(32)]),   # schwarze Schraffur auf weiss
