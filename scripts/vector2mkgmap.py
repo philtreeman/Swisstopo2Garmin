@@ -9,6 +9,12 @@ Siedlungsgebiet (tlm_layer=siedlung) abgeleitet: Union der um 14 m vergroesserte
 
 --bbox in WGS84. Mit --tile-km wird in Kacheln gearbeitet (Speicher); ein Objekt
 landet nur in der Kachel, in der sein Repraesentationspunkt liegt (keine Duplikate).
+
+Routing (--routing, zusammen mit --wgs-tile; Kachelliste mit --print-grid-wgs): die Kachel ist ein Rechteck in WGS84, dessen
+Kanten auf Vielfachen von 2048 Garmin-Einheiten liegen. Linien und Flaechen werden nur grob (auf die Kachel plus RAND_ROUTING m)
+zugeschnitten; das <bounds>-Element sagt mkgmap das genaue Rechteck, mkgmap schneidet dort zu und schreibt die
+Begrenzungsknoten (NOD3), ueber die das Geraet von Kachel zu Kachel routet. Strassen teilen an gleichen Koordinaten (LV95 auf
+cm gerundet) einen gemeinsamen Knoten, damit Kreuzungen im Routing-Netz verbunden sind. Siehe README, Abschnitt «Routing».
 """
 import argparse, math, os, sys
 import numpy as np
@@ -37,6 +43,10 @@ LAYERS = [
 ]
 # nur mit --trees: rund 11,5 Mio. Einzelbaeume (je ein Punkt); vergroessert die Karte stark
 LAYERS_TREES = [("EINZELBAUM_OST", "baum", {}), ("EINZELBAUM_WEST", "baum", {})]
+# nur mit --routing: zusaetzliche Strassen-Attribute fuer Einbahn, Zugang und Strassenklasse (mkgmap/vector/style/inc/routing_lines)
+ROUTING_EXTRA = {"RICHTUNGSG": "richtung", "VERKEHRSBE": "vbeschr", "BEFAHRBARK": "befahrbar", "VERKEHRSBD": "vbed"}
+RAND_ROUTING = 100   # m: Rand um die WGS84-Kachel beim Vorzuschnitt (mkgmap schneidet dann genau am <bounds>-Rechteck)
+GARMIN_BLOCK = 2048 * 360 / 2 ** 24   # Grad: 2048 Garmin-Einheiten (0.0439453125), Raster der Routing-Kacheln wie bei splitter
 
 
 PAD = 80            # Rand (m) um die Kachel, damit das Siedlungsgebiet an Kachelgrenzen nahtlos ist
@@ -140,12 +150,62 @@ def bahnuebergaenge(strassen, bahnen):
     return out
 
 
-def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edge", grenzen=None, achsen=None, haupt=None):
-    w = Writer(out_path)
+def wgs_tile_lv95(wgs):
+    """WGS84-Rechteck (W S E N) -> (LV95-Polygon der Kachel, LV95-Huelle mit RAND_ROUTING)"""
+    w_, s_, e_, n_ = wgs
+    t = np.linspace(0, 1, 21)
+    lon = np.concatenate([w_ + (e_ - w_) * t, np.full(21, e_), e_ - (e_ - w_) * t, np.full(21, w_)])
+    lat = np.concatenate([np.full(21, s_), s_ + (n_ - s_) * t, np.full(21, n_), n_ - (n_ - s_) * t])
+    x, y = FROM_WGS.transform(lon, lat)
+    poly = shapely.Polygon(np.column_stack([x, y]))
+    return poly, poly.buffer(RAND_ROUTING, join_style="mitre")
+
+
+GARMIN_UNIT = 360 / 2 ** 24   # Grad: eine Garmin-Kartenkoordinate (24 Bit, ca. 1.7 x 2.4 m)
+
+
+def von_kante_weg(coords, wgs):
+    """Strassen-Stuetzpunkte, die weniger als eine Garmin-Einheit neben einer Kachelkante (irgendeiner im Raster) liegen, um
+    1.5 Einheiten von der Kante wegschieben. Sonst rundet mkgmap sie genau auf die Kante; das Stueck in der Nachbarkachel hat
+    dann die Laenge 0 und fehlt, und der Begrenzungsknoten hat kein Gegenstueck (keine Verbindung ueber die Kante). Die
+    Verschiebung haengt nur von der Koordinate ab, beide Nachbarkacheln verschieben gleich."""
+    W, S, E, N = wgs
+    dx, dy = E - W, N - S
+    out = []
+    for lon, lat in coords:
+        for v0, d in ((W, dx), (S, dy)):
+            v = lon if v0 == W else lat
+            g = v0 + round((v - v0) / d) * d
+            r = (v - g) / GARMIN_UNIT
+            if abs(r) < 1:
+                v = g + (1.5 if r >= 0 else -1.5) * GARMIN_UNIT
+                if v0 == W:
+                    lon = v
+                else:
+                    lat = v
+        out.append((lon, lat))
+    return out
+
+
+def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edge", grenzen=None, achsen=None, haupt=None,
+                 routing=False, wgs=None):
+    """routing=True: wgs=(W, S, E, N) ist die Kachel; Objekte werden nur grob zugeschnitten, mkgmap schneidet am <bounds>-Rechteck"""
+    if routing:
+        exact, tbox = wgs_tile_lv95(wgs)
+        bb_lv95 = tbox.bounds
+        w = Writer(out_path, bounds=wgs)
+        wW, wS, wE, wN = wgs
+        def in_tile(px, py):   # Punkte gehoeren zu genau einer Kachel (Test in WGS84, halboffen)
+            lo, la = TO_WGS.transform(px, py)
+            return wW <= lo < wE and wS <= la < wN
+    else:
+        w = Writer(out_path)
+        tbox = shapely.box(*bb_lv95)
+        def in_tile(px, py):
+            return x0 <= px < x1 and y0 <= py < y1
     x0, y0, x1, y1 = bb_lv95
     counts = {}
     settle = []  # Gebaeude-Geometrien fuer das Siedlungsgebiet (inkl. Rand)
-    tbox = shapely.box(x0, y0, x1, y1)
     baeume = {}                       # Zelle -> (Abstand zur Zellenmitte, Punkt)
     gl_strassen, gl_bahnen = [], []   # Strassen und Bahnen auf Bodenhoehe fuer die Bahnuebergaenge
     for suffix, kind, extra in LAYERS + (LAYERS_TREES if trees else []):
@@ -156,6 +216,8 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             print("fehlt:", p, file=sys.stderr); continue
         rb = (x0 - PAD, y0 - PAD, x1 + PAD, y1 + PAD) if kind == "gebaeude" else tuple(bb_lv95)
         df = pyogrio.read_dataframe(p, bbox=rb)
+        if routing and kind == "strasse":
+            extra = dict(extra, **ROUTING_EXTRA)
         n = 0
         for row in df.itertuples(index=False):
             g = row.geometry
@@ -168,7 +230,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
                     and getattr(row, "OBJEKTART", "") not in ("Autobahn", "Autostrasse"):
                 (gl_strassen if kind == "strasse" else gl_bahnen).append(g)
             if kind == "baum":
-                if x0 <= g.x < x1 and y0 <= g.y < y1:
+                if in_tile(g.x, g.y):
                     c = (int(g.x // BAUM_ZELLE), int(g.y // BAUM_ZELLE))
                     d = (g.x % BAUM_ZELLE - BAUM_ZELLE / 2) ** 2 + (g.y % BAUM_ZELLE - BAUM_ZELLE / 2) ** 2
                     if c not in baeume or d < baeume[c][0]:
@@ -176,8 +238,13 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
                 continue
             if kind in POINT_KINDS or g.geom_type == "Point":
                 rp = g.representative_point()
-                if not (x0 <= rp.x < x1 and y0 <= rp.y < y1):
+                if not in_tile(rp.x, rp.y):
                     continue  # Punkte gehoeren zu genau einer Kachel
+            elif routing and kind == "strasse":
+                # Strassen im Routing-Build nicht zuschneiden: beide Nachbarkacheln muessen exakt dieselbe Geometrie haben,
+                # sonst rundet mkgmap den Schnittpunkt an der Kachelkante verschieden und die Begrenzungsknoten passen nicht
+                if not g.intersects(tbox):
+                    continue
             else:
                 g = clip_to_box(g, tbox)
                 if g is None:
@@ -199,9 +266,16 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
             for fld, key in extra.items():
                 tags[f"tlm_{key}"] = getattr(row, fld, None)
             if simplify and g.geom_type != "Point":
-                g = g.simplify(simplify, preserve_topology=True)
+                g = g.simplify(simplify, preserve_topology=True)   # behaelt Anfangs- und Endpunkte (dort liegen die Kreuzungen)
                 if g.is_empty:
                     continue
+            if routing and kind == "strasse":
+                # auf cm runden, dann gemeinsame Knoten: swissTLM3D teilt Strassen an jeder Kreuzung mit exakt gleichem Endpunkt
+                g = _t(g, lambda c: np.round(c, 2))
+                for part in shapely.get_parts(to_wgs(g)):
+                    w.way(von_kante_weg(part.coords, wgs), tags, share=True)
+                n += 1
+                continue
             emit_geom(w, to_wgs(g), kind, tags)
             n += 1
         counts[suffix] = n
@@ -216,7 +290,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
                 emit_geom(w, to_wgs(ln), "bahnuebergang", {"tlm_layer": "bahnuebergang", "tlm_type": "Bahnuebergang"}); n += 1
         counts["BAHNUEBERGAENGE"] = n
     if grenzen and variant == "edge":
-        box = shapely.box(x0, y0, x1, y1)
+        box = tbox
         gdf = pyogrio.read_dataframe(grenzen, layer="tlm_hoheitsgrenze", bbox=tuple(bb_lv95))
         n = 0
         for row in gdf.itertuples(index=False):
@@ -229,7 +303,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
                     emit_geom(w, to_wgs(part.simplify(simplify or 0.1, preserve_topology=True)), "grenze", {"tlm_layer": "grenze", "tlm_type": art}); n += 1
         counts["GRENZEN"] = n
     if variant == "edge" and (achsen or haupt):
-        box = shapely.box(x0, y0, x1, y1)
+        box = exact if routing else tbox
         pts = []
         if achsen:
             pts += [(x, y, "nsr", nr) for x, y, nr in schilder(achsen, "Stammachsen", "Strassennummer", "N", box, r"N\d+")]
@@ -242,7 +316,7 @@ def convert_tile(shp_dir, bb_lv95, out_path, simplify, trees=False, variant="edg
     if len(settle):
         # vektorisiert puffern, vereinigen, kleine Gruppen verwerfen, erst dann vereinfachen (schneller)
         u = shapely.union_all(shapely.buffer(settle, SIEDLUNG_PUFFER, quad_segs=1))
-        box = shapely.box(x0, y0, x1, y1)
+        box = tbox
         k = 0
         for poly in (list(u.geoms) if hasattr(u, "geoms") else [u]):
             if poly.geom_type != "Polygon" or poly.area < SIEDLUNG_MIN_FLAECHE:
@@ -268,6 +342,19 @@ def print_grid(bbox, km):
             print(i, j, GRID_X0 + i * step, GRID_Y0 + j * step, GRID_X0 + (i + 1) * step, GRID_Y0 + (j + 1) * step)
 
 
+def print_grid_wgs(bbox, bx, by):
+    """Routing-Kacheln (i j W S E N) in WGS84: bx x by Bloecke zu 2048 Garmin-Einheiten, Ursprung auf dem Blockraster.
+    6 x 4 Bloecke sind etwa 20 x 19.5 km. NNNN = i*100+j wie beim LV95-Raster."""
+    ox, oy = math.floor(CH_BBOX[0] / GARMIN_BLOCK), math.floor(CH_BBOX[1] / GARMIN_BLOCK)   # Rasterursprung (Bloecke)
+    def idx(v, o, b):
+        return int((v / GARMIN_BLOCK - o) // b)
+    for i in range(idx(bbox[0], ox, bx), idx(bbox[2], ox, bx) + 1):
+        for j in range(idx(bbox[1], oy, by), idx(bbox[3], oy, by) + 1):
+            W, E = (ox + i * bx) * GARMIN_BLOCK, (ox + (i + 1) * bx) * GARMIN_BLOCK
+            S, N = (oy + j * by) * GARMIN_BLOCK, (oy + (j + 1) * by) * GARMIN_BLOCK
+            print(i, j, repr(W), repr(S), repr(E), repr(N))
+
+
 def main():
     a = argparse.ArgumentParser()
     a.add_argument("--shp", help="Ordner mit swissTLM3D_TLM_*.shp")
@@ -280,6 +367,12 @@ def main():
     a.add_argument("--lv95-tile", nargs=4, type=float, metavar=("X0", "Y0", "X1", "Y1"),
                    help="genau eine Kachel in LV95 konvertieren (mit --out-file)")
     a.add_argument("--out-file")
+    a.add_argument("--routing", action="store_true",
+                   help="routingfaehige Ausgabe: gemeinsame Strassenknoten, Strassenattribute, <bounds> (braucht --wgs-tile)")
+    a.add_argument("--wgs-tile", nargs=4, type=float, metavar=("W", "S", "E", "N"),
+                   help="eine Routing-Kachel in WGS84 konvertieren (mit --routing und --out-file)")
+    a.add_argument("--print-grid-wgs", nargs=2, type=int, metavar=("BX", "BY"),
+                   help="Routing-Kachelliste (WGS84, BX x BY Bloecke zu 2048 Garmin-Einheiten) fuer --bbox ausgeben und beenden")
     a.add_argument("--trees", action="store_true", help="Einzelbaeume als Punkte mitschreiben (gross)")
     a.add_argument("--variant", choices=VARIANTS, default="edge", help="edge: mehr Namen und Grenzen; fenix: nur Hoehenpunkte")
     a.add_argument("--achsen", help="ASTRA-Nationalstrassenachsen (GDB, Layer Stammachsen) fuer die Schilder, nur Variante edge")
@@ -288,6 +381,15 @@ def main():
     o = a.parse_args()
     if o.print_grid:
         print_grid(o.bbox or CH_BBOX, o.print_grid)
+        return
+    if o.print_grid_wgs:
+        print_grid_wgs(o.bbox or CH_BBOX, *o.print_grid_wgs)
+        return
+    if o.wgs_tile:
+        if not o.routing:
+            a.error("--wgs-tile nur zusammen mit --routing")
+        c = convert_tile(o.shp, None, o.out_file, o.simplify, o.trees, o.variant, o.grenzen, o.achsen, o.haupt, routing=True, wgs=tuple(o.wgs_tile))
+        print(o.out_file, f"{os.path.getsize(o.out_file)/1e6:.1f} MB", sum(c.values()), "Objekte", flush=True)
         return
     if o.lv95_tile:
         c = convert_tile(o.shp, tuple(o.lv95_tile), o.out_file, o.simplify, o.trees, o.variant, o.grenzen, o.achsen, o.haupt)

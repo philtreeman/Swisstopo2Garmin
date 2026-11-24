@@ -7,6 +7,11 @@
 #   <shp-ordner>   entpackte swissTLM3D-Shapefiles (swissTLM3D_TLM_*.shp, siehe README)
 #   [W S E N]      optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz
 # Umgebungsvariablen: KACHEL_KM (Standard 20), JOBS (parallele Kacheln, Standard 3), SPLIT_MB (Standard 90)
+#   ROUTING=1   routingfaehige Karte (README, Abschnitt «Routing»): Kacheln in WGS84 auf dem 2048-Einheiten-Raster
+#               (ROUTING_BLOECKE, Standard "6 4" = ca. 20 x 19.5 km; KACHEL_KM gilt dann nicht), gemeinsame Strassenknoten,
+#               mkgmap --route und --style-option=routing=1; Logs je Kachel in <out>/logs/
+#   FAMILY_ID, MAP_PREFIX, MAP_LABEL, OUT_NAME   ueberschreiben Family-ID, Kartennummern-Praefix, Menuename und Dateiname
+#               (fuer Testkarten, die nicht mit der grossen Karte kollidieren sollen)
 #
 # Ablauf:
 #   1. vector2mkgmap.py --print-grid     Kachelliste im LV95-Raster (Standard 20 x 20 km)
@@ -31,41 +36,59 @@ case "$VARIANT" in
   fenix) FID=3901; PFX=6391; LABEL="SwissTOPO Vector Fenix"; GR_FLAG="" ;;
   *) echo "VARIANT muss edge oder fenix sein"; exit 1 ;;
 esac
+ROUTING=${ROUTING:-0}; ROUTING_BLOECKE=${ROUTING_BLOECKE:-6 4}
+FID=${FAMILY_ID:-$FID}; PFX=${MAP_PREFIX:-$PFX}; LABEL=${MAP_LABEL:-$LABEL}
 export VARIANT PFX
 STYLE="$R/mkgmap/vector/style"; TYP="$R/mkgmap/vector/typ/swisstopo_vector_$VARIANT.txt"
-python3 "$S/make_vector_typ.py" "$VARIANT" >/dev/null
-mkdir -p "$OUT/osm" "$OUT/tiles"
+if [ "$ROUTING" = "1" ] || [ -n "$FAMILY_ID" ]; then
+  # eigene TYP-Datei (andere Family-ID und/oder unsichtbare Routing-Linien); die Dateien der Varianten bleiben unveraendert
+  TYP="$OUT/swisstopo_vector_${VARIANT}_$FID.txt"; RT_TYP=""; [ "$ROUTING" = "1" ] && RT_TYP="--routing"
+  python3 "$S/make_vector_typ.py" "$VARIANT" --fid "$FID" $RT_TYP --out "$TYP" >/dev/null
+else
+  python3 "$S/make_vector_typ.py" "$VARIANT" >/dev/null
+fi
+mkdir -p "$OUT/osm" "$OUT/tiles" "$OUT/logs"
 
 BB=(); NAME=swisstopo_vector_${VARIANT}_schweiz
 [ $# -eq 4 ] && { BB=(--bbox "$@"); NAME=swisstopo_vector_${VARIANT}_region; }
-python3 "$S/vector2mkgmap.py" --print-grid "$KM" "${BB[@]}" > "$OUT/kacheln.txt"
-echo "$(wc -l < "$OUT/kacheln.txt") Kacheln a $KM km"
+NAME=${OUT_NAME:-$NAME}
+if [ "$ROUTING" = "1" ]; then
+  python3 "$S/vector2mkgmap.py" --print-grid-wgs $ROUTING_BLOECKE "${BB[@]}" > "$OUT/kacheln.txt"
+  echo "$(wc -l < "$OUT/kacheln.txt") Routing-Kacheln a $ROUTING_BLOECKE Bloecke (WGS84)"
+  TILE_OPT="--routing --wgs-tile"; ROUTE_OPT="--route --style-option=routing=1 --drive-on=right"
+else
+  python3 "$S/vector2mkgmap.py" --print-grid "$KM" "${BB[@]}" > "$OUT/kacheln.txt"
+  echo "$(wc -l < "$OUT/kacheln.txt") Kacheln a $KM km"
+  TILE_OPT="--lv95-tile"; ROUTE_OPT=""
+fi
 
 work() {  # work i j x0 y0 x1 y1
   local i=$1 j=$2 name osm
   name=$(printf "%s%04d" "$PFX" $((i*100+j)))              # eindeutiger 8-stelliger Mapname
   [ -e "$OUT/tiles/$name.done" ] && return 0           # fortsetzen: fertige Kacheln ueberspringen
   osm="$OUT/osm/$name.osm"
-  python3 "$S/vector2mkgmap.py" --shp "$SHP" --lv95-tile "$3" "$4" "$5" "$6" --out-file "$osm" --variant "$VARIANT" $TREES_FLAG $GR_FLAG >/dev/null 2>&1
+  python3 "$S/vector2mkgmap.py" --shp "$SHP" $TILE_OPT "$3" "$4" "$5" "$6" --out-file "$osm" --variant "$VARIANT" $TREES_FLAG $GR_FLAG >/dev/null 2>&1
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
     java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \
       --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 --lower-case --merge-lines \
       --draw-priority=20 --remove-short-arcs --reduce-point-density=3 --reduce-point-density-polygon=4 \
-      --min-size-polygon=8 --keep-going "$osm" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
+      --min-size-polygon=8 $ROUTE_OPT --keep-going "$osm" > "$OUT/logs/$name.log" 2>&1 || true
+    grep -E "Exception|SEVERE" "$OUT/logs/$name.log" | grep -v "Exceptions: 0" || true
     cp "$OUT/tiles/$name/$name.img" "$OUT/tiles/$name.img"
     rm -rf "$OUT/tiles/$name"
   fi
   rm -f "$osm"; touch "$OUT/tiles/$name.done"
   echo "fertig $name"
 }
-export -f work; export SHP JAR OUT S STYLE TREES_FLAG FID LABEL GR_FLAG
+export -f work; export SHP JAR OUT S STYLE TREES_FLAG FID LABEL GR_FLAG TILE_OPT ROUTE_OPT
 xargs -P "$JOBS" -L1 bash -c 'work "$@"' _ < "$OUT/kacheln.txt"
 
 mkdir -p "$OUT/final"
 java -Xmx6g -jar "$JAR" --output-dir="$OUT/final" --family-id=$FID --product-id=1 \
   --family-name="$LABEL" --series-name="$LABEL" --description="$LABEL" \
-  --code-page=1252 --lower-case --gmapsupp "$OUT"/tiles/${PFX}*.img "$TYP" 2>&1 | grep -E "Exception|SEVERE" | grep -v "Exceptions: 0" || true
+  --code-page=1252 --lower-case --gmapsupp "$OUT"/tiles/${PFX}*.img "$TYP" > "$OUT/logs/final.log" 2>&1 || true
+grep -E "Exception|SEVERE" "$OUT/logs/final.log" | grep -v "Exceptions: 0" || true
 cp "$OUT/final/gmapsupp.img" "$OUT/$NAME.img"
 ls -la "$OUT/$NAME.img"
 if [ "$(stat -c%s "$OUT/$NAME.img")" -gt $((SPLIT_MB*1024*1024)) ]; then

@@ -4,16 +4,26 @@
 Farben und Muster sind an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen
 (Untergrund creme, Wald gruen, Gebaeude grau auf grauem Siedlungsgebiet, Wege dunkelgrau gestrichelt).
 Die Typ-Codes passen zu mkgmap/vector/style/{lines,polygons}.
-"""
-import os, sys
 
-VARIANT = sys.argv[1] if len(sys.argv) > 1 else "edge"   # edge: Fels mit Textur, Grenzen; fenix: Fels einfach grau; *_swisstopo: Farben der Landeskarte
-assert VARIANT in ("edge", "fenix", "edge_swisstopo", "fenix_swisstopo")
+Aufruf: make_vector_typ.py [VARIANTE] [--fid N --out DATEI] [--routing]
+  --fid/--out: andere Family-ID (z. B. 3930 fuer den Routing-Test) in eine eigene Datei; die Dateien der bestehenden
+  Varianten bleiben unveraendert. --routing: zusaetzlich die unsichtbaren routbaren Linien 0x13/0x16
+  (mkgmap/vector/style/inc/routing_lines).
+"""
+import argparse, os, sys
+
+_a = argparse.ArgumentParser()
+_a.add_argument("variant", nargs="?", default="edge", choices=("edge", "fenix", "edge_swisstopo", "fenix_swisstopo"))
+_a.add_argument("--fid", type=int, help="Family-ID (Standard: 3900 edge, 3901 fenix)")
+_a.add_argument("--out", help="Ausgabedatei (Standard: mkgmap/vector/typ/swisstopo_vector_<variante>.txt)")
+_a.add_argument("--routing", action="store_true", help="unsichtbare routbare Linien 0x13 und 0x16 mitschreiben")
+_o = _a.parse_args()
+VARIANT = _o.variant   # edge: Fels mit Textur, Grenzen; fenix: Fels einfach grau; *_swisstopo: Farben der Landeskarte
 if VARIANT.endswith("_swisstopo"):
     os.environ["VECTOR_DESIGN"] = "swisstopo"      # muss vor dem Import der Palette gesetzt sein
 BASIS = VARIANT.split("_")[0]
-FID = 3900 if BASIS == "edge" else 3901
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", f"swisstopo_vector_{VARIANT}.txt")
+FID = _o.fid or (3900 if BASIS == "edge" else 3901)
+OUT = _o.out or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mkgmap", "vector", "typ", f"swisstopo_vector_{VARIANT}.txt")
 
 from vector_palette import *  # noqa: F401,F403  (Farben, gemeinsam mit preview_vector.py)
 from vector_patterns import PATTERNS
@@ -204,6 +214,11 @@ DayXpm="2 2 2 1"
 "22"
 [end]
 ''')
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
+if _o.routing:
+    # unsichtbare routbare Linien (Unterlage unter Treppen, Tunneln, Bruecken, 1-m-Wegen und markierten Spuren, deren sichtbarer
+    # erweiterter Typ in mkgmap nicht routbar ist): 1 Pixel hoch, alle Pixel durchsichtig
+    for t, name in (("0x13", "Strasse (Routing)"), ("0x16", "Weg (Routing)")):
+        parts.append(f'[_line]\nType={t}\nString1=0x04,{name}\nXpm="32 1 2 1"\n"3 c none"\n"1 c #000000"\n"' + "3" * 32 + '"\n[end]\n')
+os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
 open(OUT, "w", encoding="latin1").write(hdr + "".join(parts))
 print("geschrieben:", os.path.normpath(OUT))

@@ -42,10 +42,11 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | Ordner | Inhalt | Grösse |
 |---|---|---|
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m und 20 m, ganze Schweiz, je in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 168 MB und 109 MB |
-| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 3 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 241 MB |
-| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 3 Teilen | 225 MB |
+| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 4 Teilen, routingfähig (zusammensetzen mit `cat`, siehe README im Ordner) | 309 MiB (323'764'224 Byte) |
+| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 4 Teilen, routingfähig | 291 MiB (304'742'400 Byte) |
 | `karten/overlays_schweiz/` | alle Overlays einzeln, ganze Schweiz (Routen, Haltestellen, Winter, Skipisten, Hangneigung) | 137 MB, davon Hangneigung 75 MB und Hangneigungsklassen 45 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
+| `karten/routing_test/` | **SwissTOPO Vector Routing Test** (Family-ID 3930): Edge-Variante als routingfähige Karte, Raum Baden–Wettingen–Dättwil, mit Testanleitung (siehe [Routing](#routing-status-test)) | 5,8 MB |
 
 Installation: gewünschte `.img` nach `Garmin/` auf das Gerät kopieren (USB), neu starten, unter Einstellungen → Karte aktivieren. Eine vorhandene `gmapsupp.img` nicht überschreiben.
 
@@ -91,7 +92,7 @@ scripts/                       alle Skripte
   preview_hangneigung.py         Vergleichszeichnung gegen die swisstopo-WMTS-Ebenen
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
   vector2mkgmap.py               swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
-  make_vector_typ.py             schreibt die TYP-Datei (Farben, Muster, Linien)
+  make_vector_typ.py             schreibt die TYP-Datei (Farben, Muster, Linien; --fid, --routing für Testkarten)
   vector_palette.py              Farben von SwissTOPO Vector (aus Edge-1040-Bildschirmfotos)
   preview_vector.py              Vorschau-Zeichnung von SwissTOPO Vector
 mkgmap/
@@ -257,11 +258,11 @@ scripts/build_hangneigung.sh swissBOUNDARIES3D_1_5_LV95_LN02.gpkg mkgmap.jar out
 *Raum Davos, Schiahorn (Zoom 15): links eigene Zeichnung der beiden Overlays mit den TYP-Mustern 1:1 über der grauen Landeskarte, rechts die swisstopo-WMTS-Ebenen. Eigene Zeichnung, kein Rendering vom Gerät.*
 
 ## SwissTOPO Vector, zwei Varianten (Family-ID 3900 und 3901)
-Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in drei Teilen wegen der GitHub-Grenze von 100 MB. Die Darstellung ist an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen; die Flächenmuster für Fels und Reben sind aus diesen Fotos ausgelesen (`scripts/extract_pattern.py`, persönlicher Gebrauch, das Repo ist privat). **Auf keinem Gerät geprüft** (der Nutzer hat nur eine frühere Fassung auf dem Edge 1040 gesehen, sie lud).
+Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in vier Teilen wegen der GitHub-Grenze von 100 MB. Die Darstellung ist an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen; die Flächenmuster für Fels und Reben sind aus diesen Fotos ausgelesen (`scripts/extract_pattern.py`, persönlicher Gebrauch, das Repo ist privat). **Auf keinem Gerät geprüft** (der Nutzer hat nur eine frühere Fassung auf dem Edge 1040 gesehen, sie lud).
 
 | | **SwissTOPO Vector Edge** (3900) | **SwissTOPO Vector Fenix** (3901) |
 |---|---|---|
-| Ordner | `karten/swisstopo_vector_edge_schweiz/` (241 MB) | `karten/swisstopo_vector_fenix_schweiz/` (225 MB) |
+| Ordner | `karten/swisstopo_vector_edge_schweiz/` (309 MiB) | `karten/swisstopo_vector_fenix_schweiz/` (291 MiB) |
 | Fels | graue Fläche mit Textur | einfach grau |
 | Namen | Orts-, Strassen-, Gewässer-, Flur-, Geländenamen, Berge mit Höhe («Säntis 2502») | nur die Höhe an Gipfeln und Pässen |
 | Grenzen (swissBOUNDARIES3D) | Landes-, Kantons-, Gemeindegrenzen, magenta | keine |
@@ -303,11 +304,39 @@ Ablauf: Kachelliste im LV95-Raster (20 × 20 km, 234 Kacheln) → je Kachel para
 
 **Noch nicht umgesetzt:** POIs wie Restaurants, Parkplatzsymbole, Museen (nicht in swisstopo-Daten; als eigene Karte aus OpenStreetMap geplant, braucht Freigabe von `download.geofabrik.de`), Brücken mit Geländer, Galerien, Strassennummern-Schild für Kantonsstrassen, Felsschraffur wie auf der Rasterkarte (nicht als Vektordaten vorhanden).
 
+## Routing (Status: Test)
+Ziel: SwissTOPO Vector soll auf dem Edge 1040 (später Fenix 5S Plus) mit Garmins eigenem Routing nutzbar sein. **Stand 2026-11-22: beide grossen Karten (3900 Edge, 3901 Fenix) sind mit `ROUTING=1` für die ganze Schweiz neu gebaut** (je 153 WGS84-Kacheln, NET und NOD in jeder Kachel, MapFailedExceptions 0; Bauzeit 22 bzw. 25 Minuten mit 3 Prozessen). Der Bau erfolgte auf Wunsch des Nutzers **ohne vorherigen Gerätetest** der Testkarte (`karten/routing_test/`, Family-ID 3930, bleibt als Vergleich). **Gerätetest offen, auf keinem Gerät geprüft.** Grösse Edge 323'764'224 Byte, Fenix 304'742'400 Byte (Vorversion ohne Routing 240'799'744 bzw. 225'202'176 Byte, also +83 bzw. +80 MB, Hochrechnung unten +80 MB traf zu). Nicht routbar bzw. fehlend: **Einbahnstrassen** (swissTLM3D kennt nur richtungsgetrennte Fahrbahnen, Rampen, Kreisel) und **Abbiegeverbote**; Fahrverbote gelten nur für Motorfahrzeuge. Das Auto-Routing kann gegen Einbahnstrassen führen.
+
+```
+# routingfähig bauen (Region; ohne Bounding Box ganze Schweiz). Ohne ROUTING=1 baut das Skript wie bisher.
+ROUTING=1 VARIANT=edge scripts/build_vector.sh <shp-ordner> mkgmap.jar out/ [W S E N]
+# Testkarte wie in karten/routing_test/ (eigene Family-ID und Kartennummern, kleine Kacheln):
+ROUTING=1 ROUTING_BLOECKE="2 2" VARIANT=edge FAMILY_ID=3930 MAP_PREFIX=6394 \
+  MAP_LABEL="SwissTOPO Vector Routing Test" OUT_NAME=swisstopo_vector_routing_test_baden \
+  scripts/build_vector.sh <shp-ordner> mkgmap.jar out/ 8.24 47.43 8.37 47.50
+```
+Prüfen nach dem Bau: in `out/logs/*.log` je Kachel `Number of MapFailedExceptions: 0`; die `.img` enthält je Kachel `<8 Ziffern>.NET` und `.NOD`.
+
+**Was ROUTING=1 ändert** (Entscheide, Quellen: mkgmap `doc/options.txt` zu `--route`, `--add-boundary-nodes-at-admin-boundaries`, `--ignore-osm-bounds`; Style-Handbuch Kap. 4.5, 4.6.4–4.6.7, 5.1.1):
+- **Kacheln in WGS84 statt LV95.** mkgmap schreibt die Begrenzungsknoten (NOD3), über die das Gerät von Kachel zu Kachel routet, nur dort, wo eine Strasse die Kachelgrenze (das `<bounds>`-Rechteck in Länge/Breite) schneidet; ohne `<bounds>` funktioniert Routing über Kacheln laut Doku nicht. Die bisherigen LV95-Quadrate sind in Länge/Breite schief, ihre Schnittpunkte lägen nicht auf der mkgmap-Kachelgrenze. Darum: Rechtecke in WGS84, Kanten auf Vielfachen von 2048 Garmin-Einheiten (0,0439°, dasselbe Raster wie bei splitter), Standard `ROUTING_BLOECKE="6 4"` = 0,264° × 0,176° ≈ 20 × 19,5 km, Kartennummer `<Präfix><i*100+j>` wie bisher.
+- **mkgmap schneidet zu, nicht der Konverter.** `vector2mkgmap.py --routing --wgs-tile W S E N` schreibt das genaue Rechteck als `<bounds>` und gibt Objekte nur grob (100 m Rand) zugeschnitten aus; mkgmap schneidet alles am Rechteck ab, die Kacheln überlappen also nicht (die früheren Lücken in Wäldern an Kachelrändern kamen von überlappenden Kacheln ohne `<bounds>`). Strassen werden gar nicht zugeschnitten, damit beide Nachbarkacheln dieselbe Geometrie haben und mkgmap den Schnittpunkt gleich rundet. Strassen-Stützpunkte, die weniger als eine Garmin-Einheit neben einer Kachelkante liegen, werden um 1,5 Einheiten (ca. 3 m) weggeschoben, sonst fehlt in einer der beiden Kacheln das Stück der Länge 0 und damit das Gegenstück des Begrenzungsknotens. Ergebnis im Test: alle 516 Begrenzungsknoten an den 7 inneren Kanten haben in der Nachbarkachel ein Gegenstück mit identischen Koordinaten.
+- **Gemeinsame Knoten an Kreuzungen.** Strassen werden auf cm gerundet und teilen Knoten mit gleichen Koordinaten (`mkgmap_xml_writer.Writer.way(..., share=True)`). Geprüft an swissTLM3D (Raum Baden, 112'331 Strassenstücke): jede Kreuzung ist ein gemeinsamer Endpunkt, kein loses Ende liegt auf oder weniger als 0,5 m neben einer anderen Strasse, und alle 1'501 Kreuzungen ohne gemeinsamen Punkt liegen auf verschiedener STUFE (Brücke/Tunnel). Zusätzliche Schnittpunkte sind deshalb nicht nötig.
+- **Routbare Typen.** mkgmap macht nur die Linientypen 0x01–0x13, 0x16, 0x1a, 0x1b routbar, keine erweiterten Typen (0x10e..). Die Strassen mit Standardtyp (Autobahn 0x01, Hauptstrasse 0x02, Strasse 0x04, Nebenstrasse 0x06, Naturstrasse 0x07, 2-m-Weg 0x0a) bekommen `road_class`/`road_speed`. Treppen, Tunnel, Brücken, 1-m-Wege und markierte Spuren behalten ihren erweiterten Typ (Darstellung unverändert) und bekommen **zusätzlich eine unsichtbare routbare Linie** (0x13 für Strassen, 0x16 für Wege, in der TYP-Datei alle Pixel durchsichtig). Verworfen: Umstellung auf freie Standardtypen mit gleichem TYP-Aussehen, weil es nur zehn unbelegte routbare Typen ohne Sonderbedeutung gibt (0x08/0x09 Rampe, 0x0c Kreisel, 0x1a/0x1b Fähre fallen weg), elf gebraucht würden und sich die Zeichenreihenfolge (Brücke über Strasse) ändern könnte.
+- **Style** `mkgmap/vector/style/inc/routing_lines`, eingebunden am Anfang von `lines` nur mit `--style-option=routing=1`; ohne die Option ist die Ausgabe byte-gleich wie vorher (geprüft an einer 20-km-Kachel, nur der Zeitstempel im Kopf unterscheidet sich). Klassen/Geschwindigkeiten: Autobahn 4/7, Autostrasse 4/6, Ein-/Ausfahrt 4/4, 10-m- und 8-m-Strasse 3/5, 6-m-Strasse 2/4, 4-m-Strasse und Verbindung 1/3, 3-m-Strasse 0/2, Platz/Zufahrt/Dienstzufahrt/2-m-Weg 0/1, 1-m-Weg/markierte Spur/Treppe 0/0, Naturbelag 0/1 und `mkgmap:unpaved`; Durchgangs- und Hochleistungsstrassen (VERKEHRSBD) mindestens Klasse 3, Verbindungsstrassen mindestens 2.
+- **Einbahn** aus RICHTUNGSG=Wahr (richtungsgetrennte Fahrbahnen, Rampen, Kreisel). Geprüft: die Erfassungsrichtung ist die Fahrtrichtung (von 3'044 Knoten der Einbahn-Fahrbahnen im Raum Baden sind nur 3 reine Senken/Quellen; 752 von 755 Kreiselstücken gegen den Uhrzeigersinn). **swissTLM3D hat kein Attribut für gewöhnliche Einbahnstrassen und keine Abbiegeverbote.**
+- **Zugang:** Wege (2 m, 1 m, markierte Spur, Wegfragmente) und Treppen keine Motorfahrzeuge, Treppen auch kein Velo; Autobahn, Autostrasse, Rampen, Raststätten weder Velo noch Fussgänger; Dienstzufahrt, «Allgemeine Verkehrsbeschraenkung» (Fahrverbot), Teststrecke, Panzerpiste und BEFAHRBARK=Falsch keine Motorfahrzeuge; «Gesperrt» für alle. «Zeitlich geregelt» bleibt offen.
+- **Autostrassen** (OBJEKTART `Autostrasse`, 1'542 Stücke) wurden früher gar nicht gezeichnet; seit 2026-11-22 wie Hauptstrassen (Typ 0x02, Tunnel/Brücke wie 10-m-Strasse, Routing Klasse 4, Geschwindigkeit 6, kein Velo/Fuss, in `lines` und `inc/routing_lines`). **Wegfragmente** (`1m Wegfragment`, `2m Wegfragment`, 9'927 Stücke) werden seit demselben Datum wie 1-m-/2-m-Wege gezeichnet und sind routbar (kein Auto). Weiterhin ohne Darstellungsregel und nicht routbar: `Raststaette` (705; nur unsichtbar routbar), `Klettersteig` (141), `Faehre` (27), `Autozug` (6) (Werteliste aus STRASSE.shp, ganze Schweiz; bewusst nicht verändert, nicht eindeutig).
+- mkgmap wird mit `--route --style-option=routing=1 --drive-on=right` aufgerufen; die TYP-Datei entsteht mit `make_vector_typ.py <variante> --fid <FID> --routing --out <datei>` im Ausgabeordner (die Dateien der Varianten in `mkgmap/vector/typ/` bleiben unverändert).
+
+**Prüfungen an der Testkarte** (ausserhalb des Geräts; ein Werkzeug, das Garmin-`.img` routet, war nicht verfügbar): MapFailedExceptions 0 in allen 6 Kacheln und beim Zusammenfügen; jede Kachel hat NET und NOD; Begrenzungsknoten siehe oben (mit einem kleinen Java-Programm über die mkgmap-Klassen aus der `.img` gelesen). Auf den Zwischen-OSM-Dateien, mit nachgebildetem mkgmap-Zuschnitt (Kacheln hängen nur über die auf Garmin-Einheiten gerundeten Schnittpunkte zusammen): 45'586 Netzknoten, davon 30'715 mit Grad ≥ 3; 64 Komponenten, die grösste umfasst 99,7 % der Knoten und alle 6 Kacheln (die übrigen 63 haben höchstens 6 Knoten); Auto-Netz zu 97,4 % stark zusammenhängend. Kürzeste Wege (networkx) Baden Bahnhof → Kloster Wettingen: Auto 3,2 km, Velo 3,0 km, zu Fuss 2,8 km, je über eine Kachelgrenze; Turgi → Würenlos über drei Kachelgrenzen 10,5–10,7 km. Das sagt nichts darüber, ob das Gerät die Karte routet.
+
+**Grösse:** Testregion 5,8 MB mit Routing gegenüber 3,6 MB für dieselben Kacheln ohne `--route` (+60 %; NOD 1,5 MB, NET 0,6 MB, unsichtbare Linien). Der Zuwachs hängt an der Zahl der Strassenstücke (rund 37 Byte je Stück; Testregion 59'517, ganze Schweiz 2,1 Mio.), für die ganze Schweiz geschätzt **+80 MB, also rund 320 MB** statt 241 MB (Hochrechnung; gebaut: Edge 323,8 MB, Fenix 304,7 MB). Dauer: mkgmap braucht mit `--route` etwa 30 % länger (Testkachel 3,3 s statt 2,5 s), die Umwandlung in OSM-XML gleich lang; für die ganze Schweiz geschätzt 50–75 Minuten je Variante mit 3 Prozessen; **gebaut: 22 Minuten (Edge) und 25 Minuten (Fenix)**, ohne Download der Daten (swissTLM3D ca. 15 GB entpackt, nur die benötigten Ebenen).
+
 ## Weitere Anleitungen
 - [Populäre Trails finden: Strava-Heatmap in Gaia und Route auf den Edge](docs/anleitung_strava_heatmap_gaia.md) (nicht getestet, kein Teil der Pipeline)
 
 ## Grenzen
 - **Fenix 5S Plus ungeprüft:** Laden mehrerer `.img` gleichzeitig, Lesbarkeit der Linien auf dem kleinen Display, einzelnes Ein-/Ausschalten der Overlays. Auf dem Edge 1040 laufen die Overlays (siehe Teststand).
-- SwissTOPO Vector ist auf keinem Gerät geprüft.
+- SwissTOPO Vector ist auf keinem Gerät geprüft, das Routing (Testkarte 3930) ebenfalls nicht.
 - Die Overlays und die Höhenlinien haben keine Basiskarte. Sie ergänzen eine vorhandene Karte, zum Beispiel SwissTOPO Vector.
 - Die Skirouten und die Hangneigung ersetzen weder das Lawinenbulletin noch eine Tourenplanung.
