@@ -47,3 +47,24 @@ LineWidth=2
 Xpm="0 0 1 0"
 "1 c #008AD2"
 [end]
+[_line]
+Type=0x10f18
+String1=0x04,Hoehenlinie Fels Intervall
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #555555"
+[end]
+[_line]
+Type=0x10f17
+String1=0x04,Hoehenlinie Fels 50 m
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #333333"
+[end]
+[_line]
+Type=0x10f16
+String1=0x04,Hoehenlinie Fels 100 m
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #000000"
+[end]

@@ -9,8 +9,9 @@ SwissTOPO Vector). Je Kachel werden die Hoehenlinien im Abstand --interval (Stan
 mit 2,5 m vereinfacht und mit den Tags contour=<Intervall|50|100> (100 = Haupthoehenlinie alle 100 m, 50 = Zwischenlinie bei 10 m Intervall) und ele=<Hoehe> geschrieben.
 Kachelnamen sind die untere linke Ecke in LV95-km; an den Kachelraendern bleibt eine Luecke von einem Pixel (2 m).
 
-Mit --untergrund <npz> (von untergrund_polygone.py) werden die Linien an den Raendern der Gletscherflaechen aufgeteilt
-und die Stuecke mit untergrund=gletscher getaggt (Landeskarte: Hoehenlinien auf Gletschern blau, sonst braun). Die Stilregeln dazu stehen in mkgmap/overlays/style/lines.
+Mit --untergrund <npz> (von untergrund_polygone.py) werden die Linien an den Raendern der Gletscher- und Felsflaechen aufgeteilt
+und die Stuecke mit untergrund=gletscher bzw. untergrund=fels getaggt (Landeskarte: Hoehenlinien auf Gletschern blau, auf Fels schwarz, sonst braun;
+bei Ueberlappung hat der Gletscher Vorrang). Die Stilregeln dazu stehen in mkgmap/overlays/style/lines.
 """
 import argparse, io, json, math, os, time, urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -42,7 +43,7 @@ def fetch(url):
 
 
 def tile_lines(data, interval, tol, untergrund=None, bbox=None):
-    """liefert [(hoehe, [(x, y), ...], untergrund), ...] in LV95; untergrund = None, "gletscher" (siehe Untergrund)"""
+    """liefert [(hoehe, [(x, y), ...], untergrund), ...] in LV95; untergrund = None, "gletscher" oder "fels" (siehe Untergrund)"""
     with MemoryFile(data) as mf, mf.open() as r:
         a = r.read(1).astype("float64"); T = r.transform; nodata = r.nodata
     a[(a == nodata) | (a < -1000)] = np.nan
@@ -67,31 +68,39 @@ def tile_lines(data, interval, tol, untergrund=None, bbox=None):
 
 
 class Untergrund:
-    """Gletscherflaechen (LV95); trennt Linien einer Kachel an den Flaechenraendern"""
-    ORDER = ("gletscher",)   # Flaechenarten in Rangfolge
+    """Flaechen (LV95) nach Untergrund; trennt Linien einer Kachel an den Flaechenraendern.
+    Rangfolge: Gletscher vor Fels (die Linie wird zuerst am Gletscher, der Rest am Fels getrennt).
+    Fels wird NIE landesweit vereinigt: pro Block nur die Polygone der Huelle laden, pro Kachel zuschneiden und vereinigen."""
+    # (Schluessel im npz, Tag untergrund=...)
+    ORDER = (("gletscher", "gletscher"), ("fels", "fels"), ("fels_b", "fels"))
 
-    def __init__(self, npz):
+    def __init__(self, npz, region=None, bloecke=True):
         d = np.load(npz, allow_pickle=True)
-        self.kinds = {}
-        for k in self.ORDER:
-            if k in d.files:
-                g = shapely.from_wkb(d[k])
-                self.kinds[k] = (g, STRtree(g))
+        self.kinds = []
+        for k, tag in self.ORDER:
+            if k not in d.files or (k == "fels_b" and not bloecke):
+                continue
+            idx = None
+            if region is not None and k + "_bounds" in d.files:
+                b = d[k + "_bounds"]
+                idx = np.nonzero((b[:, 2] >= region[0]) & (b[:, 0] <= region[2]) & (b[:, 3] >= region[1]) & (b[:, 1] <= region[3]))[0]
+            w = d[k]
+            g = shapely.from_wkb(w if idx is None else w[idx])
+            self.kinds.append((tag, g, STRtree(g)))
 
     def masks(self, bbox):
         """je Art die auf die Kachel zugeschnittene, vorbereitete Flaeche"""
         b = box(*bbox)
-        out = []
-        for k in self.ORDER:
-            if k not in self.kinds:
-                continue
-            g, tree = self.kinds[k]
+        out, byTag = [], {}
+        for tag, g, tree in self.kinds:
             idx = tree.query(b)
             if len(idx):
-                m = shapely.union_all(g[idx]).intersection(b)
-                if not m.is_empty:
-                    shapely.prepare(m)
-                    out.append((k, m))
+                byTag.setdefault(tag, []).append(shapely.intersection(g[idx], b))
+        for tag, parts in byTag.items():
+            m = shapely.union_all(np.concatenate(parts))
+            if not m.is_empty:
+                shapely.prepare(m)
+                out.append((tag, m))
         return out
 
     @staticmethod
@@ -125,6 +134,7 @@ def main():
     a.add_argument("--interval", type=int, default=20)
     a.add_argument("--simplify", type=float, default=2.5)
     a.add_argument("--untergrund", help="npz von untergrund_polygone.py: Linien an Gletscherraendern trennen")
+    a.add_argument("--ohne-bloecke", action="store_true", help="Felsbloecke (Geroell) nicht als Fels behandeln")
     a.add_argument("--workers", type=int, default=4)
     o = a.parse_args()
     tiles = json.load(open(o.tiles))
@@ -142,7 +152,10 @@ def main():
     keys = blocks[tuple(o.block)]
     w = Writer(o.out)
 
-    ug = Untergrund(o.untergrund) if o.untergrund else None
+    ug = None
+    if o.untergrund:
+        xs = [int(k.split("-")[0]) * 1000 for k in keys]; ys = [int(k.split("-")[1]) * 1000 for k in keys]
+        ug = Untergrund(o.untergrund, (min(xs) - 10, min(ys) - 10, max(xs) + 1010, max(ys) + 1010), not o.ohne_bloecke)
 
     def work(k):
         e, n = (int(v) * 1000 for v in k.split("-"))

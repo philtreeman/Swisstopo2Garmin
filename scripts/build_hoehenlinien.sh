@@ -6,7 +6,8 @@
 #   <kachelliste.json>  Ergebnis von scripts/swissalti3d_kachelliste.py
 #   [W S E N]           optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz
 # Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90), TLM_DIR (Ordner mit swissTLM3D_TLM_BODENBEDECKUNG_OST/WEST.shp;
-#   gesetzt: Hoehenlinien auf Gletschern werden blau, siehe untergrund_polygone.py; ohne: alle braun)
+#   gesetzt: Hoehenlinien auf Gletschern blau und auf Fels schwarz, siehe untergrund_polygone.py; ohne: alle braun;
+#   OHNE_BLOECKE=1 laesst Felsbloecke weg)
 #
 # Ablauf:
 #   1. hoehenlinien2mkgmap.py --print-blocks   Liste der 20-km-Bloecke (LV95-Raster) mit vorhandenen 1-km-Kacheln
@@ -25,7 +26,7 @@ STYLE="$R/mkgmap/overlays/style"; TYPDIR="$R/mkgmap/overlays/typ"
 python3 "$S/make_overlay_typ.py" >/dev/null
 UG=()
 if [ -n "$TLM_DIR" ]; then
-  mkdir -p "$OUT"; python3 "$S/untergrund_polygone.py" "$TLM_DIR" "$OUT/untergrund.npz"; UG=(--untergrund "$OUT/untergrund.npz")
+  mkdir -p "$OUT"; python3 "$S/untergrund_polygone.py" "$TLM_DIR" "$OUT/untergrund.npz"; UG=(--untergrund "$OUT/untergrund.npz"); [ -n "$OHNE_BLOECKE" ] && UG+=(--ohne-bloecke)
 fi
 mkdir -p "$OUT/osm" "$OUT/tiles10" "$OUT/tiles20"
 BB=(); [ $# -eq 4 ] && BB=(--bbox "$@")

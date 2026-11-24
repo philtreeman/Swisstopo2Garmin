@@ -73,10 +73,11 @@ Xpm="0 0 1 0"
 """
 
 
-# Farbe nach Untergrund (Landeskarte 1:25 000: braun #CE7611 auf Boden, blau #008AD2 auf Gletschern; schwarz auf Fels nicht umgesetzt).
-# Braun: 0x10f10-0x10f12; Gletscher blau: 0x10f13 (100 m), 0x10f14 (50 m), 0x10f15 (Intervall).
+# Farbe nach Untergrund (Landeskarte 1:25 000: braun #CE7611 auf Boden, blau #008AD2 auf Gletschern; schwarz auf Fels).
+# Braun: 0x10f10-0x10f12; Gletscher blau: 0x10f13 (100 m), 0x10f14 (50 m), 0x10f15 (Intervall); Fels schwarz: 0x10f16 (100 m), 0x10f17 (50 m), 0x10f18 (Intervall).
 BRAUN = ("#D2A878", "#B8864F", "#A5733A")      # Intervall, 50 m, 100 m (aufgehellte Abstufungen von #CE7611)
 BLAU = ("#5CB5E1", "#2F9DD8", "#008AD2")
+SCHWARZ_HL = ("#555555", "#333333", "#000000")     # Fels: Intervall, 50 m, 100 m (wie in der Landeskarte schwarz, abgestuft)
 
 
 def hl(typen, farben, name):
@@ -87,7 +88,8 @@ def hl(typen, farben, name):
 def hl_alle(zwischen):
     out = []
     for (iv, z50, z100), farben, name in [(("0x10f10", "0x10f12", "0x10f11"), BRAUN, "Hoehenlinie"),
-                                          (("0x10f15", "0x10f14", "0x10f13"), BLAU, "Hoehenlinie Gletscher")]:
+                                          (("0x10f15", "0x10f14", "0x10f13"), BLAU, "Hoehenlinie Gletscher"),
+                                          (("0x10f18", "0x10f17", "0x10f16"), SCHWARZ_HL, "Hoehenlinie Fels")]:
         t = hl((iv, z50, z100), farben, name)
         out += t if zwischen else [t[0], t[2]]
     return out

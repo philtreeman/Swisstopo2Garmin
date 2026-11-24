@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Vorschaubild Hoehenlinien nach Untergrund: eigene Zeichnung (PIL) ueber der grauen swisstopo-Pixelkarte (WMTS), links die 10-m-
+"""Vorschaubild Hoehenlinien nach Untergrund (braun Boden, blau Gletscher, schwarz Fels): eigene Zeichnung (PIL) ueber der grauen swisstopo-Pixelkarte (WMTS), links die 10-m-
 Karte (Aufloesung 23), rechts die 20-m-Karte (Aufloesung 22). Typ je Linie aus mkgmap/overlays/style/lines (style_eval.py), Farben und
 Breiten aus mkgmap/overlays/typ/hoehenlinien_{10,20}m.txt. KEIN Geraete-Rendering.
-  preview_hoehenlinien.py <10m.osm> <tiles-ordner> <out.png> W S E N
+  preview_hoehenlinien.py <10m.osm[,weitere.osm]> <tiles-ordner> <out.png> W S E N
 Die 20-m-Linien werden aus der 10-m-Datei abgeleitet (Hoehe durch 20 teilbar), wie filter_hoehenlinien.py."""
 import math, os, re, sys, urllib.request
 import xml.etree.ElementTree as ET
@@ -80,7 +80,7 @@ def main():
     osm, tdir, out = sys.argv[1:4]
     w, s, e, n = map(float, sys.argv[4:8])
     base, x0, y0, sc = basemap(tdir, w, s, e, n)
-    ways = load(osm, w, s, e, n)
+    ways = [x for f in osm.split(",") for x in load(f, w, s, e, n)]
     rules = style_eval.load("lines", {}, style=os.path.join(OV, "style"))
     a = panel(base, x0, y0, sc, ways, rules, typ_farben("hoehenlinien_10m.txt"), 23, False)
     b = panel(base, x0, y0, sc, ways, rules, typ_farben("hoehenlinien_20m.txt"), 22, True)
@@ -88,7 +88,7 @@ def main():
     img = Image.new("RGB", (PW * 2 + 6, a.height + head), "white")
     img.paste(a, (0, head)); img.paste(b, (PW + 6, head))
     d = ImageDraw.Draw(img)
-    d.text((6, 8), "Hoehenlinien 10 m: braun Boden, blau Gletscher (eigene Zeichnung, kein Geraete-Rendering)", fill="black", font=font(13, True))
+    d.text((6, 8), "Hoehenlinien 10 m (braun Boden, blau Gletscher, schwarz Fels; eigene Zeichnung)", fill="black", font=font(13, True))
     d.text((PW + 12, 8), "Hoehenlinien 20 m", fill="black", font=font(13, True))
     img.save(out)
 
