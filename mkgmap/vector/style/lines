@@ -5,7 +5,6 @@ if (mkgmap:option:routing=1) then
 include "inc/routing_lines";
 end
 # swissTLM3D -> Garmin-Linientypen. Darstellung (Farben, Breiten) steht in typ/swisstopo.txt.
-tlm_layer=bahnuebergang [0x10e19 resolution 22]
 tlm_layer=strasse & (tlm_kunst=Treppe | tlm_kunst='Bruecke mit Treppe' | tlm_kunst='Unterfuehrung mit Treppe') [0x10e09 resolution 22]
 # Strassen nach der swisstopo-Zeichenerklaerung (Landeskarten 1:25 000): Farbe nach Verkehrsbedeutung (tlm_vbed = VERKEHRSBD),
 # nicht nach Breite. Autobahn und Autostrasse orange (0x01), Durchgangsstrasse rosa (0x02), Verbindungsstrasse gelb (0x03),
@@ -19,7 +18,6 @@ tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='10m Strasse' | tlm_type='8m St
 tlm_layer=strasse & tlm_kunst=Tunnel & tlm_type='6m Strasse' [0x10e12 resolution 20]
 tlm_layer=strasse & tlm_kunst=Tunnel & (tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung | tlm_type=Dienstzufahrt | tlm_type=Zufahrt | tlm_type=Ausfahrt | tlm_type=Einfahrt) [0x10e13 resolution 22]
 tlm_layer=strasse & tlm_kunst=Tunnel & ((tlm_type='2m Weg' | tlm_type='2m Wegfragment') | (tlm_type='1m Weg' | tlm_type='1m Wegfragment')) [0x10e01 resolution 22]
-tlm_layer=bahn & tlm_kunst=Tunnel [0x10e14 resolution 20]
 # Galerien und gedeckte Bruecken (Strassen; Wege bleiben normale Wege): Strassenfarbe mit Querstrichen
 tlm_layer=strasse & (tlm_kunst=Galerie | tlm_kunst='Bruecke mit Galerie' | tlm_kunst='Gedeckte Bruecke') & (tlm_type=Autobahn | tlm_type=Autostrasse) [0x10e1f resolution 18]
 tlm_layer=strasse & (tlm_kunst=Galerie | tlm_kunst='Bruecke mit Galerie' | tlm_kunst='Gedeckte Bruecke') & tlm_vbed=Durchgangsstrasse & (tlm_type='10m Strasse' | tlm_type='8m Strasse' | tlm_type='6m Strasse' | tlm_type='4m Strasse' | tlm_type='3m Strasse' | tlm_type=Verbindung) [0x10e1c resolution 19]
@@ -52,16 +50,45 @@ tlm_layer=strasse & (tlm_type='2m Weg' | tlm_type='2m Wegfragment') [0x0a resolu
 tlm_layer=strasse & (tlm_type='1m Weg' | tlm_type='1m Wegfragment') [0x10e01 resolution 22]
 tlm_layer=strasse & tlm_type='Markierte Spur' [0x10e08 resolution 22]
 tlm_layer=strasse & tlm_type=Klettersteig [0x10e00 resolution 22]
+# Bahn nach der swisstopo-Zeichenerklaerung (rot #E3000B): Normalspur 3 px, Schmalspur/Kleinbahn 2 px, Anschlussgleis und Tram 1 px;
+# Tunnel rot gestrichelt, Galerie rot mit Kaestchenreihe. Eine Bahnuebergang-Markierung gibt es in der Legende nicht.
+tlm_layer=bahn & tlm_kunst=Tunnel [0x10e14 resolution 20]
+tlm_layer=bahn & (tlm_kunst=Galerie | tlm_kunst='Gedeckte Bruecke') [0x11302 resolution 20]
+tlm_layer=bahn & (tlm_verkehrsmi=Tram | tlm_anschlussg=Wahr) [0x11301 resolution 22]
 tlm_layer=bahn & tlm_type=Normalspur [0x14 resolution 20]
-tlm_layer=bahn [0x14 resolution 22]
-tlm_layer=ubahn [0x10e02 resolution 22]
-tlm_layer=fluss & (tlm_type=Fliessgewaesser) & tlm_stufe=0 [0x18 resolution 21]
+tlm_layer=bahn [0x11300 resolution 21]
+# Seilbahnen (UEBRIGE_BAHN): Luftseilbahn rot 2 px, Gondel-/Sesselbahn rot 1 px, Transportseilbahn und ausser Betrieb schwarz 1 px,
+# Skilift ocker mit Querstrichen, Foerderband schwarz mit Punkten. Keine Masten (Lift = Punkt, siehe points)
+tlm_layer=ubahn & tlm_ausser=Wahr [0x11305 resolution 21]
+tlm_layer=ubahn & tlm_type=Transportseil [0x11305 resolution 22]
+tlm_layer=ubahn & tlm_type=Luftseilbahn [0x11303 resolution 21]
+tlm_layer=ubahn & (tlm_type=Gondelbahn | tlm_type=Sesselbahn) [0x11304 resolution 22]
+tlm_layer=ubahn & tlm_type=Skilift [0x11306 resolution 22]
+tlm_layer=ubahn & tlm_type=Foerderband [0x11307 resolution 22]
+# Gewaesser: Bach/Fluss/Suone blau, auch Wasserfall und Bruecke (VERLAUF), unterirdische Abschnitte nicht; Druckleitung mit Querstrichen,
+# Druckstollen gestrichelt, Trockenrinne schwarz gepunktet
 tlm_layer=fluss & tlm_type=Trockenrinne [0x10e03 resolution 22]
+tlm_layer=fluss & (tlm_type='Druckleitung einfach' | tlm_type='Druckleitung mehrfach') [0x11308 resolution 22]
+tlm_layer=fluss & tlm_type=Druckstollen [0x11309 resolution 22]
+tlm_layer=fluss & (tlm_type=Fliessgewaesser | tlm_type='Bisse Suone') & (tlm_verlauf=Oberirdisch | tlm_verlauf=Wasserfall | tlm_verlauf=Bruecke) [0x18 resolution 21]
+tlm_layer=ufer [0x11315 resolution 21]
+tlm_layer=verbauung & tlm_type=Gewaesserverbauung [0x1130a resolution 24]
+tlm_layer=vbautelin [0x1130b resolution 24]
+tlm_layer=schiff [0x1130c resolution 22]
+# Mauern, Verbauungen (schwarz)
 tlm_layer=mauer [0x10e04 resolution 22]
-# Verbauungen: Schutzverbauung (Lawinen, Steinschlag) braun, Trockenmauer grau
 tlm_layer=verbauung & tlm_type=Schutzverbauung [0x10e06 resolution 22]
-tlm_layer=verbauung & tlm_type=Trockenmauer [0x10e04 resolution 22]
-# Grenzen (nur Variante edge; swissBOUNDARIES3D)
+tlm_layer=verbauung & tlm_type=Trockenmauer [0x1130d resolution 22]
+# Grenzen (nur Variante edge; swissBOUNDARIES3D) und Nationalpark
 tlm_layer=grenze & tlm_type=Landesgrenze [0x10e0a resolution 18]
 tlm_layer=grenze & tlm_type=Kantonsgrenze [0x10e0b resolution 20]
+tlm_layer=grenze & tlm_type=Bezirksgrenze [0x1130e resolution 21]
 tlm_layer=grenze & tlm_type=Gemeindegrenze [0x10e0c resolution 22]
+tlm_layer=natpark [0x1130f resolution 20]
+# Hochspannungsleitung, Sportbauten, Umrisse (Staumauer, Sportplatz, Flugplatzpiste)
+tlm_layer=leitung [0x11310 resolution 21]
+tlm_layer=umriss [0x11311 resolution 24]
+tlm_layer=sportlin & tlm_type=Laufbahn [0x11311 resolution 22]
+tlm_layer=sportlin & tlm_type=Skisprungschanze [0x11312 resolution 22]
+tlm_layer=sportlin & (tlm_type=Rodelbahn | tlm_type=Bobbahn) [0x11313 resolution 22]
+tlm_layer=sportlin & (tlm_type=Scheibenstand | tlm_type=Pferderennbahn) [0x10e03 resolution 24]

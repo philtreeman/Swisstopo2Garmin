@@ -1,0 +1,6 @@
+# Variante Edge: volle Details
+tlm_layer=gebaeude & (tlm_type='Offenes Gebaeude' | tlm_type=Flugdach | tlm_type=Treibhaus) [0x10e0a resolution 22]
+tlm_layer=bb & (tlm_type=Fels | tlm_type='Fels locker' | tlm_type=Felsbloecke | tlm_type='Felsbloecke locker') [0x52 resolution 21]
+tlm_layer=bb & (tlm_type=Lockergestein | tlm_type='Lockergestein locker') [0x53 resolution 21]
+tlm_layer=bb & tlm_type='Wald offen' [0x10e01 resolution 21]
+tlm_layer=bb & tlm_type=Gebueschwald [0x10e02 resolution 21]

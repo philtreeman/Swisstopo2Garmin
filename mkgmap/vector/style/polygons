@@ -1,23 +1,42 @@
+# Flaechen nach der swisstopo-Zeichenerklaerung (Landeskarten 1:25 000); Farben und Muster in typ/ (scripts/make_vector_typ.py).
 # Beschriftung: der Name aus dem Namens-Tag wird zum Label (ohne diese Regel schreibt mkgmap keine Labels)
 name=* { name '${name}' }
-tlm_layer=bb & (tlm_type=Wald | tlm_type='Wald offen' | tlm_type=Gebueschwald) [0x50 resolution 20]
+# Unterschiede der Varianten: Edge mit Gebaeudeschraffur und Fels/Geroell ab Aufloesung 21, Fenix Gebaeude schwarz und Muster erst ab 22
+# (die Variante setzt build_vector.sh mit --style-option=variant=edge|fenix; ohne Angabe gilt Edge)
+if (mkgmap:option:variant=fenix) then
+include "inc/polygons_fenix";
+else
+include "inc/polygons_edge";
+end
+# Gletscher und Schneefeld: weiss (die Zeichenerklaerung zeigt weisse Flaeche mit blauen Linien)
+tlm_layer=bb & (tlm_type=Gletscher | tlm_type='Schneefeld Toteis') [0x10e00 resolution 20]
+# Wald: nur «Wald» ist Flaeche; Wald offen und Gebueschwald sind Punktmuster (siehe inc/polygons_*), Gehoelzflaeche/Hecke Punkte
+tlm_layer=bb & tlm_type=Wald [0x50 resolution 20]
 tlm_layer=bb & tlm_type=Gehoelzflaeche [0x4f resolution 22]
-tlm_layer=bb & (tlm_type=Fels | tlm_type='Fels locker') [0x52 resolution 21]
-tlm_layer=bb & tlm_type=Lockergestein [0x53 resolution 21]
+# Fels, Felsbloecke, Lockergestein (Geroell): schwarze Striche bzw. Punkte (siehe inc/polygons_*)
 tlm_layer=bb & tlm_type=Feuchtgebiet [0x51 resolution 22]
-tlm_layer=bb & (tlm_type='Stehende Gewaesser' | tlm_type=Fliessgewaesser) [0x3f resolution 20]
-tlm_layer=see & tlm_type=See [0x3f resolution 20]
-tlm_layer=see & tlm_type=Seeinsel [0x4e resolution 22]
+# Gewaesser: See und Flussflaeche
+tlm_layer=bb & tlm_type='Stehende Gewaesser' [0x3f resolution 20]
+tlm_layer=bb & tlm_type=Fliessgewaesser [0x10e03 resolution 20]
+tlm_layer=see & tlm_type=See & tlm_schwank=Wahr [0x10e0f resolution 20]
+# Seeinsel: Land (Untergrundfarbe) ueber dem Wasser (fruher faelschlich mit dem Rebenmuster)
+tlm_layer=see & tlm_type=Seeinsel [0x10e0e resolution 22]
+# Areale: nur die in der Zeichenerklaerung farbig dargestellten; «Wald nicht bestockt», Schul-, Industrie-, Parkplatzareale u. a. bleiben leer
 tlm_layer=areal & tlm_type=Reben [0x4e resolution 22]
 tlm_layer=areal & tlm_type=Obstanlage [0x10e08 resolution 22]
 tlm_layer=areal & tlm_type=Baumschule [0x10e09 resolution 22]
 tlm_layer=areal & tlm_type=Friedhof [0x1a resolution 22]
-tlm_layer=areal & tlm_type='Oeffentliches Parkareal' [0x17 resolution 22]
-tlm_layer=areal [0x0c resolution 22]
-tlm_layer=vareal [0x0e resolution 22]
-tlm_layer=gebaeude & (tlm_type=Gebaeude | tlm_type=Hochhaus | tlm_type='Sakrales Gebaeude' | tlm_type='Offenes Gebaeude' | tlm_type=Flugdach | tlm_type=Treibhaus) [0x10e05 resolution 22]
-# abgeleitet aus Gebaeuden (scripts/vector2mkgmap.py): grauer Untergrund unter Siedlungen
-tlm_layer=siedlung [0x01 resolution 21]
-# Sport-, Freizeit- und Erholungsflaechen
-tlm_layer=freizeit & tlm_type=Sportplatzareal [0x10e07 resolution 22]
+tlm_layer=areal & tlm_type=Schrebergartenareal [0x10e04 resolution 22]
+tlm_layer=areal & tlm_type='Oeffentliches Parkareal' [0x19 resolution 22]
+tlm_layer=areal & tlm_type=Deponieareal [0x10e06 resolution 22]
+# Park, Freizeit, Sport, Camping, Golf
 tlm_layer=freizeit [0x19 resolution 22]
+tlm_layer=sportply [0x19 resolution 24]
+# Gebaeude (schwarz): auch Kapelle, Turm, Hochkamin, Lagertank, im Bau, grosse Mauer, Verbindungsbruecke
+tlm_layer=gebaeude & (tlm_type=Gebaeude | tlm_type=Hochhaus | tlm_type='Sakrales Gebaeude' | tlm_type=Kapelle | tlm_type='Sakraler Turm' | tlm_type=Turm | tlm_type=Hochkamin | tlm_type=Lagertank | tlm_type='Im Bau' | tlm_type='Mauer gross' | tlm_type=Verbindungsbruecke) [0x10e05 resolution 22]
+# Stauanlagen und Flugplatzpisten
+tlm_layer=staubaute & tlm_type=Staumauer [0x10e07 resolution 21]
+tlm_layer=staubaute & tlm_type=Staudamm [0x10e0b resolution 21]
+tlm_layer=staubaute & tlm_type=Wehr [0x10e05 resolution 22]
+tlm_layer=vbauteply & (tlm_type=Hartbelagpiste | tlm_type='Rollfeld Hartbelag') [0x10e0c resolution 22]
+tlm_layer=vbauteply & (tlm_type=Graspiste | tlm_type='Rollfeld Gras') [0x10e0d resolution 22]

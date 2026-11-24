@@ -1,9 +1,11 @@
 #!/bin/bash
 # Baut SwissTOPO Vector, die Vektor-Karte aus swissTLM3D: Strassen, Wege, Siedlungen, Gebaeude, Wald, Fels,
-# Geroell, Gewaesser, Bahn, Namen. Darstellung nach der Garmin-Vektorkarte auf dem Edge 1040.
+# Geroell, Gewaesser, Bahn, Namen. Darstellung nach der swisstopo-Zeichenerklaerung (Landeskarten 1:25 000).
 #   [VARIANT=edge|fenix] [GRENZEN=<swissBOUNDARIES3D.gpkg>] scripts/build_vector.sh <shp-ordner> <mkgmap.jar> <out-ordner> [W S E N]
-#   VARIANT edge (Standard): Fels mit Textur, Bergnamen mit Hoehe, Gewaesser-, Flur- und Gelaendenamen, Grenzen (braucht GRENZEN)
-#   VARIANT fenix: Fels einfach grau, keine Namen ausser der Hoehe an Gipfeln und Paessen, keine Grenzen
+#   VARIANT edge (Standard): alle Details der Zeichenerklaerung, Namen, Grenzen (braucht GRENZEN), Schilder (ACHSEN, HAUPT, KANTONSSCHILDER)
+#   VARIANT fenix: gleiche Farben und Symbole, aber ohne Gebaeudeuntertypen und Punktsymbole, Muster erst in den feinen Stufen, keine
+#                  Namen ausser der Hoehe an Gipfeln und Paessen, keine Grenzen
+#   KANTONSSCHILDER=<csv>   Schilder der Kantonsstrassen (scripts/kantonsschilder.py), nur edge
 #   <shp-ordner>   entpackte swissTLM3D-Shapefiles (swissTLM3D_TLM_*.shp, siehe README)
 #   [W S E N]      optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz
 # Umgebungsvariablen: KACHEL_KM (Standard 20), JOBS (parallele Kacheln, Standard 3), SPLIT_MB (Standard 90)
@@ -32,7 +34,8 @@ case "$VARIANT" in
   edge)  FID=3900; PFX=6390; LABEL="SwissTOPO Vector Edge"; GR_FLAG=""
          if [ -n "$GRENZEN" ]; then GR_FLAG="--grenzen $(realpath "$GRENZEN")"; fi
          if [ -n "$ACHSEN" ]; then GR_FLAG="$GR_FLAG --achsen $(realpath "$ACHSEN")"; fi
-         if [ -n "$HAUPT" ]; then GR_FLAG="$GR_FLAG --haupt $(realpath "$HAUPT")"; fi ;;
+         if [ -n "$HAUPT" ]; then GR_FLAG="$GR_FLAG --haupt $(realpath "$HAUPT")"; fi
+         if [ -n "$KANTONSSCHILDER" ]; then GR_FLAG="$GR_FLAG --kantonsschilder $(realpath "$KANTONSSCHILDER")"; fi ;;
   fenix) FID=3901; PFX=6391; LABEL="SwissTOPO Vector Fenix"; GR_FLAG="" ;;
   *) echo "VARIANT muss edge oder fenix sein"; exit 1 ;;
 esac
@@ -55,11 +58,11 @@ NAME=${OUT_NAME:-$NAME}
 if [ "$ROUTING" = "1" ]; then
   python3 "$S/vector2mkgmap.py" --print-grid-wgs $ROUTING_BLOECKE "${BB[@]}" > "$OUT/kacheln.txt"
   echo "$(wc -l < "$OUT/kacheln.txt") Routing-Kacheln a $ROUTING_BLOECKE Bloecke (WGS84)"
-  TILE_OPT="--routing --wgs-tile"; ROUTE_OPT="--route --style-option=routing=1 --drive-on=right"
+  TILE_OPT="--routing --wgs-tile"; ROUTE_OPT="--route --drive-on=right"; STYLE_OPT="variant=$VARIANT;routing=1"
 else
   python3 "$S/vector2mkgmap.py" --print-grid "$KM" "${BB[@]}" > "$OUT/kacheln.txt"
   echo "$(wc -l < "$OUT/kacheln.txt") Kacheln a $KM km"
-  TILE_OPT="--lv95-tile"; ROUTE_OPT=""
+  TILE_OPT="--lv95-tile"; ROUTE_OPT=""; STYLE_OPT="variant=$VARIANT"
 fi
 
 work() {  # work i j x0 y0 x1 y1
@@ -70,7 +73,7 @@ work() {  # work i j x0 y0 x1 y1
   python3 "$S/vector2mkgmap.py" --shp "$SHP" $TILE_OPT "$3" "$4" "$5" "$6" --out-file "$osm" --variant "$VARIANT" $TREES_FLAG $GR_FLAG >/dev/null 2>&1
   if grep -q "<way" "$osm"; then
     mkdir -p "$OUT/tiles/$name"
-    java -Xmx3g -jar "$JAR" --style-file="$STYLE" --output-dir="$OUT/tiles/$name" \
+    java -Xmx3g -jar "$JAR" --style-file="$STYLE" --style-option="$STYLE_OPT" --output-dir="$OUT/tiles/$name" \
       --family-id=$FID --product-id=1 --mapname="$name" --description="$LABEL" --code-page=1252 --lower-case --merge-lines \
       --draw-priority=20 --remove-short-arcs --reduce-point-density=3 --reduce-point-density-polygon=4 \
       --min-size-polygon=8 $ROUTE_OPT --keep-going "$osm" > "$OUT/logs/$name.log" 2>&1 || true
@@ -81,7 +84,7 @@ work() {  # work i j x0 y0 x1 y1
   rm -f "$osm"; touch "$OUT/tiles/$name.done"
   echo "fertig $name"
 }
-export -f work; export SHP JAR OUT S STYLE TREES_FLAG FID LABEL GR_FLAG TILE_OPT ROUTE_OPT
+export -f work; export SHP JAR OUT S STYLE TREES_FLAG FID LABEL GR_FLAG TILE_OPT ROUTE_OPT STYLE_OPT
 xargs -P "$JOBS" -L1 bash -c 'work "$@"' _ < "$OUT/kacheln.txt"
 
 mkdir -p "$OUT/final"

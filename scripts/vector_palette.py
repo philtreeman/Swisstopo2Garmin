@@ -1,37 +1,30 @@
-"""Farben von SwissTOPO Vector (gemessen an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040).
-Gemeinsam genutzt von make_vector_typ.py (TYP-Datei) und preview_vector.py (Vorschau)."""
-BG = "#FFFAE6"          # Untergrund
-SIEDLUNG = "#EEEEEE"    # Siedlungsgebiet
-AREAL = "#E6E6E6"       # Industrie-, Schul-, Spitalareale
-VERKEHR = "#DEDEDE"     # Parkplaetze, Verkehrsflaechen
-WALD = "#A4D26A"
-GEBAEUDE = "#8B898B"
-WASSER_FL = "#A8DCFA"   # Seen
-WASSER_LI = "#52BAF6"   # Fliessgewaesser
-PARK = "#C3E48F"
-SPORT = "#B4DC84"
-FRIEDHOF = "#CFE8AE"
-WEG = "#414041"         # Pfade, Wanderwege (gestrichelt)
-WEG_FEST = "#626162"    # Feldwege
-GEHOELZ = "#A9DC63"; REBEN = "#FF9900"; REBEN_BG = "#DEFAAC"; FEUCHT = "#7FC8E8"; FELS = "#DEDEDE"; FELS_TEXTUR = "#A4A5A4"; GEROELL = "#EFEDE6"
-# Strassen nach der swisstopo-Zeichenerklaerung (Landeskarten 1:25 000, an der PDF gemessen), in beiden Designs gleich:
-# Farbe nach Verkehrsbedeutung (VERKEHRSBD), schwarzer Rand. HAUPT = 8/10 m-Strasse ohne Bedeutung (weiss), STRASSE = 6 m, NEBEN = 4/3 m.
+"""Farben von SwissTOPO Vector nach der swisstopo-Zeichenerklaerung «Landeskarten 1:10 000, 1:25 000 und 1:50 000» (Stand 2026-11-24,
+am PDF gemessen). Gemeinsam genutzt von make_vector_typ.py (TYP-Datei) und den Vorschau-Skripten. Es gibt nur noch diese eine Darstellung
+(frueher gab es zusaetzlich eine an der Garmin-Vektorkarte gemessene; sie ist ersetzt)."""
+BG = "#FEFFED"          # Untergrund
+WEISS = "#FFFFFF"
+SCHWARZ = "#000000"
+WALD = "#CBE5D3"
+GRUEN = "#00964E"       # Punkte/Striche von Wald offen, Gebueschwald, Gehoelz, Obstanlage, Baumschule, Reben, Einzelbaum
+PARK = "#E1EFE2"        # Park, Freizeitanlage, Sport, Camping, Golf, Friedhof, Schrebergarten, Graspiste
+DEPONIE = "#E9D9C4"
+WASSER = "#008AD2"      # Gewaesserlinien, Gewaesserbeschriftung
+WASSER_FL = "#D4EDFC"   # Seen
+WASSER_FLUSS = "#BCE4FA"  # Flussflaechen
+WASSER_SCHWANK = "#E9F5FD"  # See mit stark wechselndem Wasserstand (heller)
+GLETSCHER = "#FFFFFF"
+LEITUNG = "#0789CB"     # Hochspannungsleitung, Spital H
+BAHN = "#E3000B"        # Bahn, Klettersteig, Treppe, Seilbahnen
+SKILIFT = "#CE7611"
+STAUMAUER = "#C8C8C8"
+LANDESGRENZE = "#E5007C"; GRENZBAND = "#F5B4D2"   # Landes- und Kantonsgrenze (Linie, Band); Bezirks- und Gemeindegrenze nur Band
+NATIONALPARK = "#05A535"; NATIONALPARK_BAND = "#9DCC8F"
+# Strassen (Verkehrsbedeutung, VERKEHRSBD)
 AUTOBAHN = ("#F7A71F", "#000000"); DURCHGANG = ("#F8C7C8", "#000000"); VERBINDUNG = ("#FFF481", "#000000")
 HAUPT = ("#FFFFFF", "#000000"); STRASSE = ("#FFFFFF", "#000000"); NEBEN = ("#FFFFFF", "#000000"); NATUR = "#000000"
-KLETTERSTEIG = "#E3000B"; TREPPE = "#E3000B"
-SCHWARZ = "#414041"      # Wege nach swisstopo-Zeichenerklaerung (2 m-Weg, 1 m-Weg, markierte Spur)
-LAWINE = "#734400"       # Schutzverbauungen (Lawinen, Steinschlag), braun
-BAUM = "#83B200"         # Einzelbaeume (Punkt)
-GRENZE = "#BD008B"        # Landes-, Kantons-, Gemeindegrenzen (magenta, wie auf der Garmin-Karte)
-FELS_GRAU = "#D0D0D0"    # Fels ohne Textur (Variante Fenix)
-SPORTPLATZ = "#FFCE62"     # Sportplaetze (orange, wie auf der Garmin-Karte)
-
-import os
-if os.environ.get("VECTOR_DESIGN") == "swisstopo":   # Variante «swisstopo-Stil»: Farben der Landeskarte statt der Garmin-Karte (an der Pixelkarte gemessen)
-    BG = "#FEFFED"; SIEDLUNG = "#FEFFED"; AREAL = "#EDEDED"; VERKEHR = "#E8E8E8"
-    WALD = "#C8E6B2"; GEBAEUDE = "#222222"
-    WASSER_FL = "#D3EEFF"; WASSER_LI = "#7BC5F0"
-    PARK = "#DFF0CC"; SPORT = "#E1F2D3"; FRIEDHOF = "#DDEBCB"; SPORTPLATZ = "#E1F2D3"
-    WEG = "#000000"; WEG_FEST = "#333333"; SCHWARZ = "#000000"
-    GEHOELZ = "#D9EFC4"; FEUCHT = "#BFE3EF"; FELS = "#CFCFCF"; FELS_GRAU = "#C8C8C8"; GEROELL = "#EFEFE0"
-    pass   # Strassenfarben: siehe oben (in beiden Designs die der Zeichenerklaerung)
+KLETTERSTEIG = BAHN; TREPPE = BAHN
+GEBAEUDE = "#000000"
+# Namen, die aeltere Skripte (preview_vector.py, compare_vector.py) noch benutzen
+SIEDLUNG = BG; AREAL = BG; VERKEHR = BG; WASSER_LI = WASSER; SPORT = PARK; FRIEDHOF = PARK; SPORTPLATZ = PARK; GEHOELZ = GRUEN
+FEUCHT = WASSER; FELS = BG; FELS_GRAU = BG; GEROELL = BG; FELS_TEXTUR = SCHWARZ; REBEN = GRUEN; REBEN_BG = WEISS
+WEG = "#000000"; WEG_FEST = "#000000"; LAWINE = "#000000"; BAUM = GRUEN; GRENZE = LANDESGRENZE; PARK_ = PARK

@@ -8,330 +8,590 @@ CodePage=1252
 
 [_drawOrder]
 Type=0x4b,1
-Type=0x01,2
-Type=0x0c,2
-Type=0x0e,2
-Type=0x17,3
-Type=0x1a,3
-Type=0x19,3
-Type=0x10e07,3
-Type=0x4f,3
-Type=0x4e,3
-Type=0x10e08,3
-Type=0x10e09,3
+Type=0x19,2
+Type=0x1a,2
+Type=0x10e04,2
+Type=0x10e06,2
+Type=0x4e,2
+Type=0x10e08,2
+Type=0x10e09,2
+Type=0x4f,2
+Type=0x50,2
+Type=0x10e01,3
+Type=0x10e02,3
 Type=0x51,3
 Type=0x53,3
 Type=0x52,3
-Type=0x50,4
-Type=0x3f,5
+Type=0x10e00,3
+Type=0x3f,4
+Type=0x10e0f,4
+Type=0x10e03,4
+Type=0x10e0e,4
+Type=0x10e0c,5
+Type=0x10e0d,5
+Type=0x10e07,5
+Type=0x10e0b,5
 Type=0x10e05,6
+Type=0x10e0a,6
 [end]
 
 [_polygon]
 Type=0x4b
 String1=0x04,Untergrund
 Xpm="0 0 1 0"
-"1 c #FFFAE6"
+"1 c #FEFFED"
 [end]
 [_polygon]
-Type=0x01
-String1=0x04,Siedlung
+Type=0x19
+String1=0x04,Park, Freizeit, Sport
 Xpm="0 0 1 0"
-"1 c #EEEEEE"
+"1 c #E1EFE2"
 [end]
 [_polygon]
-Type=0x0c
-String1=0x04,Areal
-Xpm="0 0 1 0"
-"1 c #E6E6E6"
-[end]
-[_polygon]
-Type=0x0e
-String1=0x04,Verkehrsareal
-Xpm="0 0 1 0"
-"1 c #DEDEDE"
-[end]
-[_polygon]
-Type=0x50
-String1=0x04,Wald
-Xpm="0 0 1 0"
-"1 c #A4D26A"
-[end]
-[_polygon]
-Type=0x4f
-String1=0x04,Gehoelz
+Type=0x1a
+String1=0x04,Friedhof
 Xpm="32 32 2 1"
-"b c #FFFAE6"
-"f c #A9DC63"
-"bbffbffbbbbbbbbbbbffbbbbbbbbffbb"
-"fffbbbbbbbffbbffbbbbffbbbffbbbbb"
-"bffbffbbbbbbffbbbbbbbbbbbbffbbff"
-"bbbbbbbbbbbbbbbbbbbffbbbbbbbbbff"
-"bbffffbbbbbbbbbbbbbbffbbffbbbbbb"
-"bffbbbbbffbbbbbbffbbbbbbbbbbffbb"
-"bbffbbbbbbffbbbbffbbffbbffbffbbb"
-"bffbbbbbbbbbbbbbbbbbbffbbbbbbbbb"
-"bbbbffbbbbbbbffbbbbbbffbbbbbbbbb"
-"bbffbbbbffbbbbbbbbbbbbbbbbbbbbbb"
-"bbffbbbffbffbbbbbbbbbbbbbbffffbb"
-"bbbbbbbbbbbffbbbbbffbbffbbbbbbbb"
-"fbbbbbbbbbbbbbffffbbffbbbbbbbbbf"
-"bbbbbbffbbbbbbbbbfffffbbbbbffffb"
-"ffbbbffbbbbbbbbbbbbbbbbbbbbbfffb"
-"bbbbbbbbbbffbbbbbbbbbbbbbfffbbbb"
-"bbbbbbbffffffffbbbbbbbbbbbbbbbff"
-"ffbbbffffbbbbbfffbffbbbffbbbbbbb"
-"fffbffbffbbbbbbffbbbbbbbbbbbbbbf"
-"bbbbbbbbbbbbbbbbbbfffbbbfffbbbbb"
-"bbbbbbffbbbbbbbbbbbbbbbbbbbfffbb"
-"bbbbbbbffbbbbbffffbbbbbbbbffbffb"
-"ffbbbbffbbbbbbffbbbbbbbbbbffbffb"
-"bbbbbffbbbbbffbbbbbbbffffbbbbbbb"
-"bbbbffbbffbbfffbbbfffbffbbbffbbb"
-"bbbbffbbbbbbbbbbbbfffffffbbbbbbb"
-"fbbbbbfffbbffbbbbbbbbbbbbbbbbbbf"
-"bffbbbbbbbbbffffbbbbbbbbbbbbbbbb"
-"ffbbbffbbbffbbffbbbbbbbbbbbbbbbb"
-"bbbbbbbffbbbbbbbbffbffbbbbbbbbbb"
-"bbffbbbbbbbbbbbbbbbbbbffffbbbbbb"
-"bffbbbbbffbbbbfffbbbbbbbbffbffff"
+"b c #E1EFE2"
+"f c #000000"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"fffbbbbbfffbbbbbfffbbbbbfffbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbfffbbbbbfffbbbbbfffbbbbbfffb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"fffbbbbbfffbbbbbfffbbbbbfffbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbfffbbbbbfffbbbbbfffbbbbbfffb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e04
+String1=0x04,Schrebergarten
+Xpm="32 32 2 1"
+"b c #E1EFE2"
+"f c #000000"
+"ffbbbbbbffbbbbbbffbbbbbbffbbbbbb"
+"ffbbbbbbffbbbbbbffbbbbbbffbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbffbbbbbbffbbbbbbffbbbbbbffbb"
+"bbbbffbbbbbbffbbbbbbffbbbbbbffbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"ffbbbbbbffbbbbbbffbbbbbbffbbbbbb"
+"ffbbbbbbffbbbbbbffbbbbbbffbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbffbbbbbbffbbbbbbffbbbbbbffbb"
+"bbbbffbbbbbbffbbbbbbffbbbbbbffbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e06
+String1=0x04,Deponie
+Xpm="0 0 1 0"
+"1 c #E9D9C4"
 [end]
 [_polygon]
 Type=0x4e
-String1=0x04,Reben, Obst
+String1=0x04,Reben
 Xpm="32 32 2 1"
-"b c #DEFAAC"
-"f c #FF9900"
-"bbbbbbbbbbbbbbbbbbbbfffbbbbbbbbb"
-"fbbbbbbbbbbbbbbbbbbbffbbbbbbbbbb"
-"fbbbbbbbbbbbbbbbbbbffbbbbbbbbbbf"
-"ffbbbbbbbbbbbbbbbbbbfbbbbbbbbbbf"
-"fbbbbbbbbbbfbbbbbbbbbbbbbbbbbbbf"
-"bbbbbbbbbbffbbbbbbbbbbbbbbbbbbff"
-"bbbbbbbbbbffbbbbbbbbbbbbbbbbbbbf"
-"bbbbbbbbbbfffbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbfffbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbfbbbbbbbbfbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbffbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbfffbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbffbbbbbbbbbbbf"
-"bbbbbbbbbbbbbbbbbffbbbbbbbbbbbff"
-"fbbbbbbbbbbbbbbbbbfbbbbbbbbbbbff"
-"bbbbbbbbbfbbbbbbbbbbbbbbbbbbbbff"
-"bbbbbbbbffbbbbbbbbbbbbbbbbbbbffb"
-"bbbbbbbbfffbbbbbbbbbbbbbbbbbbbfb"
-"bbbbbbbbffbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbffbbbbbbbbbbbfbbbbbbbbbbb"
-"bbbbbbbbfbbbbbbbbbbffbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbfffbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbffbbbbbbbbbbf"
-"bbbbbbbbbbbbbbbbbbffbbbbbbbbbbff"
-"fbbbbbbbbbbbbbbbbbbfbbbbbbbbbbff"
-"bbbbbbbbbbfbbbbbbbbbbbbbbbbbbbff"
-"bbbbbbbbbffbbbbbbbbbbbbbbbbbbffb"
-"bbbbbbbbbfffbbbbbbbbbbbbbbbbbbfb"
-"bbbbbbbbbffbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbffbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbfbbbbbbbbbbbfbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbffbbbbbbbbbb"
+"b c #FFFFFF"
+"f c #00964E"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bfbbbbbbbfbbbbbbbfbbbbbbbfbbbbbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
+"bbbbbfbbbbbbbfbbbbbbbfbbbbbbbfbb"
 [end]
 [_polygon]
 Type=0x10e08
 String1=0x04,Obstanlage
 Xpm="32 32 2 1"
-"b c #DEFAAC"
-"f c #FF9900"
-"bbbbbbbbbbbbbbffbbbbbbbbfbbbbbbb"
-"bbbbbbbbfbbbbbffbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbffb"
-"bbfbbbbbbbbbbbbbbbbbbbbbbbbbbffb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbffbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbffbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbfbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbfbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbf"
-"bbbbbbbbbbbbbbbbbbbbffbbbbbbbbbb"
-"bffbbbbbbbbbbbbbbbbbffbbbbbbbbbb"
-"bffbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbffbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbffbbbbbbbbbffbbbbbbb"
-"bbbbbbbbbbbfbbbbbbbbbbbffbbbbbbb"
-"bbbffbbbbbbbbbbbbbbbbbbfbbbbbbbb"
-"bbbffbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbffbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbffbbbbbbbbbbbbbbbbbbbbb"
+"b c #FFFFFF"
+"f c #00964E"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bffbbbbbbbbbfbbbbbbbbbbbbffbbbbb"
-"bffbbbbbbbbbbbbbbbbbbbbbbffbbbbb"
-"bbbbbbbbbbffbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbffbbbbffbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbffbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbfbbbbbbbbb"
-"bbbbbbffbbbbbbbfbbbbbbbbbbbbbbbb"
-"bbbbbbffbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 [end]
 [_polygon]
 Type=0x10e09
 String1=0x04,Baumschule
 Xpm="32 32 2 1"
-"b c #DEFAAC"
-"f c #5AA000"
-"bbbbbbbbbbbbbbbffbbbbbbbbbbbbbbb"
+"b c #FFFFFF"
+"f c #00964E"
+"fbbfbbfbbfbbfbbfbbfbbfbbfbbfbbfb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbffbbbbbbbfbbbbbffbbbbbbbffbbb"
-"bbbffbbbbbbbbbbbbbffbbffbbbffbbb"
-"bbbbffbbbbbbbbbbbbbbbbffbbbbbbbb"
-"bbbbffbbfbbbbbbbbbbfbbbbbbbbbbbb"
-"bbbbbbbbbbbffbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbffbbbbbbbbbbbbbbbbbbb"
+"bfbbfbbfbbfbbfbbfbbfbbfbbfbbfbbf"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbfbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbfbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbfbbbbbbbb"
-"bbbbbbbbbbbbbbbffbbffbbbbbbfbbbb"
-"bbbbbbbbbbbbbbbffbbffbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbffbbbbbbbbbbbbbbbbbbb"
-"bffbbbffbbbffbbbffbbbbbbbbbbbbbb"
-"bffbbbffbbbbbbbbffbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbfbbbffbbb"
-"bbbbbbbbbffbbbbbbbbbbbbbbbbffbbb"
-"bbbbbbbbbffbffbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbffbbbbbbbbbbbbbbbbbb"
+"fbbfbbfbbfbbfbbfbbfbbfbbfbbfbbfb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbfbbbbb"
+"bfbbfbbfbbfbbfbbfbbfbbfbbfbbfbbf"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbfbbfbbfbbfbbfbbfbbfbbfbbfbbfb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bfbbfbbfbbfbbfbbfbbfbbfbbfbbfbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbfbbfbbfbbfbbfbbfbbfbbfbbfbbfb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bfbbfbbfbbfbbfbbfbbfbbfbbfbbfbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbfbbfbbfbbfbbfbbfbbfbbfbbfbbfb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bfbbfbbfbbfbbfbbfbbfbbfbbfbbfbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbfbbfbbfbbfbbfbbfbbfbbfbbfbbfb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x4f
+String1=0x04,Gehoelz, Hecke
+Xpm="32 32 2 1"
+"b c #FEFFED"
+"f c #00964E"
+"bbbbfbbbbbbbbbbbbbbfbbbbfbbbbbbb"
+"bbbfbbbbbbbbbbbbbbbbffbbbbbbbbbf"
+"bbbbbbbfbbbbbbbfbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbfbbbbbbbbfb"
+"bbbbfbbbbbbbbbbbbbbbfbbffbbfbbbb"
+"bbbbbbbbbbbbbbbbbbfbbbbbbbbbbbbb"
+"bffbbbbbbbbbbbbfbbbbbbfbfbbbfbbb"
+"bbbbbbbbbbbbbbfbfbbbbbbbbffbbbbb"
+"bbbbfbbbbbbbbbbbbfbbbbbbbbbbfbbb"
+"bbbbbbbbbbbbbbbbbbbbfbbfbbbbbbbb"
+"bbfbbbbbbbbbbbfbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbf"
+"bbbbbbbbbbbbbbbbbfbfbfbbbbfbbbbb"
+"bbbbbbbbbbbbbbbbbfbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbbfbbfb"
+"bfbbbbbbbbbfbfbbbbbbbffbbbbbbbbb"
+"bfbbbbbbbbbbbbbbbbbbbbbbbbfbbbbb"
+"bbfbbbbbbbbbbbbffbbbbbbbbbbbbfbb"
+"bbbbbbfbbbbbfbbbbbbbbbbbbbbbbbbb"
+"bbffbfbbbbbbbbbbbbbfbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbfbbbbfbb"
 "bbbbbbbbbbbbbbbbbbbbfbbbbbbbbbbb"
-"bbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbfbbbbbbbbbbbbbbbbbbbbffbbfbbb"
-"bbbbbbbbbbbbbbbffbbbbbbbffbbbbbb"
+"bbfbbbbbfbbbbbbbbbbbbbbbbbbbbbfb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbb"
+"fbbbbbbbbbbbbbbbbbbfbbfbbbbfbbbb"
+"bbbbbbbbbbbbbbbbffbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbfbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbfbbbbbbfbbbbbbb"
+"bbbbfbbbbbbbbbbbbbbbbbbfbbbbbbfb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 [end]
 [_polygon]
-Type=0x17
-String1=0x04,Park
+Type=0x50
+String1=0x04,Wald
 Xpm="0 0 1 0"
-"1 c #C3E48F"
+"1 c #CBE5D3"
 [end]
 [_polygon]
-Type=0x1a
-String1=0x04,Friedhof
-Xpm="0 0 1 0"
-"1 c #CFE8AE"
+Type=0x10e01
+String1=0x04,Wald offen
+Xpm="32 32 2 1"
+"b c #FEFFED"
+"f c #00964E"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbbbbbbbbbbbbbbbffbbbbbbbffbbf"
+"fbbbbbbbbbbbbbbbbbffbbbbbbbffbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbffbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbffbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbffbbbbbbbbbbbffbbbb"
+"bbbbbbbbbbbbbffbffbbbbbbbbffbbbb"
+"bbbbbbbbbbbbbbbbffbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbffbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbffbffbbb"
+"fbbbbbbbbbbbbbbbbffbbbbbffbbbbbf"
+"fbbbbbbbbbbbbbbbbffbbbbbbbbbbbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbffbbbbbbffbbbbbbbbbbb"
+"bbbbbbbbbbbffbbbbbbffbbbbbbbbbbb"
+"bbbbbbffbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbffbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbff"
+"bbbbbbbbbbbbbbbffbbbbbbbbbbbbbff"
+"bbbbbbbbbbbbbbbffbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbffbbbbbb"
+"fbbbbbbbbbbbbbffbbbbbbbbffbbbbbf"
+"fbbbbbbbbbbbbbffbbbbbbbbbbbbbbbf"
+"bbffbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbffbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 [end]
 [_polygon]
-Type=0x19
-String1=0x04,Freizeit
-Xpm="0 0 1 0"
-"1 c #B4DC84"
-[end]
-[_polygon]
-Type=0x10e07
-String1=0x04,Sportplatz
-Xpm="0 0 1 0"
-"1 c #FFCE62"
+Type=0x10e02
+String1=0x04,Gebueschwald
+Xpm="32 32 2 1"
+"b c #FEFFED"
+"f c #00964E"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbfbbbbbbbbbbbbbbbbbbbffbbbb"
+"bfbbbfbbbfbbbbbbffbbbbbbbbbbfbfb"
+"bbfbbbfbfbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbfbbbbbfbbbbbfbbbbbbfbbbbb"
+"bfbfbbbfbbbbbbfbbbbbbbbbbbbbbbbb"
+"bbbbbffbbbffbbffbbbbfbbbbbbbbbbb"
+"bfbbbbbfbbbbfbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbfbbbbbbbbbbbbfbb"
+"fbbbbbbbbbbfbbbbbbbbbbbbbbbbbbbb"
+"bbfbbbbbfbbbbbbbbbbbbbbbbbfbfbbb"
+"bfbbbbbbbbfbbbbbbbbbfbbbbbbbbbbb"
+"fbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbb"
+"bbbbbbfbbbbbbbbffbbfbbbbffbbbbbb"
+"bbbbbfbbbbbfbbbfbbbbbbbbbfbbbfbb"
+"bbfbbbbbbbbfbbbbbbbbbbbbbbbbbbbb"
+"bbbbfbbfbbbbbbbbfbbbbbbfbbbbbbbb"
+"bbbfbbbbfbfbbbbbbbbbbbbbbbbfbbbb"
+"fbbbbbbfbbbbbbbbbbbbbbbfbbbbbbbf"
+"bfbbbbbbbbfbbbbbbbbbbbbfbbbbbffb"
+"bbbbbbbbbbbbbbfbbbbbbbbbbbbbbfbf"
+"bbbbffbbbfbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbfbbbbbbbbbbbbbbbbbbbbbbbbfbb"
+"bfbbbfbbffbbbbbbbbbbbbffbbfbbbff"
+"fbfbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbfbbbbbbbfbbbbbffbbbfbbbb"
+"bfbfbbbbbbbbbbbbbbbfbbbbbbbbbbfb"
+"bbbfbbbbbbbbbfbbfbbbbbbbfbbbbbbb"
+"bfbbbbbbbbbfbbfbbbbbbbbfbbbbbbbb"
+"bfbbbbbbbbbbbbbbbbbbbbfbbfbbbbbf"
+"bbbbbbbbbfbbbbbbbfbbbbbbbbbbbbbb"
+"bbbbbbbbbbfbbbffbfbbbfbbbbbbbfbb"
 [end]
 [_polygon]
 Type=0x51
 String1=0x04,Feuchtgebiet
 Xpm="32 32 2 1"
-"b c #FFFAE6"
-"f c #7FC8E8"
-"bbbbbbbbbbbbbbbbbbbbbbbbbbfffbbb"
-"bbbbbbbbfffbbbbbbffffbbbbbbbbbbb"
-"bbbbbbbbfffbfffbbbbffffffffbbbbb"
-"bfffbbbbbbbbbbbbbbbbbfffbbbbbbbb"
-"fffbbbfffbfffbbbbbbbbbbbbbbbbbff"
-"bbbbbbbbbbbbbbbbbbbbbfffbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbfffbbbbbbbbb"
-"bbfffbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbbfffbbbbb"
+"b c #FEFFED"
+"f c #008AD2"
+"fffbbbbbfffbbbbbfffbbbbbfffbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbfffbbbbbfffbbbbbfffbbbbbfffbb"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbfffbbbbbbbbbbbb"
-"bbbbbbbbbffffffbbbbbbbbbbbbbbbbb"
-"bbfffbbbfffbbbbbbbbfffbbbbbbbbbb"
-"bbbbbbbbbfffbbbbbbbfffbbbbbfffbb"
-"bbbbbbbbbbfffbbfffbbbbbbbbbfffbb"
-"bbbbbbbfffbbbbbbbbbbbbbbbbbbbbbb"
-"fffbbbbbbbbbbbfffbbbbfffbbfffbbb"
-"bfffbbfffbbfffbbbbbbbbbfffbbbbbb"
-"bfffbbbbbbbbbbffffffbbbbbbbbbbbb"
-"bbbbfffbbbbbbbbbbfffbbbbbbbbbbbb"
-"fbbbbbfffbbfffbbfffbbbbbbbbbbbff"
-"fffbbbfffffbbbbbbbbbbbfffbbbbfff"
-"bbbbbbbbbfffbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbfffbbfffbfffbbbbbbbbbbb"
-"bbbbbbfffbbbbbbbfffbbbbbbffffbbb"
-"bbbbbbbbfffffbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbffffffbbbbbbb"
-"fbbbbfffbbbbbbbbfffbbbbbfffbbbff"
-"bfffbbbbbbbbbfffbbbbbbbbbbbbbbbb"
-[end]
-[_polygon]
-Type=0x52
-String1=0x04,Fels
-Xpm="0 0 1 0"
-"1 c #D0D0D0"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbbbfffbbbbbfffbbbbbfffbbbbbff"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bfffbbbbbfffbbbbbfffbbbbbfffbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbfffbbbbbfffbbbbbfffbbbbbfffb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"ffbbbbbfffbbbbbfffbbbbbfffbbbbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbfffbbbbbfffbbbbbfffbbbbbfffbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfffbbbbbfffbbbbbfffbbbbbfff"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 [end]
 [_polygon]
 Type=0x53
 String1=0x04,Geroell
 Xpm="32 32 2 1"
-"b c #FFFAE6"
-"f c #626162"
-"fbbbbbbbbbbbbfbbbbbbbbbbfbbbfbfb"
-"bbbbbbbfbbbbfbbbbbbbbbbfbbfbbfbb"
-"bbbbbbbbbbbfbbbbbbbfbbbbbbfbbbbb"
-"bbfbbfbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbffbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbfbbfbbbfbbbbf"
-"bbbbbbbbbbfbbbbfbbfbfbbfbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbbbbbbffbbbbbbb"
-"bbbbbbbffbbbbbbbbbbbbbbbbffbfbbb"
-"bbbfbbbbbbfbbbbbfbbffbbbbbbbbffb"
-"bbbffbbfbbfbbbbbbbbbbbbbbbfbffbb"
-"fbffbfbbbbbbfbfbbbbbbbbbfbbbfbbf"
-"bbbbbbbffbbbbfbbbbbbbbbfbbbbbbbb"
-"bbbbbbbbfbbbbfbfbbbbbfbbbbbbbbbb"
+"b c #FEFFED"
+"f c #000000"
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-"bbbfbbbbbbbbbbbbbbbbbbfbfbbbbfbb"
-"bfbbbbbbbbbbbbbbbbbfbbfbbbbbbfbb"
-"bbbbbbbbbbbbbbbfbbbbbbffbbfbbbbb"
-"bbfbbbbbbbbbbbbbbbbbffbbbbbbbbfb"
-"fbbbbbbbbbbbbbbbbfbbbbfbbbbbbbfb"
-"bbbbbbbbbbbfbbbbbfbfbbbbbbbbbbbb"
-"bbbbfbbbbbbfbbbbbffbbbbbbbbbbbbb"
-"bbbbbbbbfbbbbbbbbbbbbbfbbfbbbbbb"
-"fbbbbbbbbfbbbbbbbfbbbfbbfbbbbffb"
-"bbbbfbbbbbfbbbbbbbbfbbbbbbbfbbfb"
-"bbfbbbbbbfbbbbbbbbbbbbbbbbbbbbbb"
-"bfbbbbbbbffbbbbbbffbbbfbbbfbbbbb"
-"bbbbbfbbbbbbbbfbbbbbbbbfbbbbbbbb"
+"bfbbfbbbbbfbbbbbbbbbfbbbbbbbbbbb"
+"bbbbbbfbbbbbbbbbfbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbfbbbbbbb"
+"bbfbbbbfbbbbbbbbfbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbfbbbbbbbbbbbbbfbbb"
+"bfbbbbbbbbbbfbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"fbbbbbbbbbbbfbbbbbbbfbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbfbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbfbbbbbbbbbbbbbbbbfbbbbbbbf"
+"bbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbfb"
+"bbbbbbbbbfbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbfbbbbbbbbbbbbbfbbbbfbbbbb"
+"bbbbbbbbbbbbbbbbbfbbbbbbbbbbfbbf"
+"bbbbbbbbbbfbfbbbbbbbbbbbfbbbbbbb"
+"bbbbbbbbbbbbbbbbbfbbbfbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbb"
+"bbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbb"
+"bfbbbfbbbbbbfbbbbbbbbbbbbbbbbbfb"
+"bbbbbbbbbbfbbbbbbbbbbbbfbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbb"
+"bbbbbbbbbbbbfbbbbbbfbbbbbbbbbbbb"
 "bbbbbbbbbbbbbbbfbbbbbbbbbbbbbbbb"
-"bbbbbbbbbbbbbbbbbbfbbbfbbbbbbbbb"
-"bbbbbbbbbbfbfbfbfffbbbbbfbbbbbfb"
-"bbbbbbbbbbbbbbbbfbfbffbbbbbbbbbb"
+"fbbbbbfbbbbbfbbbbfbbbbbbbbbbfbfb"
+"bbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbfbbfb"
+"bbbbbfbbfbbbbbbbbfbbbbbbfbbbbbbb"
+[end]
+[_polygon]
+Type=0x52
+String1=0x04,Fels
+Xpm="32 32 2 1"
+"b c #FEFFED"
+"f c #000000"
+"bbffbbbffbbbbbbbfbbffbbbbbbbbbbb"
+"bbbbffbbbbbbbbffbbbbbfbbbbbbbbbb"
+"bbbbbbbbbbbbbfbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbfffbbbbbbbbbbbbbb"
+"bbbbbbbbbbffffbbbbbbbbbbbbbbbbbb"
+"bbbffbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbffbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbfbbbbbbbbbbbbbbbbbbffbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbfbbbbb"
+"bbbbbbbbbffffbbbbbbbbbbbbbbbbbbb"
+"bbfffbbbbbbbbbbbbbbbffbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbffbffbbbbb"
+"bbbbbbbbbbbbbfffbbbbbbbbbbbffbbb"
+"fbbbbbbffbbbbbbbbbbbbbbbbbbbbbff"
+"bbbbbbfbbbbbbffbbffbbbbbfbbbbbbb"
+"bbbbbbbbbbbbbbbfbbbfbbffbbbbbbbb"
+"bbbbbbbfbbbbbbbbbbbbbfbbbbffffbb"
+"fbbbbffbbbbbbbbbbbbbbbbbbbbbbbbf"
+"bffbfbbbbffbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbfbbbfbbbbbbbfbbbbbbbbbbbb"
+"ffbbbffbbbbbbbbbbffbbbbbbbbbbbbf"
+"bbbbfbbbbbbbbbbbfbbbbbbbbbbbbbbb"
+"bffbbbbbbbbbbbbbbbbbbbbbbfbfffbb"
+"bbbfbbbbbbbbbbbbbbbbbbbffbbbbbbb"
+"bbbbbbbbbffbbbbbbbbbbbfbbbbbbbbb"
+"bbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbffbbbbbb"
+"bbbbbbbbbbbbbbbbbbfffbbbbbfbbbbb"
+"bbbbbbbbbbffbbbffbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbffbbbffbbbbffffbbbbb"
+"bbbbbffbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e00
+String1=0x04,Gletscher, Schneefeld
+Xpm="0 0 1 0"
+"1 c #FFFFFF"
 [end]
 [_polygon]
 Type=0x3f
-String1=0x04,Gewaesser
+String1=0x04,See
+FontStyle=NormalFont
+CustomColor=Day
+DayCustomColor=#008AD2
 Xpm="0 0 1 0"
-"1 c #A8DCFA"
+"1 c #D4EDFC"
+[end]
+[_polygon]
+Type=0x10e0f
+String1=0x04,See mit wechselndem Wasserstand
+FontStyle=NormalFont
+CustomColor=Day
+DayCustomColor=#008AD2
+Xpm="0 0 1 0"
+"1 c #E9F5FD"
+[end]
+[_polygon]
+Type=0x10e03
+String1=0x04,Flussflaeche
+Xpm="0 0 1 0"
+"1 c #BCE4FA"
+[end]
+[_polygon]
+Type=0x10e0e
+String1=0x04,Seeinsel
+Xpm="0 0 1 0"
+"1 c #FEFFED"
+[end]
+[_polygon]
+Type=0x10e0c
+String1=0x04,Flugplatz Hartbelagpiste
+Xpm="0 0 1 0"
+"1 c #FFFFFF"
+[end]
+[_polygon]
+Type=0x10e0d
+String1=0x04,Flugplatz Graspiste
+Xpm="0 0 1 0"
+"1 c #E1EFE2"
+[end]
+[_polygon]
+Type=0x10e07
+String1=0x04,Staumauer
+Xpm="0 0 1 0"
+"1 c #C8C8C8"
+[end]
+[_polygon]
+Type=0x10e0b
+String1=0x04,Staudamm
+Xpm="0 0 1 0"
+"1 c #E3E3E3"
 [end]
 [_polygon]
 Type=0x10e05
 String1=0x04,Gebaeude
 Xpm="0 0 1 0"
-"1 c #8B898B"
+"1 c #000000"
+[end]
+[_polygon]
+Type=0x10e0a
+String1=0x04,Offenes Gebaeude, Treibhaus, Flugdach
+Xpm="32 32 2 1"
+"b c #FFFFFF"
+"f c #000000"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
+"fbbbfbbbfbbbfbbbfbbbfbbbfbbbfbbb"
+"bbbfbbbfbbbfbbbfbbbfbbbfbbbfbbbf"
+"bbfbbbfbbbfbbbfbbbfbbbfbbbfbbbfb"
+"bfbbbfbbbfbbbfbbbfbbbfbbbfbbbfbb"
 [end]
 [_line]
 Type=0x01
@@ -408,14 +668,14 @@ Type=0x0b
 String1=0x04,Weg 2 m Naturbelag, Steg
 LineWidth=1
 Xpm="0 0 1 0"
-"1 c #414041"
+"1 c #000000"
 [end]
 [_line]
 Type=0x10e01
 String1=0x04,Weg 1 m
 Xpm="32 2 2 1"
 "3 c none"
-"1 c #414041"
+"1 c #000000"
 "11111333111113331111133311111333"
 "11111333111113331111133311111333"
 [end]
@@ -424,7 +684,7 @@ Type=0x10e08
 String1=0x04,Markierte Spur
 Xpm="32 2 2 1"
 "3 c none"
-"1 c #414041"
+"1 c #000000"
 "13313313313313313313313313313313"
 "13313313313313313313313313313313"
 [end]
@@ -453,34 +713,7 @@ Type=0x10e06
 String1=0x04,Schutzverbauung
 LineWidth=2
 Xpm="0 0 1 0"
-"1 c #734400"
-[end]
-[_line]
-Type=0x10e0a
-String1=0x04,Landesgrenze
-Xpm="32 3 2 1"
-"3 c none"
-"1 c #BD008B"
-"11111133111111331111113311111133"
-"11111133111111331111113311111133"
-"11111133111111331111113311111133"
-[end]
-[_line]
-Type=0x10e0b
-String1=0x04,Kantonsgrenze
-Xpm="32 2 2 1"
-"3 c none"
-"1 c #BD008B"
-"11133311133311133311133311133311"
-"11133311133311133311133311133311"
-[end]
-[_line]
-Type=0x10e0c
-String1=0x04,Gemeindegrenze
-Xpm="32 1 2 1"
-"3 c none"
-"1 c #BD008B"
-"13331333133313331333133313331333"
+"1 c #000000"
 [end]
 [_line]
 Type=0x10e10
@@ -525,16 +758,6 @@ Xpm="32 1 2 1"
 "3 c none"
 "1 c #000000"
 "11113333111133331111333311113333"
-[end]
-[_line]
-Type=0x10e14
-String1=0x04,Bahn im Tunnel
-Xpm="32 3 2 1"
-"3 c none"
-"1 c #414041"
-"13313313313313313313313313313313"
-"33333333333333333333333333333333"
-"13313313313313313313313313313313"
 [end]
 [_line]
 Type=0x10e15
@@ -646,64 +869,456 @@ Xpm="32 8 2 1"
 "22222222222222222222222222222222"
 [end]
 [_line]
-Type=0x10e19
-String1=0x04,Bahnuebergang
-LineWidth=4
-BorderWidth=1
-Xpm="0 0 2 0"
-"1 c #E60000"
-"2 c #FFFFFF"
+Type=0x14
+String1=0x04,Normalspurbahn
+LineWidth=3
+Xpm="0 0 1 0"
+"1 c #E3000B"
 [end]
 [_line]
-Type=0x14
-String1=0x04,Bahn
+Type=0x11300
+String1=0x04,Schmalspurbahn, Kleinbahn
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #E3000B"
+[end]
+[_line]
+Type=0x11301
+String1=0x04,Anschlussgleis, Tram
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #E3000B"
+[end]
+[_line]
+Type=0x10e14
+String1=0x04,Bahn im Tunnel
+Xpm="32 2 2 1"
+"3 c none"
+"1 c #E3000B"
+"11113331111333111133311113331111"
+"11113331111333111133311113331111"
+[end]
+[_line]
+Type=0x11302
+String1=0x04,Bahn in Galerie
+Xpm="32 5 2 1"
+"n c none"
+"1 c #E3000B"
+"11111111111111111111111111111111"
+"1nnn1nnn1nnn1nnn1nnn1nnn1nnn1nnn"
+"1nnn1nnn1nnn1nnn1nnn1nnn1nnn1nnn"
+"1nnn1nnn1nnn1nnn1nnn1nnn1nnn1nnn"
+"11111111111111111111111111111111"
+[end]
+[_line]
+Type=0x11303
+String1=0x04,Luftseilbahn
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #E3000B"
+[end]
+[_line]
+Type=0x11304
+String1=0x04,Gondelbahn, Sesselbahn
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #E3000B"
+[end]
+[_line]
+Type=0x11305
+String1=0x04,Transportseilbahn, ausser Betrieb
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #000000"
+[end]
+[_line]
+Type=0x11306
+String1=0x04,Skilift
+Xpm="32 5 2 1"
+"n c none"
+"1 c #CE7611"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+"11111111111111111111111111111111"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+[end]
+[_line]
+Type=0x11307
+String1=0x04,Foerderband
 Xpm="32 3 2 1"
-"1 c #414041"
-"2 c #FFFFFF"
+"n c none"
+"1 c #000000"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
 "11111111111111111111111111111111"
-"11111122222211111122222211111122"
-"11111111111111111111111111111111"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
 [end]
 [_line]
 Type=0x18
-String1=0x04,Bach
+String1=0x04,Bach, Fluss, Suone
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#008AD2
 LineWidth=1
 Xpm="0 0 1 0"
-"1 c #52BAF6"
+"1 c #008AD2"
 [end]
 [_line]
 Type=0x10e03
-String1=0x04,Trockenrinne
+String1=0x04,Trockenrinne, Scheibenstand
 Xpm="32 1 2 1"
 "3 c none"
-"1 c #52BAF6"
-"11333113331133311333113331133311"
+"1 c #000000"
+"13313313313313313313313313313313"
+[end]
+[_line]
+Type=0x11308
+String1=0x04,Druckleitung
+Xpm="32 5 2 1"
+"n c none"
+"1 c #008AD2"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+"11111111111111111111111111111111"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+"1nnnnnnn1nnnnnnn1nnnnnnn1nnnnnnn"
+[end]
+[_line]
+Type=0x11309
+String1=0x04,Druckstollen
+Xpm="32 1 2 1"
+"3 c none"
+"1 c #008AD2"
+"11111133311111133311111133311111"
+[end]
+[_line]
+Type=0x1130a
+String1=0x04,Gewaesserverbauung
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #008AD2"
+[end]
+[_line]
+Type=0x1130b
+String1=0x04,Hafensteg
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #000000"
+[end]
+[_line]
+Type=0x1130c
+String1=0x04,Faehre
+Xpm="32 1 2 1"
+"3 c none"
+"1 c #000000"
+"11113333111133331111333311113333"
+[end]
+[_line]
+Type=0x11315
+String1=0x04,Seeufer
+FontStyle=NoLabel
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #008AD2"
 [end]
 [_line]
 Type=0x10e04
 String1=0x04,Mauer
-LineWidth=1
+LineWidth=2
 Xpm="0 0 1 0"
-"1 c #8B898B"
+"1 c #000000"
 [end]
 [_line]
-Type=0x10e02
-String1=0x04,Seilbahn
+Type=0x1130d
+String1=0x04,Trockenmauer
 Xpm="32 1 2 1"
 "3 c none"
 "1 c #000000"
-"11333311333311333311333311333311"
+"13313313313313313313313313313313"
+[end]
+[_line]
+Type=0x10e0a
+String1=0x04,Landesgrenze
+LineWidth=2
+BorderWidth=2
+Xpm="0 0 2 0"
+"1 c #E5007C"
+"2 c #F5B4D2"
+[end]
+[_line]
+Type=0x10e0b
+String1=0x04,Kantonsgrenze
+LineWidth=1
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #E5007C"
+"2 c #F5B4D2"
+[end]
+[_line]
+Type=0x1130e
+String1=0x04,Bezirksgrenze
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #F5B4D2"
+[end]
+[_line]
+Type=0x10e0c
+String1=0x04,Gemeindegrenze
+Xpm="32 2 2 1"
+"3 c none"
+"1 c #F5B4D2"
+"11111133311111133311111133311111"
+"11111133311111133311111133311111"
+[end]
+[_line]
+Type=0x1130f
+String1=0x04,Nationalparkgrenze
+LineWidth=4
+BorderWidth=1
+Xpm="0 0 2 0"
+"1 c #9DCC8F"
+"2 c #05A535"
+[end]
+[_line]
+Type=0x11310
+String1=0x04,Hochspannungsleitung
+Xpm="32 2 2 1"
+"n c none"
+"1 c #0789CB"
+"111111111nnn1nnn111111111nnn1nnn"
+"111111111nnn1nnn111111111nnn1nnn"
+[end]
+[_line]
+Type=0x11311
+String1=0x04,Umriss, Laufbahn
+LineWidth=1
+Xpm="0 0 1 0"
+"1 c #000000"
+[end]
+[_line]
+Type=0x11312
+String1=0x04,Skisprunganlage
+Xpm="32 3 2 1"
+"n c none"
+"1 c #000000"
+"11111111111111111111111111111111"
+"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+"11111111111111111111111111111111"
+[end]
+[_line]
+Type=0x11313
+String1=0x04,Rodelbahn
+LineWidth=2
+Xpm="0 0 1 0"
+"1 c #000000"
 [end]
 [_point]
 Type=0x10f00
 String1=0x04,Einzelbaum
-DayXpm="3 3 3 1"
-"1 c #A4DE00"
-"2 c #83B200"
-"3 c #6A9D00"
+DayXpm="3 3 2 1"
+"1 c none"
+"2 c #00964E"
 "121"
-"232"
+"222"
 "121"
+[end]
+[_point]
+Type=0x11300
+String1=0x04,Quelle
+DayXpm="5 5 2 1"
+"1 c none"
+"2 c #008AD2"
+"12221"
+"21111"
+"21111"
+"21111"
+"12221"
+[end]
+[_point]
+Type=0x11301
+String1=0x04,Brunnen
+DayXpm="5 5 2 1"
+"1 c none"
+"2 c #008AD2"
+"12221"
+"21112"
+"21112"
+"21112"
+"12221"
+[end]
+[_point]
+Type=0x11302
+String1=0x04,Wasserversorgung
+DayXpm="5 5 2 1"
+"1 c none"
+"2 c #008AD2"
+"22222"
+"21112"
+"21212"
+"21112"
+"22222"
+[end]
+[_point]
+Type=0x11303
+String1=0x04,Gipfelkreuz, Bildstock
+DayXpm="5 5 2 1"
+"1 c none"
+"2 c #000000"
+"11211"
+"22222"
+"11211"
+"11211"
+"11211"
+[end]
+[_point]
+Type=0x11304
+String1=0x04,Denkmal
+DayXpm="5 6 2 1"
+"1 c none"
+"2 c #000000"
+"11211"
+"12121"
+"22222"
+"11211"
+"12121"
+"22222"
+[end]
+[_point]
+Type=0x11305
+String1=0x04,Triangulationspyramide
+DayXpm="5 4 2 1"
+"1 c none"
+"2 c #000000"
+"11211"
+"12121"
+"21212"
+"22222"
+[end]
+[_point]
+Type=0x11306
+String1=0x04,Hoehle
+DayXpm="5 3 2 1"
+"1 c none"
+"2 c #000000"
+"12221"
+"21112"
+"21112"
+[end]
+[_point]
+Type=0x11307
+String1=0x04,Spital
+DayXpm="7 7 3 1"
+"1 c none"
+"2 c #0789CB"
+"3 c #FFFFFF"
+"2222222"
+"2322232"
+"2322232"
+"2333332"
+"2322232"
+"2322232"
+"2222222"
+[end]
+[_point]
+Type=0x11308
+String1=0x04,Heliport
+DayXpm="9 9 2 1"
+"1 c none"
+"2 c #000000"
+"112222211"
+"122111221"
+"221212122"
+"211212112"
+"211222112"
+"211212112"
+"221212122"
+"122111221"
+"112222211"
+[end]
+[_point]
+Type=0x11309
+String1=0x04,Windturbine
+DayXpm="7 7 2 1"
+"1 c none"
+"2 c #000000"
+"2111112"
+"1211121"
+"1121211"
+"1112111"
+"1112111"
+"1112111"
+"1122211"
+[end]
+[_point]
+Type=0x1130a
+String1=0x04,Lift
+DayXpm="4 4 2 1"
+"1 c none"
+"2 c #E3000B"
+"2222"
+"2112"
+"2112"
+"2222"
+[end]
+[_point]
+Type=0x1130b
+String1=0x04,Durchfahrtssperre
+DayXpm="3 3 2 1"
+"1 c none"
+"2 c #E3000B"
+"121"
+"222"
+"121"
+[end]
+[_point]
+Type=0x1130c
+String1=0x04,Antenne klein
+DayXpm="3 3 2 1"
+"1 c none"
+"2 c #000000"
+"222"
+"212"
+"222"
+[end]
+[_point]
+Type=0x1130d
+String1=0x04,Antenne gross
+DayXpm="5 5 2 1"
+"1 c none"
+"2 c #000000"
+"12221"
+"21112"
+"21212"
+"21112"
+"12221"
+[end]
+[_point]
+Type=0x1130e
+String1=0x04,Raststaette
+DayXpm="7 7 3 1"
+"1 c none"
+"2 c #000000"
+"3 c #FFFFFF"
+"2222222"
+"2332332"
+"2332332"
+"2332332"
+"2332332"
+"2332332"
+"2222222"
+[end]
+[_point]
+Type=0x1130f
+String1=0x04,Autoverlad
+DayXpm="5 5 3 1"
+"1 c none"
+"2 c #E3000B"
+"3 c #FFFFFF"
+"22222"
+"23332"
+"23332"
+"23332"
+"22222"
 [end]
 [_point]
 Type=0x6616
@@ -712,13 +1327,13 @@ FontStyle=SmallFont
 CustomColor=Day
 DayCustomColor=#000000
 DayXpm="5 5 2 1"
-"2 c none"
-"1 c #9C5A1E"
-"22122"
+"1 c none"
+"2 c #000000"
 "21112"
-"11111"
+"12121"
+"11211"
+"12121"
 "21112"
-"22122"
 [end]
 [_point]
 Type=0x6615
@@ -727,25 +1342,13 @@ FontStyle=SmallFont
 CustomColor=Day
 DayCustomColor=#000000
 DayXpm="5 5 2 1"
-"2 c none"
-"1 c #9C5A1E"
-"22122"
+"1 c none"
+"2 c #000000"
 "21112"
-"11111"
+"12121"
+"11211"
+"12121"
 "21112"
-"22122"
-[end]
-[_point]
-Type=0x2c0b
-String1=0x04,Bildstock oder Brunnen
-FontStyle=NoLabel
-DayXpm="3 3 3 1"
-"2 c none"
-"1 c #FFFFFF"
-"3 c #000000"
-"111"
-"131"
-"111"
 [end]
 [_point]
 Type=0x10f01
@@ -2287,28 +2890,5068 @@ DayXpm="24 11 3 1"
 "233333333333333333333332"
 [end]
 [_point]
+Type=0x11400
+String1=0x04,Hauptstrasse K9
+DayXpm="11 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"23333333332"
+"31111111113"
+"31111333113"
+"31113313313"
+"31113313313"
+"31111333313"
+"31111113313"
+"31111133313"
+"31113333113"
+"31111111113"
+"23333333332"
+[end]
+[_point]
+Type=0x11401
+String1=0x04,Hauptstrasse K12
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331133331113"
+"311111331111133113"
+"311111331111133113"
+"311111331111331113"
+"311111331113311113"
+"311111331133111113"
+"311133333333333113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11402
+String1=0x04,Hauptstrasse K14
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331111133113"
+"311111331111333113"
+"311111331113133113"
+"311111331113133113"
+"311111331131133113"
+"311111331133333313"
+"311133333311133113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11403
+String1=0x04,Hauptstrasse K15
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331133333113"
+"311111331133111113"
+"311111331133111113"
+"311111331133331113"
+"311111331111133113"
+"311111331111133113"
+"311133333333331113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11404
+String1=0x04,Hauptstrasse K20
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331113331113"
+"311111133133133113"
+"311111133133133113"
+"311111331133133113"
+"311113311133133113"
+"311133111133133113"
+"311133333113331113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11405
+String1=0x04,Hauptstrasse K22
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331133331113"
+"311111133111133113"
+"311111133111133113"
+"311111331111331113"
+"311113311113311113"
+"311133111133111113"
+"311133333133333113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11406
+String1=0x04,Hauptstrasse K23
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331133331113"
+"311111133111133113"
+"311111133111133113"
+"311111331113331113"
+"311113311111133113"
+"311133111111133113"
+"311133333133331113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11407
+String1=0x04,Hauptstrasse K25
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331133333113"
+"311111133133111113"
+"311111133133111113"
+"311111331133331113"
+"311113311111133113"
+"311133111111133113"
+"311133333133331113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11408
+String1=0x04,Hauptstrasse K26
+DayXpm="18 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333332"
+"311111111111111113"
+"311133331113333113"
+"311111133133311113"
+"311111133133111113"
+"311111331133331113"
+"311113311133133113"
+"311133111133133113"
+"311133333113331113"
+"311111111111111113"
+"233333333333333332"
+[end]
+[_point]
+Type=0x11409
+String1=0x04,Hauptstrasse K102
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311111331133133111133113"
+"311111331133133111331113"
+"311111331133133113311113"
+"311133333313331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1140a
+String1=0x04,Hauptstrasse K103
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311111331133133111333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311133333313331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1140b
+String1=0x04,Hauptstrasse K104
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111113313"
+"311111331133133111133313"
+"311111331133133111313313"
+"311111331133133111313313"
+"311111331133133113113313"
+"311111331133133113333333"
+"311133333313331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1140c
+String1=0x04,Hauptstrasse K109
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111331133133113313313"
+"311111331133133113313313"
+"311111331133133111333313"
+"311111331133133111113313"
+"311111331133133111133313"
+"311133333313331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1140d
+String1=0x04,Hauptstrasse K110
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111331111331113313313"
+"311111331111331113313313"
+"311111331111331113313313"
+"311111331111331113313313"
+"311111331111331113313313"
+"311133333333333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1140e
+String1=0x04,Hauptstrasse K112
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111331111113313"
+"311111331111331111113313"
+"311111331111331111133113"
+"311111331111331111331113"
+"311111331111331113311113"
+"311133333333333313333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1140f
+String1=0x04,Hauptstrasse K113
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111331111113313"
+"311111331111331111113313"
+"311111331111331111333113"
+"311111331111331111113313"
+"311111331111331111113313"
+"311133333333333313333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11410
+String1=0x04,Hauptstrasse K114
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111113313"
+"311111331111331111133313"
+"311111331111331111313313"
+"311111331111331111313313"
+"311111331111331113113313"
+"311111331111331113333333"
+"311133333333333311113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11411
+String1=0x04,Hauptstrasse K115
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111331111331113311113"
+"311111331111331113311113"
+"311111331111331113333113"
+"311111331111331111113313"
+"311111331111331111113313"
+"311133333333333313333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11412
+String1=0x04,Hauptstrasse K116
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333313"
+"311111331111331113331113"
+"311111331111331113311113"
+"311111331111331113333113"
+"311111331111331113313313"
+"311111331111331113313313"
+"311133333333333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11413
+String1=0x04,Hauptstrasse K121
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111133111133113"
+"311111331111133111133113"
+"311111331111331111133113"
+"311111331113311111133113"
+"311111331133111111133113"
+"311133333333333113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11414
+String1=0x04,Hauptstrasse K122
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311111331111331111133113"
+"311111331113311111331113"
+"311111331133111113311113"
+"311133333333333113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11415
+String1=0x04,Hauptstrasse K124
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111113313"
+"311111331111133111133313"
+"311111331111133111313313"
+"311111331111331111313313"
+"311111331113311113113313"
+"311111331133111113333333"
+"311133333333333111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11416
+String1=0x04,Hauptstrasse K125
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111331111133113311113"
+"311111331111133113311113"
+"311111331111331113333113"
+"311111331113311111113313"
+"311111331133111111113313"
+"311133333333333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11417
+String1=0x04,Hauptstrasse K126
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333313"
+"311111331111133113331113"
+"311111331111133113311113"
+"311111331111331113333113"
+"311111331113311113313313"
+"311111331133111113313313"
+"311133333333333111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11418
+String1=0x04,Hauptstrasse K128
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311111331111331111131113"
+"311111331113311113313313"
+"311111331133111113313313"
+"311133333333333111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11419
+String1=0x04,Hauptstrasse K129
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311111331111331111333313"
+"311111331113311111113313"
+"311111331133111111133313"
+"311133333333333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1141a
+String1=0x04,Hauptstrasse K130
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311111331113331113313313"
+"311111331111133113313313"
+"311111331111133113313313"
+"311133333333331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1141b
+String1=0x04,Hauptstrasse K131
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111133111133113"
+"311111331111133111133113"
+"311111331113331111133113"
+"311111331111133111133113"
+"311111331111133111133113"
+"311133333333331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1141c
+String1=0x04,Hauptstrasse K132
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311111331113331111133113"
+"311111331111133111331113"
+"311111331111133113311113"
+"311133333333331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1141d
+String1=0x04,Hauptstrasse K133
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311111331113331111333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311133333333331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1141e
+String1=0x04,Hauptstrasse K134
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111113313"
+"311111331111133111133313"
+"311111331111133111313313"
+"311111331113331111313313"
+"311111331111133113113313"
+"311111331111133113333333"
+"311133333333331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1141f
+String1=0x04,Hauptstrasse K135
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111331111133113311113"
+"311111331111133113311113"
+"311111331113331113333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311133333333331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11500
+String1=0x04,Hauptstrasse K136
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333313"
+"311111331111133113331113"
+"311111331111133113311113"
+"311111331113331113333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311133333333331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11501
+String1=0x04,Hauptstrasse K137
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111331111133111113313"
+"311111331111133111133113"
+"311111331113331111133113"
+"311111331111133111331113"
+"311111331111133111331113"
+"311133333333331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11502
+String1=0x04,Hauptstrasse K138
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311111331113331111131113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311133333333331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11503
+String1=0x04,Hauptstrasse K139
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311111331113331111333313"
+"311111331111133111113313"
+"311111331111133111133313"
+"311133333333331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11504
+String1=0x04,Hauptstrasse K140
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111331111333113313313"
+"311111331113133113313313"
+"311111331113133113313313"
+"311111331131133113313313"
+"311111331133333313313313"
+"311133333311133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11505
+String1=0x04,Hauptstrasse K141
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111331111333111133113"
+"311111331113133111133113"
+"311111331113133111133113"
+"311111331131133111133113"
+"311111331133333311133113"
+"311133333311133113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11506
+String1=0x04,Hauptstrasse K142
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111331111333111113313"
+"311111331113133111113313"
+"311111331113133111133113"
+"311111331131133111331113"
+"311111331133333313311113"
+"311133333311133113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11507
+String1=0x04,Hauptstrasse K143
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111331111333111113313"
+"311111331113133111113313"
+"311111331113133111333113"
+"311111331131133111113313"
+"311111331133333311113313"
+"311133333311133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11508
+String1=0x04,Hauptstrasse K145
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333313"
+"311111331111333113311113"
+"311111331113133113311113"
+"311111331113133113333113"
+"311111331131133111113313"
+"311111331133333311113313"
+"311133333311133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11509
+String1=0x04,Hauptstrasse K146
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333313"
+"311111331111333113331113"
+"311111331113133113311113"
+"311111331113133113333113"
+"311111331131133113313313"
+"311111331133333313313313"
+"311133333311133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1150a
+String1=0x04,Hauptstrasse K147
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333313"
+"311111331111333111113313"
+"311111331113133111133113"
+"311111331113133111133113"
+"311111331131133111331113"
+"311111331133333311331113"
+"311133333311133113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1150b
+String1=0x04,Hauptstrasse K148
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111331111333113313313"
+"311111331113133113313313"
+"311111331113133111131113"
+"311111331131133113313313"
+"311111331133333313313313"
+"311133333311133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1150c
+String1=0x04,Hauptstrasse K149
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111331111333113313313"
+"311111331113133113313313"
+"311111331113133111333313"
+"311111331131133111113313"
+"311111331133333311133313"
+"311133333311133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1150d
+String1=0x04,Hauptstrasse K150
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111331133111113313313"
+"311111331133111113313313"
+"311111331133331113313313"
+"311111331111133113313313"
+"311111331111133113313313"
+"311133333333331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1150e
+String1=0x04,Hauptstrasse K151
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111331133111111133113"
+"311111331133111111133113"
+"311111331133331111133113"
+"311111331111133111133113"
+"311111331111133111133113"
+"311133333333331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1150f
+String1=0x04,Hauptstrasse K152
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111331133111111113313"
+"311111331133111111113313"
+"311111331133331111133113"
+"311111331111133111331113"
+"311111331111133113311113"
+"311133333333331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11510
+String1=0x04,Hauptstrasse K153
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111331133111111113313"
+"311111331133111111113313"
+"311111331133331111333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311133333333331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11511
+String1=0x04,Hauptstrasse K154
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111113313"
+"311111331133111111133313"
+"311111331133111111313313"
+"311111331133331111313313"
+"311111331111133113113313"
+"311111331111133113333333"
+"311133333333331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11512
+String1=0x04,Hauptstrasse K155
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111331133111113311113"
+"311111331133111113311113"
+"311111331133331113333113"
+"311111331111133111113313"
+"311111331111133111113313"
+"311133333333331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11513
+String1=0x04,Hauptstrasse K156
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333313"
+"311111331133111113331113"
+"311111331133111113311113"
+"311111331133331113333113"
+"311111331111133113313313"
+"311111331111133113313313"
+"311133333333331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11514
+String1=0x04,Hauptstrasse K157
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111331133111111113313"
+"311111331133111111133113"
+"311111331133331111133113"
+"311111331111133111331113"
+"311111331111133111331113"
+"311133333333331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11515
+String1=0x04,Hauptstrasse K168
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333113"
+"311111331133311113313313"
+"311111331133111113313313"
+"311111331133331111131113"
+"311111331133133113313313"
+"311111331133133113313313"
+"311133333313331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11516
+String1=0x04,Hauptstrasse K169
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333113"
+"311111331133311113313313"
+"311111331133111113313313"
+"311111331133331111333313"
+"311111331133133111113313"
+"311111331133133111133313"
+"311133333313331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11517
+String1=0x04,Hauptstrasse K170
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111331111133113313313"
+"311111331111331113313313"
+"311111331111331113313313"
+"311111331113311113313313"
+"311111331113311113313313"
+"311133333333111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11518
+String1=0x04,Hauptstrasse K171
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111331111133111133113"
+"311111331111331111133113"
+"311111331111331111133113"
+"311111331113311111133113"
+"311111331113311111133113"
+"311133333333111113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11519
+String1=0x04,Hauptstrasse K172
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111331111133111113313"
+"311111331111331111113313"
+"311111331111331111133113"
+"311111331113311111331113"
+"311111331113311113311113"
+"311133333333111113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1151a
+String1=0x04,Hauptstrasse K173
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111331111133111113313"
+"311111331111331111113313"
+"311111331111331111333113"
+"311111331113311111113313"
+"311111331113311111113313"
+"311133333333111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1151b
+String1=0x04,Hauptstrasse K174
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111113313"
+"311111331111133111133313"
+"311111331111331111313313"
+"311111331111331111313313"
+"311111331113311113113313"
+"311111331113311113333333"
+"311133333333111111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1151c
+String1=0x04,Hauptstrasse K177
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111331111133111113313"
+"311111331111331111133113"
+"311111331111331111133113"
+"311111331113311111331113"
+"311111331113311111331113"
+"311133333333111113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1151d
+String1=0x04,Hauptstrasse K178
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111331111133113313313"
+"311111331111331113313313"
+"311111331111331111131113"
+"311111331113311113313313"
+"311111331113311113313313"
+"311133333333111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1151e
+String1=0x04,Hauptstrasse K179
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111331111133113313313"
+"311111331111331113313313"
+"311111331111331111333313"
+"311111331113311111113313"
+"311111331113311111133313"
+"311133333333111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1151f
+String1=0x04,Hauptstrasse K180
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111331133133113313313"
+"311111331133133113313313"
+"311111331111311113313313"
+"311111331133133113313313"
+"311111331133133113313313"
+"311133333313331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11600
+String1=0x04,Hauptstrasse K183
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311111331111311111333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311133333313331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11601
+String1=0x04,Hauptstrasse K185
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111331133133113311113"
+"311111331133133113311113"
+"311111331111311113333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311133333313331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11602
+String1=0x04,Hauptstrasse K186
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333313"
+"311111331133133113331113"
+"311111331133133113311113"
+"311111331111311113333113"
+"311111331133133113313313"
+"311111331133133113313313"
+"311133333313331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11603
+String1=0x04,Hauptstrasse K188
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111331133133113313313"
+"311111331133133113313313"
+"311111331111311111131113"
+"311111331133133113313313"
+"311111331133133113313313"
+"311133333313331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11604
+String1=0x04,Hauptstrasse K191
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111331133133111133113"
+"311111331133133111133113"
+"311111331113333111133113"
+"311111331111133111133113"
+"311111331111333111133113"
+"311133333333331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11605
+String1=0x04,Hauptstrasse K192
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311111331113333111133113"
+"311111331111133111331113"
+"311111331111333113311113"
+"311133333333331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11606
+String1=0x04,Hauptstrasse K193
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111331133133111113313"
+"311111331133133111113313"
+"311111331113333111333113"
+"311111331111133111113313"
+"311111331111333111113313"
+"311133333333331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11607
+String1=0x04,Hauptstrasse K202
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311111331133133111133113"
+"311113311133133111331113"
+"311133111133133113311113"
+"311133333113331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11608
+String1=0x04,Hauptstrasse K204
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111113313"
+"311111133133133111133313"
+"311111133133133111313313"
+"311111331133133111313313"
+"311113311133133113113313"
+"311133111133133113333333"
+"311133333113331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11609
+String1=0x04,Hauptstrasse K205
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133113311113"
+"311111133133133113311113"
+"311111331133133113333113"
+"311113311133133111113313"
+"311133111133133111113313"
+"311133333113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1160a
+String1=0x04,Hauptstrasse K207
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133111113313"
+"311111133133133111133113"
+"311111331133133111133113"
+"311113311133133111331113"
+"311133111133133111331113"
+"311133333113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1160b
+String1=0x04,Hauptstrasse K208
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331133133111131113"
+"311113311133133113313313"
+"311133111133133113313313"
+"311133333113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1160c
+String1=0x04,Hauptstrasse K210
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111331113313313"
+"311111133111331113313313"
+"311111331111331113313313"
+"311113311111331113313313"
+"311133111111331113313313"
+"311133333133333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1160d
+String1=0x04,Hauptstrasse K211
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111331111133113"
+"311111133111331111133113"
+"311111331111331111133113"
+"311113311111331111133113"
+"311133111111331111133113"
+"311133333133333313333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1160e
+String1=0x04,Hauptstrasse K220
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311111331111331113313313"
+"311113311113311113313313"
+"311133111133111113313313"
+"311133333133333111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1160f
+String1=0x04,Hauptstrasse K221
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111133113"
+"311111133111133111133113"
+"311111331111331111133113"
+"311113311113311111133113"
+"311133111133111111133113"
+"311133333133333113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11610
+String1=0x04,Hauptstrasse K222
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311111331111331111133113"
+"311113311113311111331113"
+"311133111133111113311113"
+"311133333133333113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11611
+String1=0x04,Hauptstrasse K223
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311111331111331111333113"
+"311113311113311111113313"
+"311133111133111111113313"
+"311133333133333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11612
+String1=0x04,Hauptstrasse K227
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111133111133111113313"
+"311111133111133111133113"
+"311111331111331111133113"
+"311113311113311111331113"
+"311133111133111111331113"
+"311133333133333113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11613
+String1=0x04,Hauptstrasse K228
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311111331111331111131113"
+"311113311113311113313313"
+"311133111133111113313313"
+"311133333133333111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11614
+String1=0x04,Hauptstrasse K229
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311111331111331111333313"
+"311113311113311111113313"
+"311133111133111111133313"
+"311133333133333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11615
+String1=0x04,Hauptstrasse K230
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311111331113331113313313"
+"311113311111133113313313"
+"311133111111133113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11616
+String1=0x04,Hauptstrasse K231
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111133113"
+"311111133111133111133113"
+"311111331113331111133113"
+"311113311111133111133113"
+"311133111111133111133113"
+"311133333133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11617
+String1=0x04,Hauptstrasse K232
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311111331113331111133113"
+"311113311111133111331113"
+"311133111111133113311113"
+"311133333133331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11618
+String1=0x04,Hauptstrasse K233
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311111331113331111333113"
+"311113311111133111113313"
+"311133111111133111113313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11619
+String1=0x04,Hauptstrasse K234
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111113313"
+"311111133111133111133313"
+"311111133111133111313313"
+"311111331113331111313313"
+"311113311111133113113313"
+"311133111111133113333333"
+"311133333133331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1161a
+String1=0x04,Hauptstrasse K235
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111133111133113311113"
+"311111133111133113311113"
+"311111331113331113333113"
+"311113311111133111113313"
+"311133111111133111113313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1161b
+String1=0x04,Hauptstrasse K236
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333313"
+"311111133111133113331113"
+"311111133111133113311113"
+"311111331113331113333113"
+"311113311111133113313313"
+"311133111111133113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1161c
+String1=0x04,Hauptstrasse K237
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111133111133111113313"
+"311111133111133111133113"
+"311111331113331111133113"
+"311113311111133111331113"
+"311133111111133111331113"
+"311133333133331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1161d
+String1=0x04,Hauptstrasse K238
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311111331113331111131113"
+"311113311111133113313313"
+"311133111111133113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1161e
+String1=0x04,Hauptstrasse K239
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311111331113331111333313"
+"311113311111133111113313"
+"311133111111133111133313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1161f
+String1=0x04,Hauptstrasse K240
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111133111333113313313"
+"311111133113133113313313"
+"311111331113133113313313"
+"311113311131133113313313"
+"311133111133333313313313"
+"311133333111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11700
+String1=0x04,Hauptstrasse K241
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111133111333111133113"
+"311111133113133111133113"
+"311111331113133111133113"
+"311113311131133111133113"
+"311133111133333311133113"
+"311133333111133113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11701
+String1=0x04,Hauptstrasse K242
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111133111333111113313"
+"311111133113133111113313"
+"311111331113133111133113"
+"311113311131133111331113"
+"311133111133333313311113"
+"311133333111133113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11702
+String1=0x04,Hauptstrasse K243
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111133111333111113313"
+"311111133113133111113313"
+"311111331113133111333113"
+"311113311131133111113313"
+"311133111133333311113313"
+"311133333111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11703
+String1=0x04,Hauptstrasse K244
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111113313"
+"311111133111333111133313"
+"311111133113133111313313"
+"311111331113133111313313"
+"311113311131133113113313"
+"311133111133333313333333"
+"311133333111133111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11704
+String1=0x04,Hauptstrasse K245
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333313"
+"311111133111333113311113"
+"311111133113133113311113"
+"311111331113133113333113"
+"311113311131133111113313"
+"311133111133333311113313"
+"311133333111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11705
+String1=0x04,Hauptstrasse K246
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333313"
+"311111133111333113331113"
+"311111133113133113311113"
+"311111331113133113333113"
+"311113311131133113313313"
+"311133111133333313313313"
+"311133333111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11706
+String1=0x04,Hauptstrasse K247
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333313"
+"311111133111333111113313"
+"311111133113133111133113"
+"311111331113133111133113"
+"311113311131133111331113"
+"311133111133333311331113"
+"311133333111133113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11707
+String1=0x04,Hauptstrasse K248
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111133111333113313313"
+"311111133113133113313313"
+"311111331113133111131113"
+"311113311131133113313313"
+"311133111133333313313313"
+"311133333111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11708
+String1=0x04,Hauptstrasse K249
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111133111333113313313"
+"311111133113133113313313"
+"311111331113133111333313"
+"311113311131133111113313"
+"311133111133333311133313"
+"311133333111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11709
+String1=0x04,Hauptstrasse K250
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133133111113313313"
+"311111133133111113313313"
+"311111331133331113313313"
+"311113311111133113313313"
+"311133111111133113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1170a
+String1=0x04,Hauptstrasse K251
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133133111111133113"
+"311111133133111111133113"
+"311111331133331111133113"
+"311113311111133111133113"
+"311133111111133111133113"
+"311133333133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1170b
+String1=0x04,Hauptstrasse K252
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133133111111113313"
+"311111133133111111113313"
+"311111331133331111133113"
+"311113311111133111331113"
+"311133111111133113311113"
+"311133333133331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1170c
+String1=0x04,Hauptstrasse K253
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133133111111113313"
+"311111133133111111113313"
+"311111331133331111333113"
+"311113311111133111113313"
+"311133111111133111113313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1170d
+String1=0x04,Hauptstrasse K254
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111113313"
+"311111133133111111133313"
+"311111133133111111313313"
+"311111331133331111313313"
+"311113311111133113113313"
+"311133111111133113333333"
+"311133333133331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1170e
+String1=0x04,Hauptstrasse K255
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111133133111113311113"
+"311111133133111113311113"
+"311111331133331113333113"
+"311113311111133111113313"
+"311133111111133111113313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1170f
+String1=0x04,Hauptstrasse K256
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333313"
+"311111133133111113331113"
+"311111133133111113311113"
+"311111331133331113333113"
+"311113311111133113313313"
+"311133111111133113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11710
+String1=0x04,Hauptstrasse K265
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333313"
+"311111133133311113311113"
+"311111133133111113311113"
+"311111331133331113333113"
+"311113311133133111113313"
+"311133111133133111113313"
+"311133333113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11711
+String1=0x04,Hauptstrasse K266
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333313"
+"311111133133311113331113"
+"311111133133111113311113"
+"311111331133331113333113"
+"311113311133133113313313"
+"311133111133133113313313"
+"311133333113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11712
+String1=0x04,Hauptstrasse K267
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333313"
+"311111133133311111113313"
+"311111133133111111133113"
+"311111331133331111133113"
+"311113311133133111331113"
+"311133111133133111331113"
+"311133333113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11713
+String1=0x04,Hauptstrasse K268
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333113"
+"311111133133311113313313"
+"311111133133111113313313"
+"311111331133331111131113"
+"311113311133133113313313"
+"311133111133133113313313"
+"311133333113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11714
+String1=0x04,Hauptstrasse K269
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333113"
+"311111133133311113313313"
+"311111133133111113313313"
+"311111331133331111333313"
+"311113311133133111113313"
+"311133111133133111133313"
+"311133333113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11715
+String1=0x04,Hauptstrasse K270
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133111133113313313"
+"311111133111331113313313"
+"311111331111331113313313"
+"311113311113311113313313"
+"311133111113311113313313"
+"311133333133111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11716
+String1=0x04,Hauptstrasse K271
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133111133111133113"
+"311111133111331111133113"
+"311111331111331111133113"
+"311113311113311111133113"
+"311133111113311111133113"
+"311133333133111113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11717
+String1=0x04,Hauptstrasse K272
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133111133111113313"
+"311111133111331111113313"
+"311111331111331111133113"
+"311113311113311111331113"
+"311133111113311113311113"
+"311133333133111113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11718
+String1=0x04,Hauptstrasse K273
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133111133111113313"
+"311111133111331111113313"
+"311111331111331111333113"
+"311113311113311111113313"
+"311133111113311111113313"
+"311133333133111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11719
+String1=0x04,Hauptstrasse K274
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111113313"
+"311111133111133111133313"
+"311111133111331111313313"
+"311111331111331111313313"
+"311113311113311113113313"
+"311133111113311113333333"
+"311133333133111111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1171a
+String1=0x04,Hauptstrasse K275
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111133111133113311113"
+"311111133111331113311113"
+"311111331111331113333113"
+"311113311113311111113313"
+"311133111113311111113313"
+"311133333133111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1171b
+String1=0x04,Hauptstrasse K276
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333313"
+"311111133111133113331113"
+"311111133111331113311113"
+"311111331111331113333113"
+"311113311113311113313313"
+"311133111113311113313313"
+"311133333133111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1171c
+String1=0x04,Hauptstrasse K277
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111133111133111113313"
+"311111133111331111133113"
+"311111331111331111133113"
+"311113311113311111331113"
+"311133111113311111331113"
+"311133333133111113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1171d
+String1=0x04,Hauptstrasse K278
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133111133113313313"
+"311111133111331113313313"
+"311111331111331111131113"
+"311113311113311113313313"
+"311133111113311113313313"
+"311133333133111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1171e
+String1=0x04,Hauptstrasse K279
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133111133113313313"
+"311111133111331113313313"
+"311111331111331111333313"
+"311113311113311111113313"
+"311133111113311111133313"
+"311133333133111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1171f
+String1=0x04,Hauptstrasse K280
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331111311113313313"
+"311113311133133113313313"
+"311133111133133113313313"
+"311133333113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11800
+String1=0x04,Hauptstrasse K281
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311111331111311111133113"
+"311113311133133111133113"
+"311133111133133111133113"
+"311133333113331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11801
+String1=0x04,Hauptstrasse K282
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311111331111311111133113"
+"311113311133133111331113"
+"311133111133133113311113"
+"311133333113331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11802
+String1=0x04,Hauptstrasse K283
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311111331111311111333113"
+"311113311133133111113313"
+"311133111133133111113313"
+"311133333113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11803
+String1=0x04,Hauptstrasse K285
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133113311113"
+"311111133133133113311113"
+"311111331111311113333113"
+"311113311133133111113313"
+"311133111133133111113313"
+"311133333113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11804
+String1=0x04,Hauptstrasse K286
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333313"
+"311111133133133113331113"
+"311111133133133113311113"
+"311111331111311113333113"
+"311113311133133113313313"
+"311133111133133113313313"
+"311133333113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11805
+String1=0x04,Hauptstrasse K287
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133111113313"
+"311111133133133111133113"
+"311111331111311111133113"
+"311113311133133111331113"
+"311133111133133111331113"
+"311133333113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11806
+String1=0x04,Hauptstrasse K288
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331111311111131113"
+"311113311133133113313313"
+"311133111133133113313313"
+"311133333113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11807
+String1=0x04,Hauptstrasse K289
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331111311111333313"
+"311113311133133111113313"
+"311133111133133111133313"
+"311133333113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11808
+String1=0x04,Hauptstrasse K290
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331113333113313313"
+"311113311111133113313313"
+"311133111111333113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11809
+String1=0x04,Hauptstrasse K291
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311111331113333111133113"
+"311113311111133111133113"
+"311133111111333111133113"
+"311133333133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1180a
+String1=0x04,Hauptstrasse K292
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311111331113333111133113"
+"311113311111133111331113"
+"311133111111333113311113"
+"311133333133331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1180b
+String1=0x04,Hauptstrasse K293
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311111331113333111333113"
+"311113311111133111113313"
+"311133111111333111113313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1180c
+String1=0x04,Hauptstrasse K296
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333313"
+"311111133133133113331113"
+"311111133133133113311113"
+"311111331113333113333113"
+"311113311111133113313313"
+"311133111111333113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1180d
+String1=0x04,Hauptstrasse K297
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133111113313"
+"311111133133133111133113"
+"311111331113333111133113"
+"311113311111133111331113"
+"311133111111333111331113"
+"311133333133331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1180e
+String1=0x04,Hauptstrasse K298
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331113333111131113"
+"311113311111133113313313"
+"311133111111333113313313"
+"311133333133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1180f
+String1=0x04,Hauptstrasse K299
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311111331113333111333313"
+"311113311111133111113313"
+"311133111111333111133313"
+"311133333133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11810
+String1=0x04,Hauptstrasse K305
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133113311113"
+"311111133133133113311113"
+"311113331133133113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11811
+String1=0x04,Hauptstrasse K307
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133111113313"
+"311111133133133111133113"
+"311113331133133111133113"
+"311111133133133111331113"
+"311111133133133111331113"
+"311133331113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11812
+String1=0x04,Hauptstrasse K308
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311113331133133111131113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311133331113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11813
+String1=0x04,Hauptstrasse K309
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311113331133133111333313"
+"311111133133133111113313"
+"311111133133133111133313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11814
+String1=0x04,Hauptstrasse K310
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111331113313313"
+"311111133111331113313313"
+"311113331111331113313313"
+"311111133111331113313313"
+"311111133111331113313313"
+"311133331133333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11815
+String1=0x04,Hauptstrasse K311
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111331111133113"
+"311111133111331111133113"
+"311113331111331111133113"
+"311111133111331111133113"
+"311111133111331111133113"
+"311133331133333313333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11816
+String1=0x04,Hauptstrasse K312
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111331111113313"
+"311111133111331111113313"
+"311113331111331111133113"
+"311111133111331111331113"
+"311111133111331113311113"
+"311133331133333313333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11817
+String1=0x04,Hauptstrasse K313
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111331111113313"
+"311111133111331111113313"
+"311113331111331111333113"
+"311111133111331111113313"
+"311111133111331111113313"
+"311133331133333313333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11818
+String1=0x04,Hauptstrasse K314
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111113313"
+"311111133111331111133313"
+"311111133111331111313313"
+"311113331111331111313313"
+"311111133111331113113313"
+"311111133111331113333333"
+"311133331133333311113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11819
+String1=0x04,Hauptstrasse K317
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111133111331111113313"
+"311111133111331111133113"
+"311113331111331111133113"
+"311111133111331111331113"
+"311111133111331111331113"
+"311133331133333313311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1181a
+String1=0x04,Hauptstrasse K318
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111331113313313"
+"311111133111331113313313"
+"311113331111331111131113"
+"311111133111331113313313"
+"311111133111331113313313"
+"311133331133333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1181b
+String1=0x04,Hauptstrasse K322
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311113331111331111133113"
+"311111133113311111331113"
+"311111133133111113311113"
+"311133331133333113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1181c
+String1=0x04,Hauptstrasse K323
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311113331111331111333113"
+"311111133113311111113313"
+"311111133133111111113313"
+"311133331133333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1181d
+String1=0x04,Hauptstrasse K324
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111113313"
+"311111133111133111133313"
+"311111133111133111313313"
+"311113331111331111313313"
+"311111133113311113113313"
+"311111133133111113333333"
+"311133331133333111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1181e
+String1=0x04,Hauptstrasse K329
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311113331111331111333313"
+"311111133113311111113313"
+"311111133133111111133313"
+"311133331133333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1181f
+String1=0x04,Hauptstrasse K330
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311113331113331113313313"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11900
+String1=0x04,Hauptstrasse K331
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333113"
+"311111133111133111133113"
+"311111133111133111133113"
+"311113331113331111133113"
+"311111133111133111133113"
+"311111133111133111133113"
+"311133331133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11901
+String1=0x04,Hauptstrasse K336
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333313"
+"311111133111133113331113"
+"311111133111133113311113"
+"311113331113331113333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11902
+String1=0x04,Hauptstrasse K337
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331113333313"
+"311111133111133111113313"
+"311111133111133111133113"
+"311113331113331111133113"
+"311111133111133111331113"
+"311111133111133111331113"
+"311133331133331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11903
+String1=0x04,Hauptstrasse K338
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311113331113331111131113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11904
+String1=0x04,Hauptstrasse K339
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133331111333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311113331113331111333313"
+"311111133111133111113313"
+"311111133111133111133313"
+"311133331133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11905
+String1=0x04,Hauptstrasse K340
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111133111333113313313"
+"311111133113133113313313"
+"311113331113133113313313"
+"311111133131133113313313"
+"311111133133333313313313"
+"311133331111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11906
+String1=0x04,Hauptstrasse K341
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111133111333111133113"
+"311111133113133111133113"
+"311113331113133111133113"
+"311111133131133111133113"
+"311111133133333311133113"
+"311133331111133113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11907
+String1=0x04,Hauptstrasse K342
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111133111333111113313"
+"311111133113133111113313"
+"311113331113133111133113"
+"311111133131133111331113"
+"311111133133333313311113"
+"311133331111133113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11908
+String1=0x04,Hauptstrasse K343
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333113"
+"311111133111333111113313"
+"311111133113133111113313"
+"311113331113133111333113"
+"311111133131133111113313"
+"311111133133333311113313"
+"311133331111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11909
+String1=0x04,Hauptstrasse K344
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111113313"
+"311111133111333111133313"
+"311111133113133111313313"
+"311113331113133111313313"
+"311111133131133113113313"
+"311111133133333313333333"
+"311133331111133111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1190a
+String1=0x04,Hauptstrasse K345
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333313"
+"311111133111333113311113"
+"311111133113133113311113"
+"311113331113133113333113"
+"311111133131133111113313"
+"311111133133333311113313"
+"311133331111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1190b
+String1=0x04,Hauptstrasse K346
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333313"
+"311111133111333113331113"
+"311111133113133113311113"
+"311113331113133113333113"
+"311111133131133113313313"
+"311111133133333313313313"
+"311133331111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1190c
+String1=0x04,Hauptstrasse K347
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133113333313"
+"311111133111333111113313"
+"311111133113133111133113"
+"311113331113133111133113"
+"311111133131133111331113"
+"311111133133333311331113"
+"311133331111133113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1190d
+String1=0x04,Hauptstrasse K348
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111133111333113313313"
+"311111133113133113313313"
+"311113331113133111131113"
+"311111133131133113313313"
+"311111133133333313313313"
+"311133331111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1190e
+String1=0x04,Hauptstrasse K349
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331111133111333113"
+"311111133111333113313313"
+"311111133113133113313313"
+"311113331113133111333313"
+"311111133131133111113313"
+"311111133133333311133313"
+"311133331111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1190f
+String1=0x04,Hauptstrasse K350
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133133111113313313"
+"311111133133111113313313"
+"311113331133331113313313"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11910
+String1=0x04,Hauptstrasse K352
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133133111111113313"
+"311111133133111111113313"
+"311113331133331111133113"
+"311111133111133111331113"
+"311111133111133113311113"
+"311133331133331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11911
+String1=0x04,Hauptstrasse K353
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333113"
+"311111133133111111113313"
+"311111133133111111113313"
+"311113331133331111333113"
+"311111133111133111113313"
+"311111133111133111113313"
+"311133331133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11912
+String1=0x04,Hauptstrasse K354
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111113313"
+"311111133133111111133313"
+"311111133133111111313313"
+"311113331133331111313313"
+"311111133111133113113313"
+"311111133111133113333333"
+"311133331133331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11913
+String1=0x04,Hauptstrasse K361
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333113"
+"311111133133311111133113"
+"311111133133111111133113"
+"311113331133331111133113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311133331113331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11914
+String1=0x04,Hauptstrasse K362
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333113"
+"311111133133311111113313"
+"311111133133111111113313"
+"311113331133331111133113"
+"311111133133133111331113"
+"311111133133133113311113"
+"311133331113331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11915
+String1=0x04,Hauptstrasse K363
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333113"
+"311111133133311111113313"
+"311111133133111111113313"
+"311113331133331111333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11916
+String1=0x04,Hauptstrasse K364
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111113313"
+"311111133133311111133313"
+"311111133133111111313313"
+"311113331133331111313313"
+"311111133133133113113313"
+"311111133133133113333333"
+"311133331113331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11917
+String1=0x04,Hauptstrasse K365
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333313"
+"311111133133311113311113"
+"311111133133111113311113"
+"311113331133331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11918
+String1=0x04,Hauptstrasse K366
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333313"
+"311111133133311113331113"
+"311111133133111113311113"
+"311113331133331113333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311133331113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11919
+String1=0x04,Hauptstrasse K367
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333113333313"
+"311111133133311111113313"
+"311111133133111111133113"
+"311113331133331111133113"
+"311111133133133111331113"
+"311111133133133111331113"
+"311133331113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1191a
+String1=0x04,Hauptstrasse K368
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333113"
+"311111133133311113313313"
+"311111133133111113313313"
+"311113331133331111131113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311133331113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1191b
+String1=0x04,Hauptstrasse K369
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113333111333113"
+"311111133133311113313313"
+"311111133133111113313313"
+"311113331133331111333313"
+"311111133133133111113313"
+"311111133133133111133313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1191c
+String1=0x04,Hauptstrasse K370
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133111133113313313"
+"311111133111331113313313"
+"311113331111331113313313"
+"311111133113311113313313"
+"311111133113311113313313"
+"311133331133111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1191d
+String1=0x04,Hauptstrasse K375
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111133111133113311113"
+"311111133111331113311113"
+"311113331111331113333113"
+"311111133113311111113313"
+"311111133113311111113313"
+"311133331133111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1191e
+String1=0x04,Hauptstrasse K376
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333313"
+"311111133111133113331113"
+"311111133111331113311113"
+"311113331111331113333113"
+"311111133113311113313313"
+"311111133113311113313313"
+"311133331133111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x1191f
+String1=0x04,Hauptstrasse K377
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333113333313"
+"311111133111133111113313"
+"311111133111331111133113"
+"311113331111331111133113"
+"311111133113311111331113"
+"311111133113311111331113"
+"311133331133111113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a00
+String1=0x04,Hauptstrasse K378
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331133333111333113"
+"311111133111133113313313"
+"311111133111331113313313"
+"311113331111331111131113"
+"311111133113311113313313"
+"311111133113311113313313"
+"311133331133111111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a01
+String1=0x04,Hauptstrasse K381
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311113331111311111133113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311133331113331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a02
+String1=0x04,Hauptstrasse K382
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311113331111311111133113"
+"311111133133133111331113"
+"311111133133133113311113"
+"311133331113331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a03
+String1=0x04,Hauptstrasse K383
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311113331111311111333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a04
+String1=0x04,Hauptstrasse K386
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333313"
+"311111133133133113331113"
+"311111133133133113311113"
+"311113331111311113333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311133331113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a05
+String1=0x04,Hauptstrasse K387
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133111113313"
+"311111133133133111133113"
+"311113331111311111133113"
+"311111133133133111331113"
+"311111133133133111331113"
+"311133331113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a06
+String1=0x04,Hauptstrasse K389
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311113331111311111333313"
+"311111133133133111113313"
+"311111133133133111133313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a07
+String1=0x04,Hauptstrasse K390
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311113331113333113313313"
+"311111133111133113313313"
+"311111133111333113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a08
+String1=0x04,Hauptstrasse K391
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311113331113333111133113"
+"311111133111133111133113"
+"311111133111333111133113"
+"311133331133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a09
+String1=0x04,Hauptstrasse K392
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311113331113333111133113"
+"311111133111133111331113"
+"311111133111333113311113"
+"311133331133331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a0a
+String1=0x04,Hauptstrasse K393
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333113"
+"311111133133133111113313"
+"311111133133133111113313"
+"311113331113333111333113"
+"311111133111133111113313"
+"311111133111333111113313"
+"311133331133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a0b
+String1=0x04,Hauptstrasse K394
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111113313"
+"311111133133133111133313"
+"311111133133133111313313"
+"311113331113333111313313"
+"311111133111133113113313"
+"311111133111333113333333"
+"311133331133331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a0c
+String1=0x04,Hauptstrasse K395
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133113311113"
+"311111133133133113311113"
+"311113331113333113333113"
+"311111133111133111113313"
+"311111133111333111113313"
+"311133331133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a0d
+String1=0x04,Hauptstrasse K396
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331111333313"
+"311111133133133113331113"
+"311111133133133113311113"
+"311113331113333113333113"
+"311111133111133113313313"
+"311111133111333113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a0e
+String1=0x04,Hauptstrasse K397
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133331113331113333313"
+"311111133133133111113313"
+"311111133133133111133113"
+"311113331113333111133113"
+"311111133111133111331113"
+"311111133111333111331113"
+"311133331133331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a0f
+String1=0x04,Hauptstrasse K401
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331113333113"
+"311111333133133111133113"
+"311113133133133111133113"
+"311113133133133111133113"
+"311131133133133111133113"
+"311133333333133111133113"
+"311111133113331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a10
+String1=0x04,Hauptstrasse K402
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331113333113"
+"311111333133133111113313"
+"311113133133133111113313"
+"311113133133133111133113"
+"311131133133133111331113"
+"311133333333133113311113"
+"311111133113331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a11
+String1=0x04,Hauptstrasse K404
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331111113313"
+"311111333133133111133313"
+"311113133133133111313313"
+"311113133133133111313313"
+"311131133133133113113313"
+"311133333333133113333333"
+"311111133113331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a12
+String1=0x04,Hauptstrasse K406
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331111333313"
+"311111333133133113331113"
+"311113133133133113311113"
+"311113133133133113333113"
+"311131133133133113313313"
+"311133333333133113313313"
+"311111133113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a13
+String1=0x04,Hauptstrasse K407
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331113333313"
+"311111333133133111113313"
+"311113133133133111133113"
+"311113133133133111133113"
+"311131133133133111331113"
+"311133333333133111331113"
+"311111133113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a14
+String1=0x04,Hauptstrasse K408
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331111333113"
+"311111333133133113313313"
+"311113133133133113313313"
+"311113133133133111131113"
+"311131133133133113313313"
+"311133333333133113313313"
+"311111133113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a15
+String1=0x04,Hauptstrasse K409
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113331111333113"
+"311111333133133113313313"
+"311113133133133113313313"
+"311113133133133111333313"
+"311131133133133111113313"
+"311133333333133111133313"
+"311111133113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a16
+String1=0x04,Hauptstrasse K410
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111333113"
+"311111333111331113313313"
+"311113133111331113313313"
+"311113133111331113313313"
+"311131133111331113313313"
+"311133333311331113313313"
+"311111133133333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a17
+String1=0x04,Hauptstrasse K411
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111331111133113"
+"311113133111331111133113"
+"311113133111331111133113"
+"311131133111331111133113"
+"311133333311331111133113"
+"311111133133333313333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a18
+String1=0x04,Hauptstrasse K412
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111331111113313"
+"311113133111331111113313"
+"311113133111331111133113"
+"311131133111331111331113"
+"311133333311331113311113"
+"311111133133333313333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a19
+String1=0x04,Hauptstrasse K413
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111331111113313"
+"311113133111331111113313"
+"311113133111331111333113"
+"311131133111331111113313"
+"311133333311331111113313"
+"311111133133333313333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a1a
+String1=0x04,Hauptstrasse K414
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111113313"
+"311111333111331111133313"
+"311113133111331111313313"
+"311113133111331111313313"
+"311131133111331113113313"
+"311133333311331113333333"
+"311111133133333311113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a1b
+String1=0x04,Hauptstrasse K415
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333313"
+"311111333111331113311113"
+"311113133111331113311113"
+"311113133111331113333113"
+"311131133111331111113313"
+"311133333311331111113313"
+"311111133133333313333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a1c
+String1=0x04,Hauptstrasse K418
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111333113"
+"311111333111331113313313"
+"311113133111331113313313"
+"311113133111331111131113"
+"311131133111331113313313"
+"311133333311331113313313"
+"311111133133333311333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a1d
+String1=0x04,Hauptstrasse K421
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111133111133113"
+"311113133111133111133113"
+"311113133111331111133113"
+"311131133113311111133113"
+"311133333333111111133113"
+"311111133133333113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a1e
+String1=0x04,Hauptstrasse K422
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111133111113313"
+"311113133111133111113313"
+"311113133111331111133113"
+"311131133113311111331113"
+"311133333333111113311113"
+"311111133133333113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11a1f
+String1=0x04,Hauptstrasse K426
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111333313"
+"311111333111133113331113"
+"311113133111133113311113"
+"311113133111331113333113"
+"311131133113311113313313"
+"311133333333111113313313"
+"311111133133333111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b00
+String1=0x04,Hauptstrasse K427
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333313"
+"311111333111133111113313"
+"311113133111133111133113"
+"311113133111331111133113"
+"311131133113311111331113"
+"311133333333111111331113"
+"311111133133333113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b01
+String1=0x04,Hauptstrasse K428
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111333113"
+"311111333111133113313313"
+"311113133111133113313313"
+"311113133111331111131113"
+"311131133113311113313313"
+"311133333333111113313313"
+"311111133133333111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b02
+String1=0x04,Hauptstrasse K429
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111333113"
+"311111333111133113313313"
+"311113133111133113313313"
+"311113133111331111333313"
+"311131133113311111113313"
+"311133333333111111133313"
+"311111133133333113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b03
+String1=0x04,Hauptstrasse K430
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111333113"
+"311111333111133113313313"
+"311113133111133113313313"
+"311113133113331113313313"
+"311131133111133113313313"
+"311133333311133113313313"
+"311111133133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b04
+String1=0x04,Hauptstrasse K431
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111133111133113"
+"311113133111133111133113"
+"311113133113331111133113"
+"311131133111133111133113"
+"311133333311133111133113"
+"311111133133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b05
+String1=0x04,Hauptstrasse K432
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333113"
+"311111333111133111113313"
+"311113133111133111113313"
+"311113133113331111133113"
+"311131133111133111331113"
+"311133333311133113311113"
+"311111133133331113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b06
+String1=0x04,Hauptstrasse K434
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331111113313"
+"311111333111133111133313"
+"311113133111133111313313"
+"311113133113331111313313"
+"311131133111133113113313"
+"311133333311133113333333"
+"311111133133331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b07
+String1=0x04,Hauptstrasse K435
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333313"
+"311111333111133113311113"
+"311113133111133113311113"
+"311113133113331113333113"
+"311131133111133111113313"
+"311133333311133111113313"
+"311111133133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b08
+String1=0x04,Hauptstrasse K437
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133331113333313"
+"311111333111133111113313"
+"311113133111133111133113"
+"311113133113331111133113"
+"311131133111133111331113"
+"311133333311133111331113"
+"311111133133331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b09
+String1=0x04,Hauptstrasse K441
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133111133113333113"
+"311111333111333111133113"
+"311113133113133111133113"
+"311113133113133111133113"
+"311131133131133111133113"
+"311133333333333311133113"
+"311111133111133113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b0a
+String1=0x04,Hauptstrasse K444
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133111133111113313"
+"311111333111333111133313"
+"311113133113133111313313"
+"311113133113133111313313"
+"311131133131133113113313"
+"311133333333333313333333"
+"311111133111133111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b0b
+String1=0x04,Hauptstrasse K445
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133111133113333313"
+"311111333111333113311113"
+"311113133113133113311113"
+"311113133113133113333113"
+"311131133131133111113313"
+"311133333333333311113313"
+"311111133111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b0c
+String1=0x04,Hauptstrasse K446
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133111133111333313"
+"311111333111333113331113"
+"311113133113133113311113"
+"311113133113133113333113"
+"311131133131133113313313"
+"311133333333333313313313"
+"311111133111133111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b0d
+String1=0x04,Hauptstrasse K449
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133111133111333113"
+"311111333111333113313313"
+"311113133113133113313313"
+"311113133113133111333313"
+"311131133131133111113313"
+"311133333333333311133313"
+"311111133111133113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b0e
+String1=0x04,Hauptstrasse K450
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333111333113"
+"311111333133111113313313"
+"311113133133111113313313"
+"311113133133331113313313"
+"311131133111133113313313"
+"311133333311133113313313"
+"311111133133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b0f
+String1=0x04,Hauptstrasse K451
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333113333113"
+"311111333133111111133113"
+"311113133133111111133113"
+"311113133133331111133113"
+"311131133111133111133113"
+"311133333311133111133113"
+"311111133133331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b10
+String1=0x04,Hauptstrasse K453
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333113333113"
+"311111333133111111113313"
+"311113133133111111113313"
+"311113133133331111333113"
+"311131133111133111113313"
+"311133333311133111113313"
+"311111133133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b11
+String1=0x04,Hauptstrasse K454
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333111113313"
+"311111333133111111133313"
+"311113133133111111313313"
+"311113133133331111313313"
+"311131133111133113113313"
+"311133333311133113333333"
+"311111133133331111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b12
+String1=0x04,Hauptstrasse K458
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333111333113"
+"311111333133111113313313"
+"311113133133111113313313"
+"311113133133331111131113"
+"311131133111133113313313"
+"311133333311133113313313"
+"311111133133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b13
+String1=0x04,Hauptstrasse K459
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333111333113"
+"311111333133111113313313"
+"311113133133111113313313"
+"311113133133331111333313"
+"311131133111133111113313"
+"311133333311133111133313"
+"311111133133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b14
+String1=0x04,Hauptstrasse K463
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113333113333113"
+"311111333133311111113313"
+"311113133133111111113313"
+"311113133133331111333113"
+"311131133133133111113313"
+"311133333333133111113313"
+"311111133113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b15
+String1=0x04,Hauptstrasse K465
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113333113333313"
+"311111333133311113311113"
+"311113133133111113311113"
+"311113133133331113333113"
+"311131133133133111113313"
+"311133333333133111113313"
+"311111133113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b16
+String1=0x04,Hauptstrasse K466
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113333111333313"
+"311111333133311113331113"
+"311113133133111113311113"
+"311113133133331113333113"
+"311131133133133113313313"
+"311133333333133113313313"
+"311111133113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b17
+String1=0x04,Hauptstrasse K467
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113333113333313"
+"311111333133311111113313"
+"311113133133111111133113"
+"311113133133331111133113"
+"311131133133133111331113"
+"311133333333133111331113"
+"311111133113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b18
+String1=0x04,Hauptstrasse K468
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113333111333113"
+"311111333133311113313313"
+"311113133133111113313313"
+"311113133133331111131113"
+"311131133133133113313313"
+"311133333333133113313313"
+"311111133113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b19
+String1=0x04,Hauptstrasse K469
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133113333111333113"
+"311111333133311113313313"
+"311113133133111113313313"
+"311113133133331111333313"
+"311131133133133111113313"
+"311133333333133111133313"
+"311111133113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b1a
+String1=0x04,Hauptstrasse K471
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333113333113"
+"311111333111133111133113"
+"311113133111331111133113"
+"311113133111331111133113"
+"311131133113311111133113"
+"311133333313311111133113"
+"311111133133111113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b1b
+String1=0x04,Hauptstrasse K472
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333113333113"
+"311111333111133111113313"
+"311113133111331111113313"
+"311113133111331111133113"
+"311131133113311111331113"
+"311133333313311113311113"
+"311111133133111113333313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b1c
+String1=0x04,Hauptstrasse K473
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333113333113"
+"311111333111133111113313"
+"311113133111331111113313"
+"311113133111331111333113"
+"311131133113311111113313"
+"311133333313311111113313"
+"311111133133111113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b1d
+String1=0x04,Hauptstrasse K474
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311111133133333111113313"
+"311111333111133111133313"
+"311113133111331111313313"
+"311113133111331111313313"
+"311131133113311113113313"
+"311133333313311113333333"
+"311111133133111111113313"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b1e
+String1=0x04,Hauptstrasse K507
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333113331113333313"
+"311133111133133111113313"
+"311133111133133111133113"
+"311133331133133111133113"
+"311111133133133111331113"
+"311111133133133111331113"
+"311133331113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11b1f
+String1=0x04,Hauptstrasse K509
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333113331111333113"
+"311133111133133113313313"
+"311133111133133113313313"
+"311133331133133111333313"
+"311111133133133111113313"
+"311111133133133111133313"
+"311133331113331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c00
+String1=0x04,Hauptstrasse K536
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333133331111333313"
+"311133111111133113331113"
+"311133111111133113311113"
+"311133331113331113333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c01
+String1=0x04,Hauptstrasse K541
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333111133113333113"
+"311133111111333111133113"
+"311133111113133111133113"
+"311133331113133111133113"
+"311111133131133111133113"
+"311111133133333311133113"
+"311133331111133113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c02
+String1=0x04,Hauptstrasse K556
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333133333111333313"
+"311133111133111113331113"
+"311133111133111113311113"
+"311133331133331113333113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c03
+String1=0x04,Hauptstrasse K558
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333133333111333113"
+"311133111133111113313313"
+"311133111133111113313313"
+"311133331133331111131113"
+"311111133111133113313313"
+"311111133111133113313313"
+"311133331133331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c04
+String1=0x04,Hauptstrasse K559
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333133333111333113"
+"311133111133111113313313"
+"311133111133111113313313"
+"311133331133331111333313"
+"311111133111133111113313"
+"311111133111133111133313"
+"311133331133331113333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c05
+String1=0x04,Hauptstrasse K561
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333113333113333113"
+"311133111133311111133113"
+"311133111133111111133113"
+"311133331133331111133113"
+"311111133133133111133113"
+"311111133133133111133113"
+"311133331113331113333333"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c06
+String1=0x04,Hauptstrasse K566
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333113333111333313"
+"311133111133311113331113"
+"311133111133111113311113"
+"311133331133331113333113"
+"311111133133133113313313"
+"311111133133133113313313"
+"311133331113331111333113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
+Type=0x11c07
+String1=0x04,Hauptstrasse K567
+DayXpm="24 11 3 1"
+"2 c none"
+"1 c #FFFFFF"
+"3 c #000000"
+"233333333333333333333332"
+"311111111111111111111113"
+"311133333113333113333313"
+"311133111133311111113313"
+"311133111133111111133113"
+"311133331133331111133113"
+"311111133133133111331113"
+"311111133133133111331113"
+"311133331113331113311113"
+"311111111111111111111113"
+"233333333333333333333332"
+[end]
+[_point]
 Type=0x6600
 String1=0x04,Flur- und Gelaendename
 FontStyle=SmallFont
 CustomColor=Day
 DayCustomColor=#000000
 DayXpm="2 2 2 1"
-"2 c none"
-"1 c #000000"
-"22"
-"22"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
 [end]
 [_point]
-Type=0x0c00
-String1=0x04,Ort
+Type=0x0a00
+String1=0x04,Ort ab 10000 Einwohner
 FontStyle=LargeFont
 CustomColor=Day
 DayCustomColor=#000000
 DayXpm="2 2 2 1"
-"2 c none"
-"1 c #000000"
-"22"
-"22"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
+[end]
+[_point]
+Type=0x0b00
+String1=0x04,Ort ab 100 Einwohner
+FontStyle=NormalFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
+[end]
+[_point]
+Type=0x0c00
+String1=0x04,Ort unter 100 Einwohner
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
 [end]
 [_point]
 Type=0x0d00
@@ -2317,10 +7960,10 @@ FontStyle=NormalFont
 CustomColor=Day
 DayCustomColor=#000000
 DayXpm="2 2 2 1"
-"2 c none"
-"1 c #000000"
-"22"
-"22"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
 [end]
 [_point]
 Type=0x0e00
@@ -2329,8 +7972,44 @@ FontStyle=SmallFont
 CustomColor=Day
 DayCustomColor=#000000
 DayXpm="2 2 2 1"
-"2 c none"
-"1 c #000000"
-"22"
-"22"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
+[end]
+[_point]
+Type=0x11310
+String1=0x04,Gebietsname
+FontStyle=SmallFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
+[end]
+[_point]
+Type=0x11311
+String1=0x04,Landschaftsname
+FontStyle=NormalFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
+[end]
+[_point]
+Type=0x11312
+String1=0x04,Grossregion
+FontStyle=LargeFont
+CustomColor=Day
+DayCustomColor=#000000
+DayXpm="2 2 2 1"
+"1 c none"
+"2 c #000000"
+"11"
+"11"
 [end]
