@@ -2,8 +2,8 @@
 """swissTLM3D (Shapefile, LV95) -> OSM-XML fuer mkgmap (SwissTOPO Vector).
 
 Die Objekte bekommen eigene Tags (tlm_layer, tlm_type, ...), die der mkgmap-Style
-in mkgmap/vector/style/ auf Garmin-Typen abbildet. Zusaetzlich wird aus den Gebaeuden ein
-Siedlungsgebiet (tlm_layer=siedlung) abgeleitet: Union der um 14 m vergroesserten Gebaeude.
+in mkgmap/vector/style/ auf Garmin-Typen abbildet (Darstellung nach der swisstopo-Zeichenerklaerung). Ebenen, Objektarten und
+Varianten: LAYERS, NUR, NUR_EDGE unten. Zusaetzlich entstehen Umrisslinien (tlm_layer=umriss, ufer, natpark) und Punkte (hpkt, ulift).
 
   python3 vector2mkgmap.py --shp DIR --bbox W S E N --out DIR [--tile-km 20]
 

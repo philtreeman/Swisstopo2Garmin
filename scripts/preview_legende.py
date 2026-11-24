@@ -157,6 +157,9 @@ def render(osm, typ_path, out, variant="edge", mpp=9.6, box=None, labels=False, 
                 im = Image.fromarray(arr); dr = ImageDraw.Draw(im)
     # --- Punkte
     fs = {"SmallFont": 9, "NormalFont": 11, "LargeFont": 14}
+    placed = []   # belegte Beschriftungsflaechen (einfache Kollisionsvermeidung wie im Geraet)
+    # grosse Schrift zuerst, damit sie nicht von kleinen verdraengt wird
+    pts.sort(key=lambda p: -fs.get(typ["point"].get(p[0], {}).get("FontStyle"), 0))
     for t, x, y, tags in pts:
         d = typ["point"].get(t)
         if d is None: print("kein TYP fuer Punkt", t, file=sys.stderr); continue
@@ -168,7 +171,12 @@ def render(osm, typ_path, out, variant="edge", mpp=9.6, box=None, labels=False, 
         nm = tags.get("name")
         if nm and d.get("FontStyle") in fs and (labels or t in ("0x6616", "0x6615")):
             col = typ_read._hex(d.get("DayCustomColor", "#000000"))
-            dr = ImageDraw.Draw(im); dr.text((px + d["w"] / 2 + 2, py - 5), nm.title() if nm.isupper() else nm, fill=col, font=font(fs[d["FontStyle"]]),
+            dr = ImageDraw.Draw(im)
+            bb = dr.textbbox((px + d["w"] / 2 + 2, py - 5), nm, font=font(fs[d["FontStyle"]]))
+            if any(not (bb[2] < r[0] or bb[0] > r[2] or bb[3] < r[1] or bb[1] > r[3]) for r in placed):
+                continue
+            placed.append(bb)
+            dr.text((px + d["w"] / 2 + 2, py - 5), nm.title() if nm.isupper() else nm, fill=col, font=font(fs[d["FontStyle"]]),
                                               stroke_width=1, stroke_fill=(255, 255, 255))
     im.save(out)
     print("ok", out, f"{W}x{H}", "res", res, len(polys), "Flaechen", len(lines), "Linien", len(pts), "Punkte")

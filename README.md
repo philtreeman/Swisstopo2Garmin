@@ -2,7 +2,7 @@
 
 Dieses Repo baut aus offenen Bundesdaten Vektorkarten für Garmin-Geräte (`.img`):
 
-- **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit mehr Namen, Grenzen und Schildern; Fenix reduziert).
+- **SwissTOPO Vector Edge / Fenix** (`swisstopo_vector_edge_schweiz.img`, `swisstopo_vector_fenix_schweiz.img`): die Basiskarten der ganzen Schweiz aus swissTLM3D, zwei Varianten (Edge mit allen Details, Namen, Grenzen und Schildern; Fenix mit denselben Farben und Symbolen, aber reduziert), Darstellung nach der swisstopo-Zeichenerklärung.
 - **Höhenlinien** (10 m und 20 m) und **Routen-Overlays** (Wanderwege, Wanderland, Veloland, Mountainbikeland, Skirouten): je eine **eigene Karte** mit eigener Family-ID, die auf eine Basiskarte gelegt wird (SwissTOPO Vector, die Garmin-Karte oder OpenTopoMap).
 - **Hangneigung** und **Hangneigungsklassen** (ab 30°, wie swisstopo «Hangneigung über 30°»): zwei semitransparente Flächen-Overlays aus swissALTIRegio (10 m), siehe Abschnitt [Hangneigungs-Overlays](#hangneigungs-overlays).
 
@@ -41,8 +41,8 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | Ordner | Inhalt | Grösse |
 |---|---|---|
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m und 20 m, ganze Schweiz, je in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 168 MB und 109 MB |
-| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 4 Teilen, routingfähig (zusammensetzen mit `cat`, siehe README im Ordner) | 309 MiB (323'764'224 Byte) |
-| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 4 Teilen, routingfähig | 291 MiB (304'742'400 Byte) |
+| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 4 Teilen, routingfähig (zusammensetzen mit `cat`, siehe README im Ordner) | 304 MiB (318'267'392 Byte) |
+| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 4 Teilen, routingfähig | 278 MiB (291'241'984 Byte) |
 | `karten/overlays_schweiz/` | alle Overlays einzeln, ganze Schweiz (Routen, Haltestellen, Winter, Skipisten, Hangneigung) | 137 MB, davon Hangneigung 75 MB und Hangneigungsklassen 45 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 | `karten/routing_test/` | **SwissTOPO Vector Routing Test** (Family-ID 3930): Edge-Variante als routingfähige Karte, Raum Baden–Wettingen–Dättwil, mit Testanleitung (siehe [Routing](#routing-status-test)) | 5,8 MB |
@@ -89,9 +89,12 @@ scripts/                       alle Skripte
   make_hangneigung_typ.py        schreibt die beiden TYP-Dateien (Farben, Punktmuster)
   preview_hangneigung.py         Vergleichszeichnung gegen die swisstopo-WMTS-Ebenen
   build_vector.sh                baut SwissTOPO Vector (ganze Schweiz oder Region)
-  vector2mkgmap.py                  swissTLM3D-Shapefiles → OSM-XML, inkl. abgeleitetem Siedlungsgebiet
+  vector2mkgmap.py                  swissTLM3D-Shapefiles → OSM-XML
   make_vector_typ.py             schreibt die TYP-Datei (Farben, Muster, Linien; --fid, --routing für Testkarten)
-  vector_palette.py              Farben von SwissTOPO Vector (aus Edge-1040-Bildschirmfotos)
+  vector_palette.py              Farben von SwissTOPO Vector (swisstopo-Zeichenerklärung)
+  vector_patterns.py             Flächenmuster, vector_shields.py Strassenschilder, kantonsschilder.py Kantonsstrassen-Nummern
+  style_eval.py, typ_read.py     Auswertung von Stil und TYP für die Vorschau
+  preview_legende.py             Vorschau mit Mustern, Linien und Punkten; preview_tafel.py: Tafel aller Signaturen
   preview_vector.py              Vorschau-Zeichnung von SwissTOPO Vector
 mkgmap/
   overlays/style/                mkgmap-Regeln: Tags → Garmin-Linientypen
@@ -201,27 +204,54 @@ scripts/build_hangneigung.sh swissBOUNDARIES3D_1_5_LV95_LN02.gpkg mkgmap.jar out
 *Raum Davos, Schiahorn (Zoom 15): links eigene Zeichnung der beiden Overlays mit den TYP-Mustern 1:1 über der grauen Landeskarte, rechts die swisstopo-WMTS-Ebenen. Eigene Zeichnung, kein Rendering vom Gerät.*
 
 ## SwissTOPO Vector, zwei Varianten (Family-ID 3900 und 3901)
-Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in vier Teilen wegen der GitHub-Grenze von 100 MB. Die Darstellung ist an Bildschirmfotos der Garmin-Vektorkarte auf dem Edge 1040 gemessen; die Flächenmuster für Fels und Reben sind aus diesen Fotos ausgelesen (`scripts/extract_pattern.py`, persönlicher Gebrauch, das Repo ist privat). **Auf keinem Gerät geprüft** (der Nutzer hat nur eine frühere Fassung auf dem Edge 1040 gesehen, sie lud).
+Vektorkarten der ganzen Schweiz aus swissTLM3D (Stand 2026-02), je eine Datei in vier Teilen wegen der GitHub-Grenze von 100 MB. **Seit 2026-11-24 folgt die Darstellung strikt der swisstopo-Zeichenerklärung «Landeskarten 1:10 000, 1:25 000 und 1:50 000»** (Farben, Muster und Symbole am PDF gemessen, `scripts/vector_palette.py`); die frühere Darstellung nach Bildschirmfotos der Garmin-Karte ist ersetzt, ebenso die daraus ausgelesenen Fels- und Rebenmuster (`vector_pattern_tiles.py` entfällt). Es gibt nur noch **eine** Darstellung: die vier TYP-Dateien (`edge`, `fenix`, `edge_swisstopo`, `fenix_swisstopo`) sind bis auf die Family-ID gleich. **Auf keinem Gerät geprüft.**
 
 | | **SwissTOPO Vector Edge** (3900) | **SwissTOPO Vector Fenix** (3901) |
 |---|---|---|
-| Ordner | `karten/swisstopo_vector_edge_schweiz/` (309 MiB) | `karten/swisstopo_vector_fenix_schweiz/` (291 MiB) |
-| Fels | graue Fläche mit Textur | einfach grau |
-| Namen | Orts-, Strassen-, Gewässer-, Flur-, Geländenamen, Berge mit Höhe («Säntis 2502») | nur die Höhe an Gipfeln und Pässen |
-| Grenzen (swissBOUNDARIES3D) | Landes-, Kantons-, Gemeindegrenzen, magenta | keine |
-| Strassenschilder (ASTRA) | Nationalstrassen N1 … N29 und 56 Hauptstrassennummern | keine |
-| Sportplätze, Freizeitflächen | ja (Sportplätze orange) | nein |
+| Ordner | `karten/swisstopo_vector_edge_schweiz/` | `karten/swisstopo_vector_fenix_schweiz/` |
+| Grundsatz | voller Detailgrad der Legende | gleiche Farben und Symbole, aber **Details weggelassen** statt vereinfachte Stile zu erfinden |
+| Gebäude | schwarz; offene Gebäude, Treibhäuser, Flugdächer schraffiert | alle schwarz, keine Untertypen |
+| Muster (Fels, Geröll, Wald offen, Gebüschwald) | ab Auflösung 21 (Fels, Geröll, Wald offen, Gebüschwald) | erst ab Auflösung 22 |
+| Punktsymbole (Quelle, Brunnen, Gipfelkreuz, Denkmal, Spital, Heliport, Windturbine, Antennen, Lift, Durchfahrtssperre, Raststätte, Autoverlad) | ja | nein; nur Höhenkoten an Gipfeln und Pässen |
+| Einzelbäume | grünes Plus 3 × 3, eine pro 70-m-Zelle, nur feinste Stufe | wie Edge (nur feinste Stufe) |
+| Namen | Orts- (Schrift nach Einwohnerzahl), Strassen-, Gewässer-, Flur-, Gelände-, Gebietsnamen, Berge mit Höhe | nur die Höhe an Gipfeln und Pässen |
+| Grenzen (swissBOUNDARIES3D) | Landes-, Kantons-, Bezirks-, Gemeindegrenze, Nationalparkgrenze | keine (Nationalpark ebenfalls nicht) |
+| Strassenschilder | Nationalstrassen, Hauptstrassen (ASTRA) und 264 weitere Hauptstrassen-Nummern (swissTLM3D) | keine |
+| Weitere Ebenen | Sport- und Freizeitanlagen, Sportbauten, Hafenstege, Fähren | Freizeitanlagen (nur Fläche) |
 
-Gemeinsam: Einzelbäume, Schutzverbauungen und Treppen (rot gepunktet) nur in der feinsten Zoomstufe; Reben (orange Blitzstriche auf hellgrün); Tunnel schwarz gestrichelt ohne Farbe (zwei Randlinien, Strassen bis 4 m eine Linie; wie in der swisstopo-Zeichenerklärung, unabhängig von der Verkehrsbedeutung); Brücken in der Strassenfarbe mit 2 px schwarzem Rand; Galerien und gedeckte Brücken in der Strassenfarbe mit Querstrichen; Treppen schwarze Doppellinie mit roter Punktreihe; Klettersteige rot gestrichelt; Wege nach der Zeichenerklärung (2-m-Weg Hartbelag Doppellinie, Naturbelag und Steg feine Volllinie, 1-m-Weg gestrichelt, markierte Spur punktiert); Schutzverbauungen braun, 2 px.
+### Darstellung nach der Zeichenerklärung (Stand 2026-11-24)
+Typnummern nach Art: Flächen `0x4b`…`0x10e0f`, Linien `0x01`…`0x1f`, `0x10e00`–`0x10e1f` (Strassen, Brücken, Tunnel, Galerien, Grenzen) und `0x11300`–`0x11315` (neu), Punkte `0x10f00` (Einzelbaum), `0x11300`–`0x1130f` (neu), Schilder `0x10f01`–`0x10f19`, `0x11100`–`0x11217`, `0x11400`–`0x11c07`.
 
-| Element | Darstellung |
+| Element | Darstellung (Typ) |
 |---|---|
-| Untergrund | creme `#FFFAE6` |
-| Siedlungsgebiet | hellgrau `#EEEEEE`, **abgeleitet** aus den Gebäuden (jedes Gebäude 14 m vergrössert, vereinigt, Gruppen unter 8'000 m² verworfen) |
-| Gebäude | grau `#8B898B` |
-| Wald / Gehölz | grün `#A4D26A` / hellgrünes Punktmuster |
-| Gewässer | See hellblau, Bäche und Flüsse `#52BAF6` |
-| Strassen | nach der swisstopo-Zeichenerklärung (Stand 2026-11-24, in beiden Designs gleich), Farbe nach **Verkehrsbedeutung** (swissTLM3D `VERKEHRSBD`, Tag `tlm_vbed`, wird immer mitgeschrieben): Autobahn und Autostrasse orange `#F7A71F` (Typ 0x01), Durchgangsstrasse rosa `#F8C7C8` (0x02), Verbindungsstrasse gelb `#FFF481` (0x03), übrige Strassen weiss (6 m 0x04, 8/10 m 0x05, 3/4 m 0x06), alle mit schwarzem Rand; Naturbelag 4/3 m feine schwarze Linie (0x07); Breite der Linie folgt der Strassenbreite, die Farbe nicht |
+| Untergrund | `#FEFFED` (0x4b); das abgeleitete graue Siedlungsgebiet entfällt (nicht in der Legende) |
+| Wald | `#CBE5D3` (0x50); **Wald offen** grüne 2 × 2-Punkte `#00964E` ca. 8 % (0x10e01); **Gebüschwald** 1-px-Punkte ca. 12 % (0x10e02); **Gehölz/Hecke** Punkte (0x4f) |
+| Obstanlage, Baumschule, Reben | auf Weiss: Punktraster 4 px mit 1-px-Punkt (0x10e08), dichter 3-px-Raster mit versetzten Reihen (0x10e09), senkrechte kurze Striche (0x4e); alle `#00964E` |
+| Einzelbaum | grünes Plus 3 × 3, Ecken durchsichtig (0x10f00) |
+| Fels, Felsblöcke (auch «locker») | schwarze Striche, ca. 12 % (0x52); früher graue Fläche |
+| Geröll (Lockergestein, auch «locker») | schwarze Punkte, Dichte 0.06 (0x53) |
+| **Gletscher, Schneefeld/Toteis** | weiss `#FFFFFF` (0x10e00), fehlte bisher |
+| Feuchtgebiet | kurze waagrechte Striche `#008AD2`, 32-px-Muster, Reihen versetzt (0x51) |
+| Seen, Flussflächen | `#D4EDFC` (0x3f), `#BCE4FA` (0x10e03); **See mit wechselndem Wasserstand** heller `#E9F5FD` (0x10e0f, aus `WSTAND_WE`); Seeinsel Untergrundfarbe (0x10e0e; vorher fälschlich Rebenmuster) |
+| Bäche, Flüsse, Suonen | `#008AD2`, 1 px (0x18), jetzt für `VERLAUF` oberirdisch, Wasserfall und Brücke (schliesst Lücken; vorher nur `STUFE=0`); Seeufer als eigene Linie (0x11315, nur Seen ab 150 m Umfang); Druckleitung mit Querstrichen (0x11308), Druckstollen gestrichelt (0x11309), Trockenrinne schwarz gepunktet 1/2 (0x10e03), Gewässerverbauung blaue Linie (0x1130a, nur feinste Stufe), Hafensteg schwarz (0x1130b) |
+| Gewässernamen | blau `#008AD2` über Schriftfarbe der TYP-Datei (Flächen 0x3f/0x10e0f, Linien 0x18) – ob das Gerät die Farbe übernimmt, ungeprüft |
+| Bahn | rot `#E3000B`: Normalspur 3 px (0x14), Schmalspur/Kleinbahn 2 px (0x11300), Anschlussgleis und Tram 1 px (0x11301), Tunnel rot gestrichelt 4/3 (0x10e14), Galerie mit Kästchenreihe (0x11302); **Bahnübergang-Balken entfällt** (nicht in der Legende, `0x10e19` ungenutzt) |
+| Seilbahnen | Luftseilbahn rot 2 px (0x11303), Gondel-/Sesselbahn rot 1 px (0x11304), Transportseil und «ausser Betrieb» schwarz 1 px (0x11305), Skilift `#CE7611` mit Querstrichen (0x11306), Förderband schwarz mit Punkten (0x11307), Lift als rotes Quadrat (Punkt 0x1130a); keine Masten |
+| Grenzen (Edge) | Landesgrenze `#E5007C` 2 px mit Band `#F5B4D2` (0x10e0a), Kantonsgrenze 1 px mit Band (0x10e0b), Bezirksgrenze `#F5B4D2` (0x1130e), Gemeindegrenze gestrichelt 6/3 (0x10e0c), Nationalparkgrenze Band `#9DCC8F` mit Linie `#05A535` (0x1130f) |
+| Gebäude | `#000000` (0x10e05) jetzt auch Kapelle, Sakraler Turm, Turm, Hochkamin, Lagertank, Im Bau, Mauer gross, Verbindungsbrücke; Offenes Gebäude/Treibhaus/Flugdach schwarze Schraffur auf Weiss (0x10e0a, nur Edge); Mauer schwarz 2 px (0x10e04); Trockenmauer schwarz gepunktet (0x1130d); Schutz-/Lawinenverbauung schwarz 2 px (0x10e06) |
+| Areale | Park, Freizeit, Sport, Camping, Golf `#E1EFE2` (0x19); Friedhof `#E1EFE2` mit schwarzen Kreuzen (0x1a); Schrebergarten `#E1EFE2` mit schwarzen Punkten (0x10e04); Deponie `#E9D9C4` (0x10e06); die übrigen Areale (Schule, Industrie, Parkplatz u. a., «Wald nicht bestockt») ohne Füllung (früher graues 0x0c/0x0e, «Wald nicht bestockt» fälschlich grau) |
+| Neue Ebenen | Hochspannungsleitung `#0789CB` Strich-Punkt (0x11310); Staumauer grau mit schwarzem Umriss (0x10e07), Staudamm hellgrau (0x10e0b, Näherung), Wehr schwarz; Sportbauten: Laufbahn, Skisprunganlage (0x11312), Rodelbahn (0x11313), Schiessstand und Pferderennbahn gepunktet, Sportplatz (0x19 mit Umriss 0x11311); Flugplatzpiste Hartbelag weiss, Gras `#E1EFE2`, beide mit schwarzem Umriss; Fähren schwarz gestrichelt (0x1130c) |
+| Punkte (Edge) | Quelle «c» blau, Brunnen blauer Ring, Wasserversorgung blaues Quadrat mit Punkt, Gipfelkreuz/Bildstock schwarzes Kreuz, Denkmal, Triangulationspyramide, Höhle, Spital blaues «H», Heliport «H» im Kreis, Windturbine, Antennen, Durchfahrtssperre rotes Kreuz (nur feinste Stufe, 23'796 Stück), Raststätte, Autoverlad (vereinfachte Symbole); **Gipfel und Pässe** schwarzes «×» mit Höhe statt braunem Rhombus |
+| Ortsnamen | Schriftgrösse nach Einwohnerzahl (`EINWOHNERK`): ab 10'000 gross, ab 100 normal, darunter klein (Punkttypen 0x0a00, 0x0b00, 0x0c00); Quartier/Ortsteil normal, Quartierteil klein; Gebietsnamen (`GEBIETSNAME`: Grossregion gross nur in groben Stufen, Landschaftsname normal, Gebiet klein) |
+| Strassen | unverändert (Abschnitt «Strassenfarben» unten) |
+
+**Muster-Auflösung der Garmin-Karte:** Garmin-TYP-Muster sind 32 × 32 Pixel, die Karte zeigt sie unabhängig vom Massstab in voller Pixelgrösse. Für Fenix sind Fels, Geröll, Wald offen und Gebüschwald deshalb erst ab Auflösung 22 gezeichnet (darunter nur Untergrund). Ob die Muster auf dem kleinen Display lesbar sind, ist ungeprüft.
+
+**Nicht umsetzbar oder angenähert:** Felsschraffur der Rasterkarte (nicht in den Vektordaten; stattdessen Strichmuster), Staudamm nur als hellgraue Fläche mit Umriss, Masten der Seilbahnen und Tunnelportal-Querstriche fehlen, die Gebäudesignaturen der Legende (Hochhaus mit Rand, Kirchturm als Kreis, Kühlturm, Aussichtsturm) nur als schwarze Fläche, Wasserbecken/Schwimmbecken (71'164 Flächen in `STAUBAUTE`) weggelassen, Solarkraftwerk, Unterwerk-Signatur und Raststätten-Fläche fehlen, Landesgrenze «Drittstaaten» und «umstritten» sowie Grenzsteine ohne Unterscheidung, Gewässerverbauung als einfache blaue Linie. Die Legende zeigt bei der Fähre schwarze Striche auf blauem Band: umgesetzt sind schwarz gestrichelte Linien.
+
+**Farben, Muster und Stil ändern:** `scripts/vector_palette.py` (Farben), `scripts/vector_patterns.py` (Flächenmuster, mit festem Zufallswert erzeugt), `scripts/vector_shields.py` (Strassenschilder), `scripts/make_vector_typ.py [edge|fenix]` (Linien, Punkte, Reihenfolge), Zuordnung Objektart → Typ in `mkgmap/vector/style/{lines,polygons,points}` mit Varianten in `inc/polygons_{edge,fenix}` und `inc/points_edge` (`build_vector.sh` setzt `--style-option=variant=edge|fenix`). **Vorschau:** `scripts/preview_legende.py` (Flächen mit Mustern, Linien mit Muster, Punkte, Namen; wertet den echten Stil mit `style_eval.py` und die TYP-Datei mit `typ_read.py` aus; kein Garmin-Rendering) und `scripts/preview_tafel.py` (Tafel aller Signaturen neben den Ausschnitten der Zeichenerklärung); Ergebnisse in `docs/vergleich/`.
+
+Kantonsstrassen-Schilder: `scripts/kantonsschilder.py <shp-ordner> <csv>` liest swissTLM3D `STRASSENROUTE` (Hauptstrasse A/B/C mit `ROUTENNUMM`) und `STRASSENROUTE_STRASSE` (Verknüpfung per UUID zu `STRASSE`) und setzt alle 4000 m einen Punkt je Route (1'375 Schilder, 264 Nummern wie 279, 288, 566; Nummern des ASTRA-Netzes fallen weg, damit nichts doppelt erscheint); der Bau liest die CSV mit `KANTONSSCHILDER=<csv>`.
 
 Skilifte, Unterkünfte Winter und Schneeschuhrouten sind ebenfalls eigene Layer (`karten/overlays_schweiz/`, Family-ID 3921, 3922 und 3923, auf keinem Gerät geprüft):
 ```
@@ -234,18 +264,18 @@ Haltestellen sind **nicht** in der Basiskarte, sondern ein eigener Layer: `karte
 
 ```
 # ganze Schweiz, Edge (Grenzen und Schilder brauchen die Zusatzdaten, siehe unten)
-VARIANT=edge GRENZEN=<gpkg> ACHSEN=<gdb> HAUPT=<gdb> scripts/build_vector.sh <shp-ordner> mkgmap.jar out/
+VARIANT=edge GRENZEN=<gpkg> ACHSEN=<gdb> HAUPT=<gdb> KANTONSSCHILDER=<csv> scripts/build_vector.sh <shp-ordner> mkgmap.jar out/
 VARIANT=fenix scripts/build_vector.sh <shp-ordner> mkgmap.jar out/
 scripts/build_vector.sh <shp-ordner> mkgmap.jar out/ 8.24 47.44 8.38 47.51   # Region (Datei *_region.img)
 scripts/download_vector_zusatz.sh <ordner>    # swissBOUNDARIES3D, ASTRA Nationalstrassenachsen und Hauptstrassennetz
 ```
-Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen entpackt im `<shp-ordner>` liegen (`swissTLM3D_TLM_*.shp`).
+Die Shapefiles stammen aus dem swissTLM3D-Download (`swisstlm3d_2026-02_2056_5728.shp.zip`, 3,6 GB, Link im STAC unter `ch.swisstopo.swisstlm3d`) und müssen entpackt im `<shp-ordner>` liegen (`swissTLM3D_TLM_*.shp`). Seit der Legenden-Darstellung zusätzlich nötig (alle in derselben ZIP-Datei): `LEITUNG`, `STAUBAUTE`, `SPORTBAUTE_LIN`, `SPORTBAUTE_PLY`, `VERKEHRSBAUTE_LIN`, `VERKEHRSBAUTE_PLY`, `SCHUTZGEBIET`, `VERSORGUNGSBAUTE_PKT`, `SCHIFFFAHRT`, `STRASSENINFO`, `GEBIETSNAME` (je `.shp .shx .dbf .prj .cpg`) sowie die Tabellen `STRASSENROUTE.dbf` und `STRASSENROUTE_STRASSE.dbf` (für `scripts/kantonsschilder.py`); sie lassen sich ohne den ganzen Download einzeln per HTTP-Range aus der ZIP-Datei lesen (Zentralverzeichnis am Ende, dann nur die Bereiche der gewünschten Dateien).
 
 Ablauf: Kachelliste im LV95-Raster (20 × 20 km, 234 Kacheln) → je Kachel parallel (3 Prozesse) swissTLM3D → OSM-XML (das ist nur das Zwischenformat für mkgmap, keine OpenStreetMap-Daten; es werden keine OSM-Daten verwendet; Ausnahme: das Skipisten-Overlay, siehe dort) → mkgmap → Kachel-`.img` → mkgmap fügt alle Kacheln und die TYP-Datei zusammen. Fertige Kacheln werden übersprungen. Dauer je Variante etwa 45 bis 60 Minuten mit 4 Kernen und 15 GB RAM. Ist das Ergebnis über 90 MB, entstehen Teile `*.img.part_aa, _ab, …`.
 
 **Farben und Muster ändern:** `scripts/vector_palette.py` (Farben), `scripts/vector_pattern_tiles.py` und `scripts/vector_patterns.py` (Flächenmuster), `scripts/vector_shields.py` (Strassenschilder), `scripts/make_vector_typ.py [edge|fenix]` (Linien, Punkte, Reihenfolge). Zuordnung Objektart → Typ: `mkgmap/vector/style/`. Zeichnungen zum Vergleich mit der Rasterkarte: `scripts/compare_vector.py`, Ergebnisse in `docs/vergleich/` (eigene Zeichnungen, **kein** Geräte-Rendering).
 
-**Noch nicht umgesetzt:** POIs wie Restaurants, Parkplatzsymbole, Museen (nicht in swisstopo-Daten; als eigene Karte aus OpenStreetMap geplant, braucht Freigabe von `download.geofabrik.de`), Brücken mit Geländer, Strassennummern-Schild für Kantonsstrassen, Felsschraffur wie auf der Rasterkarte (nicht als Vektordaten vorhanden).
+**Noch nicht umgesetzt:** POIs wie Restaurants, Parkplatzsymbole, Museen (nicht in swisstopo-Daten; als eigene Karte aus OpenStreetMap geplant, braucht Freigabe von `download.geofabrik.de`), Brücken mit Geländer, Felsschraffur wie auf der Rasterkarte (nicht als Vektordaten vorhanden).
 
 ### Strassenfarben nach swisstopo-Zeichenerklärung (2026-11-24)
 Quelle: «Zeichenerklärung Landeskarten 1:10 000 bis 1:1 Million» (swisstopo 2024), Seite 2, am PDF gemessen (Orange `#F7A71F`, Durchgangsstrasse `#F8C7C8`, Verbindungsstrasse `#FFF481`, Rand `#000000`, Klettersteig `#E3000B`). Bis dahin färbte `lines` nach Breite (10/8 m orange); die Hauptstrasse 5 (6-m-Strasse, Durchgangsstrasse) war deshalb nicht orange. Jetzt entscheidet `VERKEHRSBD` (immer als `tlm_vbed` im OSM, nicht nur mit `--routing`). Zuordnung `lines` (Auflösung): Autobahn 0x01 (18), Autostrasse 0x01 (19), Durchgangsstrasse der Breiten 10/8/6/4/3 m und Verbindung 0x02 (19), Verbindungsstrasse 0x03 (20), sonst 10/8 m 0x05 (19), 6 m 0x04 (20), 4/3 m 0x06 (22), Naturbelag 4/3 m 0x07. Erweiterte Typen (Linien; alle 0x10e00–0x10e1f sind jetzt belegt): Tunnel 0x10e10–0x10e13 nur nach Breite, schwarz gestrichelt; Brücken 0x10e15 (Autobahn/Autostrasse), 0x10e1a (Durchgang), 0x10e1b (Verbindung), 0x10e16–0x10e18 (übrige); Galerien/gedeckte Brücken 0x10e1c (Durchgang), 0x10e1d (Verbindung), 0x10e1e (übrige), 0x10e1f (Autobahn/Autostrasse); Klettersteig 0x10e00. KUNSTBAUTE ganze Schweiz: Keine 1'961'749, Treppe 38'328, Bruecke 56'012, Unterfuehrung 6'555, k_W 27'155, Furt 1'702, Tunnel 1'739, Bruecke mit Treppe 876, Galerie 440, Gedeckte Bruecke 424, Unterfuehrung mit Treppe 415, Steg 334, Staumauer/Wehr 232, in/auf Gebaeude 610, Staudamm 43, Bruecke mit Galerie 18; Zuordnung: Treppe/mit Treppe Treppensymbol, Galerie/Gedeckte Bruecke/Bruecke mit Galerie Galerie (nur Strassen, Wege bleiben Wege), Steg 0x0b, Tunnel und Brücke wie oben, Unterführung, Furt, Staumauer, Staudamm und «in/auf Gebäude» wie gewöhnliche Strasse (die Zeichenerklärung führt keine eigenen Symbole). Vorschau: `scripts/preview_strassen.py` (wertet die echten Stildateien aus, **kein Geräte-Rendering**).
