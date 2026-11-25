@@ -69,7 +69,7 @@ def panel(base, x0, y0, sc, ways, rules, farben, res, zwanzig):
             col, wd = farben[t]
             xy = [((wpx(lo, la)[0] - x0) * PW / sc, (wpx(lo, la)[1] - y0) * PW / sc) for lo, la in pts]
             d.line(xy, fill=col, width=wd)
-            if tg["contour"] == "100":
+            if tg["contour"] == "100" and t != "0x10f16":    # Fels: keine Hoehenzahl
                 labels.append((xy[len(xy) // 2], str(ele), col))
     for (x, y), txt, col in labels[::6]:
         d.text((x, y), txt, fill=col, font=f, stroke_width=2, stroke_fill=(255, 255, 255))

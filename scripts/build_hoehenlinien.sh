@@ -7,7 +7,8 @@
 #   [W S E N]           optionale Bounding Box (WGS84); ohne Angabe: ganze Schweiz
 # Umgebungsvariablen: JOBS (parallele Bloecke, Standard 3), SPLIT_MB (Standard 90), TLM_DIR (Ordner mit swissTLM3D_TLM_BODENBEDECKUNG_OST/WEST.shp;
 #   gesetzt: Hoehenlinien auf Gletschern blau und auf Fels schwarz, siehe untergrund_polygone.py; ohne: alle braun;
-#   OHNE_BLOECKE=1 laesst Felsbloecke weg)
+#   OHNE_BLOECKE=1 laesst Felsbloecke weg;
+#   HGT_DIR (1"-HGT-Kacheln aus make_dem_hgt.py): auf steilem Fels (ab 40/50/60 Grad fuer Intervall-/50-m-/100-m-Linien) Linien weglassen, STEIL="40,50,60" aendert die Schwellen)
 #
 # Ablauf:
 #   1. hoehenlinien2mkgmap.py --print-blocks   Liste der 20-km-Bloecke (LV95-Raster) mit vorhandenen 1-km-Kacheln
@@ -27,6 +28,7 @@ python3 "$S/make_overlay_typ.py" >/dev/null
 UG=()
 if [ -n "$TLM_DIR" ]; then
   mkdir -p "$OUT"; python3 "$S/untergrund_polygone.py" "$TLM_DIR" "$OUT/untergrund.npz"; UG=(--untergrund "$OUT/untergrund.npz"); [ -n "$OHNE_BLOECKE" ] && UG+=(--ohne-bloecke)
+  [ -n "$HGT_DIR" ] && UG+=(--hgt "$(realpath "$HGT_DIR")" --steil "${STEIL:-40,50,60}")
 fi
 mkdir -p "$OUT/osm" "$OUT/tiles10" "$OUT/tiles20"
 BB=(); [ $# -eq 4 ] && BB=(--bbox "$@")
