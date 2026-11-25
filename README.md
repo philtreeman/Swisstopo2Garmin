@@ -42,8 +42,8 @@ Fertige Dateien liegen im Ordner `karten/` (siehe unten).
 | Ordner | Inhalt | Grösse |
 |---|---|---|
 | `karten/overlay_hoehenlinien_schweiz/` | Höhenlinien 10 m und 20 m, ganze Schweiz, je in 2 Teilen (zusammensetzen mit `cat`, siehe README im Ordner) | 168 MB und 109 MB |
-| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 5 Teilen, routingfähig, **mit Reliefschattierung (DEM)** (zusammensetzen mit `cat`, siehe README im Ordner) | 415 MiB (434'913'280 Byte, 5 Teile, mit Reliefschattierung) |
-| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 4 Teilen, routingfähig | 278 MiB (291'241'984 Byte) |
+| `karten/swisstopo_vector_edge_schweiz/` | **SwissTOPO Vector Edge**, ganze Schweiz, in 5 Teilen, routingfähig, **mit Reliefschattierung (DEM)** (zusammensetzen mit `cat`, siehe README im Ordner) | 415 MiB (434'896'896 Byte, 5 Teile, mit Reliefschattierung) |
+| `karten/swisstopo_vector_fenix_schweiz/` | **SwissTOPO Vector Fenix**, ganze Schweiz, in 4 Teilen, routingfähig | 278 MiB (291'209'216 Byte) |
 | `karten/overlays_schweiz/` | alle Overlays einzeln, ganze Schweiz (Routen, Haltestellen, Winter, Skipisten, Hangneigung) | 137 MB, davon Hangneigung 75 MB und Hangneigungsklassen 45 MB |
 | `karten/overlays_oberiberg_test/` | alle 6 Overlays, Testausschnitt Oberiberg SZ (ca. 40 × 40 km) plus `vorschau.png` | 0,8 MB |
 | `karten/relief_test/` | Reliefschattierung-Testkarte Baden (Family-ID 3931, fünf DEM-Varianten); ersetzt durch das DEM in der Edge-Karte, nützlich für den Fenix-Test | 6 MB je Datei |
@@ -230,7 +230,8 @@ Typnummern nach Art: Flächen `0x4b`…`0x10e0f`, Linien `0x01`…`0x1f`, `0x10e
 | Wald | `#CBE5D3` (0x50); **Wald offen** grüne 2 × 2-Punkte `#00964E` ca. 8 % (0x10e01); **Gebüschwald** 1-px-Punkte ca. 12 % (0x10e02); **Gehölz/Hecke** Punkte (0x4f) |
 | Obstanlage, Baumschule, Reben | auf Weiss: Punktraster 4 px mit 1-px-Punkt (0x10e08), dichter 3-px-Raster mit versetzten Reihen (0x10e09), senkrechte kurze Striche (0x4e); alle `#00964E` |
 | Einzelbaum | grünes Plus 3 × 3, Ecken durchsichtig (0x10f00) |
-| Fels, Felsblöcke (auch «locker») | schwarze Striche, ca. 12 % (0x52); früher graue Fläche |
+| Fels, «Fels locker» | schwarze Striche, ca. 12 % (0x52); früher graue Fläche |
+| **Felsblöcke** (Blockfeld) | kleine unregelmässige schwarze Blockumrisse auf Untergrundfarbe, 8 Umrisse à 3–5 px je 32 × 32-Kachel (teils eine Ecke abgeschnitten, teils offen), ca. 9 % (0x10e10); **«Felsblöcke locker»** gleiche Art mit halber Blockzahl (4 Umrisse), ca. 5 % (0x10e11). Zeichenreihenfolge Stufe 3 nach Geröll und Fels. Muster **nicht lagetreu** (Zufallsverteilung, keine einzelnen Blöcke) und **auf dem Gerät ungeprüft**; Vorschau `docs/vergleich/legende_vorschau_bloecke.png` (Engstligenalp, kein Geräte-Rendering) |
 | Geröll (Lockergestein, auch «locker») | schwarze Punkte, Dichte 0.06 (0x53) |
 | **Gletscher, Schneefeld/Toteis** | weiss mit blauen Eisstruktur-Strichen `#6EC1EE` (32 × 32-Muster, ca. 7 %, 0x10e00; Vorschau `docs/vergleich/legende_vorschau_gletscher_blau.png`; vorher einfarbig weiss) |
 | Feuchtgebiet | kurze waagrechte Striche `#008AD2`, 32-px-Muster, Reihen versetzt (0x51) |

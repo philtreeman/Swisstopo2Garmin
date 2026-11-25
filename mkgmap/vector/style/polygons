@@ -13,7 +13,7 @@ tlm_layer=bb & (tlm_type=Gletscher | tlm_type='Schneefeld Toteis') [0x10e00 reso
 # Wald: nur «Wald» ist Flaeche; Wald offen und Gebueschwald sind Punktmuster (siehe inc/polygons_*), Gehoelzflaeche/Hecke Punkte
 tlm_layer=bb & tlm_type=Wald [0x50 resolution 20]
 tlm_layer=bb & tlm_type=Gehoelzflaeche [0x4f resolution 22]
-# Fels, Felsbloecke, Lockergestein (Geroell): schwarze Striche bzw. Punkte (siehe inc/polygons_*)
+# Fels (Striche), Felsbloecke (Blockumrisse 0x10e10, locker 0x10e11), Lockergestein (Geroell, Punkte) (siehe inc/polygons_*)
 tlm_layer=bb & tlm_type=Feuchtgebiet [0x51 resolution 22]
 # Gewaesser: See und Flussflaeche
 tlm_layer=bb & tlm_type='Stehende Gewaesser' [0x3f resolution 20]

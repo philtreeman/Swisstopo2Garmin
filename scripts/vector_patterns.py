@@ -105,6 +105,39 @@ def gletscher(dichte=0.07, seed=11):
     return _out(g)
 
 
+def bloecke(n, seed, gap=2):
+    """Blockfeld (LK: kleine unregelmaessige Blockumrisse, schwarz, ohne Fuellung): n Umrisse von 3 bis 5 px Kantenlaenge, bei
+    groesseren Umrissen eine Ecke abgeschnitten, teils mit Luecken (offen); Mindestabstand 'gap' px zwischen den Umrissen, auch ueber den
+    Kachelrand hinweg (Torus), damit die Kachel nahtlos ist"""
+    rnd = random.Random(seed); g = _leer(); boxes = []; tries = 0
+
+    def frei(x, y, w, h):
+        for bx, by, bw, bh in boxes:
+            sx = {(bx + k) % 32 for k in range(-gap, bw + gap)}
+            sy = {(by + k) % 32 for k in range(-gap, bh + gap)}
+            if any((x + i) % 32 in sx for i in range(w)) and any((y + j) % 32 in sy for j in range(h)):
+                return False
+        return True
+    while len(boxes) < n and tries < 20000:
+        tries += 1
+        w, h = rnd.choice((3, 4, 4, 5, 5)), rnd.choice((3, 4, 4, 5, 5))
+        if abs(w - h) > 1: continue
+        x, y = rnd.randrange(32), rnd.randrange(32)
+        if not frei(x, y, w, h): continue
+        ring = [(i, 0) for i in range(w)] + [(w - 1, j) for j in range(1, h)] + [(i, h - 1) for i in range(w - 2, -1, -1)] + [(0, j) for j in range(h - 2, 0, -1)]
+        if w >= 4 and h >= 4 and rnd.random() < 0.7:                    # eine Ecke abschneiden
+            ring.remove(rnd.choice([(0, 0), (w - 1, 0), (w - 1, h - 1), (0, h - 1)]))
+        if rnd.random() < 0.5:                                          # offen: 1 bis 2 Pixel fehlen (nur bei Umrissen ab 4 px)
+            for _ in range(rnd.choice((1, 2)) if w >= 4 and h >= 4 else 1):
+                if len(ring) > 9: ring.pop(rnd.randrange(len(ring)))
+        boxes.append((x, y, w, h))
+        for i, j in ring: g[(y + j) % 32][(x + i) % 32] = "f"
+    return _out(g)
+
+
+def deckung(rows): return sum(r.count("f") for r in rows) / 1024
+
+
 # Typ -> (Name, Hintergrund, Vordergrund, Muster)
 PATTERNS = {
     "0x10e01": ("Wald offen", BG, GRUEN, punkte(20, 2, 1, 2)),          # 2 x 2 Punkte, ca. 8 % der Flaeche
@@ -117,6 +150,8 @@ PATTERNS = {
     "0x1a": ("Friedhof", PARK, SCHWARZ, kreuze()),
     "0x10e04": ("Schrebergarten", PARK, SCHWARZ, raster_punkte(8, 2, 4)),
     "0x52": ("Fels", BG, SCHWARZ, striche(0.12, 3, 5)),                   # schwarze Striche, ca. 12 %
+    "0x10e10": ("Blockfeld", BG, SCHWARZ, bloecke(8, 5)),                 # Felsbloecke: 8 Blockumrisse, schwarz, ca. 9 %
+    "0x10e11": ("Blockfeld locker", BG, SCHWARZ, bloecke(4, 2)),          # Felsbloecke locker: halbe Blockzahl, ca. 5 %
     "0x10e00": ("Gletscher, Schneefeld", WEISS, GLETSCHER_STRICH, gletscher()),
     "0x53": ("Geroell", BG, SCHWARZ, punkte(61, 1, 6, 2)),                # schwarze Punkte, Dichte 0.06
     "0x10e0a": ("Offenes Gebaeude, Treibhaus, Flugdach", WEISS, SCHWARZ,

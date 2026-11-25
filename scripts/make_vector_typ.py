@@ -128,7 +128,7 @@ CodePage=1252
 
 # Zeichenreihenfolge der Flaechen (unten nach oben)
 DRAW_ORDER = [("0x4b", 1), ("0x19", 2), ("0x1a", 2), ("0x10e04", 2), ("0x10e06", 2), ("0x4e", 2), ("0x10e08", 2), ("0x10e09", 2),
-              ("0x4f", 2), ("0x50", 2), ("0x10e01", 3), ("0x10e02", 3), ("0x51", 3), ("0x53", 3), ("0x52", 3), ("0x10e00", 3),
+              ("0x4f", 2), ("0x50", 2), ("0x10e01", 3), ("0x10e02", 3), ("0x51", 3), ("0x53", 3), ("0x52", 3), ("0x10e10", 3), ("0x10e11", 3), ("0x10e00", 3),
               ("0x3f", 4), ("0x10e0f", 4), ("0x10e03", 4), ("0x10e0e", 4),
               ("0x10e0c", 5), ("0x10e0d", 5), ("0x10e07", 5), ("0x10e0b", 5), ("0x10e05", 6), ("0x10e0a", 6)]
 
@@ -157,7 +157,7 @@ parts = [
     solid_poly("0x10e06", "Deponie", DEPONIE),
     pattern_poly("0x4e"), pattern_poly("0x10e08"), pattern_poly("0x10e09"), pattern_poly("0x4f"),
     solid_poly("0x50", "Wald", WALD),
-    pattern_poly("0x10e01"), pattern_poly("0x10e02"), pattern_poly("0x51"), pattern_poly("0x53"), pattern_poly("0x52"),
+    pattern_poly("0x10e01"), pattern_poly("0x10e02"), pattern_poly("0x51"), pattern_poly("0x53"), pattern_poly("0x52"), pattern_poly("0x10e10"), pattern_poly("0x10e11"),
     pattern_poly("0x10e00"),
     solid_poly("0x3f", "See", WASSER_FL, BLAU_NAME("NormalFont")),
     solid_poly("0x10e0f", "See mit wechselndem Wasserstand", WASSER_SCHWANK, BLAU_NAME("NormalFont")),

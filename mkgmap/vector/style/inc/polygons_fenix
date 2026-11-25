@@ -1,6 +1,8 @@
 # Variante Fenix: keine Gebaeudeuntertypen (offene Gebaeude, Treibhaeuser, Flugdaecher wie Gebaeude, schwarz); Muster erst in den feinsten Stufen
 tlm_layer=gebaeude & (tlm_type='Offenes Gebaeude' | tlm_type=Flugdach | tlm_type=Treibhaus) [0x10e05 resolution 22]
-tlm_layer=bb & (tlm_type=Fels | tlm_type='Fels locker' | tlm_type=Felsbloecke | tlm_type='Felsbloecke locker') [0x52 resolution 22]
+tlm_layer=bb & (tlm_type=Fels | tlm_type='Fels locker') [0x52 resolution 22]
+tlm_layer=bb & tlm_type=Felsbloecke [0x10e10 resolution 22]
+tlm_layer=bb & tlm_type='Felsbloecke locker' [0x10e11 resolution 22]
 tlm_layer=bb & (tlm_type=Lockergestein | tlm_type='Lockergestein locker') [0x53 resolution 22]
 tlm_layer=bb & tlm_type='Wald offen' [0x10e01 resolution 22]
 tlm_layer=bb & tlm_type=Gebueschwald [0x10e02 resolution 22]

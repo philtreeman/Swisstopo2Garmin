@@ -22,6 +22,8 @@ Type=0x10e02,3
 Type=0x51,3
 Type=0x53,3
 Type=0x52,3
+Type=0x10e10,3
+Type=0x10e11,3
 Type=0x10e00,3
 Type=0x3f,4
 Type=0x10e0f,4
@@ -487,6 +489,84 @@ Xpm="32 32 2 1"
 "bbbbbbbbbbffbbbffbbbbbbbbbbbbbbb"
 "bbbbbbbbbbbbffbbbffbbbbffffbbbbb"
 "bbbbbffbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e10
+String1=0x04,Blockfeld
+Xpm="32 32 2 1"
+"b c #FEFFED"
+"f c #000000"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfffffbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfbbbfbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfbbbfbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbfffffbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbfffbbbbbbbbbbbbbbbbbbb"
+"fbbbbbbbbbfbbfbbbbbbbbbbbbbbbffb"
+"fbbbbbbbbbffffbbbbbbbbbbbbbbfbbb"
+"fbbbbbbbbbbbbbbbbbbbbbbbbbbbfbbb"
+"fbbbbbbbbbbbbbbbbbbbbbbbbbbbfbbb"
+"fbbbbbbbbbbbbbbbbbbbfffbbbbbffff"
+"bbbbbbbbbbbbbbbbbbbbfbbfbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbfbbfbbbbbbbb"
+"bbbbbbffffbbbbbbbbbbffbfbbbbbbbb"
+"bbbbbbbbbbfbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbfbbbfbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbfbbbfbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbfffffbbbbbbbbbbffffbbbbbbb"
+"ffbbbbbbbbbbbbbbbbbbbfbbfbbbbbff"
+"bfbbbbbbbbbbbbbbbbbbbffffbbbbbfb"
+"bfbbbbbbbbbbbbbbbbbbbbbbbbbbbbfb"
+"ffbbbbbbbbbbbbbbbbbbbbbbbbbbbbbf"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbffbfbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbfbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbffffbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+[end]
+[_polygon]
+Type=0x10e11
+String1=0x04,Blockfeld locker
+Xpm="32 32 2 1"
+"b c #FEFFED"
+"f c #000000"
+"bbbbbbbbbbbbbbbbbbbbbbbfffffbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbfffbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbfbbfbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbfbbfbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbffffbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbffbfbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbfbbbfbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbfbbbfbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbfbbbfbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbfffffbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfffbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfbfbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbfffbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbbffffbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbbfbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbbfbbbb"
+"bbbbbbbbbbbbbbbbbbbbbbbfbbbfbbbb"
 [end]
 [_polygon]
 Type=0x10e00
