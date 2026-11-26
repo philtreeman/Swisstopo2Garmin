@@ -10,8 +10,9 @@ Aus **swissALTI3D** (2 m Raster, jüngstes Jahr je Kachel), berechnet mit `scrip
 ```
 cat swisstopo_overlay_hoehenlinien_20m.img.part_* > swisstopo_overlay_hoehenlinien_20m.img
 cat swisstopo_overlay_hoehenlinien_10m.img.part_* > swisstopo_overlay_hoehenlinien_10m.img
-shasum -a 256 -c SHA256SUMS        # Linux: sha256sum -c SHA256SUMS
+shasum -a 256 -c --ignore-missing SHA256SUMS   # Linux: sha256sum -c --ignore-missing SHA256SUMS
 ```
+`SHA256SUMS` enthält die Teile **und** die zusammengesetzte IMG; jede Zeile muss `OK` melden. `--ignore-missing` überspringt Dateien, die (noch) nicht da sind, z. B. die ganze IMG vor dem `cat`. Windows: `certutil -hashfile <datei>.img SHA256` und mit dem Eintrag in `SHA256SUMS` vergleichen. Neu schreiben nach einem Bau: `scripts/sha256sums.sh <kartenordner>`.
 
 **Wichtig:** Die frühere Datei `swisstopo_overlay_hoehenlinien.img` (Family-ID 3917, Menüname «Hoehenlinien 10 m» bzw. später 20 m) vom Gerät **löschen**. Gleiche Family-IDs lädt das Gerät nur einmal; wer die alte Datei liegen lässt, sieht womöglich nur sie.
 

@@ -14,6 +14,7 @@ Inhalt gegenüber der Fenix-Variante zusätzlich: alle Punktsymbole (Quelle, Bru
 GitHub erlaubt höchstens 100 MB je Datei. Zusammensetzen:
 ```
 cat swisstopo_vector_edge_schweiz.img.part_* > swisstopo_vector_edge_schweiz.img
-shasum -a 256 -c SHA256SUMS        # Linux: sha256sum -c SHA256SUMS
+shasum -a 256 -c --ignore-missing SHA256SUMS   # Linux: sha256sum -c --ignore-missing SHA256SUMS
 ```
+`SHA256SUMS` enthält die Teile **und** die zusammengesetzte IMG; jede Zeile muss `OK` melden. `--ignore-missing` überspringt Dateien, die (noch) nicht da sind, z. B. die ganze IMG vor dem `cat`. Windows: `certutil -hashfile <datei>.img SHA256` und mit dem Eintrag in `SHA256SUMS` vergleichen. Neu schreiben nach einem Bau: `scripts/sha256sums.sh <kartenordner>`.
 Danach nach `Garmin/` auf das Gerät kopieren (415 MB freier Platz nötig). Höhenlinien und Routen-Overlays (`../overlay_hoehenlinien_schweiz/`, `../overlays_schweiz/`) lassen sich darüber legen. Daten: © swisstopo, Lizenz laut STAC «proprietär»; Höhenmodell am Landesrand: viewfinderpanoramas.org (J. de Ferranti).
